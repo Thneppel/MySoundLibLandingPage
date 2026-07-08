@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MySoundLib — Coming Soon. The fast, local audio library for video editors.">
+  <title>MySoundLib — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+  <script async src="https://tally.so/widgets/embed.js"></script>
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0d10;
+      --surface: #161619;
+      --border:  rgba(255,255,255,0.07);
+      --snow:    #ffffff;
+      --mid:     #999999;
+      --dim:     #555558;
+      --green:   #a2c134;
+      --sans:    'Inter', system-ui, sans-serif;
+      --display: 'Outfit', system-ui, sans-serif;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--snow);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* ── Top bar ───────────────────────── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-size: 33px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: var(--snow);
+      text-decoration: none;
+    }
+
+    .wordmark span { color: var(--green); }
+
+    /* Language switcher */
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--dim);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .lang-btn:hover { color: var(--mid); }
+
+    .lang-btn.active {
+      color: var(--snow);
+      background: var(--surface);
+    }
+
+    .lang-sep {
+      font-size: 11px;
+      color: var(--dim);
+      pointer-events: none;
+      padding: 0 2px;
+    }
+
+    /* ── Main ──────────────────────────── */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 80px 40px;
+      max-width: 740px;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 32px;
+    }
+
+    .headline {
+      font-family: var(--display);
+      font-size: clamp(52px, 8vw, 88px);
+      font-weight: 500;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      color: var(--snow);
+      margin-bottom: 32px;
+    }
+
+    .body-text {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--mid);
+      max-width: 440px;
+      margin-bottom: 52px;
+      letter-spacing: -0.01em;
+    }
+
+    /* CTA */
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-notify {
+      background: var(--snow);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      padding: 11px 22px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      transition: opacity 0.15s;
+    }
+
+    .btn-notify:hover { opacity: 0.85; }
+
+    .cta-note {
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Footer ────────────────────────── */
+    footer {
+      padding: 24px 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: -0.01em;
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    /* ── Mobile ────────────────────────── */
+    @media (max-width: 600px) {
+      .topbar, main, footer { padding-left: 24px; padding-right: 24px; }
+      .cta-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <a href="#" class="wordmark">MySound<span>Lib</span></a>
+
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+      <span class="lang-sep">/</span>
+      <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main>
+    <p class="label" id="label">In development</p>
+    <h1 class="headline" id="headline">Coming soon.</h1>
+    <p class="body-text" id="bodyText">MySoundLib is almost ready. A fast, local sound library built for video editors: find, crop, and drag sounds in seconds.</p>
+
+    <div class="cta-row">
+      <button
+        class="btn-notify"
+        id="notifyBtn"
+        data-tally-open="44dq9r"
+        data-tally-emoji-text="👋"
+        data-tally-emoji-animation="wave"
+      >
+        Get notified
+      </button>
+      <span class="cta-note" id="ctaNote">No spam. Unsubscribe anytime.</span>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-copy">© 2026 MySoundLib</span>
+    <div class="footer-status">
+      <span id="statusText">Building in progress</span>
+    </div>
+  </footer>
+
+  <script>
+    const copy = {
+      en: {
+        label:      'In development',
+        headline:   'Coming soon.',
+        bodyText:   'MySoundLib is almost ready. A fast, local sound library built for video editors: find, crop, and drag sounds in seconds.',
+        notifyBtn:  'Get notified',
+        ctaNote:    'No spam. Unsubscribe anytime.',
+        statusText: 'In development',
+      },
+      pt: {
+        label:      'Em desenvolvimento',
+        headline:   'Em breve.',
+        bodyText:   'O MySoundLib está quase pronto. Uma biblioteca de áudio local e veloz feita para editores de vídeo: encontre, recorte e arraste sons em segundos.',
+        notifyBtn:  'Me avise',
+        ctaNote:    'Sem spam. Cancele quando quiser.',
+        statusText: 'Em construção',
+      }
+    };
+
+    function setLang(lang) {
+      const c = copy[lang];
+      document.getElementById('label').textContent      = c.label;
+      document.getElementById('headline').textContent   = c.headline;
+      document.getElementById('bodyText').textContent   = c.bodyText;
+      document.getElementById('notifyBtn').textContent  = c.notifyBtn;
+      document.getElementById('ctaNote').textContent    = c.ctaNote;
+      document.getElementById('statusText').textContent = c.statusText;
+      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+      document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+      document.documentElement.lang = lang;
+    }
+  </script>
+
+</body>
+</html>
