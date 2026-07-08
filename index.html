@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="MySoundLib — Coming Soon. The fast, local audio library for video editors.">
-  <title>MySoundLib — Coming Soon</title>
+  <title>MySoundLib | Coming Soon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
@@ -188,8 +188,26 @@
       color: var(--dim);
     }
 
+    .footer-credit {
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: -0.01em;
+    }
+
+    .footer-credit a {
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-credit a:hover { color: var(--snow); }
+
     /* ── Mobile ────────────────────────── */
     @media (max-width: 600px) {
+      body {
+        background-image: none;
+        background-color: var(--bg);
+      }
       .topbar, main, footer { padding-left: 24px; padding-right: 24px; }
       .cta-row { flex-direction: column; align-items: flex-start; gap: 12px; }
     }
@@ -231,7 +249,8 @@
 
   <!-- Footer -->
   <footer>
-    <span class="footer-copy">© 2026 MySoundLib</span>
+    <span class="footer-copy">© 2026 MySoundLib. All rights reserved.</span>
+    <span class="footer-credit">Made by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a></span>
     <div class="footer-status">
       <span id="statusText">Building in progress</span>
     </div>
