@@ -8,19 +8,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="static/icon.svg">
   <script async src="https://tally.so/widgets/embed.js"></script>
   <style>
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:      #0d0d10;
-      --surface: #161619;
-      --border:  rgba(255,255,255,0.07);
+      --bg:      #000000;
+      --surface: #222222;
+      --border:  rgba(255,255,255,0.08);
       --snow:    #ffffff;
-      --mid:     #999999;
-      --dim:     #555558;
-      --green:   #a2c134;
+      --mid:     #aaaaaa;
+      --dim:     #169976;
+      --green:   #1dcd9f;
       --sans:    'Inter', system-ui, sans-serif;
       --display: 'Outfit', system-ui, sans-serif;
     }
@@ -51,15 +52,10 @@
     }
 
     .wordmark {
-      font-family: var(--display);
-      font-size: 33px;
-      font-weight: 600;
-      letter-spacing: -0.04em;
-      color: var(--snow);
-      text-decoration: none;
+      display: block;
+      height: 32px;
+      width: auto;
     }
-
-    .wordmark span { color: var(--green); }
 
     /* Language switcher */
     .lang-switch {
@@ -218,7 +214,9 @@
 
   <!-- Top bar -->
   <div class="topbar">
-    <a href="#" class="wordmark">MySound<span>Lib</span></a>
+    <a href="#" class="wordmark">
+      <img src="static/logo.svg" alt="MySoundLib" class="wordmark">
+    </a>
 
     <div class="lang-switch">
       <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
