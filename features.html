@@ -940,7 +940,7 @@
       class FloatingAudioItem {
         constructor(index) {
           this.index = index;
-          this.zone = index % 3; // 0 = Left flank, 1 = Right flank, 2 = Across
+          this.isLeft = (index % 2 === 0);
           this.el = document.createElement('div');
           this.el.className = 'floating-audio-file';
           container.appendChild(this.el);
@@ -954,28 +954,25 @@
 
           this.el.innerHTML = `${iconSvg}<span class="floating-audio-name">${name}</span><span class="floating-audio-ext">${ext}</span>`;
 
-          const w = container.clientWidth || window.innerWidth;
+          const w = container.offsetWidth || container.clientWidth || window.innerWidth;
           const h = container.scrollHeight || container.clientHeight || 2600;
 
-          function sampleX(zone) {
-            if (zone === 0) {
-              // Left flank (0% to 44% of width)
-              return 15 + Math.random() * Math.max(w * 0.44 - 120, 50);
-            } else if (zone === 1) {
-              // Right flank (56% to 100% of width)
-              return (w * 0.56) + Math.random() * Math.max(w * 0.44 - 160, 50);
-            } else {
-              // Full span
-              return 20 + Math.random() * Math.max(w - 220, 60);
-            }
+          // Strict 50% Left / 50% Right distribution
+          let minX, maxX;
+          if (this.isLeft) {
+            minX = 15;
+            maxX = Math.max(w * 0.48 - 60, 60);
+          } else {
+            minX = Math.min(w * 0.52, w - 200);
+            maxX = Math.max(w - 180, minX + 40);
           }
 
-          let bestX = sampleX(this.zone);
+          let bestX = minX + Math.random() * Math.max(maxX - minX, 20);
           let bestY = 15 + Math.random() * Math.max(h - 60, 50);
           let maxMinDist = 0;
 
           for (let attempt = 0; attempt < 8; attempt++) {
-            const candX = sampleX(this.zone);
+            const candX = minX + Math.random() * Math.max(maxX - minX, 20);
             const candY = 15 + Math.random() * Math.max(h - 60, 50);
 
             let minDistToOthers = Infinity;
@@ -994,7 +991,7 @@
               bestX = candX;
               bestY = candY;
             }
-            if (minDistToOthers > 75) break;
+            if (minDistToOthers > 60) break;
           }
 
           this.x = bestX;
@@ -1004,8 +1001,8 @@
           this.vy = (Math.random() - 0.5) * 0.10;
 
           this.opacity = 0;
-          this.maxOpacity = 0.28 + Math.random() * 0.34;
-          this.scale = 0.55 + Math.random() * 0.70;
+          this.maxOpacity = 0.30 + Math.random() * 0.36;
+          this.scale = 0.58 + Math.random() * 0.67;
 
           this.duration = 14000 + Math.random() * 12000;
           this.elapsed = initial ? Math.random() * this.duration : 0;
@@ -1036,17 +1033,17 @@
           this.y = this.initialY + (this.vy * (this.elapsed / 16.6));
           this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
 
-          const w = container.clientWidth || window.innerWidth;
+          const w = container.offsetWidth || container.clientWidth || window.innerWidth;
           const centerX = w / 2;
           const itemCenterX = this.x + 85;
           const distFromCenter = Math.abs(itemCenterX - centerX);
           const centerProximity = Math.max(0, 1 - (distFromCenter / (w * 0.48)));
 
-          const depthBlur = Math.max(0, (1.15 - this.scale) * 1.6);
-          const centerBlur = Math.pow(centerProximity, 1.4) * 6.5;
+          const depthBlur = Math.max(0, (1.15 - this.scale) * 1.5);
+          const centerBlur = Math.pow(centerProximity, 1.6) * 4.5;
           const totalBlur = (depthBlur + centerBlur).toFixed(1);
 
-          const centerDim = 1 - (centerProximity * 0.35);
+          const centerDim = 1 - (centerProximity * 0.20);
           const currentOpacity = (this.opacity * centerDim).toFixed(3);
 
           this.el.style.opacity = currentOpacity;
