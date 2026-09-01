@@ -283,21 +283,28 @@
       font-weight: 800;
       line-height: 1.04;
       letter-spacing: -0.035em;
-      color: var(--text);
+      color: #ffffff;
       margin: 0;
-      filter: blur(4px);
-      opacity: 0.9;
+      filter: blur(3.5px) brightness(1.75);
+      text-shadow: 0 0 16px rgba(255, 255, 255, 0.75), 0 0 32px rgba(255, 255, 255, 0.45);
+      opacity: 1;
       pointer-events: none;
       user-select: none;
       -webkit-mask-image: linear-gradient(135deg, #000 0%, rgba(0, 0, 0, 0.55) 14%, transparent 28%, transparent 72%, rgba(0, 0, 0, 0.55) 86%, #000 100%);
       mask-image: linear-gradient(135deg, #000 0%, rgba(0, 0, 0, 0.55) 14%, transparent 28%, transparent 72%, rgba(0, 0, 0, 0.55) 86%, #000 100%);
     }
 
-    .hero-head em,
-    .hero-head-blur em {
+    .hero-head em {
       font-style: italic;
       color: var(--green);
       font-weight: 800;
+    }
+
+    .hero-head-blur em {
+      font-style: italic;
+      color: #55ffcc;
+      font-weight: 800;
+      text-shadow: 0 0 20px rgba(29, 205, 159, 0.9), 0 0 40px rgba(29, 205, 159, 0.55);
     }
 
     .hero-sub {
