@@ -1615,6 +1615,11 @@
     }
 
     (function() {
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+
       let saved = null;
       try { saved = localStorage.getItem('msl_lang'); } catch(e) {}
       if (saved === 'pt' || saved === 'en') { setLang(saved); return; }
@@ -1654,7 +1659,7 @@
       const iconSvg = `<svg class="floating-audio-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 3v18M8 8v8M4 11v2M16 6v12M20 10v4"/></svg>`;
 
       const isMobile = window.innerWidth < 768;
-      const MAX_ITEMS = isMobile ? 30 : 65;
+      const MAX_ITEMS = isMobile ? 20 : 42; // -35% tuned density
       const items = [];
       let isVisible = true;
       let lastTime = performance.now();
@@ -1677,24 +1682,51 @@
           const w = rect.width || window.innerWidth;
           const h = rect.height || 700;
 
-          // Always distribute across the entire visible hero height and width
-          this.x = 15 + Math.random() * Math.max(w - 230, 60);
-          this.y = Math.random() * Math.max(h - 50, 50);
+          // Anti-collision position candidate search
+          let bestX = 15 + Math.random() * Math.max(w - 240, 60);
+          let bestY = Math.random() * Math.max(h - 50, 50);
+          let maxMinDist = 0;
 
-          // Subtle organic drift velocities in both dimensions
+          for (let attempt = 0; attempt < 8; attempt++) {
+            const candX = 15 + Math.random() * Math.max(w - 240, 60);
+            const candY = Math.random() * Math.max(h - 50, 50);
+
+            let minDistToOthers = Infinity;
+            for (let j = 0; j < items.length; j++) {
+              if (items[j] === this || items[j].x === undefined) continue;
+              const dx = (items[j].x || 0) - candX;
+              const dy = (items[j].y || 0) - candY;
+              const dist = Math.hypot(dx * 0.5, dy);
+              if (dist < minDistToOthers) {
+                minDistToOthers = dist;
+              }
+            }
+
+            if (minDistToOthers > maxMinDist) {
+              maxMinDist = minDistToOthers;
+              bestX = candX;
+              bestY = candY;
+            }
+            if (minDistToOthers > 85) break;
+          }
+
+          this.x = bestX;
+          this.y = bestY;
+
+          // Subtle organic drift velocities
           this.vx = (Math.random() - 0.5) * 0.08;
-          this.vy = (Math.random() - 0.5) * 0.10; // gentle multidirectional drift
+          this.vy = (Math.random() - 0.5) * 0.10;
 
           this.opacity = 0;
-          this.maxOpacity = 0.30 + Math.random() * 0.38; // 0.30 - 0.68
+          this.maxOpacity = 0.30 + Math.random() * 0.38;
 
-          // Distinct size / depth variations (distant to close)
-          this.scale = 0.70 + Math.random() * 0.48; // 0.70x to 1.18x
+          // Expanded depth/scale variation (0.55x deep background to 1.25x close foreground)
+          this.scale = 0.55 + Math.random() * 0.70;
 
-          this.duration = 14000 + Math.random() * 12000; // 14s to 26s life
+          this.duration = 14000 + Math.random() * 12000;
           this.elapsed = initial ? Math.random() * this.duration : 0;
-          this.swaySpeed = 0.0003 + Math.random() * 0.0005; // gentle wave sway
-          this.swayAmount = 10 + Math.random() * 18;
+          this.swaySpeed = 0.0003 + Math.random() * 0.0005;
+          this.swayAmount = 8 + Math.random() * 16;
           this.initialX = this.x;
           this.initialY = this.y;
         }
@@ -1721,9 +1753,7 @@
           this.y = this.initialY + (this.vy * (this.elapsed / 16.6));
           this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
 
-          // Dynamic Depth & Center Blur:
-          // Items near the center get blurred more heavily so they don't fight with text;
-          // Items near the sides are sharp, readable, and distinct.
+          // Dynamic Depth & Center Blur
           const rect = container.getBoundingClientRect();
           const w = rect.width || window.innerWidth;
           const centerX = w / 2;
@@ -1731,9 +1761,8 @@
           const distFromCenter = Math.abs(itemCenterX - centerX);
           const centerProximity = Math.max(0, 1 - (distFromCenter / (w * 0.48)));
 
-          // Depth blur for smaller background particles + dynamic center proximity blur
-          const depthBlur = Math.max(0, (1.1 - this.scale) * 1.5);
-          const centerBlur = Math.pow(centerProximity, 1.4) * 6.0;
+          const depthBlur = Math.max(0, (1.15 - this.scale) * 1.6);
+          const centerBlur = Math.pow(centerProximity, 1.4) * 6.5;
           const totalBlur = (depthBlur + centerBlur).toFixed(1);
 
           const centerDim = 1 - (centerProximity * 0.35);
