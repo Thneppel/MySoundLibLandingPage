@@ -195,10 +195,70 @@
 
     /* ── Hero Section (Instatic Style) ───────── */
     .hero {
+      position: relative;
       padding: 96px 0 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg-anim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-audio-file {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border-radius: 6px;
+      background: rgba(22, 22, 26, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      will-change: transform, opacity;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .floating-audio-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+
+    .floating-audio-name {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .floating-audio-ext {
+      color: #ffffff;
+      font-weight: 700;
+      opacity: 0.85;
+    }
+
+    .floating-audio-pill {
+      font-size: 9px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.4);
+      margin-left: 2px;
     }
 
     .hero-wrap {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -937,6 +997,7 @@
   <main>
     <!-- Hero Section -->
     <section class="hero" id="hero">
+      <div class="hero-bg-anim" id="heroBgAnim" aria-hidden="true"></div>
       <div class="wide hero-wrap">
         <h1 class="hero-head" id="heroHead">
           Your OS file search is terrible for audio. <em>MySoundLib fixes that.</em>
@@ -1567,6 +1628,150 @@
       try { saved = localStorage.getItem('msl_lang'); } catch(e) {}
       if (saved === 'pt' || saved === 'en') { setLang(saved); return; }
       setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+    })();
+  </script>
+
+  <!-- Ambient Audio Files Floating Animation -->
+  <script>
+    (function initFloatingAudioFiles() {
+      const container = document.getElementById('heroBgAnim');
+      if (!container) return;
+
+      const fileNames = [
+        'whoosh_sub_cinematic_01', 'impact_heavy_boom_v2', 'riser_tension_pitch_up',
+        'ui_pop_click_transient', 'foley_footstep_gravel_03', 'ambient_deep_space_drone',
+        'glitch_digital_stutter', 'punch_sub_kick_808', 'swoosh_metal_fast',
+        'trailer_hit_braam', 'transition_air_sweep', 'vinyl_crackle_70bpm',
+        'bass_drop_sub_c1', 'laser_blaster_retro', 'cinematic_swell_horns',
+        'mouse_click_mechanical', 'tape_stop_fx_varispeed', 'shutter_camera_burst',
+        'keyboard_typing_fast', 'synth_pulse_arpeggio', 'radio_tuning_noise',
+        'bell_chime_harmonic', 'sword_clash_scrape', 'wind_gust_mountain',
+        'water_splash_underwater', 'reverse_cymbal_crash', 'engine_rev_v8',
+        'cinematic_sub_drop_04', 'tape_rewind_fast', 'ui_notification_chime',
+        'riser_noise_sweep_120bpm', 'hit_metal_anvil_reverb', 'whoosh_air_whip',
+        'foley_cloth_rustle_02', 'glitch_data_burst_short'
+      ];
+
+      const extensions = ['.wav', '.mp3', '.flac', '.ogg', '.aiff', '.opus', '.m4a'];
+      const sampleRates = ['48kHz', '96kHz', '44.1kHz', '24bit', 'Stereo', 'Mono'];
+
+      const iconSvg = `<svg class="floating-audio-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 3v18M8 8v8M4 11v2M16 6v12M20 10v4"/></svg>`;
+
+      const isMobile = window.innerWidth < 768;
+      const MAX_ITEMS = isMobile ? 8 : 16;
+      const items = [];
+      let isVisible = true;
+      let lastTime = performance.now();
+
+      class FloatingAudioItem {
+        constructor() {
+          this.el = document.createElement('div');
+          this.el.className = 'floating-audio-file';
+          container.appendChild(this.el);
+          this.reset(true);
+        }
+
+        reset(initial = false) {
+          const name = fileNames[Math.floor(Math.random() * fileNames.length)];
+          const ext = extensions[Math.floor(Math.random() * extensions.length)];
+          const tag = sampleRates[Math.floor(Math.random() * sampleRates.length)];
+
+          this.el.innerHTML = `${iconSvg}<span class="floating-audio-name">${name}</span><span class="floating-audio-ext">${ext}</span><span class="floating-audio-pill">${tag}</span>`;
+
+          const rect = container.getBoundingClientRect();
+          const w = rect.width || window.innerWidth;
+          const h = rect.height || 600;
+
+          this.x = Math.random() * Math.max(w - 220, 50);
+          this.y = initial ? Math.random() * h : (Math.random() > 0.5 ? h + 20 : -30);
+
+          // Subtle drift velocities
+          this.vx = (Math.random() - 0.5) * 0.35;
+          this.vy = -0.25 - Math.random() * 0.45; // upward slow drift
+
+          this.opacity = 0;
+          this.maxOpacity = 0.25 + Math.random() * 0.35; // 0.25 - 0.60
+          this.scale = 0.85 + Math.random() * 0.25;
+
+          this.duration = 7000 + Math.random() * 8000; // 7s to 15s life
+          this.elapsed = initial ? Math.random() * this.duration : 0;
+          this.swaySpeed = 0.001 + Math.random() * 0.002;
+          this.swayAmount = 15 + Math.random() * 25;
+          this.initialX = this.x;
+        }
+
+        update(dt) {
+          this.elapsed += dt;
+
+          if (this.elapsed >= this.duration) {
+            this.reset(false);
+            return;
+          }
+
+          const p = this.elapsed / this.duration;
+
+          // Fade in (0% -> 20%), Hold (20% -> 75%), Fade out (75% -> 100%)
+          if (p < 0.2) {
+            this.opacity = (p / 0.2) * this.maxOpacity;
+          } else if (p > 0.75) {
+            this.opacity = ((1 - p) / 0.25) * this.maxOpacity;
+          } else {
+            this.opacity = this.maxOpacity;
+          }
+
+          this.y += this.vy * (dt / 16.6);
+          this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
+
+          this.el.style.opacity = this.opacity.toFixed(3);
+          this.el.style.transform = `translate3d(${this.x.toFixed(1)}px, ${this.y.toFixed(1)}px, 0) scale(${this.scale.toFixed(2)})`;
+        }
+      }
+
+      for (let i = 0; i < MAX_ITEMS; i++) {
+        items.push(new FloatingAudioItem());
+      }
+
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          isVisible = entries[0].isIntersecting;
+        }, { threshold: 0.05 });
+        obs.observe(container);
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          isVisible = false;
+        } else {
+          isVisible = true;
+          lastTime = performance.now();
+        }
+      });
+
+      function loop(now) {
+        const dt = Math.min(now - lastTime, 100);
+        lastTime = now;
+
+        if (isVisible) {
+          for (let i = 0; i < items.length; i++) {
+            items[i].update(dt);
+          }
+        }
+
+        requestAnimationFrame(loop);
+      }
+
+      requestAnimationFrame((now) => {
+        lastTime = now;
+        loop(now);
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          items.forEach(item => item.reset(true));
+        }, 250);
+      });
     })();
   </script>
 </body>
