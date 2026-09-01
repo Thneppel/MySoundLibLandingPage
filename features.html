@@ -44,6 +44,8 @@
       line-height: 1.65;
       min-height: 100vh;
       padding: 0;
+      position: relative;
+      overflow-x: hidden;
     }
 
     a {
@@ -56,6 +58,54 @@
       max-width: 1180px;
       margin: 0 auto;
       padding: 0 28px;
+    }
+
+    /* ── Ambient Background Animation ────────── */
+    .hero-bg-anim {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-audio-file {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border-radius: 6px;
+      background: rgba(22, 22, 26, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      will-change: transform, opacity, filter;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .floating-audio-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+
+    .floating-audio-name {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .floating-audio-ext {
+      color: #ffffff;
+      font-weight: 700;
+      opacity: 0.85;
     }
 
     /* ── Header & Navigation ─────────────────── */
@@ -191,6 +241,8 @@
       max-width: 860px;
       margin: 0 auto;
       padding: 48px 24px 80px;
+      position: relative;
+      z-index: 1;
     }
 
     /* ── Header Area ─────────────────────────── */
@@ -299,6 +351,8 @@
 
     /* ── Final Call to Action (Same as Homepage) */
     .final-cta {
+      position: relative;
+      z-index: 1;
       padding: 110px 0;
       text-align: center;
       border-top: 1px solid var(--border);
@@ -322,6 +376,8 @@
 
     /* ── Footer ──────────────────────────────── */
     footer {
+      position: relative;
+      z-index: 1;
       border-top: 1px solid var(--border);
       padding: 40px 0;
       background: var(--bg-darker);
@@ -369,6 +425,9 @@
   <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body>
+
+  <!-- Ambient Audio Files Floating Background Animation -->
+  <div class="hero-bg-anim" id="heroBgAnim" aria-hidden="true"></div>
 
   <!-- Sticky Transparent Header -->
   <header class="site-header">
@@ -789,6 +848,239 @@
         return;
       }
       setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+    })();
+  </script>
+
+  <!-- Ambient Audio Files Floating Animation -->
+  <script>
+    (function initFloatingAudioFiles() {
+      const container = document.getElementById('heroBgAnim');
+      if (!container) return;
+
+      const fileNames = [
+        'vine_boom_bass_boosted', 'metal_pipe_falling_sound', 'bruh_sound_effect_2',
+        'oof_roblox_death_sound', 'taco_bell_bong_earrape', 'aughhhhh_snore_mimimi',
+        'what_the_dog_doin', 'bonk_metal_baseball_bat', 'fart_reverb_bass_boosted',
+        'rizz_sound_effect_boom', 'subway_surfers_coin', 'emotional_damage_hq',
+        'windows_xp_error_trap_remix', 'giga_chad_phonk_transient', 'fbi_open_up_door_kick',
+        'spongebob_fail_foghorn', 'sus_amongus_kill_sound', 'skibidi_toilet_sample_01',
+        'sigma_phonk_bass_transient', 'wilhelm_scream_earrape', 'discord_join_call_loud',
+        'minecraft_villager_hmm', 'screaming_goat_loud', 'coffin_dance_drop',
+        'sad_violin_airhorn_remix', 'clown_horn_honk_honk', 'duck_quack_deepfried',
+        'steve_old_oof_sound', 'dial_up_modem_earrape', 'fnaf_jumpscare_loud',
+        'pipe_clang_sub_boost', 'goofy_yell_yahoohoo', 'squidward_walking_sfx',
+        'sanic_theme_earrape', 'hitmarker_cod_mw2', 'airhorn_triple_blast',
+        'bass_boost_ear_destructor', 'spongebob_steel_sting', 'gnome_woo_hoo_hoo',
+        'windows_95_startup_slowed', 'error_critical_stop_loud', 'anime_wow_sound_effect',
+        'whoosh_sub_final_v2_FINAL_FINAL_USE_THIS', 'audio_track_export_FINAL_v4_fixed',
+        'intro_music_DEFINITELY_FINAL_REAL', 'whoosh_sub_cinematic_01',
+        'impact_heavy_boom_v2', 'riser_tension_pitch_up', 'ui_pop_click_transient',
+        'foley_footstep_gravel_03', 'ambient_deep_space_drone', 'glitch_digital_stutter',
+        'punch_sub_kick_808', 'swoosh_metal_fast', 'trailer_hit_braam',
+        'transition_air_sweep', 'vinyl_crackle_70bpm', 'bass_drop_sub_c1',
+        'laser_blaster_retro', 'cinematic_swell_horns', 'mouse_click_mechanical',
+        'tape_stop_fx_varispeed', 'shutter_camera_burst', 'keyboard_typing_fast',
+        'synth_pulse_arpeggio', 'radio_tuning_noise', 'bell_chime_harmonic',
+        'sword_clash_scrape', 'wind_gust_mountain', 'water_splash_underwater',
+        'reverse_cymbal_crash', 'engine_rev_v8', 'cinematic_sub_drop_04',
+        'tape_rewind_fast', 'ui_notification_chime', 'riser_noise_sweep_120bpm',
+        'hit_metal_anvil_reverb', 'whoosh_air_whip', 'foley_cloth_rustle_02',
+        'glitch_data_burst_short', 'explosion_distant_rumble', 'camera_focus_motor',
+        'whoosh_fire_torch', 'paper_turn_page_01', 'clock_ticking_tension',
+        'metal_door_slam_hallway', 'thunder_strike_close', 'drone_dark_sub_rumble',
+        'heartbeat_slow_pulse', 'cinematic_downer_impact', 'magic_sparkle_wand',
+        'retro_coin_pickup_arcade', 'siren_distant_city', 'glass_shatter_debris',
+        'wooden_creak_old_floor', 'analog_synth_lead_c3', 'cinematic_brass_stabs',
+        'heavy_drop_transient_09', 'ui_toggle_switch_click'
+      ];
+
+      const extensions = ['.wav', '.mp3', '.flac', '.ogg', '.aiff', '.opus', '.m4a'];
+      const iconSvg = `<svg class="floating-audio-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 3v18M8 8v8M4 11v2M16 6v12M20 10v4"/></svg>`;
+
+      function formatRandomFilename(rawName) {
+        const words = rawName.split(/[_\-\s]+/);
+        const sepChoice = Math.random();
+        let sep = '_';
+        if (sepChoice < 0.35) sep = '_';
+        else if (sepChoice < 0.65) sep = '-';
+        else if (sepChoice < 0.90) sep = ' ';
+        else sep = '';
+
+        const caseChoice = Math.random();
+        let transformedWords = [];
+
+        if (caseChoice < 0.35) {
+          transformedWords = words.map(w => w.toLowerCase());
+        } else if (caseChoice < 0.55) {
+          transformedWords = words.map(w => w.toUpperCase());
+        } else if (caseChoice < 0.78) {
+          transformedWords = words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+        } else {
+          transformedWords = words.map((w, idx) => {
+            if (idx === words.length - 1 || Math.random() < 0.35) {
+              return w.toUpperCase();
+            }
+            return Math.random() > 0.5 ? (w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()) : w.toLowerCase();
+          });
+        }
+
+        return transformedWords.join(sep);
+      }
+
+      function getRandomExtension() {
+        const ext = extensions[Math.floor(Math.random() * extensions.length)];
+        return Math.random() < 0.30 ? ext.toUpperCase() : ext.toLowerCase();
+      }
+
+      const isMobile = window.innerWidth < 768;
+      const MAX_ITEMS = isMobile ? 22 : 46;
+      const items = [];
+      let isVisible = true;
+      let lastTime = performance.now();
+
+      class FloatingAudioItem {
+        constructor() {
+          this.el = document.createElement('div');
+          this.el.className = 'floating-audio-file';
+          container.appendChild(this.el);
+          this.reset(true);
+        }
+
+        reset(initial = false) {
+          const rawName = fileNames[Math.floor(Math.random() * fileNames.length)];
+          const name = formatRandomFilename(rawName);
+          const ext = getRandomExtension();
+
+          this.el.innerHTML = `${iconSvg}<span class="floating-audio-name">${name}</span><span class="floating-audio-ext">${ext}</span>`;
+
+          const rect = container.getBoundingClientRect();
+          const w = rect.width || window.innerWidth;
+          const h = rect.height || window.innerHeight;
+
+          let bestX = 15 + Math.random() * Math.max(w - 240, 60);
+          let bestY = Math.random() * Math.max(h - 50, 50);
+          let maxMinDist = 0;
+
+          for (let attempt = 0; attempt < 8; attempt++) {
+            const candX = 15 + Math.random() * Math.max(w - 240, 60);
+            const candY = Math.random() * Math.max(h - 50, 50);
+
+            let minDistToOthers = Infinity;
+            for (let j = 0; j < items.length; j++) {
+              if (items[j] === this || items[j].x === undefined) continue;
+              const dx = (items[j].x || 0) - candX;
+              const dy = (items[j].y || 0) - candY;
+              const dist = Math.hypot(dx * 0.5, dy);
+              if (dist < minDistToOthers) {
+                minDistToOthers = dist;
+              }
+            }
+
+            if (minDistToOthers > maxMinDist) {
+              maxMinDist = minDistToOthers;
+              bestX = candX;
+              bestY = candY;
+            }
+            if (minDistToOthers > 85) break;
+          }
+
+          this.x = bestX;
+          this.y = bestY;
+
+          this.vx = (Math.random() - 0.5) * 0.08;
+          this.vy = (Math.random() - 0.5) * 0.10;
+
+          this.opacity = 0;
+          this.maxOpacity = 0.28 + Math.random() * 0.35;
+          this.scale = 0.55 + Math.random() * 0.70;
+
+          this.duration = 14000 + Math.random() * 12000;
+          this.elapsed = initial ? Math.random() * this.duration : 0;
+          this.swaySpeed = 0.0003 + Math.random() * 0.0005;
+          this.swayAmount = 8 + Math.random() * 16;
+          this.initialX = this.x;
+          this.initialY = this.y;
+        }
+
+        update(dt) {
+          this.elapsed += dt;
+
+          if (this.elapsed >= this.duration) {
+            this.reset(false);
+            return;
+          }
+
+          const p = this.elapsed / this.duration;
+
+          if (p < 0.25) {
+            this.opacity = (p / 0.25) * this.maxOpacity;
+          } else if (p > 0.75) {
+            this.opacity = ((1 - p) / 0.25) * this.maxOpacity;
+          } else {
+            this.opacity = this.maxOpacity;
+          }
+
+          this.y = this.initialY + (this.vy * (this.elapsed / 16.6));
+          this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
+
+          const rect = container.getBoundingClientRect();
+          const w = rect.width || window.innerWidth;
+          const centerX = w / 2;
+          const itemCenterX = this.x + 85;
+          const distFromCenter = Math.abs(itemCenterX - centerX);
+          const centerProximity = Math.max(0, 1 - (distFromCenter / (w * 0.48)));
+
+          const depthBlur = Math.max(0, (1.15 - this.scale) * 1.6);
+          const centerBlur = Math.pow(centerProximity, 1.4) * 6.5;
+          const totalBlur = (depthBlur + centerBlur).toFixed(1);
+
+          const centerDim = 1 - (centerProximity * 0.35);
+          const currentOpacity = (this.opacity * centerDim).toFixed(3);
+
+          this.el.style.opacity = currentOpacity;
+          this.el.style.filter = totalBlur > 0.3 ? `blur(${totalBlur}px)` : 'none';
+          this.el.style.transform = `translate3d(${this.x.toFixed(1)}px, ${this.y.toFixed(1)}px, 0) scale(${this.scale.toFixed(2)})`;
+        }
+      }
+
+      for (let i = 0; i < MAX_ITEMS; i++) {
+        items.push(new FloatingAudioItem());
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          isVisible = false;
+        } else {
+          isVisible = true;
+          lastTime = performance.now();
+        }
+      });
+
+      function loop(now) {
+        const dt = Math.min(now - lastTime, 100);
+        lastTime = now;
+
+        if (isVisible) {
+          for (let i = 0; i < items.length; i++) {
+            items[i].update(dt);
+          }
+        }
+
+        requestAnimationFrame(loop);
+      }
+
+      requestAnimationFrame((now) => {
+        lastTime = now;
+        loop(now);
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          items.forEach(item => item.reset(true));
+        }, 250);
+      });
     })();
   </script>
 </body>
