@@ -256,55 +256,20 @@
       text-align: center;
     }
 
-    .hero-title-container {
-      position: relative;
-      max-width: 960px;
-      margin-bottom: 24px;
-    }
-
     .hero-head {
-      position: relative;
-      z-index: 2;
       font-size: clamp(38px, 6vw, 68px);
       font-weight: 800;
       line-height: 1.04;
       letter-spacing: -0.035em;
       color: var(--text);
-      margin: 0;
-      -webkit-mask-image: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.45) 14%, #000 28%, #000 72%, rgba(0, 0, 0, 0.45) 86%, transparent 100%);
-      mask-image: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.45) 14%, #000 28%, #000 72%, rgba(0, 0, 0, 0.45) 86%, transparent 100%);
-    }
-
-    .hero-head-blur {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      font-size: clamp(38px, 6vw, 68px);
-      font-weight: 800;
-      line-height: 1.04;
-      letter-spacing: -0.035em;
-      color: #ffffff;
-      margin: 0;
-      filter: blur(3.5px) brightness(1.75);
-      text-shadow: 0 0 16px rgba(255, 255, 255, 0.75), 0 0 32px rgba(255, 255, 255, 0.45);
-      opacity: 1;
-      pointer-events: none;
-      user-select: none;
-      -webkit-mask-image: linear-gradient(135deg, #000 0%, rgba(0, 0, 0, 0.55) 14%, transparent 28%, transparent 72%, rgba(0, 0, 0, 0.55) 86%, #000 100%);
-      mask-image: linear-gradient(135deg, #000 0%, rgba(0, 0, 0, 0.55) 14%, transparent 28%, transparent 72%, rgba(0, 0, 0, 0.55) 86%, #000 100%);
+      margin-bottom: 24px;
+      max-width: 960px;
     }
 
     .hero-head em {
       font-style: italic;
       color: var(--green);
       font-weight: 800;
-    }
-
-    .hero-head-blur em {
-      font-style: italic;
-      color: #55ffcc;
-      font-weight: 800;
-      text-shadow: 0 0 20px rgba(29, 205, 159, 0.9), 0 0 40px rgba(29, 205, 159, 0.55);
     }
 
     .hero-sub {
@@ -1097,14 +1062,9 @@
     <section class="hero" id="hero">
       <div class="hero-bg-anim" id="heroBgAnim" aria-hidden="true"></div>
       <div class="wide hero-wrap">
-        <div class="hero-title-container">
-          <h1 class="hero-head" id="heroHead">
-            Your OS file search is terrible for audio. <em>MySoundLib fixes that.</em>
-          </h1>
-          <div class="hero-head-blur" id="heroHeadBlur" aria-hidden="true">
-            Your OS file search is terrible for audio. <em>MySoundLib fixes that.</em>
-          </div>
-        </div>
+        <h1 class="hero-head" id="heroHead">
+          Your OS file search is terrible for audio. <em>MySoundLib fixes that.</em>
+        </h1>
 
         <p class="hero-sub" id="heroSub">
           A lightweight, local desktop app to organize gigabytes of SFX and music, preview and trim waveforms instantly, and drop audio straight into your timeline in <b>2 seconds</b>.
@@ -1717,11 +1677,6 @@
           el.textContent = c[key];
         }
       });
-
-      const heroHeadBlur = document.getElementById('heroHeadBlur');
-      if (heroHeadBlur && c.heroHead) {
-        heroHeadBlur.innerHTML = c.heroHead;
-      }
 
       document.getElementById('btnEN').classList.toggle('active', lang === 'en');
       document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
