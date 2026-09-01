@@ -188,12 +188,11 @@
       }
     }
 
-    /* ── Features Hero (Contains Floating Animation) ── */
-    .features-hero {
+    /* ── Features Content Wrap (Animates behind all 7 modules) ── */
+    .features-content-wrap {
       position: relative;
-      padding: 72px 0 48px;
       overflow: hidden;
-      border-bottom: 1px solid var(--border);
+      padding: 56px 0 80px;
     }
 
     .hero-bg-anim {
@@ -243,7 +242,8 @@
       opacity: 0.85;
     }
 
-    .features-hero-in {
+    /* ── Page Layout ─────────────────────────── */
+    .page-container {
       max-width: 860px;
       margin: 0 auto;
       padding: 0 24px;
@@ -251,6 +251,7 @@
       z-index: 1;
     }
 
+    /* ── Header Area ─────────────────────────── */
     .meta-tag {
       font-size: 12px;
       font-weight: 700;
@@ -271,16 +272,10 @@
     .lead {
       font-size: 16px;
       color: var(--text-muted);
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
       line-height: 1.7;
-    }
-
-    /* ── Page Layout ─────────────────────────── */
-    .page-container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 56px 24px 80px;
-      position: relative;
-      z-index: 1;
     }
 
     /* ── Module Section ──────────────────────── */
@@ -419,8 +414,8 @@
     }
 
     @media (max-width: 680px) {
-      .features-hero {
-        padding: 48px 0 32px;
+      .features-content-wrap {
+        padding: 40px 0 60px;
       }
       .feature-row {
         grid-template-columns: 1fr;
@@ -467,187 +462,187 @@
     </div>
   </header>
 
-  <!-- Top Hero Header with Background Animation -->
-  <div class="features-hero">
+  <!-- Main Features Wrap with Ambient Animation covering all 7 modules -->
+  <div class="features-content-wrap">
     <div class="hero-bg-anim" id="heroBgAnim" aria-hidden="true"></div>
-    <div class="features-hero-in">
+
+    <main class="page-container">
+      <!-- Header Area -->
       <div class="meta-tag" id="metaBadge">Full Specification & Modules</div>
       <h1 id="pageTitle">All Features</h1>
       <p class="lead" id="pageLead">
         A complete, transparent index of all 24 capabilities and 7 core architectural modules built into MySoundLib.
       </p>
-    </div>
+
+      <!-- 1. Library Management -->
+      <section class="module-block">
+        <div class="module-header">
+          <span class="module-num">01</span>
+          <h2 class="module-title" id="m1Title">Library Management</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-row">
+            <div class="feature-name" id="f1Name">Multiple Libraries</div>
+            <div class="feature-desc" id="f1Desc">Create and switch between distinct sound libraries for different clients, YouTube channels, projects, or general audio utility.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f2Name">Export with Tags</div>
+            <div class="feature-desc" id="f2Desc">Export entire libraries with all tags, groupings, and embedded metadata intact for complete backups or seamless migration to other machines.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f3Name">Group Organization</div>
+            <div class="feature-desc" id="f3Desc">Create internal folders/groups with flexible nested hierarchies (drag and move groups inside or outside other groups effortlessly).</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f4Name">Drag & Drop Import</div>
+            <div class="feature-desc" id="f4Desc">Instantly add single audio files or entire folder directories by dragging them straight into the application interface.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f5Name">View Modes</div>
+            <div class="feature-desc" id="f5Desc">Toggle between a hierarchical tree view organized by groups/folders or a continuous flat list view of all indexed files.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. File System -->
+      <section class="module-block">
+        <div class="module-header">
+          <span class="module-num">02</span>
+          <h2 class="module-title" id="m2Title">File System & Sync</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-row">
+            <div class="feature-name" id="f6Name">Local Sync</div>
+            <div class="feature-desc" id="f6Desc">On-demand synchronization for designated disk directories. New files added to your local folder are indexed whenever you trigger sync, letting you keep standalone files or linked sync folders under total control.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f7Name">Bidirectional Renaming</div>
+            <div class="feature-desc" id="f7Desc">Rename files and groups inside the app with automatic, instant updates reflected in your synchronized disk folders.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f8Name">Deletion Management</div>
+            <div class="feature-desc" id="f8Desc">Choose to remove an audio file only from the library catalog index or send it safely to your operating system's Recycle Bin / Trash.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Tags & Metadata -->
+      <section class="module-block">
+        <div class="module-header">
+          <span class="module-num">03</span>
+          <h2 class="module-title" id="m3Title">Tags & Metadata</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-row">
+            <div class="feature-name" id="f9Name">Tag Management</div>
+            <div class="feature-desc" id="f9Desc">Create, assign, and edit custom text tags for fast cataloging, indexing, and multi-tag filtering.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f10Name">Type Categories</div>
+            <div class="feature-desc" id="f10Desc">Define custom classification types for individual audio files, internal groups, and synchronized folders (e.g. SFX, Foley, Music, Ambience).</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f11Name">Metadata Display</div>
+            <div class="feature-desc" id="f11Desc">Inspect technical file properties, duration, sample rate, bit depth, channel configuration, and embedded metadata tags directly.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Search & Filters -->
+      <section class="module-block">
+        <div class="module-header">
+          <span class="module-num">04</span>
+          <h2 class="module-title" id="m4Title">Search & Filters</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-row">
+            <div class="feature-name" id="f12Name">Multi-Factor Search</div>
+            <div class="feature-desc" id="f12Desc">Search across filenames, tags, categories, types, and source folders at the same time.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f13Name">Advanced Filters</div>
+            <div class="feature-desc" id="f13Desc">Granular filtering by audio format (WAV, MP3, FLAC, OGG), assigned categories, and channel count (mono, stereo, multichannel).</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f14Name">Global Search Overlay</div>
+            <div class="feature-desc" id="f14Desc">Press a hotkey over Premiere, DaVinci, or CapCut and a search bar pops up right over your screen. You search, preview on spacebar, and drag the sound straight into your timeline without switching windows.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Player & Editing -->
+      <section class="module-block">
+        <div class="module-header">
+          <span class="module-num">05</span>
+          <h2 class="module-title" id="m5Title">Player & Audio Editing</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-row">
+            <div class="feature-name" id="f15Name">Waveform Preview</div>
+            <div class="feature-desc" id="f15Desc">Instant audio and waveform playback in the main app window and directly inside the floating search overlay with spacebar.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f16Name">Precision Trimming</div>
+            <div class="feature-desc" id="f16Desc">Select and extract specific transients, hits, or tail snippets non-destructively directly from the visual waveform.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f17Name">Pitch Shifter</div>
+            <div class="feature-desc" id="f17Desc">Real-time pitch adjustments to alter the tone and speed of the audio or trimmed selection before inserting it into your project.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f18Name">Format Conversion</div>
+            <div class="feature-desc" id="f18Desc">Direct, fast batch conversion between all supported audio formats with one-click export to clean broadcast WAV.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Workflow & Integration -->
+      <section class="module-block">
+        <div class="module-header">
+          <span class="module-num">06</span>
+          <h2 class="module-title" id="m6Title">Workflow & Integration</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-row">
+            <div class="feature-name" id="f19Name">Drag to Timeline</div>
+            <div class="feature-desc" id="f19Desc">Drop the full audio track or trimmed waveform snippet directly onto your video editor or DAW timeline in 2 seconds flat.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f20Name">Universal Compatibility</div>
+            <div class="feature-desc" id="f20Desc">Native drag-and-drop support for Premiere, DaVinci Resolve, Final Cut Pro, CapCut, After Effects, Ableton, FL Studio, Reaper, and Vegas.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. System & Platforms -->
+      <section class="module-block">
+        <div class="module-header">
+          <span class="module-num">07</span>
+          <h2 class="module-title" id="m7Title">System & Platforms</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-row">
+            <div class="feature-name" id="f21Name">Multiplatform Support</div>
+            <div class="feature-desc" id="f21Desc">Native performance and identical feature parity across Windows, macOS (Intel & Apple Silicon), and Linux.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f22Name">Customizable Shortcuts</div>
+            <div class="feature-desc" id="f22Desc">Full hotkey customization for global overlay invocation, playback controls, and rapid editing workflows.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f23Name">Advanced Settings</div>
+            <div class="feature-desc" id="f23Desc">General software preferences to fine-tune your workflow, default behaviors, and customize usability.</div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-name" id="f24Name">Lightweight Background Engine</div>
+            <div class="feature-desc" id="f24Desc">Lightweight execution in the background with minimal CPU and RAM usage, leaving your computer free to render and edit.</div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <main class="page-container">
-    <!-- 1. Library Management -->
-    <section class="module-block">
-      <div class="module-header">
-        <span class="module-num">01</span>
-        <h2 class="module-title" id="m1Title">Library Management</h2>
-      </div>
-      <div class="feature-grid">
-        <div class="feature-row">
-          <div class="feature-name" id="f1Name">Multiple Libraries</div>
-          <div class="feature-desc" id="f1Desc">Create and switch between distinct sound libraries for different clients, YouTube channels, projects, or general audio utility.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f2Name">Export with Tags</div>
-          <div class="feature-desc" id="f2Desc">Export entire libraries with all tags, groupings, and embedded metadata intact for complete backups or seamless migration to other machines.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f3Name">Group Organization</div>
-          <div class="feature-desc" id="f3Desc">Create internal folders/groups with flexible nested hierarchies (drag and move groups inside or outside other groups effortlessly).</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f4Name">Drag & Drop Import</div>
-          <div class="feature-desc" id="f4Desc">Instantly add single audio files or entire folder directories by dragging them straight into the application interface.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f5Name">View Modes</div>
-          <div class="feature-desc" id="f5Desc">Toggle between a hierarchical tree view organized by groups/folders or a continuous flat list view of all indexed files.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. File System -->
-    <section class="module-block">
-      <div class="module-header">
-        <span class="module-num">02</span>
-        <h2 class="module-title" id="m2Title">File System & Sync</h2>
-      </div>
-      <div class="feature-grid">
-        <div class="feature-row">
-          <div class="feature-name" id="f6Name">Local Sync</div>
-          <div class="feature-desc" id="f6Desc">On-demand synchronization for designated disk directories. New files added to your local folder are indexed whenever you trigger sync, letting you keep standalone files or linked sync folders under total control.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f7Name">Bidirectional Renaming</div>
-          <div class="feature-desc" id="f7Desc">Rename files and groups inside the app with automatic, instant updates reflected in your synchronized disk folders.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f8Name">Deletion Management</div>
-          <div class="feature-desc" id="f8Desc">Choose to remove an audio file only from the library catalog index or send it safely to your operating system's Recycle Bin / Trash.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Tags & Metadata -->
-    <section class="module-block">
-      <div class="module-header">
-        <span class="module-num">03</span>
-        <h2 class="module-title" id="m3Title">Tags & Metadata</h2>
-      </div>
-      <div class="feature-grid">
-        <div class="feature-row">
-          <div class="feature-name" id="f9Name">Tag Management</div>
-          <div class="feature-desc" id="f9Desc">Create, assign, and edit custom text tags for fast cataloging, indexing, and multi-tag filtering.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f10Name">Type Categories</div>
-          <div class="feature-desc" id="f10Desc">Define custom classification types for individual audio files, internal groups, and synchronized folders (e.g. SFX, Foley, Music, Ambience).</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f11Name">Metadata Display</div>
-          <div class="feature-desc" id="f11Desc">Inspect technical file properties, duration, sample rate, bit depth, channel configuration, and embedded metadata tags directly.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. Search & Filters -->
-    <section class="module-block">
-      <div class="module-header">
-        <span class="module-num">04</span>
-        <h2 class="module-title" id="m4Title">Search & Filters</h2>
-      </div>
-      <div class="feature-grid">
-        <div class="feature-row">
-          <div class="feature-name" id="f12Name">Multi-Factor Search</div>
-          <div class="feature-desc" id="f12Desc">Search across filenames, tags, categories, types, and source folders at the same time.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f13Name">Advanced Filters</div>
-          <div class="feature-desc" id="f13Desc">Granular filtering by audio format (WAV, MP3, FLAC, OGG), assigned categories, and channel count (mono, stereo, multichannel).</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f14Name">Global Search Overlay</div>
-          <div class="feature-desc" id="f14Desc">Press a hotkey over Premiere, DaVinci, or CapCut and a search bar pops up right over your screen. You search, preview on spacebar, and drag the sound straight into your timeline without switching windows.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Player & Editing -->
-    <section class="module-block">
-      <div class="module-header">
-        <span class="module-num">05</span>
-        <h2 class="module-title" id="m5Title">Player & Audio Editing</h2>
-      </div>
-      <div class="feature-grid">
-        <div class="feature-row">
-          <div class="feature-name" id="f15Name">Waveform Preview</div>
-          <div class="feature-desc" id="f15Desc">Instant audio and waveform playback in the main app window and directly inside the floating search overlay with spacebar.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f16Name">Precision Trimming</div>
-          <div class="feature-desc" id="f16Desc">Select and extract specific transients, hits, or tail snippets non-destructively directly from the visual waveform.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f17Name">Pitch Shifter</div>
-          <div class="feature-desc" id="f17Desc">Real-time pitch adjustments to alter the tone and speed of the audio or trimmed selection before inserting it into your project.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f18Name">Format Conversion</div>
-          <div class="feature-desc" id="f18Desc">Direct, fast batch conversion between all supported audio formats with one-click export to clean broadcast WAV.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. Workflow & Integration -->
-    <section class="module-block">
-      <div class="module-header">
-        <span class="module-num">06</span>
-        <h2 class="module-title" id="m6Title">Workflow & Integration</h2>
-      </div>
-      <div class="feature-grid">
-        <div class="feature-row">
-          <div class="feature-name" id="f19Name">Drag to Timeline</div>
-          <div class="feature-desc" id="f19Desc">Drop the full audio track or trimmed waveform snippet directly onto your video editor or DAW timeline in 2 seconds flat.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f20Name">Universal Compatibility</div>
-          <div class="feature-desc" id="f20Desc">Native drag-and-drop support for Premiere, DaVinci Resolve, Final Cut Pro, CapCut, After Effects, Ableton, FL Studio, Reaper, and Vegas.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. System & Platforms -->
-    <section class="module-block">
-      <div class="module-header">
-        <span class="module-num">07</span>
-        <h2 class="module-title" id="m7Title">System & Platforms</h2>
-      </div>
-      <div class="feature-grid">
-        <div class="feature-row">
-          <div class="feature-name" id="f21Name">Multiplatform Support</div>
-          <div class="feature-desc" id="f21Desc">Native performance and identical feature parity across Windows, macOS (Intel & Apple Silicon), and Linux.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f22Name">Customizable Shortcuts</div>
-          <div class="feature-desc" id="f22Desc">Full hotkey customization for global overlay invocation, playback controls, and rapid editing workflows.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f23Name">Advanced Settings</div>
-          <div class="feature-desc" id="f23Desc">General software preferences to fine-tune your workflow, default behaviors, and customize usability.</div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-name" id="f24Name">Lightweight Background Engine</div>
-          <div class="feature-desc" id="f24Desc">Lightweight execution in the background with minimal CPU and RAM usage, leaving your computer free to render and edit.</div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Final Call to Action (Exact same design & visual as Homepage) -->
+  <!-- Final Call to Action (Completely clean, outside animation wrap) -->
   <section class="final-cta" id="buy">
     <div class="wide">
       <h2 class="final-head" id="finalHead">Stop digging through folders. Keep editing.</h2>
@@ -867,7 +862,7 @@
     })();
   </script>
 
-  <!-- Ambient Audio Files Floating Animation (Hero only, stops updating off-screen) -->
+  <!-- Ambient Audio Files Floating Animation (Spans across all 7 modules, ends before final CTA) -->
   <script>
     (function initFloatingAudioFiles() {
       const container = document.getElementById('heroBgAnim');
@@ -949,7 +944,7 @@
       }
 
       const isMobile = window.innerWidth < 768;
-      const MAX_ITEMS = isMobile ? 18 : 34;
+      const MAX_ITEMS = isMobile ? 32 : 68;
       const items = [];
       let isVisible = true;
       let lastTime = performance.now();
@@ -971,15 +966,15 @@
 
           const rect = container.getBoundingClientRect();
           const w = rect.width || window.innerWidth;
-          const h = rect.height || 350;
+          const h = container.scrollHeight || rect.height || 2600;
 
           let bestX = 15 + Math.random() * Math.max(w - 240, 60);
-          let bestY = Math.random() * Math.max(h - 45, 45);
+          let bestY = 15 + Math.random() * Math.max(h - 60, 60);
           let maxMinDist = 0;
 
           for (let attempt = 0; attempt < 8; attempt++) {
             const candX = 15 + Math.random() * Math.max(w - 240, 60);
-            const candY = Math.random() * Math.max(h - 45, 45);
+            const candY = 15 + Math.random() * Math.max(h - 60, 60);
 
             let minDistToOthers = Infinity;
             for (let j = 0; j < items.length; j++) {
@@ -997,7 +992,7 @@
               bestX = candX;
               bestY = candY;
             }
-            if (minDistToOthers > 80) break;
+            if (minDistToOthers > 85) break;
           }
 
           this.x = bestX;
@@ -1007,7 +1002,7 @@
           this.vy = (Math.random() - 0.5) * 0.10;
 
           this.opacity = 0;
-          this.maxOpacity = 0.30 + Math.random() * 0.38;
+          this.maxOpacity = 0.28 + Math.random() * 0.34;
           this.scale = 0.55 + Math.random() * 0.70;
 
           this.duration = 14000 + Math.random() * 12000;
@@ -1066,7 +1061,7 @@
       if ('IntersectionObserver' in window) {
         const obs = new IntersectionObserver((entries) => {
           isVisible = entries[0].isIntersecting;
-        }, { threshold: 0.05 });
+        }, { threshold: 0.01 });
         obs.observe(container);
       }
 
