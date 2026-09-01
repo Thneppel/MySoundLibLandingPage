@@ -42,72 +42,123 @@
       -webkit-font-smoothing: antialiased;
       line-height: 1.65;
       min-height: 100vh;
-      padding: 40px 20px 80px;
+      padding: 0 0 80px;
     }
 
     a {
       color: inherit;
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      text-decoration: none;
     }
 
-    a:hover {
-      color: var(--green);
-    }
-
-    .page-container {
-      max-width: 860px;
+    .wide {
+      width: 100%;
+      max-width: 1180px;
       margin: 0 auto;
+      padding: 0 28px;
     }
 
-    /* ── Top Bar ─────────────────────────────── */
-    .page-topbar {
+    /* ── Header & Navigation ─────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: rgba(28, 28, 28, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav {
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 32px;
-      margin-bottom: 48px;
-      border-bottom: 1px solid var(--border);
+      gap: 20px;
     }
 
-    .back-link {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-decoration: none;
-      display: inline-flex;
+    .nav-brand {
+      display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-brand img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: -0.01em;
       transition: color 0.15s ease;
+      text-decoration: none;
     }
 
-    .back-link:hover {
-      color: var(--green);
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Language Switcher */
     .lang-switcher {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 6px;
     }
 
     .lang-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
+      background: none;
+      border: none;
       font-family: var(--sans);
       font-size: 11px;
       font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 4px;
+      color: var(--text-dim);
       cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 100px;
       transition: all 0.15s ease;
     }
 
+    .lang-btn:hover {
+      color: var(--text-muted);
+    }
+
     .lang-btn.active {
-      border-color: var(--green);
-      color: var(--green);
+      background: var(--green);
+      color: #1c1c1c;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ── Page Layout ─────────────────────────── */
+    .page-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px 0;
     }
 
     /* ── Header Area ─────────────────────────── */
@@ -247,8 +298,8 @@
       font-family: var(--sans);
       font-size: 14px;
       font-weight: 700;
-      padding: 12px 28px;
-      border-radius: 6px;
+      padding: 11px 22px;
+      border-radius: 8px;
       text-decoration: none;
       cursor: pointer;
       border: none;
@@ -261,7 +312,7 @@
     }
 
     .btn-solid:hover {
-      opacity: 0.9;
+      background: #25e0b0;
       transform: translateY(-1px);
       color: #0b0b0e;
     }
@@ -313,17 +364,35 @@
 </head>
 <body>
 
-  <div class="page-container">
-    <!-- Top Bar -->
-    <div class="page-topbar">
-      <a href="index.html" class="back-link" id="backLink">← Back to MySoundLib</a>
-      <div class="lang-switcher">
-        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
-      </div>
-    </div>
+  <!-- Sticky Transparent Header -->
+  <header class="site-header">
+    <div class="wide">
+      <nav class="nav" aria-label="Main Navigation">
+        <a href="index.html#top" class="nav-brand" aria-label="MySoundLib home">
+          <img src="static/logo.svg" alt="MySoundLib">
+        </a>
 
-    <!-- Header -->
+        <div class="nav-links">
+          <a class="nav-link" href="index.html#workflow" id="navWorkflow">Workflow</a>
+          <a class="nav-link active" href="features.html" id="navFeatures">Features</a>
+          <a class="nav-link" href="index.html#compatibility" id="navCompat">Compatibility</a>
+          <a class="nav-link" href="index.html#makers" id="navMaker">About</a>
+          <a class="nav-link" href="index.html#faq" id="navFaq">FAQ</a>
+        </div>
+
+        <div class="nav-right">
+          <div class="lang-switcher">
+            <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+          </div>
+          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="index.html#buy">Buy MySoundLib</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-container">
+    <!-- Header Area -->
     <div class="meta-tag" id="metaBadge">Full Specification & Modules</div>
     <h1 id="pageTitle">All Features</h1>
     <p class="lead" id="pageLead">
@@ -517,7 +586,13 @@
   <script>
     const copy = {
       en: {
-        backLink:       '← Back to MySoundLib',
+        navWorkflow:    'Workflow',
+        navFeatures:    'Features',
+        navCompat:      'Compatibility',
+        navMaker:       'About',
+        navFaq:         'FAQ',
+        navCta:         'Buy MySoundLib',
+
         metaBadge:      'Full Specification & Modules',
         pageTitle:      'All Features',
         pageLead:       'A complete, transparent index of all 24 capabilities and 7 core architectural modules built into MySoundLib.',
@@ -592,7 +667,13 @@
         footFaq:        'FAQ'
       },
       pt: {
-        backLink:       '← Voltar para o MySoundLib',
+        navWorkflow:    'Fluxo',
+        navFeatures:    'Recursos',
+        navCompat:      'Compatibilidade',
+        navMaker:       'Sobre',
+        navFaq:         'Dúvidas',
+        navCta:         'Comprar MySoundLib',
+
         metaBadge:      'Especificação Completa e Módulos',
         pageTitle:      'Todas as Funcionalidades',
         pageLead:       'Índice completo e detalhado com todas as 24 capacidades e 7 módulos estruturais desenvolvidos no MySoundLib.',
