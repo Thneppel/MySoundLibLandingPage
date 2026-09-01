@@ -13,6 +13,8 @@
   <style>
     :root {
       --bg: #1C1C1C;
+      --surface: #242424;
+      --surface-light: #2c2c2c;
       --border: rgba(255, 255, 255, 0.1);
       --border-subtle: rgba(255, 255, 255, 0.06);
       --green: #1dcd9f;
@@ -30,6 +32,7 @@
 
     html {
       background-color: var(--bg);
+      scroll-behavior: smooth;
     }
 
     body {
@@ -39,69 +42,157 @@
       -webkit-font-smoothing: antialiased;
       line-height: 1.7;
       min-height: 100vh;
-      padding: 40px 20px 80px;
+      padding: 0 0 80px;
     }
 
     a {
       color: inherit;
+      text-decoration: none;
+    }
+
+    .wide {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Header & Navigation ─────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: rgba(28, 28, 28, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-brand img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: -0.01em;
+      transition: color 0.15s ease;
+      text-decoration: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 6px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 100px;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn:hover {
+      color: var(--text-muted);
+    }
+
+    .lang-btn.active {
+      background: var(--green);
+      color: #1c1c1c;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-solid {
+      background: var(--green);
+      color: #0b0b0e;
+    }
+
+    .btn-solid:hover {
+      background: #25e0b0;
+      transform: translateY(-1px);
+      color: #0b0b0e;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ── Article Layout ──────────────────────── */
+    .article-container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 0;
+    }
+
+    .article-container a {
       text-decoration: underline;
       text-underline-offset: 3px;
     }
 
-    a:hover {
-      color: var(--green);
-    }
-
-    .article-container {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    /* ── Top Bar ─────────────────────────────── */
-    .article-topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 32px;
-      margin-bottom: 48px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .back-link {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .back-link:hover {
-      color: var(--green);
-    }
-
-    .lang-switcher {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-    }
-
-    .lang-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .lang-btn.active {
-      border-color: var(--green);
+    .article-container a:hover {
       color: var(--green);
     }
 
@@ -118,146 +209,154 @@
     h1 {
       font-size: clamp(26px, 4vw, 36px);
       font-weight: 800;
-      letter-spacing: -0.025em;
-      line-height: 1.2;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
       margin-bottom: 16px;
     }
 
     .lead {
       font-size: 16px;
       color: var(--text-muted);
-      margin-bottom: 48px;
-      padding-bottom: 32px;
+      margin-bottom: 40px;
+      padding-bottom: 24px;
       border-bottom: 1px solid var(--border);
     }
 
     h2 {
-      font-size: 18px;
-      font-weight: 800;
+      font-size: 20px;
+      font-weight: 700;
       letter-spacing: -0.01em;
       margin: 40px 0 16px;
       color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    h2::before {
-      content: '//';
-      color: var(--green);
-      font-weight: 800;
-      font-size: 14px;
     }
 
     p {
-      font-size: 14px;
       color: var(--text-muted);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      font-size: 15px;
     }
 
-    p b, li b {
+    p b, p strong {
       color: var(--text);
     }
 
-    /* ── Raw Spec Table ──────────────────────── */
-    .spec-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0 28px;
-      font-size: 13px;
+    ul {
+      margin-bottom: 24px;
+      padding-left: 20px;
     }
 
-    .spec-table th,
-    .spec-table td {
-      padding: 10px 12px;
+    li {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    li b {
+      color: var(--text);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #e0e0e0;
+    }
+
+    /* ── Component Table ─────────────────────── */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0 32px;
+      font-size: 14px;
+    }
+
+    .tech-table th,
+    .tech-table td {
+      padding: 12px 16px;
       text-align: left;
       border-bottom: 1px solid var(--border-subtle);
     }
 
-    .spec-table th {
+    .tech-table th {
       color: var(--text-dim);
-      font-size: 11px;
       font-weight: 700;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       border-bottom: 1px solid var(--border);
     }
 
-    .spec-table td:first-child {
-      font-weight: 700;
-      color: var(--text);
-      white-space: nowrap;
-    }
-
-    .spec-table td:last-child {
-      color: var(--text-muted);
-    }
-
-    code {
-      font-size: 12px;
+    .tech-table td:first-child {
       font-weight: 600;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--green);
-      padding: 2px 5px;
-      border-radius: 3px;
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      width: 32%;
     }
 
-    ul {
-      list-style: none;
-      margin: 16px 0 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    li {
-      font-size: 14px;
+    .tech-table td:last-child {
       color: var(--text-muted);
-      padding-left: 18px;
-      position: relative;
     }
 
-    li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--text-dim);
-    }
-
-    /* ── Article Footer ──────────────────────── */
+    /* ── Footer ──────────────────────────────── */
     .article-footer {
-      margin-top: 56px;
-      padding-top: 32px;
+      margin-top: 64px;
+      padding-top: 24px;
       border-top: 1px solid var(--border);
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-dim);
       flex-wrap: wrap;
       gap: 16px;
-      font-size: 12px;
-      color: var(--text-dim);
     }
 
     .article-footer a {
       color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .article-footer a:hover {
+      color: var(--green);
     }
   </style>
+  <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body>
 
-  <div class="article-container">
-    
-    <!-- Top Bar -->
-    <header class="article-topbar">
-      <a href="index.html" class="back-link" id="navBack">&larr; MySoundLib</a>
-      <div class="lang-switcher">
-        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
-      </div>
-    </header>
+  <!-- Sticky Transparent Header -->
+  <header class="site-header">
+    <div class="wide">
+      <nav class="nav" aria-label="Main Navigation">
+        <a href="index.html#top" class="nav-brand" aria-label="MySoundLib home">
+          <img src="static/logo.svg" alt="MySoundLib">
+        </a>
 
-    <!-- Main Content -->
+        <div class="nav-links">
+          <a class="nav-link" href="index.html#workflow" id="navWorkflow">Workflow</a>
+          <a class="nav-link" href="features.html" id="navFeatures">Features</a>
+          <a class="nav-link" href="index.html#compatibility" id="navCompat">Compatibility</a>
+          <a class="nav-link" href="index.html#makers" id="navMaker">About</a>
+          <a class="nav-link" href="index.html#faq" id="navFaq">FAQ</a>
+        </div>
+
+        <div class="nav-right">
+          <div class="lang-switcher">
+            <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+          </div>
+          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="index.html#buy">Buy MySoundLib</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-container">
     <main>
+      <!-- Meta & Title -->
       <div class="meta-tag" id="metaTag">Technical Note &bull; Specification</div>
       <h1 id="artTitle">Architecture & Dependency Disclosure</h1>
       <p class="lead" id="artLead">
@@ -270,7 +369,7 @@
         MySoundLib is distributed as a self-contained desktop binary. It runs directly on the local operating system without requiring web runtimes, background servers, or containerization.
       </p>
 
-      <table class="spec-table">
+      <table class="tech-table">
         <thead>
           <tr>
             <th id="thComponent">Component</th>
@@ -279,11 +378,11 @@
         </thead>
         <tbody>
           <tr>
-            <td>PySide6 (Qt 6)</td>
+            <td>PySide6 (Qt)</td>
             <td id="tdQt">Native windowing, hotkey overlays, audio output subsystem, OS drag-and-drop.</td>
           </tr>
           <tr>
-            <td>libsndfile / soundfile</td>
+            <td>soundfile (libsndfile)</td>
             <td id="tdSnd">Low-level C-based PCM stream decoding and waveform sample extraction.</td>
           </tr>
           <tr>
@@ -308,15 +407,15 @@
       <!-- Section 2 -->
       <h2 id="sec2Head">Storage & Data Isolation</h2>
       <ul>
-        <li id="liStorage1"><b>Index Location:</b> All database records and cache files reside strictly within standard OS user application data paths (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).</li>
-        <li id="liStorage2"><b>Non-Destructive Access:</b> User audio folders are mounted read-only during indexing. File modification, moving, or destructive renaming is never performed automatically.</li>
-        <li id="liStorage3"><b>Clip Trimming:</b> Audio snippet dragging exports a dedicated segment to a temporary cache directory; master files remain untouched.</li>
+        <li id="liStorage1"><b>Data Locations:</b> Database records and cache files reside exclusively within standard OS user-data directories (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).</li>
+        <li id="liStorage2"><b>Non-Destructive Access:</b> User audio folders are read in read-only mode during indexing. No source files are modified, tagged, or renamed on disk.</li>
+        <li id="liStorage3"><b>Audio Snippet Dragging:</b> Waveform trimming generates isolated temporary audio clips in a scratch directory; master files remain untouched.</li>
       </ul>
 
       <!-- Section 3 -->
-      <h2 id="sec3Head">Network Policy & Privacy</h2>
+      <h2 id="sec3Head">Network & Privacy Policies</h2>
       <ul>
-        <li id="liNet1"><b>Air-Gapped Operation:</b> Search, indexing, waveform rendering, and timeline export function fully offline with zero internet access required.</li>
+        <li id="liNet1"><b>100% Offline Core Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop operate entirely offline without internet connectivity.</li>
         <li id="liNet2"><b>No Content Telemetry:</b> Audio waveforms, file paths, sound library names, and project assets are never transmitted to any external server.</li>
         <li id="liNet3"><b>Crash Reports (Optional):</b> When enabled, error reports capture only anonymized execution stack traces with <code>send_default_pii=False</code>. Telemetry can be toggled off at any time in Settings (<code>telemetry_enabled: false</code>).</li>
       </ul>
@@ -343,8 +442,14 @@
   <script>
     const copy = {
       en: {
-        navBack:      '&larr; MySoundLib',
-        metaTag:      'Technical Note \u2022 Specification',
+        navWorkflow:    'Workflow',
+        navFeatures:    'Features',
+        navCompat:      'Compatibility',
+        navMaker:       'About',
+        navFaq:         'FAQ',
+        navCta:         'Buy MySoundLib',
+
+        metaTag:      'Technical Note • Specification',
         artTitle:     'Architecture & Dependency Disclosure',
         artLead:      'A concise technical overview of runtime components, data isolation, and network policies for users who require clarity on what runs on their machine.',
 
@@ -377,10 +482,16 @@
         footerBack:   'Return to main page'
       },
       pt: {
-        navBack:      '&larr; MySoundLib',
-        metaTag:      'Nota Técnica \u2022 Especificação',
+        navWorkflow:    'Fluxo',
+        navFeatures:    'Recursos',
+        navCompat:      'Compatibilidade',
+        navMaker:       'Sobre',
+        navFaq:         'Dúvidas',
+        navCta:         'Comprar MySoundLib',
+
+        metaTag:      'Nota Técnica • Especificação',
         artTitle:     'Arquitetura e Declaração de Dependências',
-        artLead:      'Uma visão técnica concisa sobre componentes em tempo de execução, isolamento de dados e políticas de rede para usuários que exigem transparência do que roda em suas máquinas.',
+        artLead:      'Uma visão geral técnica e concisa sobre componentes em execução, isolamento de dados e políticas de rede para usuários que exigem total clareza do que roda em sua máquina.',
 
         sec1Head:     'Componentes e Bibliotecas',
         sec1Text:     'O MySoundLib é distribuído como um binário desktop independente. Roda diretamente no sistema operacional local sem depender de runtimes web pesados, servidores em background ou conteinerização.',
@@ -414,29 +525,31 @@
 
     function setLang(lang) {
       const c = copy[lang];
-      if (!c) return;
+      if (!dict_or_c(c)) return;
 
-      Object.keys(c).forEach(key => {
-        const el = document.getElementById(key);
-        if (!el) return;
-
-        if (c[key].includes('<') || c[key].includes('&') || c[key].includes('\n')) {
-          el.innerHTML = c[key].replace(/\n/g, '<br>');
-        } else {
-          el.textContent = c[key];
-        }
-      });
-
+      document.documentElement.lang = lang;
       document.getElementById('btnEN').classList.toggle('active', lang === 'en');
       document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
-      document.documentElement.lang = lang;
 
-      try { localStorage.setItem('msl_lang', lang); } catch(e) {}
+      for (const [id, text] of Object.entries(c)) {
+        const el = document.getElementById(id);
+        if (el) {
+          if (text.includes('<') || text.includes('&') || text.includes('\n')) {
+            el.innerHTML = text.replace(/\n/g, '<br>');
+          } else {
+            el.textContent = text;
+          }
+        }
+      }
+
+      try { localStorage.setItem('msl_lang', lang); } catch (e) {}
     }
+
+    function dict_or_c(c) { return !!c; }
 
     (function() {
       let saved = null;
-      try { saved = localStorage.getItem('msl_lang'); } catch(e) {}
+      try { saved = localStorage.getItem('msl_lang'); } catch (e) {}
       if (saved === 'pt' || saved === 'en') { setLang(saved); return; }
       setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
     })();
