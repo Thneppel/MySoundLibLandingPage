@@ -710,7 +710,7 @@
     }
 
     .makers-intro {
-      margin-bottom: 36px;
+      margin-bottom: 0;
     }
 
     .makers-intro h3 {
@@ -728,39 +728,8 @@
       margin-bottom: 14px;
     }
 
-    .makers-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .maker-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .maker-val {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--green);
-      line-height: 1;
-    }
-
-    .maker-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .maker-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
+    .makers-intro p:last-child {
+      margin-bottom: 0;
     }
 
     .makers-media {
@@ -787,9 +756,6 @@
       .makers-layout {
         grid-template-columns: 1fr;
         gap: 40px;
-      }
-      .makers-cards {
-        grid-template-columns: 1fr;
       }
       .makers-art {
         max-width: 100%;
@@ -1304,26 +1270,6 @@
                 This is not a startup. There is no team behind it, no VC money, no growth roadmap. It is software made by one person who uses it daily. Updates roll out with an emphasis on rock-solid stability rather than rushed sprint deadlines. Your audio files never leave your machine. And if something breaks, I actually want to hear about it.
               </p>
             </div>
-
-            <div class="makers-cards">
-              <div class="maker-card">
-                <div class="maker-val">100%</div>
-                <div class="maker-title" id="mCard1Title">Local & Private</div>
-                <p class="maker-desc" id="mCard1Desc">Your audio files never get uploaded to anyone else's cloud server.</p>
-              </div>
-
-              <div class="maker-card">
-                <div class="maker-val">$19</div>
-                <div class="maker-title" id="mCard2Title">Pay Once, Keep Forever</div>
-                <p class="maker-desc" id="mCard2Desc">No subscriptions, no recurring bills, all upcoming patches included.</p>
-              </div>
-
-              <div class="maker-card">
-                <div class="maker-val">5</div>
-                <div class="maker-title" id="mCard3Title">Machines per License</div>
-                <p class="maker-desc" id="mCard3Desc">Works natively across Windows, macOS, and Linux with any NLE or DAW.</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1495,12 +1441,6 @@
         makerHead:        'I edit videos and design for a living too.',
         makerP1:          'I built MySoundLib because I needed it. I am a video editor and graphic designer. I have been through this exact folder-hunting loop thousands of times, and at some point I got tired enough to actually build the fix.',
         makerP2:          'This is not a startup. There is no team behind it, no VC money, no growth roadmap. It is software made by one person who uses it daily. Updates roll out with an emphasis on rock-solid stability rather than rushed sprint deadlines. Your audio files never leave your machine. And if something breaks, I actually want to hear about it.',
-        mCard1Title:      'Local & Private',
-        mCard1Desc:       'Your audio files never get uploaded to anyone else\'s cloud server.',
-        mCard2Title:      'Pay Once, Keep Forever',
-        mCard2Desc:       'No subscriptions, no recurring bills, all upcoming patches included.',
-        mCard3Title:      'Machines per License',
-        mCard3Desc:       'Works natively across Windows, macOS, and Linux with any NLE or DAW.',
 
         faqKicker:        'FAQ',
         faqTitle:         'Questions & Answers',
@@ -1604,12 +1544,6 @@
         makerHead:        'Eu edito vídeos e crio design para viver também.',
         makerP1:          'Eu construí o MySoundLib porque eu precisava dele. Sou editor de vídeo e designer gráfico. Já passei por esse ciclo de caçar pasta exatamente assim, milhares de vezes, e em algum momento eu enjoei o suficiente para realmente construir a solução.',
         makerP2:          'Isso não é uma startup. Não tem equipe por trás, não tem dinheiro de investidor, não tem roadmap de crescimento. É um software feito por uma pessoa que usa ele todo dia. As atualizações saem quando estão estáveis, não quando um prazo de sprint manda. Seus arquivos nunca saem da sua máquina. E se algo quebrar, eu genuinamente quero saber.',
-        mCard1Title:      'Local e Privado',
-        mCard1Desc:       'Seus arquivos de áudio nunca vão para servidores na nuvem de terceiros.',
-        mCard2Title:      'Pague Uma Vez, Use Sempre',
-        mCard2Desc:       'Sem assinaturas, sem mensalidades recorrentes, com atualizações inclusas.',
-        mCard3Title:      'Máquinas por Licença',
-        mCard3Desc:       'Roda nativamente no Windows, macOS e Linux com qualquer NLE ou DAW.',
 
         faqKicker:        'FAQ',
         faqTitle:         'Perguntas Frequentes',
