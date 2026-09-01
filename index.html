@@ -257,6 +257,7 @@
     }
 
     .hero-head {
+      position: relative;
       font-size: clamp(38px, 6vw, 68px);
       font-weight: 800;
       line-height: 1.04;
@@ -264,6 +265,19 @@
       color: var(--text);
       margin-bottom: 24px;
       max-width: 960px;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+    }
+
+    .hero-head::before {
+      content: '';
+      position: absolute;
+      inset: -15px -25px;
+      background: radial-gradient(ellipse at center, rgba(20, 20, 20, 0.7) 20%, rgba(20, 20, 20, 0) 75%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .hero-head em {
