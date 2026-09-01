@@ -1796,7 +1796,9 @@
         let lastTime = performance.now();
 
         class FloatingAudioItem {
-          constructor() {
+          constructor(index) {
+            this.index = index;
+            this.zone = index % 3; // 0 = Left Flank, 1 = Right Flank, 2 = Across
             this.el = document.createElement('div');
             this.el.className = 'floating-audio-file';
             container.appendChild(this.el);
@@ -1810,17 +1812,29 @@
 
             this.el.innerHTML = `${iconSvg}<span class="floating-audio-name">${name}</span><span class="floating-audio-ext">${ext}</span>`;
 
-            const rect = container.getBoundingClientRect();
-            const w = rect.width || window.innerWidth;
-            const h = rect.height || 450;
+            const w = container.clientWidth || window.innerWidth;
+            const h = container.clientHeight || 450;
 
-            let bestX = 15 + Math.random() * Math.max(w - 240, 60);
-            let bestY = Math.random() * Math.max(h - 50, 50);
+            function sampleX(zone) {
+              if (zone === 0) {
+                // Left flank (0% to 45% of width)
+                return 15 + Math.random() * Math.max(w * 0.44 - 120, 50);
+              } else if (zone === 1) {
+                // Right flank (56% to 100% of width)
+                return (w * 0.56) + Math.random() * Math.max(w * 0.44 - 160, 50);
+              } else {
+                // Full span
+                return 20 + Math.random() * Math.max(w - 220, 60);
+              }
+            }
+
+            let bestX = sampleX(this.zone);
+            let bestY = 15 + Math.random() * Math.max(h - 50, 40);
             let maxMinDist = 0;
 
             for (let attempt = 0; attempt < 8; attempt++) {
-              const candX = 15 + Math.random() * Math.max(w - 240, 60);
-              const candY = Math.random() * Math.max(h - 50, 50);
+              const candX = sampleX(this.zone);
+              const candY = 15 + Math.random() * Math.max(h - 50, 40);
 
               let minDistToOthers = Infinity;
               for (let j = 0; j < items.length; j++) {
@@ -1838,7 +1852,7 @@
                 bestX = candX;
                 bestY = candY;
               }
-              if (minDistToOthers > 85) break;
+              if (minDistToOthers > 75) break;
             }
 
             this.x = bestX;
@@ -1878,8 +1892,7 @@
             this.y = this.initialY + (this.vy * (this.elapsed / 16.6));
             this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
 
-            const rect = container.getBoundingClientRect();
-            const w = rect.width || window.innerWidth;
+            const w = container.clientWidth || window.innerWidth;
             const centerX = w / 2;
             const itemCenterX = this.x + 85;
             const distFromCenter = Math.abs(itemCenterX - centerX);
@@ -1899,7 +1912,7 @@
         }
 
         for (let i = 0; i < count; i++) {
-          items.push(new FloatingAudioItem());
+          items.push(new FloatingAudioItem(i));
         }
 
         if ('IntersectionObserver' in window) {
@@ -1946,8 +1959,8 @@
       }
 
       const isMobile = window.innerWidth < 768;
-      setupField(document.getElementById('heroBgAnim'), isMobile ? 20 : 42);
-      setupField(document.getElementById('pullBgAnim'), isMobile ? 14 : 26);
+      setupField(document.getElementById('heroBgAnim'), isMobile ? 22 : 46);
+      setupField(document.getElementById('pullBgAnim'), isMobile ? 16 : 32);
     })();
   </script>
 </body>
