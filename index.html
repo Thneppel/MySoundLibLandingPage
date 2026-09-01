@@ -3,290 +3,1571 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MySoundLib — Coming Soon. The fast, local audio library for video editors.">
-  <title>MySoundLib | Coming Soon</title>
+  <meta name="description" content="MySoundLib — Fast, local audio library for video editors. Organize gigabytes of SFX, preview and trim waveforms instantly, and drop audio straight into your timeline.">
+  <title>MySoundLib | Fast Local Audio Library for Video Editors</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="static/icon.svg">
   <script async src="https://tally.so/widgets/embed.js"></script>
+
   <style>
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:      #000000;
-      --surface: #222222;
-      --border:  rgba(255,255,255,0.08);
-      --snow:    #ffffff;
-      --mid:     #aaaaaa;
-      --dim:     #169976;
-      --green:   #1dcd9f;
-      --sans:    'Inter', system-ui, sans-serif;
-      --display: 'Outfit', system-ui, sans-serif;
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html, body { height: 100%; }
+    :root {
+      --bg: #1c1c1c;
+      --bg-darker: #161616;
+      --surface: #242424;
+      --surface-hover: #2a2a2a;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(255, 255, 255, 0.14);
+      --border-accent: rgba(29, 205, 159, 0.3);
+      --text: #ffffff;
+      --text-muted: #a3a3a3;
+      --text-dim: #737373;
+      --green: #1dcd9f;
+      --green-glow: rgba(29, 205, 159, 0.12);
+      --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background-color: var(--bg);
-      color: var(--snow);
+      color: var(--text);
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
       min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      background-image: url('background.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      overflow-x: clip;
     }
 
-    /* ── Top bar ───────────────────────── */
-    .topbar {
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wide {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Header & Navigation ─────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: rgba(28, 28, 28, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav {
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 28px 40px;
-      border-bottom: 1px solid var(--border);
+      gap: 20px;
     }
 
-    .wordmark {
-      display: block;
-      height: 32px;
-      width: auto;
-    }
-
-    /* Language switcher */
-    .lang-switch {
+    .nav-brand {
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 10px;
+    }
+
+    .nav-brand img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: -0.01em;
+      transition: color 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 6px;
     }
 
     .lang-btn {
       background: none;
       border: none;
       font-family: var(--sans);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--dim);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
       cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
-      transition: color 0.15s, background 0.15s;
+      padding: 3px 8px;
+      border-radius: 100px;
+      transition: all 0.15s ease;
     }
 
-    .lang-btn:hover { color: var(--mid); }
+    .lang-btn:hover {
+      color: var(--text-muted);
+    }
 
     .lang-btn.active {
-      color: var(--snow);
-      background: var(--surface);
+      background: var(--green);
+      color: #1c1c1c;
     }
 
-    .lang-sep {
-      font-size: 11px;
-      color: var(--dim);
-      pointer-events: none;
-      padding: 0 2px;
+    /* Action Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 22px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
-    /* ── Main ──────────────────────────── */
-    main {
+    .btn-solid {
+      background: var(--green);
+      color: #1c1c1c;
+    }
+
+    .btn-solid:hover {
+      background: #25e0b0;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-lg {
+      padding: 14px 28px;
+      font-size: 15px;
+    }
+
+    /* ── Hero Section (Instatic Style) ───────── */
+    .hero {
+      padding: 96px 0 80px;
+    }
+
+    .hero-wrap {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 80px 40px;
-      max-width: 740px;
+      align-items: center;
+      text-align: center;
     }
 
-    .label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .hero-head {
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      margin-bottom: 24px;
+      max-width: 960px;
+    }
+
+    .hero-head em {
+      font-style: italic;
       color: var(--green);
-      margin-bottom: 32px;
+      font-weight: 800;
     }
 
-    .headline {
-      font-family: var(--display);
-      font-size: clamp(52px, 8vw, 88px);
-      font-weight: 500;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      color: var(--snow);
-      margin-bottom: 32px;
+    .hero-sub {
+      font-size: clamp(16px, 2.2vw, 19px);
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin-bottom: 36px;
     }
 
-    .body-text {
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--mid);
-      max-width: 440px;
-      margin-bottom: 52px;
-      letter-spacing: -0.01em;
+    .hero-sub b {
+      color: var(--text);
+      font-weight: 600;
     }
 
-    /* CTA */
-    .cta-row {
+    .hero-ctas {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .btn-notify {
-      background: var(--snow);
-      color: var(--bg);
-      border: none;
-      border-radius: 6px;
-      padding: 11px 22px;
-      font-family: var(--sans);
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 24px;
       font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      letter-spacing: -0.01em;
-      transition: opacity 0.15s;
+      color: var(--text-dim);
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 64px;
     }
 
-    .btn-notify:hover { opacity: 0.85; }
-
-    .cta-note {
-      font-size: 12px;
-      color: var(--dim);
-      letter-spacing: -0.01em;
+    .hero-trust span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* ── Footer ────────────────────────── */
-    footer {
-      padding: 24px 40px;
+    .hero-trust span b {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ── Hero Shot Showcase ──────────────────── */
+    .hero-shot {
+      width: 100%;
+      max-width: 1080px;
+      position: relative;
+    }
+
+    .hero-frame {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      overflow: visible;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 0;
+      border: none;
+    }
+
+    /* ── Section Ribbon / Contents Strip ─────── */
+    .contents-strip {
       border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-darker);
+      padding: 18px 0;
+    }
+
+    .contents-in {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
       flex-wrap: wrap;
-      gap: 12px;
     }
 
-    .footer-copy {
+    .contents-lbl {
       font-size: 12px;
-      color: var(--dim);
-      letter-spacing: -0.01em;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
     }
 
-    .footer-status {
+    .contents-links {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 12px;
-      color: var(--dim);
+      gap: 24px;
+      flex-wrap: wrap;
     }
 
-    .footer-credit {
+    .contents-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.15s ease;
+    }
+
+    .contents-item:hover {
+      color: var(--green);
+    }
+
+    .contents-num {
+      font-size: 11px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ── The Case / Statement Section ────────── */
+    .statement {
+      padding: 88px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rk {
       font-size: 12px;
-      color: var(--dim);
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .statement-lead {
+      font-size: clamp(24px, 3.8vw, 38px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      max-width: 860px;
+      margin-bottom: 48px;
+    }
+
+    .statement-lead em {
+      font-style: italic;
+      color: var(--green);
+    }
+
+    .statement-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .statement-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sn {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
       letter-spacing: -0.01em;
+      text-transform: uppercase;
     }
 
-    .footer-credit a {
-      color: var(--dim);
+    .statement-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── The Frustration (Pain Points) ───────── */
+    /* ── The Daily Friction (2-Column Side-by-Side Layout) ── */
+    .pain-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pain-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 56px;
+      align-items: flex-start;
+    }
+
+    .pain-side {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pain-steps-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+    }
+
+    .pain-step-row {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pain-step-idx {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--green);
+    }
+
+    .pain-step-content {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .pain-step-content code {
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ── Pillar Feature Sections (Instatic Alternating) */
+    .feature-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature-in {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .feature-section.flip .feature-in {
+      direction: rtl;
+    }
+
+    .feature-section.flip .feature-copy,
+    .feature-section.flip .feature-stage {
+      direction: ltr;
+    }
+
+    .feature-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pk {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pn {
+      font-weight: 800;
+    }
+
+    .feature-head {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .feature-desc b {
+      color: var(--text);
+    }
+
+    .feat-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .feat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .feat-num {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--green);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .feat-item b {
+      color: var(--text);
+    }
+
+    /* Feature Stage / Frame */
+    .feature-stage {
+      position: relative;
+    }
+
+    .stage-mount {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      overflow: visible;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .stage-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 0;
+      border: none;
+    }
+
+    /* ── Pull Quote (Instatic Style) ─────────── */
+    .pull {
+      padding: 96px 0;
+      background: var(--bg-darker);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .pull-quote {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      max-width: 860px;
+      margin: 0 auto 20px;
+    }
+
+    .pull-quote em {
+      font-style: italic;
+      color: var(--green);
+    }
+
+    .pull-cite {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-style: normal;
+      display: block;
+    }
+
+    /* ── Compatibility Section ───────────────── */
+    .compat-section {
+      padding: 88px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compat-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      max-width: 640px;
+    }
+
+    .nle-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .nle-tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .nle-tag:hover {
+      border-color: var(--border-light);
+      background: var(--surface-light);
+    }
+
+    .nle-tag img,
+    .nle-tag svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* ── The Maker / About Section ───────────── */
+    .makers-section {
+      padding: 88px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .makers-intro {
+      max-width: 780px;
+      margin-bottom: 48px;
+    }
+
+    .makers-intro h3 {
+      font-size: clamp(26px, 3.5vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .makers-intro p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .makers-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .maker-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .maker-val {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .maker-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .maker-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── FAQ Section ─────────────────────────── */
+    .faq-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 48px;
+      margin-top: 48px;
+    }
+
+    .faq-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faq-item {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-col .faq-item:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-q {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+
+    .faq-a {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Final Call to Action ────────────────── */
+    .final-cta {
+      padding: 110px 0;
+      text-align: center;
+      background: radial-gradient(circle at 50% 50%, rgba(29, 205, 159, 0.06) 0%, transparent 70%);
+    }
+
+    .final-head {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .final-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    /* ── Footer ──────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 64px 0 40px;
+      background: var(--bg-darker);
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 360px;
+    }
+
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
       text-decoration: none;
-      transition: color 0.15s;
     }
 
-    .footer-credit a:hover { color: var(--snow); }
+    .footer-logo-img {
+      height: 22px;
+      width: auto;
+    }
 
-    /* ── Mobile ────────────────────────── */
-    @media (max-width: 600px) {
-      body {
-        background-image: none;
-        background-color: var(--bg);
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .footer-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-nav a:hover {
+      color: var(--green);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      font-size: 13px;
+      color: var(--text-dim);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-author {
+      color: var(--text-dim);
+    }
+
+    .footer-author a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+
+    .footer-author a:hover {
+      color: var(--green);
+    }
+
+    /* ── Responsive Rules ────────────────────── */
+    @media (max-width: 900px) {
+      .feature-in,
+      .feature-section.flip .feature-in {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        direction: ltr;
       }
-      .topbar, main, footer { padding-left: 24px; padding-right: 24px; }
-      .cta-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .statement-grid,
+      .pain-layout,
+      .makers-cards,
+      .faq-columns {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .nav-links {
+        display: none;
+      }
     }
 
+    @media (max-width: 600px) {
+      .hero {
+        padding: 64px 0 48px;
+      }
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-ctas .btn {
+        width: 100%;
+      }
+      .contents-links {
+        gap: 12px;
+      }
+      .footer-top {
+        flex-direction: column;
+        gap: 24px;
+      }
+      .footer-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
   </style>
 </head>
-<body>
+<body id="top">
 
-  <!-- Top bar -->
-  <div class="topbar">
-    <a href="#" class="wordmark">
-      <img src="static/logo.svg" alt="MySoundLib" class="wordmark">
-    </a>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="wide">
+      <nav class="nav" aria-label="Primary">
+        <a href="#top" class="nav-brand" aria-label="MySoundLib home">
+          <img src="static/logo.svg" alt="MySoundLib">
+        </a>
 
-    <div class="lang-switch">
-      <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
-      <span class="lang-sep">/</span>
-      <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+        <div class="nav-links">
+          <a class="nav-link" href="#workflow" id="navWorkflow">Workflow</a>
+          <a class="nav-link" href="#overlay" id="navFeatures">Features</a>
+          <a class="nav-link" href="#compatibility" id="navCompat">Compatibility</a>
+          <a class="nav-link" href="#makers" id="navMaker">About</a>
+          <a class="nav-link" href="#faq" id="navFaq">FAQ</a>
+        </div>
+
+        <div class="nav-right">
+          <div class="lang-switcher">
+            <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+          </div>
+          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="#buy">Buy MySoundLib</a>
+        </div>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <!-- Main content -->
   <main>
-    <p class="label" id="label">In development</p>
-    <h1 class="headline" id="headline">Coming soon.</h1>
-    <p class="body-text" id="bodyText">MySoundLib is almost ready. A fast, local sound library built for video editors: find, crop, and drag sounds in seconds.</p>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="wide hero-wrap">
+        <h1 class="hero-head" id="heroHead">
+          Your OS file search is terrible for audio. <em>MySoundLib fixes that.</em>
+        </h1>
 
-    <div class="cta-row">
-      <button
-        class="btn-notify"
-        id="notifyBtn"
-        data-tally-open="44dq9r"
-        data-tally-emoji-text="👋"
-        data-tally-emoji-animation="wave"
-      >
-        Get notified
-      </button>
-      <span class="cta-note" id="ctaNote">No spam. Unsubscribe anytime.</span>
-    </div>
+        <p class="hero-sub" id="heroSub">
+          A lightweight, local desktop app to organize gigabytes of SFX and music, preview and trim waveforms instantly, and drop audio straight into your timeline in <b>2 seconds flat</b>.
+        </p>
+
+        <div class="hero-ctas">
+          <button class="btn btn-solid btn-lg" id="heroCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
+            Buy MySoundLib $19
+          </button>
+          <a class="btn btn-ghost btn-lg" href="#workflow" id="heroSecBtn">
+            Explore workflow
+          </a>
+        </div>
+
+        <div class="hero-trust">
+          <span><b>✓</b> 100% Offline & Local</span>
+          <span><b>✓</b> Zero Subscriptions</span>
+          <span><b>✓</b> Windows, Mac & Linux</span>
+        </div>
+
+        <!-- Desktop App Showcase Shot -->
+        <div class="hero-shot">
+          <div class="hero-frame">
+            <img src="static/main_window.png" alt="MySoundLib Desktop Interface" class="hero-img" loading="eager">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Navigation Strip -->
+    <section class="contents-strip" id="contents">
+      <div class="wide contents-in">
+        <span class="contents-lbl" id="contentsLbl">The toolkit / instant desktop workflow</span>
+        <div class="contents-links">
+          <a class="contents-item" href="#workflow"><span class="contents-num">01</span> <span id="strip1">Workflow</span></a>
+          <a class="contents-item" href="#overlay"><span class="contents-num">02</span> <span id="strip2">Global Overlay</span></a>
+          <a class="contents-item" href="#waveform"><span class="contents-num">03</span> <span id="strip3">Waveform & Trim</span></a>
+          <a class="contents-item" href="#converter"><span class="contents-num">04</span> <span id="strip4">Converter</span></a>
+          <a class="contents-item" href="#makers"><span class="contents-num">05</span> <span id="strip5">About</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Case / Statement -->
+    <section class="statement" id="workflow">
+      <div class="wide">
+        <p class="rk" id="caseKicker">How it works</p>
+        <p class="statement-lead" id="caseLead">
+          Finding audio in video editors is usually five slow steps: open nested folders, wait for a media player, scrub the file, clutter the project bin. MySoundLib turns that into <em>one direct shortcut.</em>
+        </p>
+
+        <div class="statement-grid">
+          <div class="statement-card">
+            <span class="sn" id="caseCol1Title">One global shortcut</span>
+            <p class="statement-desc" id="caseCol1Body">
+              Hit Alt + Shift + F anywhere on your system. A fast search bar pops up right over Premiere, DaVinci, or CapCut without switching windows.
+            </p>
+          </div>
+
+          <div class="statement-card">
+            <span class="sn" id="caseCol2Title">Instant trim and drag</span>
+            <p class="statement-desc" id="caseCol2Body">
+              Hit spacebar to hear the waveform. Select only the transient or tail you need and drag that exact snippet straight into your timeline.
+            </p>
+          </div>
+
+          <div class="statement-card">
+            <span class="sn" id="caseCol3Title">Why that matters</span>
+            <p class="statement-desc" id="caseCol3Body">
+              You stay in your creative flow. No raw 12-second files cluttering your bin, no waiting on media players, no wasted editing minutes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Daily Frustration (2-Column Side Layout) -->
+    <section class="pain-section" id="pain">
+      <div class="wide">
+        <div class="pain-layout">
+          <div class="pain-side">
+            <p class="rk" id="painKicker">Why I built this</p>
+            <h2 class="feature-head" id="painTitle">The tedious loop every video editor gets stuck in</h2>
+            <p class="feature-desc" id="painIntro">How 5 minutes gets wasted on a single sound effect:</p>
+          </div>
+
+          <div class="pain-steps-list">
+            <div class="pain-step-row">
+              <span class="pain-step-idx">01</span>
+              <p class="pain-step-content" id="pain1">You download another 5GB sound pack that claims to be "super organized."</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">02</span>
+              <p class="pain-step-content" id="pain2">You open the folder and find <code>whoosh_sub_final_v2.wav</code> buried under six subfolders.</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">03</span>
+              <p class="pain-step-content" id="pain3">You double-click it, waiting for your default media player to slowly boot up.</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">04</span>
+              <p class="pain-step-content" id="pain4">The sound is 12 seconds long, but you only need the tiny transient at the tail end.</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">05</span>
+              <p class="pain-step-content" id="pain5">You drag the entire raw file into your project bin, clutter your timeline, slice it down, and repeat 80 times per edit.</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">06</span>
+              <p class="pain-step-content" id="pain6">Eventually, you give up and just use the same 4 sounds sitting on your desktop.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pillar 01: Global Overlay -->
+    <section class="feature-section" id="overlay">
+      <div class="wide feature-in">
+        <div class="feature-copy">
+          <p class="pk"><span class="pn">01</span> <span id="feat1Pillar">Global Overlay</span></p>
+          <h3 class="feature-head" id="feat1Head">Search sounds over your timeline.</h3>
+          <p class="feature-desc" id="feat1Desc">
+            Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. Search, preview on spacebar, and drop audio straight into your track without leaving your editor.
+          </p>
+          <ul class="feat-list">
+            <li class="feat-item"><span class="feat-num">01</span> <span id="feat1List1"><b>Global hotkey:</b> pops up instantly over any NLE.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat1List2"><b>Instant search:</b> indexes 100k+ local files with zero lag.</span></li>
+            <li class="feat-item"><span class="feat-num">03</span> <span id="feat1List3"><b>Quick filters:</b> filter by format, channels, or custom tags.</span></li>
+          </ul>
+        </div>
+
+        <div class="feature-stage">
+          <div class="stage-mount">
+            <img src="static/quick_search.png" alt="Quick Search Overlay Screenshot" class="stage-img" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pillar 02: Waveform Preview & Trimming (Flipped) -->
+    <section class="feature-section flip" id="waveform">
+      <div class="wide feature-in">
+        <div class="feature-copy">
+          <p class="pk"><span class="pn">02</span> <span id="feat2Pillar">Pillar / Precision Trimming</span></p>
+          <h3 class="feature-head" id="feat2Head">Preview on spacebar, drag only the section you need.</h3>
+          <p class="feature-desc" id="feat2Desc">
+            Hit spacebar for instantaneous waveform playback. Drag your cursor across the waveform to select just the transient, riser impact, or tail, and drop only that selected clip straight into your timeline.
+          </p>
+          <ul class="feat-list">
+            <li class="feat-item"><span class="feat-num">01</span> <span id="feat2List1"><b>In-app trimming:</b> stop slicing 12-second raw audio files on your video timeline.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat2List2"><b>Pitch & speed controls:</b> adjust playback pitch on the fly before exporting.</span></li>
+            <li class="feat-item"><span class="feat-num">03</span> <span id="feat2List3"><b>Clean timeline bin:</b> keep your NLE project files lightweight and uncluttered.</span></li>
+          </ul>
+        </div>
+
+        <div class="feature-stage">
+          <div class="stage-mount">
+            <img src="static/main_window.png" alt="Waveform Trimming Screenshot" class="stage-img" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pillar 03: Tagging & Conversion -->
+    <section class="feature-section" id="converter">
+      <div class="wide feature-in">
+        <div class="feature-copy">
+          <p class="pk"><span class="pn">03</span> <span id="feat3Pillar">Pillar / Built-in Converter & Sync</span></p>
+          <h3 class="feature-head" id="feat3Head">Auto folder sync and one-click audio format conversion.</h3>
+          <p class="feature-desc" id="feat3Desc">
+            Point the app to your downloads folder or audio library. When you download a new sound pack, hit refresh and it is instantly indexed. Got an incompatible <code>.flac</code> or <code>.ogg</code>? Convert it to clean <code>.wav</code> inside the app with one click before dragging it into your NLE.
+          </p>
+          <ul class="feat-list">
+            <li class="feat-item"><span class="feat-num">01</span> <span id="feat3List1"><b>Auto folder sync:</b> auto-detects new additions, edits, and deletions on disk.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported natively.</span></li>
+            <li class="feat-item"><span class="feat-num">03</span> <span id="feat3List3"><b>Multiple libraries:</b> keep YouTube sound assets separate from commercial client libraries.</span></li>
+          </ul>
+        </div>
+
+        <div class="feature-stage">
+          <div class="stage-mount">
+            <img src="static/audio_converter.png" alt="Audio Converter Screenshot" class="stage-img" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pull Quote -->
+    <section class="pull">
+      <div class="wide">
+        <blockquote class="pull-quote" id="pullQuote">
+          We spent years digging through messy 5GB sound packs. <em>Then we built the tool we actually wanted underneath.</em>
+        </blockquote>
+        <cite class="pull-cite" id="pullCite">Why I built MySoundLib</cite>
+      </div>
+    </section>
+
+    <!-- Compatibility Section -->
+    <section class="compat-section" id="compatibility">
+      <div class="wide">
+        <p class="rk" id="compatKicker">Compatibility</p>
+        <h2 class="feature-head" id="compatTitle">Works with whatever you already use to edit</h2>
+        <p class="compat-desc" id="compatDesc">
+          MySoundLib does not require buggy plugins or bloated extensions. If your software supports basic drag-and-drop, it works out of the box:
+        </p>
+
+        <div class="nle-grid">
+          <span class="nle-tag">
+            <img src="static/premiere.svg" alt="" width="24" height="24" loading="lazy">
+            <span>Adobe Premiere Pro</span>
+          </span>
+          <span class="nle-tag">
+            <img src="static/davinci.svg" alt="" width="24" height="24" loading="lazy">
+            <span>DaVinci Resolve</span>
+          </span>
+          <span class="nle-tag">
+            <img src="static/capcut.svg" alt="" width="24" height="24" loading="lazy">
+            <span>CapCut Desktop</span>
+          </span>
+          <span class="nle-tag">
+            <img src="static/aftereffects.svg" alt="" width="24" height="24" loading="lazy">
+            <span>Adobe After Effects</span>
+          </span>
+          <span class="nle-tag">
+            <img src="static/finalcut.svg" alt="" width="24" height="24" loading="lazy">
+            <span>Final Cut Pro</span>
+          </span>
+          <span class="nle-tag">
+            <img src="static/reaper.svg" alt="" width="24" height="24" loading="lazy">
+            <span>Reaper</span>
+          </span>
+          <span class="nle-tag">
+            <img src="static/ableton.svg" alt="" width="24" height="24" loading="lazy">
+            <span>Ableton Live</span>
+          </span>
+          <span class="nle-tag">
+            <img src="static/flstudio.svg" alt="" width="24" height="24" loading="lazy">
+            <span>FL Studio</span>
+          </span>
+          <span class="nle-tag">
+            <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
+            <span>Vegas Pro</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Maker / About Section -->
+    <section class="makers-section" id="makers">
+      <div class="wide">
+        <div class="makers-intro">
+          <p class="rk" id="makerKicker">About the project</p>
+          <h3 id="makerHead">I edit videos and design for a living too.</h3>
+          <p id="makerP1">
+            I built MySoundLib because I needed it. I am a video editor and graphic designer. I have been through this exact folder-hunting loop thousands of times, and at some point I got tired enough to actually build the fix.
+          </p>
+          <p id="makerP2">
+            This is not a startup. There is no team behind it, no VC money, no growth roadmap. It is software made by one person who uses it daily. Updates roll out with an emphasis on rock-solid stability rather than rushed sprint deadlines. Your audio files never leave your machine. And if something breaks, I actually want to hear about it.
+          </p>
+        </div>
+
+        <div class="makers-cards">
+          <div class="maker-card">
+            <div class="maker-val">100%</div>
+            <div class="maker-title" id="mCard1Title">Local & Private</div>
+            <p class="maker-desc" id="mCard1Desc">Your audio files never get uploaded to anyone else's cloud server.</p>
+          </div>
+
+          <div class="maker-card">
+            <div class="maker-val">$19</div>
+            <div class="maker-title" id="mCard2Title">Pay Once, Keep Forever</div>
+            <p class="maker-desc" id="mCard2Desc">No subscriptions, no recurring bills, all upcoming patches included.</p>
+          </div>
+
+          <div class="maker-card">
+            <div class="maker-val">5</div>
+            <div class="maker-title" id="mCard3Title">Machines per License</div>
+            <p class="maker-desc" id="mCard3Desc">Works natively across Windows, macOS, and Linux with any NLE or DAW.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+      <div class="wide">
+        <p class="rk" id="faqKicker">FAQ</p>
+        <h2 class="feature-head" id="faqTitle">Questions & Answers</h2>
+
+        <div class="faq-columns">
+          <!-- Column 1 -->
+          <div class="faq-col">
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq1Q">Which editors and DAWs are supported?</h3>
+              <p class="faq-a" id="faq1A">Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton, and FL Studio. If your software supports drag-and-drop from your desktop, it works natively.</p>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq2Q">Does dragging snippets modify my original audio files?</h3>
+              <p class="faq-a" id="faq2A">No. Waveform trimming is 100% non-destructive. It generates a temporary audio clip for your timeline while leaving your source files intact.</p>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq3Q">Is the $19 purchase a lifetime license or subscription?</h3>
+              <p class="faq-a" id="faq3A">One-time payment. You pay $19 once and own MySoundLib forever, including all upcoming v1 updates. No subscriptions or recurring fees.</p>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq4Q">How does the global search shortcut work?</h3>
+              <p class="faq-a" id="faq4A">Press Alt + Shift + F (or Cmd + Shift + F on macOS) over your editor. A fast search bar appears, you preview audio with spacebar, drag the clip into your timeline, and keep editing.</p>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="faq-col">
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq5Q">Are my sound files uploaded to the cloud or analyzed?</h3>
+              <p class="faq-a" id="faq5A">Never. MySoundLib runs 100% locally on your computer. Your audio libraries, folder paths, and project files never leave your disk.</p>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq6Q">Which audio formats does it read and convert?</h3>
+              <p class="faq-a" id="faq6A">WAV, MP3, FLAC, OGG, OPUS, AIFF, and M4A/AAC. It also includes an instant one-click batch converter to clean WAV.</p>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq7Q">Can I organize sounds into separate libraries?</h3>
+              <p class="faq-a" id="faq7A">Yes. You can create distinct libraries for YouTube SFX, commercial client projects, or music packs, indexing thousands of files in milliseconds.</p>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq8Q">How many machines can I activate with one license?</h3>
+              <p class="faq-a" id="faq8A">Each license key can be activated on up to 5 personal machines (e.g., your desktop workstation, home setup, and laptops).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final Call to Action -->
+    <section class="final-cta" id="buy">
+      <div class="wide">
+        <h2 class="final-head" id="finalHead">Stop digging through folders. Keep editing.</h2>
+        <p class="final-sub" id="finalSub">
+          Instant download link and license key delivered via email. Runs natively on Windows, macOS, and Linux.
+        </p>
+        <button class="btn btn-solid btn-lg" id="finalCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
+          Buy MySoundLib $19
+        </button>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
-  <footer>
-    <span class="footer-copy">© 2026 MySoundLib. All rights reserved.</span>
-    <span class="footer-credit">Made by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a></span>
-    <div class="footer-status">
-      <span id="statusText">Building in progress</span>
+  <footer class="site-footer">
+    <div class="wide">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#top" class="footer-logo" aria-label="MySoundLib home">
+            <img src="static/logo.svg" alt="MySoundLib" class="footer-logo-img">
+          </a>
+          <p class="footer-tagline" id="footerTagline">Local, instant audio search and trim utility for video editors.</p>
+        </div>
+
+        <div class="footer-nav">
+          <a href="#workflow" id="footerNavWorkflow">Workflow</a>
+          <a href="#compatibility" id="footerNavCompat">Compatibility</a>
+          <a href="#faq" id="footerNavFaq">FAQ</a>
+          <a href="tech.html" id="footerTechLink">Under the Hood</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span id="footerCopy">&copy; 2026 MySoundLib. All rights reserved.</span>
+        <span class="footer-author" id="footerAuthor">
+          Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>
+        </span>
+      </div>
     </div>
   </footer>
 
+  <!-- Bilingual Dictionary & Logic -->
   <script>
     const copy = {
       en: {
-        label:      'In development',
-        headline:   'Coming soon.',
-        bodyText:   'MySoundLib is almost ready. A fast, local sound library built for video editors: find, crop, and drag sounds in seconds.',
-        notifyBtn:  'Get notified',
-        ctaNote:    'No spam. Unsubscribe anytime.',
-        statusText: 'In development',
+        navWorkflow:      'Workflow',
+        navFeatures:      'Features',
+        navCompat:        'Compatibility',
+        navMaker:         'About',
+        navFaq:           'FAQ',
+        navCta:           'Buy MySoundLib',
+
+        heroHead:         'Your OS file search is terrible for audio. <em>MySoundLib fixes that.</em>',
+        heroSub:          'A lightweight, local desktop app to organize gigabytes of SFX and music, preview and trim waveforms instantly, and drop audio straight into your timeline in <b>2 seconds flat</b>.',
+        heroCta:          'Buy MySoundLib $19',
+        heroSecBtn:       'Explore workflow',
+
+        contentsLbl:      'The toolkit / instant desktop workflow',
+        strip1:           'Workflow',
+        strip2:           'Global Overlay',
+        strip3:           'Waveform & Trim',
+        strip4:           'Converter',
+        strip5:           'About',
+
+        caseKicker:       'How it works',
+        caseLead:         'Finding audio in video editors is usually five slow steps: open nested folders, wait for a media player, scrub the file, clutter the project bin. MySoundLib turns that into <em>one direct shortcut.</em>',
+        caseCol1Title:    'One global shortcut',
+        caseCol1Body:     'Hit Alt + Shift + F anywhere on your system. A fast search bar pops up right over Premiere, DaVinci, or CapCut without switching windows.',
+        caseCol2Title:    'Instant trim and drag',
+        caseCol2Body:     'Hit spacebar to hear the waveform. Select only the transient or tail you need and drag that exact snippet straight into your timeline.',
+        caseCol3Title:    'Why that matters',
+        caseCol3Body:     'You stay in your creative flow. No raw 12-second files cluttering your bin, no waiting on media players, no wasted editing minutes.',
+
+        painKicker:       'Why I built this',
+        painTitle:        'The tedious loop every video editor gets stuck in',
+        painIntro:        'How 5 minutes gets wasted on a single sound effect:',
+        pain1:            'You download another 5GB sound pack that claims to be "super organized."',
+        pain2:            'You open the folder and find <code>whoosh_sub_final_v2.wav</code> buried under six subfolders.',
+        pain3:            'You double-click it, waiting for your default media player to slowly boot up.',
+        pain4:            'The sound is 12 seconds long, but you only need the tiny transient at the tail end.',
+        pain5:            'You drag the entire raw file into your project bin, clutter your timeline, slice it down, and repeat 80 times per edit.',
+        pain6:            'Eventually, you give up and just use the same 4 sounds sitting on your desktop.',
+
+        feat1Pillar:      'Global Overlay',
+        feat1Head:        'Search sounds over your timeline.',
+        feat1Desc:        'Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. Search, preview on spacebar, and drop audio straight into your track without leaving your editor.',
+        feat1List1:       '<b>Global hotkey:</b> pops up instantly over any NLE.',
+        feat1List2:       '<b>Instant search:</b> indexes 100k+ local files with zero lag.',
+        feat1List3:       '<b>Quick filters:</b> filter by format, channels, or custom tags.',
+
+        feat2Pillar:      'Pillar / Precision Trimming',
+        feat2Head:        'Preview on spacebar, drag only the section you need.',
+        feat2Desc:        'Hit spacebar for instantaneous waveform playback. Drag your cursor across the waveform to select just the transient, riser impact, or tail, and drop only that selected clip straight into your timeline.',
+        feat2List1:       '<b>In-app trimming:</b> stop slicing 12-second raw audio files on your video timeline.',
+        feat2List2:       '<b>Pitch & speed controls:</b> adjust playback pitch on the fly before exporting.',
+        feat2List3:       '<b>Clean timeline bin:</b> keep your NLE project files lightweight and uncluttered.',
+
+        feat3Pillar:      'Pillar / Built-in Converter & Sync',
+        feat3Head:        'Auto folder sync and one-click audio format conversion.',
+        feat3Desc:        'Point the app to your downloads folder or audio library. When you download a new sound pack, hit refresh and it is instantly indexed. Got an incompatible <code>.flac</code> or <code>.ogg</code>? Convert it to clean <code>.wav</code> inside the app with one click before dragging it into your NLE.',
+        feat3List1:       '<b>Auto folder sync:</b> auto-detects new additions, edits, and deletions on disk.',
+        feat3List2:       '<b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported natively.',
+        feat3List3:       '<b>Multiple libraries:</b> keep YouTube sound assets separate from commercial client libraries.',
+
+        pullQuote:        'We spent years digging through messy 5GB sound packs. <em>Then we built the tool we actually wanted underneath.</em>',
+        pullCite:         'Why I built MySoundLib',
+
+        compatKicker:     'Compatibility',
+        compatTitle:      'Works with whatever you already use to edit',
+        compatDesc:       'MySoundLib does not require buggy plugins or bloated extensions. If your software supports basic drag-and-drop, it works out of the box:',
+
+        makerKicker:      'About the project',
+        makerHead:        'I edit videos and design for a living too.',
+        makerP1:          'I built MySoundLib because I needed it. I am a video editor and graphic designer. I have been through this exact folder-hunting loop thousands of times, and at some point I got tired enough to actually build the fix.',
+        makerP2:          'This is not a startup. There is no team behind it, no VC money, no growth roadmap. It is software made by one person who uses it daily. Updates roll out with an emphasis on rock-solid stability rather than rushed sprint deadlines. Your audio files never leave your machine. And if something breaks, I actually want to hear about it.',
+        mCard1Title:      'Local & Private',
+        mCard1Desc:       'Your audio files never get uploaded to anyone else\'s cloud server.',
+        mCard2Title:      'Pay Once, Keep Forever',
+        mCard2Desc:       'No subscriptions, no recurring bills, all upcoming patches included.',
+        mCard3Title:      'Machines per License',
+        mCard3Desc:       'Works natively across Windows, macOS, and Linux with any NLE or DAW.',
+
+        faqKicker:        'FAQ',
+        faqTitle:         'Questions & Answers',
+        faq1Q:            'Which editors and DAWs are supported?',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton, and FL Studio. If your software supports drag-and-drop from your desktop, it works natively.',
+        faq2Q:            'Does dragging snippets modify my original audio files?',
+        faq2A:            'No. Waveform trimming is 100% non-destructive. It generates a temporary audio clip for your timeline while leaving your source files intact.',
+        faq3Q:            'Is the $19 purchase a lifetime license or subscription?',
+        faq3A:            'One-time payment. You pay $19 once and own MySoundLib forever, including all upcoming v1 updates. No subscriptions or recurring fees.',
+        faq4Q:            'How does the global search shortcut work?',
+        faq4A:            'Press Alt + Shift + F (or Cmd + Shift + F on macOS) over your editor. A fast search bar appears, you preview audio with spacebar, drag the clip into your timeline, and keep editing.',
+        faq5Q:            'Are my sound files uploaded to the cloud or analyzed?',
+        faq5A:            'Never. MySoundLib runs 100% locally on your computer. Your audio libraries, folder paths, and project files never leave your disk.',
+        faq6Q:            'Which audio formats does it read and convert?',
+        faq6A:            'WAV, MP3, FLAC, OGG, OPUS, AIFF, and M4A/AAC. It also includes an instant one-click batch converter to clean WAV.',
+        faq7Q:            'Can I organize sounds into separate libraries?',
+        faq7A:            'Yes. You can create distinct libraries for YouTube SFX, commercial client projects, or music packs, indexing thousands of files in milliseconds.',
+        faq8Q:            'How many machines can I activate with one license?',
+        faq8A:            'Each license key can be activated on up to 5 personal machines (e.g., your desktop workstation, home setup, and laptops).',
+
+        finalHead:        'Stop digging through folders. Keep editing.',
+        finalSub:         'Instant download link and license key delivered via email. Runs natively on Windows, macOS, and Linux.',
+        finalCta:         'Buy MySoundLib $19',
+
+        footerTagline:    'Local, instant audio search and trim utility for video editors.',
+        footerNavWorkflow:'Workflow',
+        footerNavCompat:  'Compatibility',
+        footerNavFaq:     'FAQ',
+        footerTechLink:   'Under the Hood',
+        footerCopy:       '&copy; 2026 MySoundLib. All rights reserved.',
+        footerAuthor:     'Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>',
       },
       pt: {
-        label:      'Em desenvolvimento',
-        headline:   'Em breve.',
-        bodyText:   'O MySoundLib está quase pronto. Uma biblioteca de áudio local e veloz feita para editores de vídeo: encontre, recorte e arraste sons em segundos.',
-        notifyBtn:  'Me avise',
-        ctaNote:    'Sem spam. Cancele quando quiser.',
-        statusText: 'Em construção',
+        navWorkflow:      'Fluxo',
+        navFeatures:      'Recursos',
+        navCompat:        'Compatibilidade',
+        navMaker:         'Sobre',
+        navFaq:           'Dúvidas',
+        navCta:           'Comprar MySoundLib',
+
+        heroHead:         'A busca de arquivos do seu sistema é péssima para áudio. <em>O MySoundLib resolve isso.</em>',
+        heroSub:          'Um app desktop leve e local para organizar gigabytes de SFX e músicas, pré-visualizar e recortar waveforms instantaneamente, e soltar o áudio direto na sua timeline em <b>2 segundos</b>.',
+        heroCta:          'Comprar MySoundLib $19',
+        heroSecBtn:       'Conhecer fluxo',
+
+        contentsLbl:      'O kit de ferramentas / fluxo desktop instantâneo',
+        strip1:           'Fluxo',
+        strip2:           'Atalho Global',
+        strip3:           'Waveform e Corte',
+        strip4:           'Conversor',
+        strip5:           'Sobre',
+
+        caseKicker:       'Como funciona',
+        caseLead:         'Encontrar áudio em editores de vídeo costuma levar cinco passos lentos: abrir pastas aninhadas, esperar o player abrir, passar o áudio, lotar a bin do projeto. O MySoundLib transforma tudo isso em <em>um único atalho direto.</em>',
+        caseCol1Title:    'Um atalho global',
+        caseCol1Body:     'Aperte Alt + Shift + F em qualquer lugar do sistema. Uma barra de busca rápida surge direto em cima do Premiere, DaVinci ou CapCut sem trocar de janela.',
+        caseCol2Title:    'Recorte e arraste rápido',
+        caseCol2Body:     'Aperte barra de espaço para ouvir a waveform. Selecione apenas o transiente ou rabo que precisa e arraste esse trecho exato direto para a timeline.',
+        caseCol3Title:    'Por que isso importa',
+        caseCol3Body:     'Você mantém o foco criativo. Sem arquivos brutos de 12 segundos poluindo seu projeto, sem esperar players de mídia, sem tempo perdido.',
+
+        painKicker:       'Por que criei isso',
+        painTitle:        'O ciclo repetitivo que todo editor conhece',
+        painIntro:        'Como 5 minutos vão embora para achar um único efeito sonoro:',
+        pain1:            'Você baixa mais um pack de som de 5GB que promete ser "super organizado."',
+        pain2:            'Abre a pasta e encontra <code>whoosh_sub_final_v2.wav</code> enterrado em seis subpastas.',
+        pain3:            'Dá dois cliques e fica esperando o tocador de mídia padrão abrir devagar.',
+        pain4:            'O som tem 12 segundos, mas você só precisa daquele pequeno transiente no finalzinho.',
+        pain5:            'Você arrasta o arquivo bruto inteiro pro projeto, polui a timeline, corta a sobra, e repete 80 vezes por edição.',
+        pain6:            'No fim das contas, você desiste e usa sempre os mesmos 4 sons jogados na área de trabalho.',
+
+        feat1Pillar:      'Busca Rápida',
+        feat1Head:        'Busque sons direto na timeline.',
+        feat1Desc:        'Aperte <code>Alt + Shift + F</code> sobre seu editor. Busque, ouça na barra de espaço e solte o áudio na timeline sem trocar de janela.',
+        feat1List1:       '<b>Atalho global:</b> abre instantaneamente sobre qualquer editor.',
+        feat1List2:       '<b>Busca instantânea:</b> indexa milhares de arquivos locais sem lentidão.',
+        feat1List3:       '<b>Filtros rápidos:</b> filtre por formato, canais ou tags em um clique.',
+
+        feat2Pillar:      'Pilar / Corte Preciso',
+        feat2Head:        'Ouça na barra de espaço, arraste só o pedaço que precisa.',
+        feat2Desc:        'Aperte barra de espaço para reprodução imediata da waveform. Arraste o cursor para selecionar apenas o impacto, riser ou transiente, e solte somente o trecho recortado na timeline.',
+        feat2List1:       '<b>Corte no app:</b> pare de fatiar arquivos brutos longos na sua timeline de vídeo.',
+        feat2List2:       '<b>Controle de pitch e velocidade:</b> ajuste o pitch do áudio na hora antes de jogar no editor.',
+        feat2List3:       '<b>Projeto limpo:</b> mantenha as bins do seu editor leves e organizadas.',
+
+        feat3Pillar:      'Pilar / Conversor e Sincronização',
+        feat3Head:        'Sincronização de pastas e conversão de formato com um clique.',
+        feat3Desc:        'Aponte o app para a sua pasta de downloads ou biblioteca de sons. Quando baixar um pack novo, aperte atualizar e ele já estará indexado. Tem um <code>.flac</code> ou <code>.ogg</code> incompatível? Converta para <code>.wav</code> limpo direto no app com um clique antes de arrastar para o editor.',
+        feat3List1:       '<b>Sincronização de pastas:</b> detecta adições, edições e exclusões no disco.',
+        feat3List2:       '<b>Multi-formato:</b> compatível com WAV, MP3, FLAC, OGG e M4A nativamente.',
+        feat3List3:       '<b>Múltiplas bibliotecas:</b> separe sons de YouTube dos projetos de clientes comerciais.',
+
+        pullQuote:        'Passamos anos caçando arquivos em packs pesados de 5GB. <em>Aí construímos a ferramenta que realmente queríamos por baixo.</em>',
+        pullCite:         'Por que criei o MySoundLib',
+
+        compatKicker:     'Compatibilidade',
+        compatTitle:      'Funciona com o editor que você já usa',
+        compatDesc:       'O MySoundLib não exige plugins instáveis nem extensões pesadas. Se o seu programa aceita arrastar e soltar arquivos, funciona direto da caixa:',
+
+        makerKicker:      'Sobre o projeto',
+        makerHead:        'Eu edito vídeos e crio design para viver também.',
+        makerP1:          'Eu construí o MySoundLib porque eu precisava dele. Sou editor de vídeo e designer gráfico. Já passei por esse ciclo de caçar pasta exatamente assim, milhares de vezes, e em algum momento eu enjoei o suficiente para realmente construir a solução.',
+        makerP2:          'Isso não é uma startup. Não tem equipe por trás, não tem dinheiro de investidor, não tem roadmap de crescimento. É um software feito por uma pessoa que usa ele todo dia. As atualizações saem quando estão estáveis, não quando um prazo de sprint manda. Seus arquivos nunca saem da sua máquina. E se algo quebrar, eu genuinamente quero saber.',
+        mCard1Title:      'Local e Privado',
+        mCard1Desc:       'Seus arquivos de áudio nunca vão para servidores na nuvem de terceiros.',
+        mCard2Title:      'Pague Uma Vez, Use Sempre',
+        mCard2Desc:       'Sem assinaturas, sem mensalidades recorrentes, com atualizações inclusas.',
+        mCard3Title:      'Máquinas por Licença',
+        mCard3Desc:       'Roda nativamente no Windows, macOS e Linux com qualquer NLE ou DAW.',
+
+        faqKicker:        'FAQ',
+        faqTitle:         'Perguntas Frequentes',
+        faq1Q:            'Com quais editores e DAWs ele funciona?',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton e FL Studio. Qualquer programa que aceite arrastar arquivos da área de trabalho funciona direto.',
+        faq2Q:            'Recortar trechos altera ou sobrescreve meus arquivos originais?',
+        faq2A:            'Não. O corte na waveform é 100% não destrutivo. Ele gera um clip temporário para a sua timeline mantendo os masters originais intactos no disco.',
+        faq3Q:            'Os $19 são pagamento único ou assinatura?',
+        faq3A:            'Pagamento único. Você paga $19 uma única vez e o MySoundLib é seu para sempre, incluindo todas as atualizações da versão 1. Sem mensalidades.',
+        faq4Q:            'Como funciona o atalho global durante a edição?',
+        faq4A:            'Aperte Alt + Shift + F (ou Cmd + Shift + F no Mac) sobre o editor. A busca surge na tela, você ouve na barra de espaço, arrasta para a timeline e continua trabalhando.',
+        faq5Q:            'Meus áudios vão para a nuvem ou são analisados online?',
+        faq5A:            'Nunca. O MySoundLib roda 100% localmente no seu computador. Suas bibliotecas, pastas e arquivos de áudio nunca saem do seu disco.',
+        faq6Q:            'Quais formatos de áudio são suportados?',
+        faq6A:            'WAV, MP3, FLAC, OGG, OPUS, AIFF e M4A/AAC. O app também possui conversor integrado de um clique para gerar WAVs limpos.',
+        faq7Q:            'Consigo separar sons em bibliotecas diferentes?',
+        faq7A:            'Sim. Você pode criar bibliotecas separadas para efeitos de YouTube, projetos comerciais ou trilhas musicais, indexando milhares de arquivos instantaneamente.',
+        faq8Q:            'Em quantas máquinas posso ativar a minha licença?',
+        faq8A:            'Cada chave de licença pode ser ativada em até 5 máquinas pessoais (por exemplo, seu desktop de edição, computador de casa e notebooks).',
+
+        finalHead:        'Chega de procurar em pastas. Foque em editar.',
+        finalSub:         'Link de download instantâneo e chave de licença enviados por e-mail. Roda nativamente no Windows, macOS e Linux.',
+        finalCta:         'Comprar MySoundLib $19',
+
+        footerTagline:    'Utilitário local e instantâneo de busca e corte de áudio para editores.',
+        footerNavWorkflow:'Fluxo',
+        footerNavCompat:  'Compatibilidade',
+        footerNavFaq:     'Dúvidas',
+        footerTechLink:   'Arquitetura e Segurança',
+        footerCopy:       '&copy; 2026 MySoundLib. Todos os direitos reservados.',
+        footerAuthor:     'Criado por <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>',
       }
     };
 
     function setLang(lang) {
       const c = copy[lang];
-      document.getElementById('label').textContent      = c.label;
-      document.getElementById('headline').textContent   = c.headline;
-      document.getElementById('bodyText').textContent   = c.bodyText;
-      document.getElementById('notifyBtn').textContent  = c.notifyBtn;
-      document.getElementById('ctaNote').textContent    = c.ctaNote;
-      document.getElementById('statusText').textContent = c.statusText;
+      if (!c) return;
+
+      Object.keys(c).forEach(key => {
+        const el = document.getElementById(key);
+        if (!el) return;
+
+        if (c[key].includes('<') || c[key].includes('&') || c[key].includes('\n')) {
+          el.innerHTML = c[key].replace(/\n/g, '<br>');
+        } else {
+          el.textContent = c[key];
+        }
+      });
+
       document.getElementById('btnEN').classList.toggle('active', lang === 'en');
       document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
       document.documentElement.lang = lang;
-    }
-  </script>
 
+      try { localStorage.setItem('msl_lang', lang); } catch(e) {}
+    }
+
+    (function() {
+      let saved = null;
+      try { saved = localStorage.getItem('msl_lang'); } catch(e) {}
+      if (saved === 'pt' || saved === 'en') { setLang(saved); return; }
+      setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+    })();
+  </script>
 </body>
 </html>
