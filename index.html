@@ -693,13 +693,24 @@
 
     /* ── The Maker / About Section ───────────── */
     .makers-section {
-      padding: 88px 0;
+      padding: 96px 0;
       border-bottom: 1px solid var(--border);
     }
 
+    .makers-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .makers-copy {
+      display: flex;
+      flex-direction: column;
+    }
+
     .makers-intro {
-      max-width: 780px;
-      margin-bottom: 48px;
+      margin-bottom: 36px;
     }
 
     .makers-intro h3 {
@@ -720,36 +731,69 @@
     .makers-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 16px;
     }
 
     .maker-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px;
+      border-radius: 8px;
+      padding: 20px 18px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
     }
 
     .maker-val {
-      font-size: 32px;
+      font-size: 26px;
       font-weight: 800;
       color: var(--green);
       line-height: 1;
     }
 
     .maker-title {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--text);
     }
 
     .maker-desc {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.5;
+    }
+
+    .makers-media {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .makers-art {
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7);
+    }
+
+    @media (max-width: 900px) {
+      .makers-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .makers-cards {
+        grid-template-columns: 1fr;
+      }
+      .makers-art {
+        max-width: 100%;
+      }
     }
 
     /* ── FAQ Section ─────────────────────────── */
@@ -1244,34 +1288,42 @@
     <!-- The Maker / About Section -->
     <section class="makers-section" id="makers">
       <div class="wide">
-        <div class="makers-intro">
-          <p class="rk" id="makerKicker">About the project</p>
-          <h3 id="makerHead">I edit videos and design for a living too.</h3>
-          <p id="makerP1">
-            I built MySoundLib because I needed it. I am a video editor and graphic designer. I have been through this exact folder-hunting loop thousands of times, and at some point I got tired enough to actually build the fix.
-          </p>
-          <p id="makerP2">
-            This is not a startup. There is no team behind it, no VC money, no growth roadmap. It is software made by one person who uses it daily. Updates roll out with an emphasis on rock-solid stability rather than rushed sprint deadlines. Your audio files never leave your machine. And if something breaks, I actually want to hear about it.
-          </p>
-        </div>
+        <div class="makers-layout">
+          <div class="makers-copy">
+            <div class="makers-intro">
+              <p class="rk" id="makerKicker">About the project</p>
+              <h3 id="makerHead">I edit videos and design for a living too.</h3>
+              <p id="makerP1">
+                I built MySoundLib because I needed it. I am a video editor and graphic designer. I have been through this exact folder-hunting loop thousands of times, and at some point I got tired enough to actually build the fix.
+              </p>
+              <p id="makerP2">
+                This is not a startup. There is no team behind it, no VC money, no growth roadmap. It is software made by one person who uses it daily. Updates roll out with an emphasis on rock-solid stability rather than rushed sprint deadlines. Your audio files never leave your machine. And if something breaks, I actually want to hear about it.
+              </p>
+            </div>
 
-        <div class="makers-cards">
-          <div class="maker-card">
-            <div class="maker-val">100%</div>
-            <div class="maker-title" id="mCard1Title">Local & Private</div>
-            <p class="maker-desc" id="mCard1Desc">Your audio files never get uploaded to anyone else's cloud server.</p>
+            <div class="makers-cards">
+              <div class="maker-card">
+                <div class="maker-val">100%</div>
+                <div class="maker-title" id="mCard1Title">Local & Private</div>
+                <p class="maker-desc" id="mCard1Desc">Your audio files never get uploaded to anyone else's cloud server.</p>
+              </div>
+
+              <div class="maker-card">
+                <div class="maker-val">$19</div>
+                <div class="maker-title" id="mCard2Title">Pay Once, Keep Forever</div>
+                <p class="maker-desc" id="mCard2Desc">No subscriptions, no recurring bills, all upcoming patches included.</p>
+              </div>
+
+              <div class="maker-card">
+                <div class="maker-val">5</div>
+                <div class="maker-title" id="mCard3Title">Machines per License</div>
+                <p class="maker-desc" id="mCard3Desc">Works natively across Windows, macOS, and Linux with any NLE or DAW.</p>
+              </div>
+            </div>
           </div>
 
-          <div class="maker-card">
-            <div class="maker-val">$19</div>
-            <div class="maker-title" id="mCard2Title">Pay Once, Keep Forever</div>
-            <p class="maker-desc" id="mCard2Desc">No subscriptions, no recurring bills, all upcoming patches included.</p>
-          </div>
-
-          <div class="maker-card">
-            <div class="maker-val">5</div>
-            <div class="maker-title" id="mCard3Title">Machines per License</div>
-            <p class="maker-desc" id="mCard3Desc">Works natively across Windows, macOS, and Linux with any NLE or DAW.</p>
+          <div class="makers-media">
+            <img src="static/splash_art.png" alt="MySoundLib Splash Art" class="makers-art" loading="lazy">
           </div>
         </div>
       </div>
