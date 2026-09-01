@@ -1941,9 +1941,11 @@
       }
 
       const isMobile = window.innerWidth < 768;
-      document.querySelectorAll('.hero-bg-anim').forEach((c) => {
-        setupField(c, isMobile ? 20 : 42);
-      });
+      const heroContainer = document.getElementById('heroBgAnim');
+      const pullContainer = document.getElementById('pullBgAnim');
+
+      if (heroContainer) setupField(heroContainer, isMobile ? 20 : 42);
+      if (pullContainer) setupField(pullContainer, isMobile ? 13 : 27); // -35% density for pull quote section
     })();
   </script>
 </body>
