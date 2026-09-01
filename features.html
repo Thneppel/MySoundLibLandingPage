@@ -938,9 +938,7 @@
       let lastTime = performance.now();
 
       class FloatingAudioItem {
-        constructor(index) {
-          this.index = index;
-          this.isLeft = (index % 2 === 0);
+        constructor() {
           this.el = document.createElement('div');
           this.el.className = 'floating-audio-file';
           container.appendChild(this.el);
@@ -954,25 +952,16 @@
 
           this.el.innerHTML = `${iconSvg}<span class="floating-audio-name">${name}</span><span class="floating-audio-ext">${ext}</span>`;
 
-          const w = container.offsetWidth || container.clientWidth || window.innerWidth;
-          const h = container.scrollHeight || container.clientHeight || 2600;
+          const rect = container.getBoundingClientRect();
+          const w = rect.width || window.innerWidth;
+          const h = container.scrollHeight || rect.height || 2600;
 
-          // Strict 50% Left / 50% Right distribution
-          let minX, maxX;
-          if (this.isLeft) {
-            minX = 15;
-            maxX = Math.max(w * 0.48 - 60, 60);
-          } else {
-            minX = Math.min(w * 0.52, w - 200);
-            maxX = Math.max(w - 180, minX + 40);
-          }
-
-          let bestX = minX + Math.random() * Math.max(maxX - minX, 20);
+          let bestX = 15 + Math.random() * Math.max(w - 240, 60);
           let bestY = 15 + Math.random() * Math.max(h - 60, 50);
           let maxMinDist = 0;
 
           for (let attempt = 0; attempt < 8; attempt++) {
-            const candX = minX + Math.random() * Math.max(maxX - minX, 20);
+            const candX = 15 + Math.random() * Math.max(w - 240, 60);
             const candY = 15 + Math.random() * Math.max(h - 60, 50);
 
             let minDistToOthers = Infinity;
@@ -991,7 +980,7 @@
               bestX = candX;
               bestY = candY;
             }
-            if (minDistToOthers > 60) break;
+            if (minDistToOthers > 85) break;
           }
 
           this.x = bestX;
@@ -1001,8 +990,8 @@
           this.vy = (Math.random() - 0.5) * 0.10;
 
           this.opacity = 0;
-          this.maxOpacity = 0.30 + Math.random() * 0.36;
-          this.scale = 0.58 + Math.random() * 0.67;
+          this.maxOpacity = 0.28 + Math.random() * 0.34;
+          this.scale = 0.55 + Math.random() * 0.70;
 
           this.duration = 14000 + Math.random() * 12000;
           this.elapsed = initial ? Math.random() * this.duration : 0;
@@ -1033,17 +1022,18 @@
           this.y = this.initialY + (this.vy * (this.elapsed / 16.6));
           this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
 
-          const w = container.offsetWidth || container.clientWidth || window.innerWidth;
+          const rect = container.getBoundingClientRect();
+          const w = rect.width || window.innerWidth;
           const centerX = w / 2;
           const itemCenterX = this.x + 85;
           const distFromCenter = Math.abs(itemCenterX - centerX);
           const centerProximity = Math.max(0, 1 - (distFromCenter / (w * 0.48)));
 
-          const depthBlur = Math.max(0, (1.15 - this.scale) * 1.5);
-          const centerBlur = Math.pow(centerProximity, 1.6) * 4.5;
+          const depthBlur = Math.max(0, (1.15 - this.scale) * 1.6);
+          const centerBlur = Math.pow(centerProximity, 1.4) * 6.5;
           const totalBlur = (depthBlur + centerBlur).toFixed(1);
 
-          const centerDim = 1 - (centerProximity * 0.20);
+          const centerDim = 1 - (centerProximity * 0.35);
           const currentOpacity = (this.opacity * centerDim).toFixed(3);
 
           this.el.style.opacity = currentOpacity;
@@ -1053,7 +1043,7 @@
       }
 
       for (let i = 0; i < MAX_ITEMS; i++) {
-        items.push(new FloatingAudioItem(i));
+        items.push(new FloatingAudioItem());
       }
 
       if ('IntersectionObserver' in window) {
