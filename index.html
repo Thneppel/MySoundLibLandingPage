@@ -1640,7 +1640,13 @@
         'water_splash_underwater', 'reverse_cymbal_crash', 'engine_rev_v8',
         'cinematic_sub_drop_04', 'tape_rewind_fast', 'ui_notification_chime',
         'riser_noise_sweep_120bpm', 'hit_metal_anvil_reverb', 'whoosh_air_whip',
-        'foley_cloth_rustle_02', 'glitch_data_burst_short'
+        'foley_cloth_rustle_02', 'glitch_data_burst_short', 'explosion_distant_rumble',
+        'camera_focus_motor', 'whoosh_fire_torch', 'paper_turn_page_01',
+        'clock_ticking_tension', 'metal_door_slam_hallway', 'thunder_strike_close',
+        'drone_dark_sub_rumble', 'heartbeat_slow_pulse', 'cinematic_downer_impact',
+        'magic_sparkle_wand', 'retro_coin_pickup_arcade', 'siren_distant_city',
+        'glass_shatter_debris', 'wooden_creak_old_floor', 'analog_synth_lead_c3',
+        'cinematic_brass_stabs', 'heavy_drop_transient_09', 'ui_toggle_switch_click'
       ];
 
       const extensions = ['.wav', '.mp3', '.flac', '.ogg', '.aiff', '.opus', '.m4a'];
@@ -1648,7 +1654,7 @@
       const iconSvg = `<svg class="floating-audio-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 3v18M8 8v8M4 11v2M16 6v12M20 10v4"/></svg>`;
 
       const isMobile = window.innerWidth < 768;
-      const MAX_ITEMS = isMobile ? 14 : 28;
+      const MAX_ITEMS = isMobile ? 30 : 65;
       const items = [];
       let isVisible = true;
       let lastTime = performance.now();
