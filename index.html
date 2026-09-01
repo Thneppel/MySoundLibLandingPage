@@ -224,7 +224,7 @@
       white-space: nowrap;
       user-select: none;
       pointer-events: none;
-      will-change: transform, opacity;
+      will-change: transform, opacity, filter;
       transform: translate3d(0, 0, 0);
     }
 
@@ -1671,20 +1671,8 @@
           const w = rect.width || window.innerWidth;
           const h = rect.height || 700;
 
-          // 75% lateral bias (left and right flanks of the hero)
-          const zoneRand = Math.random();
-          if (zoneRand < 0.40) {
-            // Left flank: 10px to 30% of width
-            this.x = 10 + Math.random() * Math.max(w * 0.28, 50);
-          } else if (zoneRand < 0.80) {
-            // Right flank: 70% of width to (w - 200px)
-            const rightStart = w * 0.70;
-            this.x = rightStart + Math.random() * Math.max((w - rightStart) - 180, 20);
-          } else {
-            // Central ambient spread
-            this.x = Math.random() * Math.max(w - 220, 50);
-          }
-
+          // Natural spread across the hero area where the user is looking
+          this.x = 15 + Math.random() * Math.max(w - 230, 60);
           this.y = initial ? Math.random() * h : (Math.random() > 0.5 ? h + 20 : -30);
 
           // Subtle slow drift velocities
@@ -1692,12 +1680,14 @@
           this.vy = -0.06 - Math.random() * 0.12; // slow and gentle upward float
 
           this.opacity = 0;
-          this.maxOpacity = 0.28 + Math.random() * 0.35; // 0.28 - 0.63
-          this.scale = 0.85 + Math.random() * 0.25;
+          this.maxOpacity = 0.30 + Math.random() * 0.38; // 0.30 - 0.68
+
+          // Distinct size / depth variations (distant to close)
+          this.scale = 0.70 + Math.random() * 0.48; // 0.70x to 1.18x
 
           this.duration = 16000 + Math.random() * 14000; // 16s to 30s life
           this.elapsed = initial ? Math.random() * this.duration : 0;
-          this.swaySpeed = 0.0003 + Math.random() * 0.0005; // very gentle sway
+          this.swaySpeed = 0.0003 + Math.random() * 0.0005; // gentle wave sway
           this.swayAmount = 10 + Math.random() * 18;
           this.initialX = this.x;
         }
@@ -1724,7 +1714,26 @@
           this.y += this.vy * (dt / 16.6);
           this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
 
-          this.el.style.opacity = this.opacity.toFixed(3);
+          // Dynamic Depth & Center Blur:
+          // Items near the center get blurred more heavily so they don't fight with text;
+          // Items near the sides are sharp, readable, and distinct.
+          const rect = container.getBoundingClientRect();
+          const w = rect.width || window.innerWidth;
+          const centerX = w / 2;
+          const itemCenterX = this.x + 85;
+          const distFromCenter = Math.abs(itemCenterX - centerX);
+          const centerProximity = Math.max(0, 1 - (distFromCenter / (w * 0.48)));
+
+          // Depth blur for smaller background particles + dynamic center proximity blur
+          const depthBlur = Math.max(0, (1.1 - this.scale) * 1.5);
+          const centerBlur = Math.pow(centerProximity, 1.4) * 6.0;
+          const totalBlur = (depthBlur + centerBlur).toFixed(1);
+
+          const centerDim = 1 - (centerProximity * 0.35);
+          const currentOpacity = (this.opacity * centerDim).toFixed(3);
+
+          this.el.style.opacity = currentOpacity;
+          this.el.style.filter = totalBlur > 0.3 ? `blur(${totalBlur}px)` : 'none';
           this.el.style.transform = `translate3d(${this.x.toFixed(1)}px, ${this.y.toFixed(1)}px, 0) scale(${this.scale.toFixed(2)})`;
         }
       }
