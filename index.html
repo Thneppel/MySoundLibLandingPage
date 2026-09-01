@@ -1671,13 +1671,13 @@
           const w = rect.width || window.innerWidth;
           const h = rect.height || 700;
 
-          // Natural spread across the hero area where the user is looking
+          // Always distribute across the entire visible hero height and width
           this.x = 15 + Math.random() * Math.max(w - 230, 60);
-          this.y = initial ? Math.random() * h : (Math.random() > 0.5 ? h + 20 : -30);
+          this.y = Math.random() * Math.max(h - 50, 50);
 
-          // Subtle slow drift velocities
+          // Subtle organic drift velocities in both dimensions
           this.vx = (Math.random() - 0.5) * 0.08;
-          this.vy = -0.06 - Math.random() * 0.12; // slow and gentle upward float
+          this.vy = (Math.random() - 0.5) * 0.10; // gentle multidirectional drift
 
           this.opacity = 0;
           this.maxOpacity = 0.30 + Math.random() * 0.38; // 0.30 - 0.68
@@ -1685,11 +1685,12 @@
           // Distinct size / depth variations (distant to close)
           this.scale = 0.70 + Math.random() * 0.48; // 0.70x to 1.18x
 
-          this.duration = 16000 + Math.random() * 14000; // 16s to 30s life
+          this.duration = 14000 + Math.random() * 12000; // 14s to 26s life
           this.elapsed = initial ? Math.random() * this.duration : 0;
           this.swaySpeed = 0.0003 + Math.random() * 0.0005; // gentle wave sway
           this.swayAmount = 10 + Math.random() * 18;
           this.initialX = this.x;
+          this.initialY = this.y;
         }
 
         update(dt) {
@@ -1711,7 +1712,7 @@
             this.opacity = this.maxOpacity;
           }
 
-          this.y += this.vy * (dt / 16.6);
+          this.y = this.initialY + (this.vy * (this.elapsed / 16.6));
           this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
 
           // Dynamic Depth & Center Blur:
