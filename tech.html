@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Note: Architecture & Dependencies — MySoundLib</title>
+  <meta name="description" content="Technical specification, runtime dependencies, local storage model, and network policies of MySoundLib.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #1C1C1C;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --green: #1dcd9f;
+      --text: #ffffff;
+      --text-muted: #9e9e9e;
+      --text-dim: #666666;
+      --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--green);
+    }
+
+    .article-container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ── Top Bar ─────────────────────────────── */
+    .article-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 32px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-link:hover {
+      color: var(--green);
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* ── Article Content ─────────────────────── */
+    .meta-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 40px 0 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2::before {
+      content: '//';
+      color: var(--green);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    p b, li b {
+      color: var(--text);
+    }
+
+    /* ── Raw Spec Table ──────────────────────── */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+      font-size: 13px;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .spec-table th {
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spec-table td:first-child {
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .spec-table td:last-child {
+      color: var(--text-muted);
+    }
+
+    code {
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--green);
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+
+    ul {
+      list-style: none;
+      margin: 16px 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    li {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-dim);
+    }
+
+    /* ── Article Footer ──────────────────────── */
+    .article-footer {
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .article-footer a {
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="article-container">
+    
+    <!-- Top Bar -->
+    <header class="article-topbar">
+      <a href="index.html" class="back-link" id="navBack">&larr; MySoundLib</a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="meta-tag" id="metaTag">Technical Note &bull; Specification</div>
+      <h1 id="artTitle">Architecture & Dependency Disclosure</h1>
+      <p class="lead" id="artLead">
+        A concise technical overview of runtime components, data isolation, and network policies for users who require clarity on what runs on their machine.
+      </p>
+
+      <!-- Section 1 -->
+      <h2 id="sec1Head">Runtime Stack & Libraries</h2>
+      <p id="sec1Text">
+        MySoundLib is distributed as a self-contained desktop binary. It runs directly on the local operating system without requiring web runtimes, background servers, or containerization.
+      </p>
+
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th id="thComponent">Component</th>
+            <th id="thRole">Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PySide6 (Qt 6)</td>
+            <td id="tdQt">Native windowing, hotkey overlays, audio output subsystem, OS drag-and-drop.</td>
+          </tr>
+          <tr>
+            <td>libsndfile / soundfile</td>
+            <td id="tdSnd">Low-level C-based PCM stream decoding and waveform sample extraction.</td>
+          </tr>
+          <tr>
+            <td>NumPy</td>
+            <td id="tdNum">SIMD-vectorized waveform peak calculations and buffer downsampling.</td>
+          </tr>
+          <tr>
+            <td>pydub + tinytag</td>
+            <td id="tdTag">Audio header inspection, container metadata parsing, and format transcoding.</td>
+          </tr>
+          <tr>
+            <td>SQLite 3</td>
+            <td id="tdSql">Embedded local relational database for indexed audio cataloging.</td>
+          </tr>
+          <tr>
+            <td>sentry-sdk</td>
+            <td id="tdSen">Optional unhandled crash reporting. Strictly opt-out via app settings.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section 2 -->
+      <h2 id="sec2Head">Storage & Data Isolation</h2>
+      <ul>
+        <li id="liStorage1"><b>Index Location:</b> All database records and cache files reside strictly within standard OS user application data paths (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).</li>
+        <li id="liStorage2"><b>Non-Destructive Access:</b> User audio folders are mounted read-only during indexing. File modification, moving, or destructive renaming is never performed automatically.</li>
+        <li id="liStorage3"><b>Clip Trimming:</b> Audio snippet dragging exports a dedicated segment to a temporary cache directory; master files remain untouched.</li>
+      </ul>
+
+      <!-- Section 3 -->
+      <h2 id="sec3Head">Network Policy & Privacy</h2>
+      <ul>
+        <li id="liNet1"><b>Air-Gapped Operation:</b> Search, indexing, waveform rendering, and timeline export function fully offline with zero internet access required.</li>
+        <li id="liNet2"><b>No Content Telemetry:</b> Audio waveforms, file paths, sound library names, and project assets are never transmitted to any external server.</li>
+        <li id="liNet3"><b>Crash Reports (Optional):</b> When enabled, error reports capture only anonymized execution stack traces with <code>send_default_pii=False</code>. Telemetry can be toggled off at any time in Settings (<code>telemetry_enabled: false</code>).</li>
+      </ul>
+
+      <!-- Section 4 -->
+      <h2 id="sec4Head">Development Context</h2>
+      <p id="devText">
+        MySoundLib was created independently by <b>Thiago Neppel</b> (video editor and graphic designer) to resolve workflow bottlenecks in post-production environments. Built using modern development workflows and AI-assisted programming tools for code generation and automated testing.
+      </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="article-footer">
+      <span>&copy; 2026 MySoundLib</span>
+      <span><a href="index.html" id="footerBack">Return to main page</a></span>
+    </footer>
+
+  </div>
+
+  <!-- Bilingual Dictionary & Logic -->
+  <script>
+    const copy = {
+      en: {
+        navBack:      '&larr; MySoundLib',
+        metaTag:      'Technical Note \u2022 Specification',
+        artTitle:     'Architecture & Dependency Disclosure',
+        artLead:      'A concise technical overview of runtime components, data isolation, and network policies for users who require clarity on what runs on their machine.',
+
+        sec1Head:     'Runtime Stack & Libraries',
+        sec1Text:     'MySoundLib is distributed as a self-contained desktop binary. It runs directly on the local operating system without requiring web runtimes, background servers, or containerization.',
+
+        thComponent:  'Component',
+        thRole:       'Role',
+        tdQt:         'Native windowing, hotkey overlays, audio output subsystem, OS drag-and-drop.',
+        tdSnd:        'Low-level C-based PCM stream decoding and waveform sample extraction.',
+        tdNum:        'SIMD-vectorized waveform peak calculations and buffer downsampling.',
+        tdTag:        'Audio header inspection, container metadata parsing, and format transcoding.',
+        tdSql:        'Embedded local relational database for indexed audio cataloging.',
+        tdSen:        'Optional unhandled crash reporting. Strictly opt-out via app settings.',
+
+        sec2Head:     'Storage & Data Isolation',
+        liStorage1:   '<b>Index Location:</b> All database records and cache files reside strictly within standard OS user application data paths (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).',
+        liStorage2:   '<b>Non-Destructive Access:</b> User audio folders are mounted read-only during indexing. File modification, moving, or destructive renaming is never performed automatically.',
+        liStorage3:   '<b>Clip Trimming:</b> Audio snippet dragging exports a dedicated segment to a temporary cache directory; master files remain untouched.',
+
+        sec3Head:     'Network Policy & Privacy',
+        liNet1:       '<b>Air-Gapped Operation:</b> Search, indexing, waveform rendering, and timeline export function fully offline with zero internet access required.',
+        liNet2:       '<b>No Content Telemetry:</b> Audio waveforms, file paths, sound library names, and project assets are never transmitted to any external server.',
+        liNet3:       '<b>Crash Reports (Optional):</b> When enabled, error reports capture only anonymized execution stack traces with <code>send_default_pii=False</code>. Telemetry can be toggled off at any time in Settings (<code>telemetry_enabled: false</code>).',
+
+        sec4Head:     'Development Context',
+        devText:      'MySoundLib was created independently by <b>Thiago Neppel</b> (video editor and graphic designer) to resolve workflow bottlenecks in post-production environments. Built using modern development workflows and AI-assisted programming tools for code generation and automated testing.',
+
+        footerBack:   'Return to main page'
+      },
+      pt: {
+        navBack:      '&larr; MySoundLib',
+        metaTag:      'Nota Técnica \u2022 Especificação',
+        artTitle:     'Arquitetura e Declaração de Dependências',
+        artLead:      'Uma visão técnica concisa sobre componentes em tempo de execução, isolamento de dados e políticas de rede para usuários que exigem transparência do que roda em suas máquinas.',
+
+        sec1Head:     'Componentes e Bibliotecas',
+        sec1Text:     'O MySoundLib é distribuído como um binário desktop independente. Roda diretamente no sistema operacional local sem depender de runtimes web pesados, servidores em background ou conteinerização.',
+
+        thComponent:  'Componente',
+        thRole:       'Função',
+        tdQt:         'Janelas nativas, atalho global, subsistema de saída de áudio e arrastar e soltar do SO.',
+        tdSnd:        'Decodificação de streams PCM em C e extração de amostras para waveforms.',
+        tdNum:        'Cálculos numéricos vetorizados (SIMD) e amostragem de picos de áudio.',
+        tdTag:        'Leitura de cabeçalhos de áudio, metadados de contêineres e conversão de formato.',
+        tdSql:        'Banco de dados relacional embutido para catalogação indexada de arquivos.',
+        tdSen:        'Relatórios opcionais de falhas não tratadas. Configurável nas opções do app.',
+
+        sec2Head:     'Armazenamento e Isolamento de Dados',
+        liStorage1:   '<b>Local dos Dados:</b> Registros do banco e cache residem exclusivamente nos caminhos padrão de dados do sistema (<code>%APPDATA%</code> no Windows, <code>~/Library/Application Support</code> no macOS, <code>~/.config</code> no Linux).',
+        liStorage2:   '<b>Acesso Não Destrutivo:</b> As pastas de áudio do usuário são lidas apenas em modo de leitura durante a indexação. Nenhuma modificação ou renomeação é feita nos arquivos.',
+        liStorage3:   '<b>Recorte de Áudio:</b> O recorte exporta apenas o segmento selecionado para uma pasta temporária de trabalho; os arquivos master permanecem intactos.',
+
+        sec3Head:     'Política de Rede e Privacidade',
+        liNet1:       '<b>Operação 100% Offline:</b> Busca, indexação, visualização de waveform e exportação para timeline funcionam totalmente sem conexão com a internet.',
+        liNet2:       '<b>Zero Telemetria de Conteúdo:</b> Waveforms, caminhos de arquivo, nomes de pastas e arquivos de áudio nunca são enviados para servidores externos.',
+        liNet3:       '<b>Relatório de Erros (Opcional):</b> Quando ativado, envia apenas stack traces anônimos de execução com <code>send_default_pii=False</code>. Pode ser desativado a qualquer momento nas Configurações (<code>telemetry_enabled: false</code>).',
+
+        sec4Head:     'Contexto de Desenvolvimento',
+        devText:      'O MySoundLib foi criado de forma independente por <b>Thiago Neppel</b> (editor de vídeo e designer gráfico) para resolver gargalos reais de fluxo de trabalho na pós-produção. Desenvolvido com fluxos modernos de engenharia e ferramentas de programação auxiliadas por IA para geração de código e testes automatizados.',
+
+        footerBack:   'Voltar à página principal'
+      }
+    };
+
+    function setLang(lang) {
+      const c = copy[lang];
+      if (!c) return;
+
+      Object.keys(c).forEach(key => {
+        const el = document.getElementById(key);
+        if (!el) return;
+
+        if (c[key].includes('<') || c[key].includes('&') || c[key].includes('\n')) {
+          el.innerHTML = c[key].replace(/\n/g, '<br>');
+        } else {
+          el.textContent = c[key];
+        }
+      });
+
+      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+      document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+      document.documentElement.lang = lang;
+
+      try { localStorage.setItem('msl_lang', lang); } catch(e) {}
+    }
+
+    (function() {
+      let saved = null;
+      try { saved = localStorage.getItem('msl_lang'); } catch(e) {}
+      if (saved === 'pt' || saved === 'en') { setLang(saved); return; }
+      setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+    })();
+  </script>
+</body>
+</html>
