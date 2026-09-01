@@ -331,7 +331,10 @@
     <!-- Footer -->
     <footer class="article-footer">
       <span>&copy; 2026 MySoundLib</span>
-      <span><a href="index.html" id="footerBack">Return to main page</a></span>
+      <span>
+        <a href="features.html" id="footerFeatures">All Features</a> &bull;
+        <a href="index.html" id="footerBack">Return to main page</a>
+      </span>
     </footer>
 
   </div>
@@ -358,18 +361,19 @@
         tdSen:        'Optional unhandled crash reporting. Strictly opt-out via app settings.',
 
         sec2Head:     'Storage & Data Isolation',
-        liStorage1:   '<b>Index Location:</b> All database records and cache files reside strictly within standard OS user application data paths (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).',
-        liStorage2:   '<b>Non-Destructive Access:</b> User audio folders are mounted read-only during indexing. File modification, moving, or destructive renaming is never performed automatically.',
-        liStorage3:   '<b>Clip Trimming:</b> Audio snippet dragging exports a dedicated segment to a temporary cache directory; master files remain untouched.',
+        liStorage1:   '<b>Data Locations:</b> Database records and cache files reside exclusively within standard OS user-data directories (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).',
+        liStorage2:   '<b>Non-Destructive Access:</b> User audio folders are read in read-only mode during indexing. No source files are modified, tagged, or renamed on disk.',
+        liStorage3:   '<b>Audio Snippet Dragging:</b> Waveform trimming generates isolated temporary audio clips in a scratch directory; master files remain untouched.',
 
-        sec3Head:     'Network Policy & Privacy',
-        liNet1:       '<b>Air-Gapped Operation:</b> Search, indexing, waveform rendering, and timeline export function fully offline with zero internet access required.',
+        sec3Head:     'Network & Privacy Policies',
+        liNet1:       '<b>100% Offline Core Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop operate entirely offline without internet connectivity.',
         liNet2:       '<b>No Content Telemetry:</b> Audio waveforms, file paths, sound library names, and project assets are never transmitted to any external server.',
         liNet3:       '<b>Crash Reports (Optional):</b> When enabled, error reports capture only anonymized execution stack traces with <code>send_default_pii=False</code>. Telemetry can be toggled off at any time in Settings (<code>telemetry_enabled: false</code>).',
 
         sec4Head:     'Development Context',
         devText:      'MySoundLib was created independently by <b>Thiago Neppel</b> (video editor and graphic designer) to resolve workflow bottlenecks in post-production environments. Built using modern development workflows and AI-assisted programming tools for code generation and automated testing.',
 
+        footerFeatures:'All Features',
         footerBack:   'Return to main page'
       },
       pt: {
@@ -403,6 +407,7 @@
         sec4Head:     'Contexto de Desenvolvimento',
         devText:      'O MySoundLib foi criado de forma independente por <b>Thiago Neppel</b> (editor de vídeo e designer gráfico) para resolver gargalos reais de fluxo de trabalho na pós-produção. Desenvolvido com fluxos modernos de engenharia e ferramentas de programação auxiliadas por IA para geração de código e testes automatizados.',
 
+        footerFeatures:'Todas as Funcionalidades',
         footerBack:   'Voltar à página principal'
       }
     };
