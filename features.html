@@ -13,6 +13,7 @@
   <style>
     :root {
       --bg: #1C1C1C;
+      --bg-darker: #161616;
       --surface: #242424;
       --surface-light: #2c2c2c;
       --border: rgba(255, 255, 255, 0.1);
@@ -42,7 +43,7 @@
       -webkit-font-smoothing: antialiased;
       line-height: 1.65;
       min-height: 100vh;
-      padding: 0 0 80px;
+      padding: 0;
     }
 
     a {
@@ -148,6 +149,37 @@
       color: #1c1c1c;
     }
 
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-solid {
+      background: var(--green);
+      color: #0b0b0e;
+    }
+
+    .btn-solid:hover {
+      background: #25e0b0;
+      transform: translateY(-1px);
+      color: #0b0b0e;
+    }
+
+    .btn-lg {
+      padding: 14px 28px;
+      font-size: 15px;
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -158,7 +190,7 @@
     .page-container {
       max-width: 860px;
       margin: 0 auto;
-      padding: 48px 24px 0;
+      padding: 48px 24px 80px;
     }
 
     /* ── Header Area ─────────────────────────── */
@@ -265,63 +297,37 @@
       line-height: 1.6;
     }
 
-    /* ── Bottom CTA ──────────────────────────── */
-    .cta-box {
-      margin-top: 64px;
-      padding: 40px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    /* ── Final Call to Action (Same as Homepage) */
+    .final-cta {
+      padding: 110px 0;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
+      border-top: 1px solid var(--border);
+      background: radial-gradient(circle at 50% 50%, rgba(29, 205, 159, 0.06) 0%, transparent 70%);
     }
 
-    .cta-box h3 {
-      font-size: 22px;
+    .final-head {
+      font-size: clamp(32px, 5vw, 56px);
       font-weight: 800;
-      letter-spacing: -0.015em;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 18px;
     }
 
-    .cta-box p {
-      font-size: 14px;
+    .final-sub {
+      font-size: 16px;
       color: var(--text-muted);
-      max-width: 520px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--sans);
-      font-size: 14px;
-      font-weight: 700;
-      padding: 11px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: all 0.15s ease;
-    }
-
-    .btn-solid {
-      background: var(--green);
-      color: #0b0b0e;
-    }
-
-    .btn-solid:hover {
-      background: #25e0b0;
-      transform: translateY(-1px);
-      color: #0b0b0e;
+      margin-bottom: 32px;
     }
 
     /* ── Footer ──────────────────────────────── */
     footer {
-      margin-top: 80px;
-      padding-top: 32px;
       border-top: 1px solid var(--border);
+      padding: 40px 0;
+      background: var(--bg-darker);
+    }
+
+    .footer-in {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -351,10 +357,10 @@
         gap: 8px;
         padding: 16px 18px;
       }
-      .cta-box {
-        padding: 28px 20px;
+      .final-cta {
+        padding: 80px 0;
       }
-      footer {
+      .footer-in {
         flex-direction: column;
         align-items: flex-start;
       }
@@ -391,7 +397,7 @@
     </div>
   </header>
 
-  <div class="page-container">
+  <main class="page-container">
     <!-- Header Area -->
     <div class="meta-tag" id="metaBadge">Full Specification & Modules</div>
     <h1 id="pageTitle">All Features</h1>
@@ -564,24 +570,32 @@
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- Call to Action Box -->
-    <div class="cta-box">
-      <h3 id="ctaHead">Stop digging through folders. Keep editing.</h3>
-      <p id="ctaDesc">Instant download link and license key delivered via email. Runs natively on Windows, macOS, and Linux.</p>
-      <a href="index.html#buy" class="btn btn-solid" id="ctaBtn" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Buy MySoundLib $19</a>
+  <!-- Final Call to Action (Exact same design & visual as Homepage) -->
+  <section class="final-cta" id="buy">
+    <div class="wide">
+      <h2 class="final-head" id="finalHead">Stop digging through folders. Keep editing.</h2>
+      <p class="final-sub" id="finalSub">
+        Instant download link and license key delivered via email. Runs natively on Windows, macOS, and Linux.
+      </p>
+      <button class="btn btn-solid btn-lg" id="finalCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
+        Buy MySoundLib $19
+      </button>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
+  <!-- Footer -->
+  <footer>
+    <div class="wide footer-in">
       <span>&copy; 2026 MySoundLib. All rights reserved.</span>
       <div class="footer-links">
         <a href="index.html" id="footHome">Home</a>
         <a href="tech.html" id="footTech">Architecture Note</a>
         <a href="index.html#faq" id="footFaq">FAQ</a>
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   <script>
     const copy = {
@@ -659,9 +673,9 @@
         f24Name:        'Lightweight Background Engine',
         f24Desc:        'Lightweight execution in the background with minimal CPU and RAM usage, leaving your computer free to render and edit.',
 
-        ctaHead:        'Stop digging through folders. Keep editing.',
-        ctaDesc:        'Instant download link and license key delivered via email. Runs natively on Windows, macOS, and Linux.',
-        ctaBtn:         'Buy MySoundLib $19',
+        finalHead:      'Stop digging through folders. Keep editing.',
+        finalSub:       'Instant download link and license key delivered via email. Runs natively on Windows, macOS, and Linux.',
+        finalCta:       'Buy MySoundLib $19',
         footHome:       'Home',
         footTech:       'Under the Hood',
         footFaq:        'FAQ'
@@ -740,9 +754,9 @@
         f24Name:        'Background Otimizado',
         f24Desc:        'Roda leve em segundo plano com consumo mínimo de CPU e memória RAM, deixando o seu computador livre para editar e renderizar sem engasgos.',
 
-        ctaHead:        'Chega de procurar em pastas. Foque em editar.',
-        ctaDesc:        'Link de download instantâneo e chave de licença enviados por e-mail. Roda nativamente no Windows, macOS e Linux.',
-        ctaBtn:         'Comprar MySoundLib $19',
+        finalHead:      'Chega de procurar em pastas. Foque em editar.',
+        finalSub:       'Link de download instantâneo e chave de licença enviados por e-mail. Roda nativamente no Windows, macOS e Linux.',
+        finalCta:       'Comprar MySoundLib $19',
         footHome:       'Início',
         footTech:       'Arquitetura Técnica',
         footFaq:        'Dúvidas'
