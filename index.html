@@ -1674,6 +1674,45 @@
 
       const iconSvg = `<svg class="floating-audio-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 3v18M8 8v8M4 11v2M16 6v12M20 10v4"/></svg>`;
 
+      function formatRandomFilename(rawName) {
+        const words = rawName.split(/[_\-\s]+/);
+        const sepChoice = Math.random();
+        let sep = '_';
+        if (sepChoice < 0.35) sep = '_';
+        else if (sepChoice < 0.65) sep = '-';
+        else if (sepChoice < 0.90) sep = ' ';
+        else sep = ''; // Joined PascalCase / CamelCase
+
+        const caseChoice = Math.random();
+        let transformedWords = [];
+
+        if (caseChoice < 0.35) {
+          // all lowercase
+          transformedWords = words.map(w => w.toLowerCase());
+        } else if (caseChoice < 0.55) {
+          // ALL UPPERCASE
+          transformedWords = words.map(w => w.toUpperCase());
+        } else if (caseChoice < 0.78) {
+          // Title Case
+          transformedWords = words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+        } else {
+          // Chaotic mixed (some words caps, some lowercase)
+          transformedWords = words.map((w, idx) => {
+            if (idx === words.length - 1 || Math.random() < 0.35) {
+              return w.toUpperCase();
+            }
+            return Math.random() > 0.5 ? (w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()) : w.toLowerCase();
+          });
+        }
+
+        return transformedWords.join(sep);
+      }
+
+      function getRandomExtension() {
+        const ext = extensions[Math.floor(Math.random() * extensions.length)];
+        return Math.random() < 0.30 ? ext.toUpperCase() : ext.toLowerCase();
+      }
+
       const isMobile = window.innerWidth < 768;
       const MAX_ITEMS = isMobile ? 20 : 42; // -35% tuned density
       const items = [];
@@ -1689,8 +1728,9 @@
         }
 
         reset(initial = false) {
-          const name = fileNames[Math.floor(Math.random() * fileNames.length)];
-          const ext = extensions[Math.floor(Math.random() * extensions.length)];
+          const rawName = fileNames[Math.floor(Math.random() * fileNames.length)];
+          const name = formatRandomFilename(rawName);
+          const ext = getRandomExtension();
 
           this.el.innerHTML = `${iconSvg}<span class="floating-audio-name">${name}</span><span class="floating-audio-ext">${ext}</span>`;
 
