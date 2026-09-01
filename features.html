@@ -60,54 +60,6 @@
       padding: 0 28px;
     }
 
-    /* ── Ambient Background Animation ────────── */
-    .hero-bg-anim {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .floating-audio-file {
-      position: absolute;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 11px;
-      border-radius: 6px;
-      background: rgba(22, 22, 26, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 11px;
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-      user-select: none;
-      pointer-events: none;
-      will-change: transform, opacity, filter;
-      transform: translate3d(0, 0, 0);
-    }
-
-    .floating-audio-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--green);
-      opacity: 0.8;
-      flex-shrink: 0;
-    }
-
-    .floating-audio-name {
-      color: rgba(255, 255, 255, 0.55);
-    }
-
-    .floating-audio-ext {
-      color: #ffffff;
-      font-weight: 700;
-      opacity: 0.85;
-    }
-
     /* ── Header & Navigation ─────────────────── */
     .site-header {
       position: sticky;
@@ -236,16 +188,69 @@
       }
     }
 
-    /* ── Page Layout ─────────────────────────── */
-    .page-container {
+    /* ── Features Hero (Contains Floating Animation) ── */
+    .features-hero {
+      position: relative;
+      padding: 72px 0 48px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-bg-anim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-audio-file {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border-radius: 6px;
+      background: rgba(22, 22, 26, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      will-change: transform, opacity, filter;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .floating-audio-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+
+    .floating-audio-name {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .floating-audio-ext {
+      color: #ffffff;
+      font-weight: 700;
+      opacity: 0.85;
+    }
+
+    .features-hero-in {
       max-width: 860px;
       margin: 0 auto;
-      padding: 48px 24px 80px;
+      padding: 0 24px;
       position: relative;
       z-index: 1;
     }
 
-    /* ── Header Area ─────────────────────────── */
     .meta-tag {
       font-size: 12px;
       font-weight: 700;
@@ -266,10 +271,16 @@
     .lead {
       font-size: 16px;
       color: var(--text-muted);
-      margin-bottom: 48px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
       line-height: 1.7;
+    }
+
+    /* ── Page Layout ─────────────────────────── */
+    .page-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+      position: relative;
+      z-index: 1;
     }
 
     /* ── Module Section ──────────────────────── */
@@ -408,6 +419,9 @@
     }
 
     @media (max-width: 680px) {
+      .features-hero {
+        padding: 48px 0 32px;
+      }
       .feature-row {
         grid-template-columns: 1fr;
         gap: 8px;
@@ -425,9 +439,6 @@
   <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body>
-
-  <!-- Ambient Audio Files Floating Background Animation -->
-  <div class="hero-bg-anim" id="heroBgAnim" aria-hidden="true"></div>
 
   <!-- Sticky Transparent Header -->
   <header class="site-header">
@@ -456,14 +467,19 @@
     </div>
   </header>
 
-  <main class="page-container">
-    <!-- Header Area -->
-    <div class="meta-tag" id="metaBadge">Full Specification & Modules</div>
-    <h1 id="pageTitle">All Features</h1>
-    <p class="lead" id="pageLead">
-      A complete, transparent index of all 24 capabilities and 7 core architectural modules built into MySoundLib.
-    </p>
+  <!-- Top Hero Header with Background Animation -->
+  <div class="features-hero">
+    <div class="hero-bg-anim" id="heroBgAnim" aria-hidden="true"></div>
+    <div class="features-hero-in">
+      <div class="meta-tag" id="metaBadge">Full Specification & Modules</div>
+      <h1 id="pageTitle">All Features</h1>
+      <p class="lead" id="pageLead">
+        A complete, transparent index of all 24 capabilities and 7 core architectural modules built into MySoundLib.
+      </p>
+    </div>
+  </div>
 
+  <main class="page-container">
     <!-- 1. Library Management -->
     <section class="module-block">
       <div class="module-header">
@@ -851,7 +867,7 @@
     })();
   </script>
 
-  <!-- Ambient Audio Files Floating Animation -->
+  <!-- Ambient Audio Files Floating Animation (Hero only, stops updating off-screen) -->
   <script>
     (function initFloatingAudioFiles() {
       const container = document.getElementById('heroBgAnim');
@@ -933,7 +949,7 @@
       }
 
       const isMobile = window.innerWidth < 768;
-      const MAX_ITEMS = isMobile ? 22 : 46;
+      const MAX_ITEMS = isMobile ? 18 : 34;
       const items = [];
       let isVisible = true;
       let lastTime = performance.now();
@@ -955,15 +971,15 @@
 
           const rect = container.getBoundingClientRect();
           const w = rect.width || window.innerWidth;
-          const h = rect.height || window.innerHeight;
+          const h = rect.height || 350;
 
           let bestX = 15 + Math.random() * Math.max(w - 240, 60);
-          let bestY = Math.random() * Math.max(h - 50, 50);
+          let bestY = Math.random() * Math.max(h - 45, 45);
           let maxMinDist = 0;
 
           for (let attempt = 0; attempt < 8; attempt++) {
             const candX = 15 + Math.random() * Math.max(w - 240, 60);
-            const candY = Math.random() * Math.max(h - 50, 50);
+            const candY = Math.random() * Math.max(h - 45, 45);
 
             let minDistToOthers = Infinity;
             for (let j = 0; j < items.length; j++) {
@@ -981,7 +997,7 @@
               bestX = candX;
               bestY = candY;
             }
-            if (minDistToOthers > 85) break;
+            if (minDistToOthers > 80) break;
           }
 
           this.x = bestX;
@@ -991,7 +1007,7 @@
           this.vy = (Math.random() - 0.5) * 0.10;
 
           this.opacity = 0;
-          this.maxOpacity = 0.28 + Math.random() * 0.35;
+          this.maxOpacity = 0.30 + Math.random() * 0.38;
           this.scale = 0.55 + Math.random() * 0.70;
 
           this.duration = 14000 + Math.random() * 12000;
@@ -1045,6 +1061,13 @@
 
       for (let i = 0; i < MAX_ITEMS; i++) {
         items.push(new FloatingAudioItem());
+      }
+
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+          isVisible = entries[0].isIntersecting;
+        }, { threshold: 0.05 });
+        obs.observe(container);
       }
 
       document.addEventListener('visibilitychange', () => {
