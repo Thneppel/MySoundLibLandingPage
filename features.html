@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Features & Modules — MySoundLib</title>
+  <meta name="description" content="Complete breakdown of all 24 features and 7 core modules of MySoundLib: library management, file system sync, metadata, search, waveform trimming, and NLE integration.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #1C1C1C;
+      --surface: #242424;
+      --surface-light: #2c2c2c;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --green: #1dcd9f;
+      --text: #ffffff;
+      --text-muted: #9e9e9e;
+      --text-dim: #666666;
+      --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.65;
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--green);
+    }
+
+    .page-container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ── Top Bar ─────────────────────────────── */
+    .page-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 32px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s ease;
+    }
+
+    .back-link:hover {
+      color: var(--green);
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn.active {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* ── Header Area ─────────────────────────── */
+    .meta-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4.5vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.7;
+    }
+
+    /* ── Module Section ──────────────────────── */
+    .module-block {
+      margin-bottom: 48px;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .module-num {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--green);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .module-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      color: var(--text);
+    }
+
+    /* ── Features List / Cards ───────────────── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .feature-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .feature-row:hover {
+      border-color: rgba(29, 205, 159, 0.35);
+      background: var(--surface-light);
+    }
+
+    .feature-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-name::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Bottom CTA ──────────────────────────── */
+    .cta-box {
+      margin-top: 64px;
+      padding: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cta-box h3 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+    }
+
+    .cta-box p {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-solid {
+      background: var(--green);
+      color: #0b0b0e;
+    }
+
+    .btn-solid:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      color: #0b0b0e;
+    }
+
+    /* ── Footer ──────────────────────────────── */
+    footer {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--green);
+    }
+
+    @media (max-width: 680px) {
+      .feature-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 16px 18px;
+      }
+      .cta-box {
+        padding: 28px 20px;
+      }
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+  <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body>
+
+  <div class="page-container">
+    <!-- Top Bar -->
+    <div class="page-topbar">
+      <a href="index.html" class="back-link" id="backLink">← Back to MySoundLib</a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="meta-tag" id="metaBadge">Full Specification & Modules</div>
+    <h1 id="pageTitle">All Features</h1>
+    <p class="lead" id="pageLead">
+      A complete, transparent index of all 24 capabilities and 7 core architectural modules built into MySoundLib.
+    </p>
+
+    <!-- 1. Library Management -->
+    <section class="module-block">
+      <div class="module-header">
+        <span class="module-num">01</span>
+        <h2 class="module-title" id="m1Title">Library Management</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-row">
+          <div class="feature-name" id="f1Name">Multiple Libraries</div>
+          <div class="feature-desc" id="f1Desc">Create and switch between distinct sound libraries for different clients, YouTube channels, projects, or general audio utility.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f2Name">Export with Tags</div>
+          <div class="feature-desc" id="f2Desc">Export entire libraries with all tags, groupings, and embedded metadata intact for complete backups or seamless migration to other machines.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f3Name">Group Organization</div>
+          <div class="feature-desc" id="f3Desc">Create internal folders/groups with flexible nested hierarchies (drag and move groups inside or outside other groups effortlessly).</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f4Name">Drag & Drop Import</div>
+          <div class="feature-desc" id="f4Desc">Instantly add single audio files or entire folder directories by dragging them straight into the application interface.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f5Name">View Modes</div>
+          <div class="feature-desc" id="f5Desc">Toggle between a hierarchical tree view organized by groups/folders or a continuous flat list view of all indexed files.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. File System -->
+    <section class="module-block">
+      <div class="module-header">
+        <span class="module-num">02</span>
+        <h2 class="module-title" id="m2Title">File System & Sync</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-row">
+          <div class="feature-name" id="f6Name">Local Sync</div>
+          <div class="feature-desc" id="f6Desc">Direct, continuous synchronization of internal app folders with local disk directories on your filesystem.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f7Name">Bidirectional Renaming</div>
+          <div class="feature-desc" id="f7Desc">Rename files and groups inside the app with automatic, instant updates reflected in your synchronized disk folders.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f8Name">Deletion Management</div>
+          <div class="feature-desc" id="f8Desc">Choose to remove an audio file only from the library catalog index or delete it permanently from disk.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Tags & Metadata -->
+    <section class="module-block">
+      <div class="module-header">
+        <span class="module-num">03</span>
+        <h2 class="module-title" id="m3Title">Tags & Metadata</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-row">
+          <div class="feature-name" id="f9Name">Tag Management</div>
+          <div class="feature-desc" id="f9Desc">Create, assign, edit, and color-code custom tags for ultra-fast cataloging, indexing, and multi-tag filtering.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f10Name">Type Categories</div>
+          <div class="feature-desc" id="f10Desc">Define custom classification types for individual audio files, internal groups, and synchronized folders (e.g. SFX, Foley, Music, Ambience).</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f11Name">Metadata Display</div>
+          <div class="feature-desc" id="f11Desc">Inspect technical file properties, duration, sample rate, bit depth, channel configuration, and embedded metadata tags directly.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Search & Filters -->
+    <section class="module-block">
+      <div class="module-header">
+        <span class="module-num">04</span>
+        <h2 class="module-title" id="m4Title">Search & Filters</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-row">
+          <div class="feature-name" id="f12Name">Multi-Factor Search</div>
+          <div class="feature-desc" id="f12Desc">Lightning-fast search across filenames, tags, categories, types, and source folder paths simultaneously.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f13Name">Advanced Filters</div>
+          <div class="feature-desc" id="f13Desc">Granular filtering by audio format (WAV, MP3, FLAC, OGG), assigned categories, and channel count (mono, stereo, multichannel).</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f14Name">Global Search Overlay</div>
+          <div class="feature-desc" id="f14Desc">Floating desktop search overlay accessible via a global hotkey directly on top of any active NLE or DAW without losing focus.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Player & Editing -->
+    <section class="module-block">
+      <div class="module-header">
+        <span class="module-num">05</span>
+        <h2 class="module-title" id="m5Title">Player & Audio Editing</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-row">
+          <div class="feature-name" id="f15Name">Waveform Preview</div>
+          <div class="feature-desc" id="f15Desc">Instant audio and waveform playback in the main app window and directly inside the floating search overlay with spacebar.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f16Name">Precision Trimming</div>
+          <div class="feature-desc" id="f16Desc">Select and extract specific transients, hits, or tail snippets non-destructively directly from the visual waveform.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f17Name">Pitch Shifter</div>
+          <div class="feature-desc" id="f17Desc">Real-time pitch adjustments to alter the tone and speed of the audio or trimmed selection before inserting it into your project.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f18Name">Format Conversion</div>
+          <div class="feature-desc" id="f18Desc">Direct, fast batch conversion between all supported audio formats with one-click export to clean broadcast WAV.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Workflow & Integration -->
+    <section class="module-block">
+      <div class="module-header">
+        <span class="module-num">06</span>
+        <h2 class="module-title" id="m6Title">Workflow & Integration</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-row">
+          <div class="feature-name" id="f19Name">Drag to Timeline</div>
+          <div class="feature-desc" id="f19Desc">Drop the full audio track or trimmed waveform snippet directly onto your video editor or DAW timeline in 2 seconds flat.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f20Name">Universal Compatibility</div>
+          <div class="feature-desc" id="f20Desc">Native drag-and-drop support for Premiere, DaVinci Resolve, Final Cut Pro, CapCut, After Effects, Ableton, FL Studio, Reaper, and Vegas.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. System & Platforms -->
+    <section class="module-block">
+      <div class="module-header">
+        <span class="module-num">07</span>
+        <h2 class="module-title" id="m7Title">System & Platforms</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-row">
+          <div class="feature-name" id="f21Name">Multiplatform Support</div>
+          <div class="feature-desc" id="f21Desc">Native performance and identical feature parity across Windows, macOS (Intel & Apple Silicon), and Linux.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f22Name">Customizable Shortcuts</div>
+          <div class="feature-desc" id="f22Desc">Full hotkey customization for global overlay invocation, playback controls, and rapid editing workflows.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f23Name">Advanced Settings</div>
+          <div class="feature-desc" id="f23Desc">Comprehensive preferences panel for indexing speed, audio buffer tuning, UI themes, and workspace options.</div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-name" id="f24Name">Lightweight Background Engine</div>
+          <div class="feature-desc" id="f24Desc">Ultra-lean idle execution consuming minimal CPU and RAM so your editing software gets 100% of your system's power.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Box -->
+    <div class="cta-box">
+      <h3 id="ctaHead">Ready to streamline your audio workflow?</h3>
+      <p id="ctaDesc">Get lifetime access to MySoundLib for a single payment of $19. Runs 100% locally with zero subscriptions.</p>
+      <a href="index.html#buy" class="btn btn-solid" id="ctaBtn" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Buy MySoundLib $19</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <span>&copy; 2026 MySoundLib. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="index.html" id="footHome">Home</a>
+        <a href="tech.html" id="footTech">Under the Hood</a>
+        <a href="index.html#faq" id="footFaq">FAQ</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const copy = {
+      en: {
+        backLink:       '← Back to MySoundLib',
+        metaBadge:      'Full Specification & Modules',
+        pageTitle:      'All Features',
+        pageLead:       'A complete, transparent index of all 24 capabilities and 7 core architectural modules built into MySoundLib.',
+
+        m1Title:        'Library Management',
+        f1Name:         'Multiple Libraries',
+        f1Desc:         'Create and switch between distinct sound libraries for different clients, YouTube channels, projects, or general audio utility.',
+        f2Name:         'Export with Tags',
+        f2Desc:         'Export entire libraries with all tags, groupings, and embedded metadata intact for complete backups or seamless migration to other machines.',
+        f3Name:         'Group Organization',
+        f3Desc:         'Create internal folders/groups with flexible nested hierarchies (drag and move groups inside or outside other groups effortlessly).',
+        f4Name:         'Drag & Drop Import',
+        f4Desc:         'Instantly add single audio files or entire folder directories by dragging them straight into the application interface.',
+        f5Name:         'View Modes',
+        f5Desc:         'Toggle between a hierarchical tree view organized by groups/folders or a continuous flat list view of all indexed files.',
+
+        m2Title:        'File System & Sync',
+        f6Name:         'Local Sync',
+        f6Desc:         'Direct, continuous synchronization of internal app folders with local disk directories on your filesystem.',
+        f7Name:         'Bidirectional Renaming',
+        f7Desc:         'Rename files and groups inside the app with automatic, instant updates reflected in your synchronized disk folders.',
+        f8Name:         'Deletion Management',
+        f8Desc:         'Choose to remove an audio file only from the library catalog index or delete it permanently from disk.',
+
+        m3Title:        'Tags & Metadata',
+        f9Name:         'Tag Management',
+        f9Desc:         'Create, assign, edit, and color-code custom tags for ultra-fast cataloging, indexing, and multi-tag filtering.',
+        f10Name:        'Type Categories',
+        f10Desc:        'Define custom classification types for individual audio files, internal groups, and synchronized folders (e.g. SFX, Foley, Music, Ambience).',
+        f11Name:        'Metadata Display',
+        f11Desc:        'Inspect technical file properties, duration, sample rate, bit depth, channel configuration, and embedded metadata tags directly.',
+
+        m4Title:        'Search & Filters',
+        f12Name:        'Multi-Factor Search',
+        f12Desc:        'Lightning-fast search across filenames, tags, categories, types, and source folder paths simultaneously.',
+        f13Name:        'Advanced Filters',
+        f13Desc:        'Granular filtering by audio format (WAV, MP3, FLAC, OGG), assigned categories, and channel count (mono, stereo, multichannel).',
+        f14Name:        'Global Search Overlay',
+        f14Desc:        'Floating desktop search overlay accessible via a global hotkey directly on top of any active NLE or DAW without losing focus.',
+
+        m5Title:        'Player & Audio Editing',
+        f15Name:        'Waveform Preview',
+        f15Desc:        'Instant audio and waveform playback in the main app window and directly inside the floating search overlay with spacebar.',
+        f16Name:        'Precision Trimming',
+        f16Desc:        'Select and extract specific transients, hits, or tail snippets non-destructively directly from the visual waveform.',
+        f17Name:        'Pitch Shifter',
+        f17Desc:        'Real-time pitch adjustments to alter the tone and speed of the audio or trimmed selection before inserting it into your project.',
+        f18Name:        'Format Conversion',
+        f18Desc:        'Direct, fast batch conversion between all supported audio formats with one-click export to clean broadcast WAV.',
+
+        m6Title:        'Workflow & Integration',
+        f19Name:        'Drag to Timeline',
+        f19Desc:        'Drop the full audio track or trimmed waveform snippet directly onto your video editor or DAW timeline in 2 seconds flat.',
+        f20Name:        'Universal Compatibility',
+        f20Desc:        'Native drag-and-drop support for Premiere, DaVinci Resolve, Final Cut Pro, CapCut, After Effects, Ableton, FL Studio, Reaper, and Vegas.',
+
+        m7Title:        'System & Platforms',
+        f21Name:        'Multiplatform Support',
+        f21Desc:        'Native performance and identical feature parity across Windows, macOS (Intel & Apple Silicon), and Linux.',
+        f22Name:        'Customizable Shortcuts',
+        f22Desc:        'Full hotkey customization for global overlay invocation, playback controls, and rapid editing workflows.',
+        f23Name:        'Advanced Settings',
+        f23Desc:        'Comprehensive preferences panel for indexing speed, audio buffer tuning, UI themes, and workspace options.',
+        f24Name:        'Lightweight Background Engine',
+        f24Desc:        'Ultra-lean idle execution consuming minimal CPU and RAM so your editing software gets 100% of your system\'s power.',
+
+        ctaHead:        'Ready to streamline your audio workflow?',
+        ctaDesc:        'Get lifetime access to MySoundLib for a single payment of $19. Runs 100% locally with zero subscriptions.',
+        ctaBtn:         'Buy MySoundLib $19',
+        footHome:       'Home',
+        footTech:       'Under the Hood',
+        footFaq:        'FAQ'
+      },
+      pt: {
+        backLink:       '← Voltar para o MySoundLib',
+        metaBadge:      'Especificação Completa e Módulos',
+        pageTitle:      'Todas as Funcionalidades',
+        pageLead:       'Índice completo e detalhado com todas as 24 capacidades e 7 módulos estruturais desenvolvidos no MySoundLib.',
+
+        m1Title:        'Gestão de Bibliotecas',
+        f1Name:         'Múltiplas Bibliotecas',
+        f1Desc:         'Criação e alternância entre bibliotecas distintas para diferentes clientes, canais do YouTube, projetos ou uso geral.',
+        f2Name:         'Exportação com Tags',
+        f2Desc:         'Exportação de bibliotecas completas preservando tags, agrupamentos e metadados para backup ou envio a outras máquinas.',
+        f3Name:         'Organização em Grupos',
+        f3Desc:         'Criação de pastas e grupos internos com aninhamento flexível (mover grupos para dentro ou fora de outros facilmente).',
+        f4Name:         'Importação Drag & Drop',
+        f4Desc:         'Inserção rápida de arquivos de áudio individuais ou pastas inteiras arrastando diretamente para dentro da interface.',
+        f5Name:         'Modos de Visualização',
+        f5Desc:         'Alternância entre visualização em árvore hierárquica por grupos ou lista corrida de todos os arquivos indexados.',
+
+        m2Title:        'Sistema de Arquivos',
+        f6Name:         'Sincronização Local',
+        f6Desc:         'Sincronização direta e contínua de pastas internas do app com diretórios locais do sistema no seu disco.',
+        f7Name:         'Renomeação Bidirecional',
+        f7Desc:         'Renomeação de arquivos e grupos no software com atualização automática nas pastas sincronizadas no disco.',
+        f8Name:         'Gestão de Exclusão',
+        f8Desc:         'Opção de remover o item apenas do catálogo da biblioteca ou apagá-lo definitivamente do disco.',
+
+        m3Title:        'Tags e Metadados',
+        f9Name:         'Gerenciamento de Tags',
+        f9Desc:         'Criação, atribuição, edição e código de cores para tags personalizadas para catalogação rápida e indexação.',
+        f10Name:        'Categorias de Tipo',
+        f10Desc:        'Definição de classificações de tipo para arquivos individuais, grupos internos e pastas sincronizadas (ex: SFX, Foley, Música, Ambiente).',
+        f11Name:        'Visualização de Metadados',
+        f11Desc:        'Exibição de informações técnicas, duração, taxa de amostragem, bit depth, canais e metadados embutidos nos arquivos.',
+
+        m4Title:        'Busca e Filtros',
+        f12Name:        'Busca Multifatorial',
+        f12Desc:        'Localização instantânea por nome do arquivo, tags, categorias, tipos ou pastas/grupos de origem simultaneamente.',
+        f13Name:        'Filtros Avançados',
+        f13Desc:        'Filtragem detalhada por formatos de áudio (WAV, MP3, FLAC, OGG), categorias atribuídas e contagem de canais (mono, estéreo, etc.).',
+        f14Name:        'Global Search Overlay',
+        f14Desc:        'Janela flutuante acessível via atalho global sobre qualquer editor ou DAW em execução sem perder o foco.',
+
+        m5Title:        'Player e Edição',
+        f15Name:        'Pré-visualização (Preview)',
+        f15Desc:        'Reprodução instantânea de áudio e waveform na janela principal e diretamente na janela flutuante de overlay com a barra de espaço.',
+        f16Name:        'Corte e Recorte',
+        f16Desc:        'Seleção e extração não destrutiva de trechos específicos, impactos e transientes diretamente na waveform visual.',
+        f17Name:        'Ajuste de Pitch',
+        f17Desc:        'Modificação da altura tonal (pitch) e velocidade do áudio ou do trecho selecionado em tempo real antes de jogar na timeline.',
+        f18Name:        'Conversão de Formatos',
+        f18Desc:        'Conversão direta e em lote entre múltiplos formatos de áudio suportados com exportação em um clique para WAV limpo.',
+
+        m6Title:        'Workflow e Integração',
+        f19Name:        'Arrastar para Timeline',
+        f19Desc:        'Envio do áudio completo ou do recorte selecionado arrastando direto para a linha do tempo em uso em 2 segundos.',
+        f20Name:        'Compatibilidade Universal',
+        f20Desc:        'Suporte nativo a qualquer editor de vídeo (Premiere, DaVinci, Final Cut, CapCut, After Effects) e DAW (Ableton, FL Studio, Reaper, Vegas).',
+
+        m7Title:        'Sistema e Plataformas',
+        f21Name:        'Suporte Multiplataforma',
+        f21Desc:        'Funcionamento nativo com paridade total de recursos em Windows, macOS (Intel e Apple Silicon) e Linux.',
+        f22Name:        'Atalhos Customizáveis',
+        f22Desc:        'Personalização completa de teclas de atalho (shortcuts) para acionamento do overlay global e controles de áudio.',
+        f23Name:        'Configurações Avançadas',
+        f23Desc:        'Painel de preferências para ajustes finos de indexação, buffer de áudio, temas e opções gerais de trabalho.',
+        f24Name:        'Background Otimizado',
+        f24Desc:        'Execução leve em segundo plano com consumo mínimo de CPU e memória RAM para seu editor ter 100% de performance.',
+
+        ctaHead:        'Pronto para acelerar seu fluxo de áudio?',
+        ctaDesc:        'Tenha acesso vitalício ao MySoundLib por um pagamento único de $19. Roda 100% local sem mensalidades.',
+        ctaBtn:         'Comprar MySoundLib $19',
+        footHome:       'Início',
+        footTech:       'Arquitetura Técnica',
+        footFaq:        'Dúvidas'
+      }
+    };
+
+    function setLang(lang) {
+      const dict = copy[lang];
+      if (!dict) return;
+
+      document.documentElement.lang = lang;
+      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+      document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+
+      for (const [id, text] of Object.entries(dict)) {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = text;
+      }
+
+      try {
+        localStorage.setItem('msl_lang', lang);
+      } catch (e) {}
+    }
+
+    (function() {
+      let saved = null;
+      try { saved = localStorage.getItem('msl_lang'); } catch (e) {}
+      if (saved === 'pt' || saved === 'en') {
+        setLang(saved);
+        return;
+      }
+      setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+    })();
+  </script>
+</body>
+</html>
