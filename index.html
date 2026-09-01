@@ -611,6 +611,60 @@
       border: none;
     }
 
+    /* ── All Features CTA Banner ─────────────── */
+    .features-cta-wrap {
+      padding: 0 0 88px 0;
+      background: var(--bg);
+    }
+
+    .features-cta-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      transition: all 0.2s ease;
+    }
+
+    .features-cta-box:hover {
+      border-color: rgba(29, 205, 159, 0.4);
+      background: var(--surface-light);
+    }
+
+    .features-cta-info h4 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .features-cta-info p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .features-cta-box .btn {
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 680px) {
+      .features-cta-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 20px;
+        gap: 16px;
+      }
+      .features-cta-box .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
     /* ── Pull Quote (Instatic Style) ─────────── */
     .pull {
       padding: 96px 0;
@@ -978,7 +1032,7 @@
 
         <div class="nav-links">
           <a class="nav-link" href="#workflow" id="navWorkflow">Workflow</a>
-          <a class="nav-link" href="features.html" id="navFeatures">Features</a>
+          <a class="nav-link" href="#overlay" id="navFeatures">Features</a>
           <a class="nav-link" href="#compatibility" id="navCompat">Compatibility</a>
           <a class="nav-link" href="#makers" id="navMaker">About</a>
           <a class="nav-link" href="#faq" id="navFaq">FAQ</a>
@@ -1190,6 +1244,19 @@
         </div>
       </div>
     </section>
+
+    <!-- All Features CTA Banner -->
+    <div class="features-cta-wrap">
+      <div class="wide">
+        <div class="features-cta-box">
+          <div class="features-cta-info">
+            <h4 id="featAllHead">Want to see everything it can do?</h4>
+            <p id="featAllSub">Explore all 24 features across all 7 architectural modules in the complete breakdown.</p>
+          </div>
+          <a href="features.html" class="btn btn-outline" id="featAllBtn">View All 24 Features →</a>
+        </div>
+      </div>
+    </div>
 
     <!-- Pull Quote -->
     <section class="pull">
@@ -1431,6 +1498,10 @@
         feat3List2:       '<b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported natively.',
         feat3List3:       '<b>Multiple libraries:</b> keep YouTube sound assets separate from commercial client libraries.',
 
+        featAllHead:      'Want to see everything it can do?',
+        featAllSub:       'Explore all 24 features across all 7 architectural modules in the complete breakdown.',
+        featAllBtn:       'View All 24 Features →',
+
         pullQuote:        'We spent years digging through messy 5GB sound packs. <em>Then we built the tool we actually wanted underneath.</em>',
         pullCite:         'Why I built MySoundLib',
 
@@ -1534,6 +1605,10 @@
         feat3List1:       '<b>Sincronização de pastas:</b> sincroniza adições, edições e exclusões no disco sob demanda.',
         feat3List2:       '<b>Multi-formato:</b> compatível com WAV, MP3, FLAC, OGG e M4A nativamente.',
         feat3List3:       '<b>Múltiplas bibliotecas:</b> separe sons de YouTube dos projetos de clientes comerciais.',
+
+        featAllHead:      'Quer ver tudo o que ele faz?',
+        featAllSub:       'Explore todas as 24 funcionalidades nos 7 módulos detalhados.',
+        featAllBtn:       'Ver Todas as Funcionalidades →',
 
         pullQuote:        'Passamos anos caçando arquivos em packs pesados de 5GB. <em>Aí construímos a ferramenta que realmente queríamos por baixo.</em>',
         pullCite:         'Por que criei o MySoundLib',
