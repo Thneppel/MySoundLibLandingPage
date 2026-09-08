@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Technical Note: Architecture & Dependencies — MySoundLib</title>
+  <title>Technical Note: Architecture & Dependencies | MySoundLib</title>
   <meta name="description" content="Technical specification, runtime dependencies, local storage model, and network policies of MySoundLib.">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -357,16 +357,16 @@
   <div class="article-container">
     <main>
       <!-- Meta & Title -->
-      <div class="meta-tag" id="metaTag">Technical Note &bull; Specification</div>
-      <h1 id="artTitle">Architecture & Dependency Disclosure</h1>
+      <div class="meta-tag" id="metaTag">Technical Note &bull; Architecture</div>
+      <h1 id="artTitle">Architecture & Dependencies</h1>
       <p class="lead" id="artLead">
-        A concise technical overview of runtime components, data isolation, and network policies for users who require clarity on what runs on their machine.
+        A technical overview of runtime components, local storage, and network behavior in MySoundLib.
       </p>
 
       <!-- Section 1 -->
       <h2 id="sec1Head">Runtime Stack & Libraries</h2>
       <p id="sec1Text">
-        MySoundLib is distributed as a self-contained desktop binary. It runs directly on the local operating system without requiring web runtimes, background servers, or containerization.
+        MySoundLib is distributed as a standalone desktop binary. It runs directly on your operating system without web runtimes or background servers.
       </p>
 
       <table class="tech-table">
@@ -379,15 +379,15 @@
         <tbody>
           <tr>
             <td>PySide6 (Qt)</td>
-            <td id="tdQt">Native windowing, hotkey overlays, audio output subsystem, OS drag-and-drop.</td>
+            <td id="tdQt">Native windowing, hotkey overlays, audio output subsystem, and OS drag-and-drop.</td>
           </tr>
           <tr>
             <td>soundfile (libsndfile)</td>
-            <td id="tdSnd">Low-level C-based PCM stream decoding and waveform sample extraction.</td>
+            <td id="tdSnd">C-based PCM stream decoding and waveform sample extraction.</td>
           </tr>
           <tr>
             <td>NumPy</td>
-            <td id="tdNum">SIMD-vectorized waveform peak calculations and buffer downsampling.</td>
+            <td id="tdNum">Vectorized waveform peak calculations and buffer downsampling.</td>
           </tr>
           <tr>
             <td>pydub + tinytag</td>
@@ -395,11 +395,11 @@
           </tr>
           <tr>
             <td>SQLite 3</td>
-            <td id="tdSql">Embedded local relational database for indexed audio cataloging.</td>
+            <td id="tdSql">Embedded SQLite database for indexing and searching audio files.</td>
           </tr>
           <tr>
             <td>sentry-sdk</td>
-            <td id="tdSen">Optional unhandled crash reporting. Strictly opt-out via app settings.</td>
+            <td id="tdSen">Optional error reporting. Can be disabled in app settings.</td>
           </tr>
         </tbody>
       </table>
@@ -408,22 +408,22 @@
       <h2 id="sec2Head">Storage & Data Isolation</h2>
       <ul>
         <li id="liStorage1"><b>Data Locations:</b> Database records and cache files reside exclusively within standard OS user-data directories (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).</li>
-        <li id="liStorage2"><b>Non-Destructive Access:</b> User audio folders are read in read-only mode during indexing. No source files are modified, tagged, or renamed on disk.</li>
-        <li id="liStorage3"><b>Audio Snippet Dragging:</b> Waveform trimming generates isolated temporary audio clips in a scratch directory; master files remain untouched.</li>
+        <li id="liStorage2"><b>Non-Destructive Indexing:</b> Audio folders are scanned in read-only mode. Source files are never modified, tagged, or moved on disk.</li>
+        <li id="liStorage3"><b>Timeline Export:</b> Waveform trimming exports a temporary audio file into a cache directory; master files remain untouched.</li>
       </ul>
 
       <!-- Section 3 -->
       <h2 id="sec3Head">Network & Privacy Policies</h2>
       <ul>
-        <li id="liNet1"><b>100% Offline Core Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop operate entirely offline without internet connectivity.</li>
-        <li id="liNet2"><b>No Content Telemetry:</b> Audio waveforms, file paths, sound library names, and project assets are never transmitted to any external server.</li>
-        <li id="liNet3"><b>Crash Reports (Optional):</b> When enabled, error reports capture only anonymized execution stack traces with <code>send_default_pii=False</code>. Telemetry can be toggled off at any time in Settings (<code>telemetry_enabled: false</code>).</li>
+        <li id="liNet1"><b>Offline Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop work entirely offline without an internet connection.</li>
+        <li id="liNet2"><b>No Audio Telemetry:</b> Audio waveforms, file paths, library names, and sound files are never sent to external servers.</li>
+        <li id="liNet3"><b>Error Reports (Optional):</b> When enabled, error reports capture anonymized stack traces with <code>send_default_pii=False</code>. You can turn this off at any time in Settings (<code>telemetry_enabled: false</code>).</li>
       </ul>
 
       <!-- Section 4 -->
       <h2 id="sec4Head">Development Context</h2>
       <p id="devText">
-        MySoundLib was created independently by <b>Thiago Neppel</b> (video editor and graphic designer) to resolve workflow bottlenecks in post-production environments. Built using modern development workflows and AI-assisted programming tools for code generation and automated testing.
+        I built MySoundLib independently because I edit videos and needed a faster way to find, preview, and cut sound effects directly on my timeline. The application is built with Python, Qt, and C-based audio libraries, using AI-assisted programming tools for coding and automated testing.
       </p>
     </main>
 
@@ -449,34 +449,34 @@
         navFaq:         'FAQ',
         navCta:         'Buy MySoundLib',
 
-        metaTag:      'Technical Note • Specification',
-        artTitle:     'Architecture & Dependency Disclosure',
-        artLead:      'A concise technical overview of runtime components, data isolation, and network policies for users who require clarity on what runs on their machine.',
+        metaTag:      'Technical Note • Architecture',
+        artTitle:     'Architecture & Dependencies',
+        artLead:      'A technical overview of runtime components, local storage, and network behavior in MySoundLib.',
 
         sec1Head:     'Runtime Stack & Libraries',
-        sec1Text:     'MySoundLib is distributed as a self-contained desktop binary. It runs directly on the local operating system without requiring web runtimes, background servers, or containerization.',
+        sec1Text:     'MySoundLib is distributed as a standalone desktop binary. It runs directly on your operating system without web runtimes or background servers.',
 
         thComponent:  'Component',
         thRole:       'Role',
-        tdQt:         'Native windowing, hotkey overlays, audio output subsystem, OS drag-and-drop.',
-        tdSnd:        'Low-level C-based PCM stream decoding and waveform sample extraction.',
-        tdNum:        'SIMD-vectorized waveform peak calculations and buffer downsampling.',
+        tdQt:         'Native windowing, hotkey overlays, audio output subsystem, and OS drag-and-drop.',
+        tdSnd:        'C-based PCM stream decoding and waveform sample extraction.',
+        tdNum:        'Vectorized waveform peak calculations and buffer downsampling.',
         tdTag:        'Audio header inspection, container metadata parsing, and format transcoding.',
-        tdSql:        'Embedded local relational database for indexed audio cataloging.',
-        tdSen:        'Optional unhandled crash reporting. Strictly opt-out via app settings.',
+        tdSql:        'Embedded SQLite database for indexing and searching audio files.',
+        tdSen:        'Optional error reporting. Can be disabled in app settings.',
 
         sec2Head:     'Storage & Data Isolation',
         liStorage1:   '<b>Data Locations:</b> Database records and cache files reside exclusively within standard OS user-data directories (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).',
-        liStorage2:   '<b>Non-Destructive Access:</b> User audio folders are read in read-only mode during indexing. No source files are modified, tagged, or renamed on disk.',
-        liStorage3:   '<b>Audio Snippet Dragging:</b> Waveform trimming generates isolated temporary audio clips in a scratch directory; master files remain untouched.',
+        liStorage2:   '<b>Non-Destructive Indexing:</b> Audio folders are scanned in read-only mode. Source files are never modified, tagged, or moved on disk.',
+        liStorage3:   '<b>Timeline Export:</b> Waveform trimming exports a temporary audio file into a cache directory; master files remain untouched.',
 
         sec3Head:     'Network & Privacy Policies',
-        liNet1:       '<b>100% Offline Core Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop operate entirely offline without internet connectivity.',
-        liNet2:       '<b>No Content Telemetry:</b> Audio waveforms, file paths, sound library names, and project assets are never transmitted to any external server.',
-        liNet3:       '<b>Crash Reports (Optional):</b> When enabled, error reports capture only anonymized execution stack traces with <code>send_default_pii=False</code>. Telemetry can be toggled off at any time in Settings (<code>telemetry_enabled: false</code>).',
+        liNet1:       '<b>Offline Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop work entirely offline without an internet connection.',
+        liNet2:       '<b>No Audio Telemetry:</b> Audio waveforms, file paths, library names, and sound files are never sent to external servers.',
+        liNet3:       '<b>Error Reports (Optional):</b> When enabled, error reports capture anonymized stack traces with <code>send_default_pii=False</code>. You can turn this off at any time in Settings (<code>telemetry_enabled: false</code>).',
 
         sec4Head:     'Development Context',
-        devText:      'MySoundLib was created independently by <b>Thiago Neppel</b> (video editor and graphic designer) to resolve workflow bottlenecks in post-production environments. Built using modern development workflows and AI-assisted programming tools for code generation and automated testing.',
+        devText:      'I built MySoundLib independently because I edit videos and needed a faster way to find, preview, and cut sound effects directly on my timeline. The application is built with Python, Qt, and C-based audio libraries, using AI-assisted programming tools for coding and automated testing.',
 
         footerFeatures:'All Features',
         footerBack:   'Return to main page'
@@ -489,34 +489,34 @@
         navFaq:         'Dúvidas',
         navCta:         'Comprar MySoundLib',
 
-        metaTag:      'Nota Técnica • Especificação',
-        artTitle:     'Arquitetura e Declaração de Dependências',
-        artLead:      'Uma visão geral técnica e concisa sobre componentes em execução, isolamento de dados e políticas de rede para usuários que exigem total clareza do que roda em sua máquina.',
+        metaTag:      'Nota Técnica • Arquitetura',
+        artTitle:     'Arquitetura e Dependências',
+        artLead:      'Uma visão técnica dos componentes de execução, armazenamento local e comportamento de rede no MySoundLib.',
 
         sec1Head:     'Componentes e Bibliotecas',
-        sec1Text:     'O MySoundLib é distribuído como um binário desktop independente. Roda diretamente no sistema operacional local sem depender de runtimes web pesados, servidores em background ou conteinerização.',
+        sec1Text:     'O MySoundLib é distribuído como um executável desktop independente. Roda diretamente no sistema operacional sem navegadores embutidos ou servidores em segundo plano.',
 
         thComponent:  'Componente',
         thRole:       'Função',
-        tdQt:         'Janelas nativas, atalho global, subsistema de saída de áudio e arrastar e soltar do SO.',
-        tdSnd:        'Decodificação de streams PCM em C e extração de amostras para waveforms.',
-        tdNum:        'Cálculos numéricos vetorizados (SIMD) e amostragem de picos de áudio.',
-        tdTag:        'Leitura de cabeçalhos de áudio, metadados de contêineres e conversão de formato.',
-        tdSql:        'Banco de dados relacional embutido para catalogação indexada de arquivos.',
-        tdSen:        'Relatórios opcionais de falhas não tratadas. Configurável nas opções do app.',
+        tdQt:         'Janelas nativas, atalho global, saída de áudio e arrastar e soltar para a timeline.',
+        tdSnd:        'Decodificação de streams PCM em C e extração de amostras de áudio.',
+        tdNum:        'Cálculo vetorizado de picos e amostragem para desenho de waveform.',
+        tdTag:        'Leitura de metadados, identificação de contêineres e conversão de formato.',
+        tdSql:        'Banco de dados SQLite local para indexação e busca dos arquivos.',
+        tdSen:        'Relatórios opcionais de erros. Pode ser desativado nas configurações do app.',
 
         sec2Head:     'Armazenamento e Isolamento de Dados',
-        liStorage1:   '<b>Local dos Dados:</b> Registros do banco e cache residem exclusivamente nos caminhos padrão de dados do sistema (<code>%APPDATA%</code> no Windows, <code>~/Library/Application Support</code> no macOS, <code>~/.config</code> no Linux).',
-        liStorage2:   '<b>Acesso Não Destrutivo:</b> As pastas de áudio do usuário são lidas apenas em modo de leitura durante a indexação. Nenhuma modificação ou renomeação é feita nos arquivos.',
-        liStorage3:   '<b>Recorte de Áudio:</b> O recorte exporta apenas o segmento selecionado para uma pasta temporária de trabalho; os arquivos master permanecem intactos.',
+        liStorage1:   '<b>Local dos Dados:</b> Registros do banco e cache residem exclusivamente nos caminhos padrão do sistema (<code>%APPDATA%</code> no Windows, <code>~/Library/Application Support</code> no macOS, <code>~/.config</code> no Linux).',
+        liStorage2:   '<b>Indexação Não Destrutiva:</b> Suas pastas de áudio são lidas apenas em modo de leitura. Nenhum arquivo original é modificado, alterado ou movido no disco.',
+        liStorage3:   '<b>Recorte para a Timeline:</b> O recorte de áudio gera apenas um arquivo temporário em cache; os arquivos originais permanecem intactos.',
 
-        sec3Head:     'Política de Rede e Privacidade',
-        liNet1:       '<b>Operação 100% Offline:</b> Busca, indexação, visualização de waveform e exportação para timeline funcionam totalmente sem conexão com a internet.',
-        liNet2:       '<b>Zero Telemetria de Conteúdo:</b> Waveforms, caminhos de arquivo, nomes de pastas e arquivos de áudio nunca são enviados para servidores externos.',
-        liNet3:       '<b>Relatório de Erros (Opcional):</b> Quando ativado, envia apenas stack traces anônimos de execução com <code>send_default_pii=False</code>. Pode ser desativado a qualquer momento nas Configurações (<code>telemetry_enabled: false</code>).',
+        sec3Head:     'Rede e Privacidade',
+        liNet1:       '<b>Operação Offline:</b> Busca, indexação, visualização de waveform e arraste para a timeline funcionam totalmente sem conexão com a internet.',
+        liNet2:       '<b>Sem Telemetria de Conteúdo:</b> Formas de onda, caminhos de arquivo, nomes de pastas e arquivos de áudio nunca são enviados para servidores externos.',
+        liNet3:       '<b>Relatórios de Erro (Opcionais):</b> Quando ativados, enviam apenas relatórios anônimos de falha com <code>send_default_pii=False</code>. Podem ser desativados a qualquer momento nas Configurações (<code>telemetry_enabled: false</code>).',
 
         sec4Head:     'Contexto de Desenvolvimento',
-        devText:      'O MySoundLib foi criado de forma independente por <b>Thiago Neppel</b> (editor de vídeo e designer gráfico) para resolver gargalos reais de fluxo de trabalho na pós-produção. Desenvolvido com fluxos modernos de engenharia e ferramentas de programação auxiliadas por IA para geração de código e testes automatizados.',
+        devText:      'Construí o MySoundLib de forma independente porque edito vídeos e precisava de um jeito mais rápido de achar, ouvir e cortar efeitos sonoros direto na timeline. O aplicativo foi desenvolvido com Python, Qt e bibliotecas de áudio em C, utilizando ferramentas de programação auxiliadas por IA para código e testes automatizados.',
 
         footerFeatures:'Todas as Funcionalidades',
         footerBack:   'Voltar à página principal'
