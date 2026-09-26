@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions | MySoundLib</title>
+  <meta name="description" content="Terms and conditions for purchasing and using the MySoundLib desktop software and website.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #1C1C1C;
+      --surface: #242424;
+      --surface-light: #2c2c2c;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --green: #1dcd9f;
+      --text: #ffffff;
+      --text-muted: #9e9e9e;
+      --text-dim: #666666;
+      --sans: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wide {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Header & Navigation ─────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: rgba(28, 28, 28, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-brand img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: -0.01em;
+      transition: color 0.15s ease;
+      text-decoration: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 6px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 100px;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn:hover {
+      color: var(--text-muted);
+    }
+
+    .lang-btn.active {
+      background: var(--green);
+      color: #1c1c1c;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-solid {
+      background: var(--green);
+      color: #0b0b0e;
+    }
+
+    .btn-solid:hover {
+      background: #25e0b0;
+      transform: translateY(-1px);
+      color: #0b0b0e;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ── Article Layout ──────────────────────── */
+    .article-container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 0;
+    }
+
+    .article-container a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .article-container a:hover {
+      color: var(--green);
+    }
+
+    /* ── Article Content ─────────────────────── */
+    .meta-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 40px 0 16px;
+      color: var(--text);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    p b, p strong {
+      color: var(--text);
+    }
+
+    ul {
+      margin-bottom: 24px;
+      padding-left: 20px;
+    }
+
+    li {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    li b {
+      color: var(--text);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #e0e0e0;
+    }
+
+    /* ── Footer ──────────────────────────────── */
+    .article-footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .article-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .article-footer a:hover {
+      color: var(--green);
+    }
+  </style>
+  <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body>
+
+  <!-- Sticky Transparent Header -->
+  <header class="site-header">
+    <div class="wide">
+      <nav class="nav" aria-label="Main Navigation">
+        <a href="index.html#top" class="nav-brand" aria-label="MySoundLib home">
+          <img src="static/logo.svg" alt="MySoundLib">
+        </a>
+
+        <div class="nav-links">
+          <a class="nav-link" href="index.html#workflow" id="navWorkflow">Workflow</a>
+          <a class="nav-link" href="features.html" id="navFeatures">Features</a>
+          <a class="nav-link" href="index.html#compatibility" id="navCompat">Compatibility</a>
+          <a class="nav-link" href="index.html#makers" id="navMaker">About</a>
+          <a class="nav-link" href="index.html#faq" id="navFaq">FAQ</a>
+        </div>
+
+        <div class="nav-right">
+          <div class="lang-switcher">
+            <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+            <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+            <button class="lang-btn" id="btnHI" onclick="setLang('hi')">HI</button>
+          </div>
+          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="index.html#buy">Buy MySoundLib</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-container">
+    <main>
+      <!-- Meta & Title -->
+      <div class="meta-tag" id="metaTag">Legal &bull; Terms of Service</div>
+      <h1 id="artTitle">Terms & Conditions</h1>
+      <p class="lead" id="artLead">
+        Clear, transparent terms governing the purchase and use of the MySoundLib desktop software and website. Last updated: March 2026.
+      </p>
+
+      <!-- Section 1 -->
+      <h2 id="sec1Head">1. License Grant & Usage</h2>
+      <p id="sec1P1">
+        When you purchase MySoundLib, you receive a perpetual, non-exclusive, non-transferable license to download, install, and run the software on computers that you own or operate for commercial or personal audio management, sound design, and video editing workflows.
+      </p>
+      <ul>
+        <li id="sec1Li1"><b>One-Time Purchase:</b> Your license is lifetime for the version purchased. There are no recurring subscriptions or hidden maintenance fees.</li>
+        <li id="sec1Li2"><b>Devices:</b> A single license may be activated and used concurrently on up to 5 computers owned or operated by you (such as your desktop workstations and laptops).</li>
+        <li id="sec1Li3"><b>Restrictions:</b> You may not redistribute, resell, lease, sublicense, reverse engineer, or decompile the application binary.</li>
+      </ul>
+
+      <!-- Section 2 -->
+      <h2 id="sec2Head">2. Ownership of Your Audio & Content</h2>
+      <p id="sec2P1">
+        <b>You retain 100% ownership of your audio files, sound libraries, metadata, and creative projects.</b>
+      </p>
+      <p id="sec2P2">
+        MySoundLib functions as an offline indexing, previewing, and asset management utility. The software does not provide bundled audio content; you create, import, and organize all libraries independently. The software claims zero ownership, rights, or royalties over any sounds, music, recordings, or files you index, preview, trim, or export.
+      </p>
+
+      <!-- Section 3 -->
+      <h2 id="sec3Head">3. Local File Safety & Non-Destructive Processing</h2>
+      <p id="sec3P1">
+        MySoundLib is engineered around non-destructive local workflows:
+      </p>
+      <ul>
+        <li id="sec3Li1">Audio folders are indexed in read-only mode; source files on your disks are never modified or deleted without explicit user confirmation.</li>
+        <li id="sec3Li2">Waveform trims generate new temporary audio slices in your cache directory to drag directly onto your NLE timeline without altering your master sound files.</li>
+        <li id="sec3Li3">You remain responsible for maintaining proper backups of your original audio libraries and system data.</li>
+      </ul>
+
+      <!-- Section 4 -->
+      <h2 id="sec4Head">4. Purchases, Pricing & Refunds</h2>
+      <p id="sec4P1">
+        All financial transactions are conducted securely through Gumroad, which handles payment processing, local tax calculation, and invoicing.
+      </p>
+      <p id="sec4P2">
+        If MySoundLib does not function properly on your supported operating system and our support cannot resolve the issue, we provide a <b>7-day money back guarantee</b> from the date of purchase upon request with proof of purchase.
+      </p>
+
+      <!-- Section 5 -->
+      <h2 id="sec5Head">5. Disclaimer & Limitation of Liability</h2>
+      <p id="sec5P1">
+        MySoundLib is provided "as is" and "as available", without warranty of any kind, express or implied. While we strive for uncompromising stability and reliability across creative workflows, in no event shall the developer be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use this software.
+      </p>
+
+      <!-- Section 6 -->
+      <h2 id="sec6Head">6. Contact & Support</h2>
+      <p id="sec6P1">
+        If you have any questions, feedback, or need assistance regarding these terms or your license, you can reach out directly via email at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> or via our feedback form in app.
+      </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="article-footer">
+      <span>&copy; 2026 MySoundLib</span>
+      <span>
+        <a href="privacy.html" id="footerPrivacy">Privacy Policy</a> &bull;
+        <a href="features.html" id="footerFeatures">All Features</a> &bull;
+        <a href="index.html" id="footerBack">Return to main page</a>
+      </span>
+    </footer>
+
+  </div>
+
+  <!-- Multilingual Dictionary & Logic -->
+  <script>
+    const copy = {
+      en: {
+        navWorkflow:    'Workflow',
+        navFeatures:    'Features',
+        navCompat:      'Compatibility',
+        navMaker:       'About',
+        navFaq:         'FAQ',
+        navCta:         'Buy MySoundLib',
+
+        metaTag:        'Legal • Terms of Service',
+        artTitle:       'Terms & Conditions',
+        artLead:        'Clear, transparent terms governing the purchase and use of the MySoundLib desktop software and website. Last updated: March 2026.',
+
+        sec1Head:       '1. License Grant & Usage',
+        sec1P1:         'When you purchase MySoundLib, you receive a perpetual, non-exclusive, non-transferable license to download, install, and run the software on computers that you own or operate for commercial or personal audio management, sound design, and video editing workflows.',
+        sec1Li1:        '<b>One-Time Purchase:</b> Your license is lifetime for the version purchased. There are no recurring subscriptions or hidden maintenance fees.',
+        sec1Li2:        '<b>Devices:</b> A single license may be activated and used concurrently on up to 5 computers owned or operated by you (such as your desktop workstations and laptops).',
+        sec1Li3:        '<b>Restrictions:</b> You may not redistribute, resell, lease, sublicense, reverse engineer, or decompile the application binary.',
+
+        sec2Head:       '2. Ownership of Your Audio & Content',
+        sec2P1:         '<b>You retain 100% ownership of your audio files, sound libraries, metadata, and creative projects.</b>',
+        sec2P2:         'MySoundLib functions as an offline indexing, previewing, and asset management utility. The software does not provide bundled audio content; you create, import, and organize all libraries independently. The software claims zero ownership, rights, or royalties over any sounds, music, recordings, or files you index, preview, trim, or export.',
+
+        sec3Head:       '3. Local File Safety & Non-Destructive Processing',
+        sec3P1:         'MySoundLib is engineered around non-destructive local workflows:',
+        sec3Li1:        'Audio folders are indexed in read-only mode; source files on your disks are never modified or deleted without explicit user confirmation.',
+        sec3Li2:        'Waveform trims generate new temporary audio slices in your cache directory to drag directly onto your NLE timeline without altering your master sound files.',
+        sec3Li3:        'You remain responsible for maintaining proper backups of your original audio libraries and system data.',
+
+        sec4Head:       '4. Purchases, Pricing & Refunds',
+        sec4P1:         'All financial transactions are conducted securely through Gumroad, which handles payment processing, local tax calculation, and invoicing.',
+        sec4P2:         'If MySoundLib does not function properly on your supported operating system and our support cannot resolve the issue, we provide a <b>7-day money back guarantee</b> from the date of purchase upon request with proof of purchase.',
+
+        sec5Head:       '5. Disclaimer & Limitation of Liability',
+        sec5P1:         'MySoundLib is provided "as is" and "as available", without warranty of any kind, express or implied. While we prioritize stability in real editing workflows, in no event shall the developer be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use this software.',
+
+        sec6Head:       '6. Contact & Support',
+        sec6P1:         'If you have any questions, feedback, or need assistance regarding these terms or your license, you can reach out directly via email at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> or via our feedback form in app.',
+
+        footerPrivacy:  'Privacy Policy',
+        footerFeatures: 'All Features',
+        footerBack:     'Return to main page'
+      },
+      pt: {
+        navWorkflow:    'Fluxo',
+        navFeatures:    'Recursos',
+        navCompat:      'Compatibilidade',
+        navMaker:       'Sobre',
+        navFaq:         'Dúvidas',
+        navCta:         'Comprar MySoundLib',
+
+        metaTag:        'Legal • Termos de Serviço',
+        artTitle:       'Termos e Condições',
+        artLead:        'Termos claros e transparentes que regem a compra e o uso do software desktop MySoundLib e deste site. Atualizado em: Março de 2026.',
+
+        sec1Head:       '1. Concessão de Licença e Uso',
+        sec1P1:         'Ao adquirir o MySoundLib, você recebe uma licença perpétua, não exclusiva e intransferível para baixar, instalar e executar o software em computadores de sua propriedade para projetos comerciais ou pessoais de gerenciamento de áudio, sound design e edição de vídeo.',
+        sec1Li1:        '<b>Compra Única:</b> Sua licença é vitalícia para a versão adquirida. Não existem assinaturas recorrentes nem taxas ocultas de manutenção.',
+        sec1Li2:        '<b>Dispositivos:</b> Uma única licença pode ser ativada e usada simultaneamente em até 5 computadores de sua propriedade (ex: desktops e notebooks).',
+        sec1Li3:        '<b>Restrições:</b> Você não pode redistribuir, revender, alugar, sublicenciar, fazer engenharia reversa ou descompilar os binários do aplicativo.',
+
+        sec2Head:       '2. Propriedade do Seu Conteúdo e Áudios',
+        sec2P1:         '<b>Você mantém 100% da propriedade sobre seus arquivos de áudio, pacotes de som, metadados e projetos.</b>',
+        sec2P2:         'O MySoundLib funciona como um utilitário local de indexação, pré-escuta e organização de áudios. O software não fornece sons pré-empacotados; você cria, importa e organiza todas as suas bibliotecas de forma autônoma. O software não reivindica quaisquer direitos, propriedade ou royalties sobre sons ou arquivos que você organize, recorte ou exporte.',
+
+        sec3Head:       '3. Segurança dos Arquivos e Processamento Não Destrutivo',
+        sec3P1:         'O MySoundLib foi projetado sob um fluxo local e não destrutivo:',
+        sec3Li1:        'As pastas de áudio são indexadas apenas em modo de leitura; arquivos originais no seu disco nunca são modificados ou excluídos sem sua ação direta.',
+        sec3Li2:        'Recortes de waveform geram arquivos temporários na pasta de cache para arraste imediato na timeline do seu editor, preservando seus arquivos originais intactos.',
+        sec3Li3:        'Você continua sendo responsável por manter backups seguros das suas bibliotecas originais de efeitos sonoros e do seu sistema.',
+
+        sec4Head:       '4. Compras, Preços e Reembolsos',
+        sec4P1:         'Todas as transações financeiras são intermediadas com segurança pelo Gumroad, responsável pelo processamento do pagamento, tributação local e emissão de recibos.',
+        sec4P2:         'Caso o MySoundLib apresente incompatibilidade técnica com o seu sistema suportado e não consigamos solucionar, oferecemos <b>garantia de reembolso de 7 dias</b> a partir da data da compra, mediante solicitação e comprovante.',
+
+        sec5Head:       '5. Isenção de Garantias e Limitação de Responsabilidade',
+        sec5P1:         'O MySoundLib é fornecido "no estado em que se encontra" ("as is"), sem garantias expressas ou implícitas. Embora a estabilidade em fluxos de trabalho reais seja prioridade, em hipótese alguma o desenvolvedor será responsável por danos indiretos, incidentais ou consequentes decorrentes do uso do software.',
+
+        sec6Head:       '6. Contato e Suporte',
+        sec6P1:         'Para dúvidas, sugestões ou suporte sobre a licença ou estes termos, você pode entrar em contato diretamente pelo e-mail <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> ou pelo formulário de feedback no aplicativo.',
+
+        footerPrivacy:  'Política de Privacidade',
+        footerFeatures: 'Todas as Funcionalidades',
+        footerBack:     'Voltar à página principal'
+      },
+      es: {
+        navWorkflow:    'Flujo',
+        navFeatures:    'Funciones',
+        navCompat:      'Compatibilidad',
+        navMaker:       'Sobre el proyecto',
+        navFaq:         'Preguntas',
+        navCta:         'Comprar MySoundLib',
+
+        metaTag:        'Legal • Términos de Servicio',
+        artTitle:       'Términos y Condiciones',
+        artLead:        'Términos claros y transparentes que rigen la compra y el uso del software de escritorio MySoundLib y este sitio web. Última actualización: Marzo 2026.',
+
+        sec1Head:       '1. Concesión de Licencia y Uso',
+        sec1P1:         'Al comprar MySoundLib, obtienes una licencia perpetua, no exclusiva e intransferible para descargar, instalar y ejecutar el software en equipos de tu propiedad para proyectos comerciales o personales de gestión de audio, diseño de sonido y edición de video.',
+        sec1Li1:        '<b>Pago Único:</b> Tu licencia es vitalicia para la versión adquirida. Sin suscripciones recurrentes ni costos ocultos de mantenimiento.',
+        sec1Li2:        '<b>Dispositivos:</b> Una misma licencia puede ser activada y utilizada simultáneamente en hasta 5 ordenadores de tu propiedad (p. ej. PCs de escritorio y portátiles).',
+        sec1Li3:        '<b>Restricciones:</b> No puedes redistribuir, revender, alquilar, sublicenciar, descompilar ni realizar ingeniería inversa del software.',
+
+        sec2Head:       '2. Propiedad de tus Archivos y Contenido',
+        sec2P1:         '<b>Conservas el 100% de la propiedad sobre tus archivos de audio, colecciones de sonidos, metadatos y proyectos.</b>',
+        sec2P2:         'MySoundLib opera como una herramienta local de indexación, preescucha y organización. El software no incluye librerías empaquetadas; tú creas, importas y organizas tus colecciones de forma independiente. El software no reclama ningún derecho, propiedad ni regalías sobre los sonidos o archivos que organices, recortes o exportes.',
+
+        sec3Head:       '3. Seguridad de Archivos y Procesamiento No Destructivo',
+        sec3P1:         'MySoundLib está diseñado en torno a flujos locales no destructivos:',
+        sec3Li1:        'Las carpetas de audio se indexan en modo de solo lectura; los archivos originales en tus discos nunca se modifican ni eliminan sin tu confirmación.',
+        sec3Li2:        'Los recortes de audio generan nuevos fragmentos temporales en la carpeta de caché para arrastrar a tu editor, dejando intactos los archivos maestros.',
+        sec3Li3:        'Eres responsable de mantener copias de seguridad adecuadas de tus bibliotecas de sonido originales y datos del sistema.',
+
+        sec4Head:       '4. Compras, Precios y Reembolsos',
+        sec4P1:         'Todas las transacciones se realizan de forma segura a través de Gumroad, plataforma encargada del procesamiento del pago, facturación y cálculo de impuestos.',
+        sec4P2:         'Si MySoundLib no funciona correctamente en tu sistema operativo compatible y no podemos solucionarlo, ofrecemos una <b>garantía de reembolso de 7 días</b> tras la compra previa solicitud con comprobante.',
+
+        sec5Head:       '5. Exención y Limitación de Responsabilidad',
+        sec5P1:         'MySoundLib se entrega "tal cual", sin garantías de ningún tipo, expresas o implícitas. Aunque la estabilidad del software en flujos de edición reales es una prioridad, en ningún caso el desarrollador será responsable por daños indirectos o consecuentes derivados de su uso.',
+
+        sec6Head:       '6. Contacto y Soporte',
+        sec6P1:         'Para preguntas o asistencia sobre estos términos o tu licencia, contáctanos en <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> o mediante nuestro formulario de feedback en la app.',
+
+        footerPrivacy:  'Política de Privacidad',
+        footerFeatures: 'Todas las Funciones',
+        footerBack:     'Volver a la página principal'
+      },
+      hi: {
+        navWorkflow:    'वर्कफ़्लो',
+        navFeatures:    'फ़ीचर्स',
+        navCompat:      'सपोर्ट',
+        navMaker:         'प्रोजेक्ट',
+        navFaq:           'सवालों के जवाब',
+        navCta:           'MySoundLib खरीदें',
+
+        metaTag:        'कानूनी • नियम और शर्तें',
+        artTitle:       'नियम और शर्तें',
+        artLead:        'MySoundLib डेस्कटॉप सॉफ़्टवेयर और वेबसाइट के उपयोग और खरीद को नियंत्रित करने वाले पारदर्शी नियम। अंतिम अपडेट: मार्च 2026।',
+
+        sec1Head:       '1. लाइसेंस और उपयोग',
+        sec1P1:         'जब आप MySoundLib खरीदते हैं, तो आपको ऑडियो प्रबंधन, साउंड डिज़ाइन और वीडियो एडिटिंग प्रोजेक्ट्स के लिए अपने स्वामित्व वाले कंप्यूटरों पर सॉफ़्टवेयर डाउनलोड, इंस्टॉल और चलाने का एक स्थायी लाइसेंस मिलता है।',
+        sec1Li1:        '<b>एकमुश्त खरीद:</b> आपका लाइसेंस खरीदे गए संस्करण के लिए आजीवन वैध है। कोई आवर्ती सदस्यता या छिपी हुई फीस नहीं है।',
+        sec1Li2:        '<b>डिवाइस:</b> एक ही लाइसेंस को आपके स्वामित्व वाले अधिकतम 5 कंप्यूटरों (जैसे डेस्कटॉप और लैपटॉप) पर एक साथ सक्रिय और उपयोग किया जा सकता है।',
+        sec1Li3:        '<b>प्रतिबंध:</b> आप एप्लिकेशन को पुनर्विक्रय, रिवर्स इंजीनियर, या डिकम्पाइल नहीं कर सकते।',
+
+        sec2Head:       '2. आपकी ऑडियो सामग्री का स्वामित्व',
+        sec2P1:         '<b>आप अपनी ऑडियो फ़ाइलों, साउंड पैक और प्रोजेक्ट्स का 100% स्वामित्व बनाए रखते हैं।</b>',
+        sec2P2:         'MySoundLib एक ऑफ़लाइन इंडेक्सिंग और संगठन टूल के रूप में काम करता है। सॉफ़्टवेयर पहले से बंडल ऑडियो प्रदान नहीं करता; आप अपनी सभी लाइब्रेरी स्वयं बनाते और प्रबंधित करते हैं। सॉफ़्टवेयर आपके द्वारा उपयोग की जाने वाली किसी भी ध्वनि या सामग्री पर कोई स्वामित्व या रॉयल्टी का दावा नहीं करता है।',
+
+        sec3Head:       '3. सुरक्षित और नॉन-डिस्ट्रक्टिव प्रोसेसिंग',
+        sec3P1:         'MySoundLib को नॉन-डिस्ट्रक्टिव वर्कफ़्लो के अनुसार डिज़ाइन किया गया है:',
+        sec3Li1:        'ऑडियो फ़ोल्डर्स को केवल रीड-ओनली मोड में स्कैन किया जाता है; आपकी मूल फ़ाइलें कभी नहीं बदली जाती हैं।',
+        sec3Li2:        'वेवफ़ॉर्म ट्रिमिंग केवल कैश डायरेक्टरी में अस्थायी ऑडियो स्लाइस बनाती है, जिससे मूल फ़ाइलें अछूती रहती हैं।',
+        sec3Li3:        'आप अपनी महत्वपूर्ण ऑडियो लाइब्रेरीज़ का बैकअप बनाए रखने के लिए स्वयं ज़िम्मेदार हैं।',
+
+        sec4Head:       '4. खरीद और रिफ़ंड',
+        sec4P1:         'सभी वित्तीय लेनदेन Gumroad के माध्यम से सुरक्षित रूप से प्रोसेस किए जाते हैं, जो पेमेंट प्रोसेसिंग, टैक्स और इनवॉइसिंग का प्रबंधन करता है।',
+        sec4P2:         'यदि MySoundLib आपके समर्थित ऑपरेटिंग सिस्टम पर काम नहीं करता है, तो हम खरीद की तारीख से <b>7 दिनों की रिफ़ंड पॉलिसी</b> प्रदान करते हैं।',
+
+        sec5Head:       '5. दायित्व की सीमा',
+        sec5P1:         'MySoundLib को "जैसा है" के आधार पर प्रदान किया जाता है। किसी भी परिस्थिति में डेवलपर सॉफ़्टवेयर के उपयोग से होने वाले किसी भी अप्रत्यक्ष नुकसान के लिए उत्तरदायी नहीं होगा।',
+
+        sec6Head:       '6. संपर्क और सहायता',
+        sec6P1:         'यदि आपके पास इन शर्तों के संबंध में कोई प्रश्न हैं, तो आप सीधे <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> या ऐप के फीडबैक फॉर्म के माध्यम से संपर्क कर सकते हैं।',
+
+        footerPrivacy:  'गोपनीयता नीति',
+        footerFeatures: 'सभी फ़ीचर्स',
+        footerBack:     'मुख्य पृष्ठ पर वापस जाएं'
+      }
+    };
+
+    function setLang(lang) {
+      const c = copy[lang];
+      if (!c) return;
+
+      document.documentElement.lang = lang;
+      ['EN', 'PT', 'ES', 'HI'].forEach(code => {
+        const btn = document.getElementById('btn' + code);
+        if (btn) btn.classList.toggle('active', lang === code.toLowerCase());
+      });
+
+      for (const [id, text] of Object.entries(c)) {
+        const el = document.getElementById(id);
+        if (el) {
+          if (text.includes('<') || text.includes('&') || text.includes('\n')) {
+            el.innerHTML = text.replace(/\n/g, '<br>');
+          } else {
+            el.textContent = text;
+          }
+        }
+      }
+
+      try { localStorage.setItem('msl_lang', lang); } catch (e) {}
+    }
+
+    (function() {
+      let saved = null;
+      try { saved = localStorage.getItem('msl_lang'); } catch (e) {}
+      if (['en', 'pt', 'es', 'hi'].includes(saved)) { setLang(saved); return; }
+      const navLang = (navigator.language || '').toLowerCase();
+      if (navLang.startsWith('pt')) setLang('pt');
+      else if (navLang.startsWith('es')) setLang('es');
+      else if (navLang.startsWith('hi')) setLang('hi');
+      else setLang('en');
+    })();
+  </script>
+</body>
+</html>
