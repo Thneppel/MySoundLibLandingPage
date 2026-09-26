@@ -8,7 +8,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -22,7 +22,7 @@
       --text: #ffffff;
       --text-muted: #9e9e9e;
       --text-dim: #666666;
-      --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --sans: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
     }
 
     * {
@@ -201,10 +201,13 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
+      text-align: left;
     }
 
     .floating-audio-file {
       position: absolute;
+      top: 0;
+      left: 0;
       display: inline-flex;
       align-items: center;
       gap: 7px;
@@ -361,6 +364,11 @@
       margin-bottom: 18px;
     }
 
+    .final-head em {
+      font-style: normal;
+      color: var(--green);
+    }
+
     .final-sub {
       font-size: 16px;
       color: var(--text-muted);
@@ -442,6 +450,8 @@
           <div class="lang-switcher">
             <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
             <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+            <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+            <button class="lang-btn" id="btnHI" onclick="setLang('hi')">HI</button>
           </div>
           <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="index.html#buy">Buy MySoundLib</a>
         </div>
@@ -551,8 +561,8 @@
             <div class="feature-desc" id="f13Desc">Filter results by format (WAV, MP3, FLAC, OGG), category, and channel layout (mono, stereo, multichannel).</div>
           </div>
           <div class="feature-row">
-            <div class="feature-name" id="f14Name">Global Search Overlay</div>
-            <div class="feature-desc" id="f14Desc">Press Alt + Shift + F while editing in Premiere, DaVinci, or CapCut. Search, preview on spacebar, and drag the clip into your timeline without switching windows.</div>
+            <div class="feature-name" id="f14Name">QuickSearch Overlay</div>
+            <div class="feature-desc" id="f14Desc">Press Alt + Shift + F while editing in Premiere, DaVinci, or CapCut. Search, audition sounds instantly, and drag the clip into your timeline without switching windows.</div>
           </div>
         </div>
       </section>
@@ -566,7 +576,7 @@
         <div class="feature-grid">
           <div class="feature-row">
             <div class="feature-name" id="f15Name">Waveform Preview</div>
-            <div class="feature-desc" id="f15Desc">Instant waveform playback in the main window and floating search overlay with spacebar.</div>
+            <div class="feature-desc" id="f15Desc">Instant waveform rendering and audio playback in both the main window and QuickSearch Overlay.</div>
           </div>
           <div class="feature-row">
             <div class="feature-name" id="f16Name">Precision Trimming</div>
@@ -614,7 +624,7 @@
           </div>
           <div class="feature-row">
             <div class="feature-name" id="f22Name">Customizable Shortcuts</div>
-            <div class="feature-desc" id="f22Desc">Customize hotkeys for opening the search overlay and controlling playback.</div>
+            <div class="feature-desc" id="f22Desc">Customize hotkeys for opening QuickSearch Overlay and controlling playback.</div>
           </div>
           <div class="feature-row">
             <div class="feature-name" id="f23Name">Advanced Settings</div>
@@ -632,9 +642,9 @@
   <!-- Final Call to Action (Completely clean, outside animation wrap) -->
   <section class="final-cta" id="buy">
     <div class="wide">
-      <h2 class="final-head" id="finalHead">Stop digging through folders. Keep editing.</h2>
+      <h2 class="final-head" id="finalHead">Stop digging through folders. <em>Keep editing.</em></h2>
       <p class="final-sub" id="finalSub">
-        Download link and license key sent by email right after purchase. Runs on Windows, macOS, and Linux.
+        Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.
       </p>
       <button class="btn btn-solid btn-lg" id="finalCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
         Buy MySoundLib $19
@@ -648,7 +658,8 @@
       <span>&copy; 2026 MySoundLib. All rights reserved.</span>
       <div class="footer-links">
         <a href="index.html" id="footHome">Home</a>
-        <a href="tech.html" id="footTech">Architecture Note</a>
+        <a href="terms.html" id="footTerms">Terms</a>
+        <a href="privacy.html" id="footPrivacy">Privacy</a>
         <a href="index.html#faq" id="footFaq">FAQ</a>
       </div>
     </div>
@@ -701,12 +712,12 @@
         f12Desc:        'Search across filenames, tags, categories, and source folders at the same time.',
         f13Name:        'Advanced Filters',
         f13Desc:        'Filter results by format (WAV, MP3, FLAC, OGG), category, and channel layout (mono, stereo, multichannel).',
-        f14Name:        'Global Search Overlay',
-        f14Desc:        'Press Alt + Shift + F while editing in Premiere, DaVinci, or CapCut. Search, preview on spacebar, and drag the clip into your timeline without switching windows.',
+        f14Name:        'QuickSearch Overlay',
+        f14Desc:        'Press Alt + Shift + F while editing in Premiere, DaVinci, or CapCut. Search, audition sounds instantly, and drag the clip into your timeline without switching windows.',
 
         m5Title:        'Player & Audio Editing',
         f15Name:        'Waveform Preview',
-        f15Desc:        'Instant waveform playback in the main window and floating search overlay with spacebar.',
+        f15Desc:        'Instant waveform rendering and audio playback in both the main window and QuickSearch Overlay.',
         f16Name:        'Precision Trimming',
         f16Desc:        'Select and extract transients, impacts, or tails non-destructively directly on the waveform.',
         f17Name:        'Pitch Shifter',
@@ -724,17 +735,18 @@
         f21Name:        'Multiplatform Support',
         f21Desc:        'Full feature parity across Windows, macOS (Intel and Apple Silicon), and Linux.',
         f22Name:        'Customizable Shortcuts',
-        f22Desc:        'Customize hotkeys for opening the search overlay and controlling playback.',
+        f22Desc:        'Customize hotkeys for opening QuickSearch Overlay and controlling playback.',
         f23Name:        'Advanced Settings',
         f23Desc:        'Settings to adjust default folders, indexing behavior, and editor preferences.',
         f24Name:        'Lightweight Background Engine',
         f24Desc:        'Runs in the background with low CPU and RAM usage, so your video editor keeps full performance.',
 
-        finalHead:      'Stop digging through folders. Keep editing.',
-        finalSub:       'Download link and license key sent by email right after purchase. Runs on Windows, macOS, and Linux.',
+        finalHead:      'Stop digging through folders. <em>Keep editing.</em>',
+        finalSub:       'Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.',
         finalCta:       'Buy MySoundLib $19',
         footHome:       'Home',
-        footTech:       'Under the Hood',
+        footTerms:      'Terms',
+        footPrivacy:    'Privacy',
         footFaq:        'FAQ'
       },
       pt: {
@@ -782,12 +794,12 @@
         f12Desc:        'Busque por nome do arquivo, tags, categorias e pastas de origem ao mesmo tempo.',
         f13Name:        'Filtros por formato e canal',
         f13Desc:        'Filtre resultados por formato (WAV, MP3, FLAC, OGG), categoria e canais (mono, estéreo ou multicanal).',
-        f14Name:        'Busca sobre o editor',
-        f14Desc:        'Aperte Alt + Shift + F enquanto edita no Premiere, DaVinci ou CapCut. Busque, ouça na barra de espaço e arraste o áudio para a timeline sem trocar de janela.',
+        f14Name:        'QuickSearch Overlay',
+        f14Desc:        'Aperte Alt + Shift + F enquanto edita no Premiere, DaVinci ou CapCut. Busque, ouça na hora e arraste o áudio para a timeline sem trocar de janela.',
 
         m5Title:        'Player e edição de áudio',
         f15Name:        'Visualização de waveform',
-        f15Desc:        'Reprodução imediata de áudio e waveform na janela principal e na busca flutuante com a barra de espaço.',
+        f15Desc:        'Visualização imediata da forma de onda e reprodução instantânea na janela principal e no QuickSearch Overlay.',
         f16Name:        'Recorte de waveform',
         f16Desc:        'Selecione e extraia impactos, transientes ou finais sem alterar o arquivo original, direto na waveform.',
         f17Name:        'Ajuste de pitch',
@@ -805,18 +817,183 @@
         f21Name:        'Suporte multiplataforma',
         f21Desc:        'Mesmos recursos e compatibilidade no Windows, macOS (Intel e Apple Silicon) e Linux.',
         f22Name:        'Atalhos personalizáveis',
-        f22Desc:        'Personalize as teclas de atalho para abrir a busca e controlar a reprodução.',
+        f22Desc:        'Personalize as teclas de atalho para abrir o QuickSearch Overlay e controlar a reprodução.',
         f23Name:        'Preferências gerais',
         f23Desc:        'Ajustes para configurar pastas padrão, comportamento de indexação e preferências do editor.',
         f24Name:        'Processamento leve',
         f24Desc:        'Roda em segundo plano com baixo consumo de memória e CPU, sem tirar desempenho do seu editor de vídeo.',
 
-        finalHead:      'Chega de procurar em pastas. Foque em editar.',
-        finalSub:       'Link de download e chave de licença enviados por e-mail logo após a compra. Funciona no Windows, macOS e Linux.',
+        finalHead:      'Chega de procurar em pastas. <em>Foque em editar.</em>',
+        finalSub:       'Licença vitalícia, zero mensalidades e 100% offline na sua máquina. Compatível com Windows, macOS e Linux.',
         finalCta:       'Comprar MySoundLib $19',
         footHome:       'Início',
-        footTech:       'Arquitetura Técnica',
+        footTerms:      'Termos',
+        footPrivacy:    'Privacidade',
         footFaq:        'Dúvidas'
+      },
+      es: {
+        navWorkflow:    'Flujo',
+        navFeatures:    'Funciones',
+        navCompat:      'Compatibilidad',
+        navMaker:       'Sobre el proyecto',
+        navFaq:         'Preguntas',
+        navCta:         'Comprar MySoundLib',
+
+        metaBadge:      'Especificación de Funciones',
+        pageTitle:      'Todas las funciones',
+        pageLead:       'Detalle completo de las 24 funciones y 7 módulos de MySoundLib.',
+
+        m1Title:        'Gestión de Bibliotecas',
+        f1Name:         'Múltiples Bibliotecas',
+        f1Desc:         'Crea y gestiona bibliotecas de audio independientes para distintos proyectos, clientes o paquetes.',
+        f2Name:         'Gestión de Carpetas',
+        f2Desc:         'Añade, elimina o reorganiza carpetas locales vinculadas a cada biblioteca.',
+        f3Name:         'Indexación Rápida',
+        f3Desc:         'Indexa miles de archivos de audio locales en segundos con bajo consumo de CPU.',
+        f4Name:         'Grupos de Carpetas',
+        f4Desc:         'Organiza tus carpetas de audio en grupos lógicos dentro de tu biblioteca.',
+        f5Name:         'Modos de Vista',
+        f5Desc:         'Alterna entre una vista de árbol de carpetas y una lista plana de todos los archivos indexados.',
+
+        m2Title:        'Sistema de Archivos y Sincronización',
+        f6Name:         'Sincronización Local',
+        f6Desc:         'Sincroniza las carpetas seleccionadas bajo demanda. Los archivos nuevos se indexan al actualizar.',
+        f7Name:         'Renombrado Bidireccional',
+        f7Desc:         'Renombra archivos y grupos en la app para actualizar sus nombres en el disco.',
+        f8Name:         'Gestión de Eliminación',
+        f8Desc:         'Elige si deseas eliminar un archivo solo del índice o enviarlo a la papelera del sistema.',
+
+        m3Title:        'Etiquetas y Metadatos',
+        f9Name:         'Gestión de Etiquetas',
+        f9Desc:         'Crea, asigna y edita etiquetas de texto personalizadas para filtrado rápido.',
+        f10Name:        'Categorías de Tipo',
+        f10Desc:        'Asigna categorías a archivos, grupos y carpetas (como SFX, Foley, Música o Ambiente).',
+        f11Name:        'Visualización de Metadatos',
+        f11Desc:        'Consulta duración, frecuencia de muestreo, profundidad de bits, canales y metadatos integrados.',
+
+        m4Title:        'Búsqueda y Filtros',
+        f12Name:        'Búsqueda Multifactorial',
+        f12Desc:        'Busca por nombre de archivo, etiquetas, categorías y carpetas de origen a la vez.',
+        f13Name:        'Filtros Avanzados',
+        f13Desc:        'Filtra por formato (WAV, MP3, FLAC, OGG), categoría y canales (mono, estéreo, multicanal).',
+        f14Name:        'QuickSearch Overlay',
+        f14Desc:        'Pulsa Alt + Shift + F mientras editas en Premiere, DaVinci o CapCut. Busca, escucha al instante y arrastra el audio a tu línea de tiempo sin cambiar de ventana.',
+
+        m5Title:        'Reproductor y Edición de Audio',
+        f15Name:        'Previsualización de Forma de Onda',
+        f15Desc:        'Visualización inmediata de la forma de onda y reproducción instantánea en la ventana principal y en QuickSearch Overlay.',
+        f16Name:        'Recorte Preciso',
+        f16Desc:        'Selecciona y extrae impactos, transitorios o colas de forma no destructiva directamente en la forma de onda.',
+        f17Name:        'Cambio de Tono (Pitch Shifter)',
+        f17Desc:        'Ajusta el tono y la velocidad de reproducción antes de soltar el audio en tu línea de tiempo.',
+        f18Name:        'Conversión de Formatos',
+        f18Desc:        'Conversión por lotes entre formatos de audio compatibles con exportación en un clic a WAV.',
+
+        m6Title:        'Flujo de Trabajo e Integración',
+        f19Name:        'Arrastrar a la Línea de Tiempo',
+        f19Desc:        'Arrastra la pista completa o el fragmento recortado directo a tu editor de video o DAW.',
+        f20Name:        'Compatibilidad Universal',
+        f20Desc:        'Soporte directo para arrastrar y soltar en Premiere, DaVinci Resolve, Final Cut Pro, CapCut, After Effects, Ableton, FL Studio, Reaper y Vegas.',
+
+        m7Title:        'Sistema y Plataformas',
+        f21Name:        'Soporte Multiplataforma',
+        f21Desc:        'Mismas funciones en Windows, macOS (Intel y Apple Silicon) y Linux.',
+        f22Name:        'Atajos Personalizables',
+        f22Desc:        'Personaliza los atajos de teclado para abrir QuickSearch Overlay y controlar la reproducción.',
+        f23Name:        'Ajustes Avanzados',
+        f23Desc:        'Configuración de carpetas predeterminadas, comportamiento de indexación y preferencias de edición.',
+        f24Name:        'Motor Ligero en Segundo Plano',
+        f24Desc:        'Funciona en segundo plano con bajísimo consumo de CPU y RAM para no restar rendimiento a tu editor de video.',
+
+        finalHead:      'Basta de rebuscar en carpetas. <em>Concéntrate en editar.</em>',
+        finalSub:       'Licencia de por vida, sin suscripciones y 100% offline en tu equipo. Compatible con Windows, macOS y Linux.',
+        finalCta:       'Comprar MySoundLib $19',
+        footHome:       'Inicio',
+        footTerms:      'Términos',
+        footPrivacy:    'Privacidad',
+        footFaq:        'Preguntas'
+      },
+      hi: {
+        navWorkflow:    'वर्कफ़्लो',
+        navFeatures:      'फ़ीचर्स',
+        navCompat:        'सपोर्ट',
+        navMaker:         'प्रोजेक्ट',
+        navFaq:           'सवालों के जवाब',
+        navCta:           'MySoundLib खरीदें',
+
+        metaBadge:      'फ़ीचर स्पेसिफिकेशन',
+        pageTitle:      'सभी फ़ीचर्स',
+        pageLead:       'MySoundLib के 24 फ़ीचर्स और 7 मॉड्यूल्स का विस्तृत विवरण।',
+
+        m1Title:        'लाइब्रेरी मैनेजमेंट',
+        f1Name:         'मल्टीपल लाइब्रेरीज़',
+        f1Desc:         'विभिन्न प्रोजेक्ट्स, क्लाइंट्स या साउंड पैक्स के लिए अलग-अलग ऑडियो लाइब्रेरीज़ बनाएं।',
+        f2Name:         'फ़ोल्डर मैनेजमेंट',
+        f2Desc:         'प्रत्येक लाइब्रेरी से जुड़े लोकल फ़ोल्डर्स को आसानी से जोड़ें, हटाएं या व्यवस्थित करें।',
+        f3Name:         'फास्ट इंडेक्सिंग',
+        f3Desc:         'कम CPU उपयोग के साथ सेकंडों में हज़ारों लोकल ऑडियो फ़ाइलों को इंडेक्स करें।',
+        f4Name:         'फ़ोल्डर ग्रुप्स',
+        f4Desc:         'अपनी लाइब्रेरी के भीतर ऑडियो फ़ोल्डर्स को अलग-अलग लॉजिकल ग्रुप्स में व्यवस्थित करें।',
+        f5Name:         'व्यू मोड्स',
+        f5Desc:         'फ़ोल्डर ट्री व्यू और सभी इंडेक्स की गई फ़ाइलों की लिस्ट के बीच स्विच करें।',
+
+        m2Title:        'फ़ाइल सिस्टम और सिंक',
+        f6Name:         'लोकल सिंक',
+        f6Desc:         'चुने गए फ़ोल्डर्स को तुरंत सिंक करें। नई ऑडियो फ़ाइलें रीफ़्रेश करने पर तुरंत जुड़ जाती हैं।',
+        f7Name:         'द्विदिशात्मक नाम बदलना',
+        f7Desc:         'ऐप के अंदर फ़ाइलों और ग्रुप्स का नाम बदलकर डिस्क पर भी अपडेट करें।',
+        f8Name:         'डिलीशन मैनेजमेंट',
+        f8Desc:         'चुनें कि फ़ाइल को केवल इंडेक्स से हटाना है या सिस्टम ट्रैश में भेजना है।',
+
+        m3Title:        'टैग्स और मेटाडेटा',
+        f9Name:         'टैग मैनेजमेंट',
+        f9Desc:         'तेज़ कैटलॉगिंग और फ़िल्टरिंग के लिए कस्टम टेक्स्ट टैग्स बनाएं और असाइन करें।',
+        f10Name:        'टाइप कैटेगरीज़',
+        f10Desc:        'ऑडियो फ़ाइलों को SFX, फ़ोली, म्यूज़िक या एम्बिएंस जैसी श्रेणियों में बांटें।',
+        f11Name:        'मेटाडेटा डिस्प्ले',
+        f11Desc:        'अवधि, सैंपल रेट, बिट डेप्थ, चैनल और एम्बेडेड मेटाडेटा टैग्स देखें।',
+
+        m4Title:        'सर्च और फ़िल्टर्स',
+        f12Name:        'मल्टी-फैक्टर सर्च',
+        f12Desc:        'फ़ाइल नाम, टैग, कैटेगरी और सोर्स फ़ोल्डर्स में एक साथ खोजें।',
+        f13Name:        'एडवांस्ड फ़िल्टर्स',
+        f13Desc:        'फॉर्मेट (WAV, MP3, FLAC, OGG), कैटेगरी और चैनल लेआउट (मोनो, स्टीरियो) द्वारा फ़िल्टर करें।',
+        f14Name:        'QuickSearch Overlay',
+        f14Desc:        'Premiere, DaVinci या CapCut में एडिट करते समय Alt + Shift + F दबाएं। सर्च करें, तुरंत ऑडियो सुनें और बिना विंडो बदले टाइमलाइन पर लाएं।',
+
+        m5Title:        'प्लेयर और ऑडियो एडिटिंग',
+        f15Name:        'वेवफ़ॉर्म प्रीव्यू',
+        f15Desc:        'मुख्य विंडो और QuickSearch Overlay में तुरंत वेवफ़ॉर्म डिस्प्ले और ऑडियो प्लेबैक।',
+        f16Name:        'सटीक ट्रिमिंग',
+        f16Desc:        'वेवफ़ॉर्म पर सीधे नॉन-डिस्ट्रक्टिव तरीके से आवश्यक हिस्से को चुनें और काटें।',
+        f17Name:        'पिच शिफ्टर',
+        f17Desc:        'टाइमलाइन में ऑडियो खींचने से पहले पिच और प्लेबैक स्पीड बदलें।',
+        f18Name:        'फॉर्मेट कन्वर्शन',
+        f18Desc:        'एक क्लिक में WAV में एक्सपोर्ट के साथ समर्थित ऑडियो फॉर्मेट्स के बीच बैच कन्वर्शन।',
+
+        m6Title:        'वर्कफ़्लो और इंटीग्रेशन',
+        f19Name:        'टाइमलाइन पर ड्रैग करें',
+        f19Desc:        'पूरी फ़ाइल या काटे गए वेवफ़ॉर्म हिस्से को सीधे अपने वीडियो एडिटर या DAW में खींचें।',
+        f20Name:        'यूनिवर्सल कम्पैटिबिलिटी',
+        f20Desc:        'Premiere, DaVinci Resolve, Final Cut Pro, CapCut, After Effects, Ableton, FL Studio, Reaper और Vegas के साथ काम करता है।',
+
+        m7Title:        'सिस्टम और प्लेटफॉर्म्स',
+        f21Name:        'मल्टी-प्लेटफ़ॉर्म सपोर्ट',
+        f21Desc:        'Windows, macOS (Intel और Apple Silicon) और Linux पर समान रूप से काम करता है।',
+        f22Name:        'कस्टमाइज़ेबल शॉर्टकट्स',
+        f22Desc:        'QuickSearch Overlay खोलने और प्लेबैक नियंत्रित करने के लिए शॉर्टकट्स बदलें।',
+        f23Name:        'एडवांस्ड सेटिंग्स',
+        f23Desc:        'डिफ़ॉल्ट फ़ोल्डर्स, इंडेक्सिंग व्यवहार और एडिटर प्राथमिकताओं को समायोजित करने की सेटिंग्स।',
+        f24Name:        'हल्का बैकग्राउंड इंजन',
+        f24Desc:        'कम CPU और RAM उपयोग के साथ बैकग्राउंड में चलता है, ताकि आपका वीडियो एडिटर धीमा न हो।',
+
+        finalHead:      'फ़ोल्डर्स में ढूंढना बंद करें। <em>एडिटिंग पर ध्यान दें।</em>',
+        finalSub:       'लाइफटाइम लाइसेंस, कोई सब्सक्रिप्शन नहीं और आपके कंप्यूटर पर 100% ऑफ़लाइन। Windows, macOS और Linux के साथ संगत।',
+        finalCta:       'MySoundLib खरीदें $19',
+        footHome:       'होम',
+        footTerms:      'नियम',
+        footPrivacy:    'गोपनीयता',
+        footFaq:        'सवालों के जवाब'
       }
     };
 
@@ -825,8 +1002,10 @@
       if (!dict) return;
 
       document.documentElement.lang = lang;
-      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
-      document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+      ['EN', 'PT', 'ES', 'HI'].forEach(code => {
+        const btn = document.getElementById('btn' + code);
+        if (btn) btn.classList.toggle('active', lang === code.toLowerCase());
+      });
 
       for (const [id, text] of Object.entries(dict)) {
         const el = document.getElementById(id);
@@ -841,11 +1020,15 @@
     (function() {
       let saved = null;
       try { saved = localStorage.getItem('msl_lang'); } catch (e) {}
-      if (saved === 'pt' || saved === 'en') {
+      if (['en', 'pt', 'es', 'hi'].includes(saved)) {
         setLang(saved);
         return;
       }
-      setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+      const navLang = (navigator.language || '').toLowerCase();
+      if (navLang.startsWith('pt')) setLang('pt');
+      else if (navLang.startsWith('es')) setLang('es');
+      else if (navLang.startsWith('hi')) setLang('hi');
+      else setLang('en');
     })();
   </script>
 
@@ -937,7 +1120,9 @@
       let lastTime = performance.now();
 
       class FloatingAudioItem {
-        constructor() {
+        constructor(index) {
+          this.index = index;
+          this.isLeft = (index % 2 === 0);
           this.el = document.createElement('div');
           this.el.className = 'floating-audio-file';
           container.appendChild(this.el);
@@ -951,16 +1136,25 @@
 
           this.el.innerHTML = `${iconSvg}<span class="floating-audio-name">${name}</span><span class="floating-audio-ext">${ext}</span>`;
 
-          const rect = container.getBoundingClientRect();
-          const w = rect.width || window.innerWidth;
-          const h = container.scrollHeight || rect.height || 2600;
+          const w = container.offsetWidth || container.clientWidth || window.innerWidth;
+          const h = container.scrollHeight || container.clientHeight || 2600;
 
-          let bestX = 15 + Math.random() * Math.max(w - 240, 60);
+          // Strict 50% Left / 50% Right distribution
+          let minX, maxX;
+          if (this.isLeft) {
+            minX = 15;
+            maxX = Math.max(w * 0.48 - 60, 40);
+          } else {
+            minX = Math.min(w * 0.52, Math.max(w - 200, 30));
+            maxX = Math.max(w - 180, minX + 40);
+          }
+
+          let bestX = minX + Math.random() * Math.max(maxX - minX, 20);
           let bestY = 15 + Math.random() * Math.max(h - 60, 50);
           let maxMinDist = 0;
 
           for (let attempt = 0; attempt < 8; attempt++) {
-            const candX = 15 + Math.random() * Math.max(w - 240, 60);
+            const candX = minX + Math.random() * Math.max(maxX - minX, 20);
             const candY = 15 + Math.random() * Math.max(h - 60, 50);
 
             let minDistToOthers = Infinity;
@@ -979,7 +1173,7 @@
               bestX = candX;
               bestY = candY;
             }
-            if (minDistToOthers > 85) break;
+            if (minDistToOthers > 60) break;
           }
 
           this.x = bestX;
@@ -989,8 +1183,8 @@
           this.vy = (Math.random() - 0.5) * 0.10;
 
           this.opacity = 0;
-          this.maxOpacity = 0.28 + Math.random() * 0.34;
-          this.scale = 0.55 + Math.random() * 0.70;
+          this.maxOpacity = 0.30 + Math.random() * 0.36;
+          this.scale = 0.58 + Math.random() * 0.67;
 
           this.duration = 14000 + Math.random() * 12000;
           this.elapsed = initial ? Math.random() * this.duration : 0;
@@ -1021,18 +1215,17 @@
           this.y = this.initialY + (this.vy * (this.elapsed / 16.6));
           this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
 
-          const rect = container.getBoundingClientRect();
-          const w = rect.width || window.innerWidth;
+          const w = container.offsetWidth || container.clientWidth || window.innerWidth;
           const centerX = w / 2;
           const itemCenterX = this.x + 85;
           const distFromCenter = Math.abs(itemCenterX - centerX);
           const centerProximity = Math.max(0, 1 - (distFromCenter / (w * 0.48)));
 
-          const depthBlur = Math.max(0, (1.15 - this.scale) * 1.6);
-          const centerBlur = Math.pow(centerProximity, 1.4) * 6.5;
+          const depthBlur = Math.max(0, (1.15 - this.scale) * 1.5);
+          const centerBlur = Math.pow(centerProximity, 1.6) * 4.5;
           const totalBlur = (depthBlur + centerBlur).toFixed(1);
 
-          const centerDim = 1 - (centerProximity * 0.35);
+          const centerDim = 1 - (centerProximity * 0.20);
           const currentOpacity = (this.opacity * centerDim).toFixed(3);
 
           this.el.style.opacity = currentOpacity;
@@ -1042,7 +1235,7 @@
       }
 
       for (let i = 0; i < MAX_ITEMS; i++) {
-        items.push(new FloatingAudioItem());
+        items.push(new FloatingAudioItem(i));
       }
 
       if ('IntersectionObserver' in window) {

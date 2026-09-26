@@ -3,14 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MySoundLib: fast, local audio library for video editors. Organize gigabytes of SFX, preview and trim waveforms, and drop audio straight into your timeline.">
-  <title>MySoundLib | Fast Local Audio Library for Video Editors</title>
+  <meta name="description" content="MySoundLib: fast, local audio manager for video editors. Organize your sound library, preview and trim waveforms, and drop audio straight into your timeline.">
+  <title>MySoundLib | Fast Local Audio Manager for Video Editors</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="static/icon.svg">
   <script async src="https://tally.so/widgets/embed.js"></script>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MySoundLib",
+    "operatingSystem": "Windows, macOS, Linux",
+    "applicationCategory": "MultimediaApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "19.00",
+      "priceCurrency": "USD"
+    },
+    "description": "Fast, local audio manager for video editors. Organize sound effects, preview and trim waveforms instantly, and drag audio straight into your timeline.",
+    "author": {
+      "@type": "Person",
+      "name": "Thiago Neppel",
+      "url": "https://thneppel.com.br"
+    }
+  }
+  </script>
 
   <style>
     *, *::before, *::after {
@@ -32,7 +54,10 @@
       --text-dim: #737373;
       --green: #1dcd9f;
       --green-glow: rgba(29, 205, 159, 0.12);
-      --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --red: #ef5350;
+      --red-dim: rgba(239, 83, 80, 0.12);
+      --red-border: rgba(239, 83, 80, 0.28);
+      --sans: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
     }
 
     html {
@@ -206,10 +231,13 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
+      text-align: left;
     }
 
     .floating-audio-file {
       position: absolute;
+      top: 0;
+      left: 0;
       display: inline-flex;
       align-items: center;
       gap: 7px;
@@ -312,8 +340,10 @@
     }
 
     .hero-trust span b {
-      color: var(--text-muted);
-      font-weight: 600;
+      color: var(--green);
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1;
     }
 
     /* ── Hero Shot Showcase ──────────────────── */
@@ -350,20 +380,15 @@
     .contents-in {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
-    }
-
-    .contents-lbl {
-      font-size: 12px;
-      color: var(--text-dim);
-      letter-spacing: 0.04em;
     }
 
     .contents-links {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 24px;
       flex-wrap: wrap;
     }
@@ -442,11 +467,15 @@
       line-height: 1.65;
     }
 
+
+
+
     /* ── The Frustration (Pain Points) ───────── */
     /* ── The Daily Friction (2-Column Side-by-Side Layout) ── */
     .pain-section {
       padding: 96px 0;
       border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at 8% 35%, rgba(239, 83, 80, 0.04) 0%, transparent 60%);
     }
 
     .pain-layout {
@@ -462,6 +491,10 @@
       gap: 16px;
     }
 
+    .pain-highlight {
+      color: var(--red);
+    }
+
     .pain-steps-list {
       display: flex;
       flex-direction: column;
@@ -475,12 +508,17 @@
       align-items: baseline;
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
+      transition: background 0.15s ease;
+    }
+
+    .pain-step-row:hover {
+      background: rgba(239, 83, 80, 0.025);
     }
 
     .pain-step-idx {
       font-size: 13px;
       font-weight: 800;
-      color: var(--green);
+      color: var(--red);
     }
 
     .pain-step-content {
@@ -489,13 +527,21 @@
       line-height: 1.65;
     }
 
-    .pain-step-content code {
+    code {
       font-size: 13px;
       font-weight: 600;
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--surface2);
       color: var(--text);
+      border: 1px solid var(--border);
       padding: 2px 6px;
       border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .pain-step-content code {
+      background: var(--red-dim);
+      color: #fca5a5;
+      border-color: var(--red-border);
     }
 
     /* ── Pillar Feature Sections (Instatic Alternating) */
@@ -790,6 +836,26 @@
       margin-bottom: 0;
     }
 
+    .maker-signature {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .maker-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .maker-role {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
     .makers-media {
       display: flex;
       justify-content: center;
@@ -817,6 +883,123 @@
       }
       .makers-art {
         max-width: 100%;
+      }
+    }
+
+    /* ── Audio Library Notice Callout Banner ──── */
+    .notice-section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .notice-banner {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0.01) 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px 40px;
+    }
+
+    .notice-banner-header {
+      max-width: 820px;
+    }
+
+    .notice-tag-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .notice-icon {
+      color: #f59e0b;
+      flex-shrink: 0;
+    }
+
+    .rk.notice-kicker {
+      color: #f59e0b;
+      margin-bottom: 0;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
+
+    .notice-head {
+      font-size: clamp(20px, 2.4vw, 26px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin: 0 0 10px;
+      line-height: 1.3;
+    }
+
+    .notice-desc {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin: 0 0 28px;
+      max-width: 780px;
+    }
+
+    .notice-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .notice-detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .notice-detail-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .notice-detail-title-row svg {
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+
+    .notice-detail-item h3 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .notice-detail-item p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .notice-detail-item a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .notice-detail-item a:hover {
+      color: var(--green-hover);
+    }
+
+    @media (max-width: 768px) {
+      .notice-section {
+        padding: 40px 0;
+      }
+      .notice-banner {
+        padding: 24px 20px;
+      }
+      .notice-details-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
     }
 
@@ -863,9 +1046,16 @@
 
     /* ── Final Call to Action ────────────────── */
     .final-cta {
+      position: relative;
       padding: 110px 0;
       text-align: center;
-      background: radial-gradient(circle at 50% 50%, rgba(29, 205, 159, 0.06) 0%, transparent 70%);
+      background: var(--bg-darker);
+      overflow: hidden;
+    }
+
+    .final-cta .wide {
+      position: relative;
+      z-index: 1;
     }
 
     .final-head {
@@ -875,6 +1065,11 @@
       letter-spacing: -0.03em;
       color: var(--text);
       margin-bottom: 18px;
+    }
+
+    .final-head em {
+      font-style: normal;
+      color: var(--green);
     }
 
     .final-sub {
@@ -958,14 +1153,32 @@
       gap: 16px;
     }
 
+    .footer-bottom-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.15s ease;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--green);
+    }
+
     .footer-author {
       color: var(--text-dim);
     }
 
     .footer-author a {
-      color: var(--text-muted);
+      color: inherit;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: inherit;
       transition: color 0.15s ease;
     }
 
@@ -984,6 +1197,7 @@
       .statement-grid,
       .pain-layout,
       .makers-cards,
+      .notice-details-grid,
       .faq-columns {
         grid-template-columns: 1fr;
         gap: 36px;
@@ -1021,6 +1235,9 @@
         align-items: flex-start;
         gap: 12px;
       }
+      .footer-bottom-links {
+        gap: 14px;
+      }
     }
   </style>
 </head>
@@ -1046,6 +1263,8 @@
           <div class="lang-switcher">
             <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
             <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+            <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+            <button class="lang-btn" id="btnHI" onclick="setLang('hi')">HI</button>
           </div>
           <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="#buy">Buy MySoundLib</a>
         </div>
@@ -1059,11 +1278,11 @@
       <div class="hero-bg-anim" id="heroBgAnim" aria-hidden="true"></div>
       <div class="wide hero-wrap">
         <h1 class="hero-head" id="heroHead">
-          Your OS file search is terrible for audio. <em>MySoundLib fixes that.</em>
+          Thousands of scattered and lost sound files? <em> MySoundLib fixes that.</em>
         </h1>
 
         <p class="hero-sub" id="heroSub">
-          A lightweight, local desktop app to organize gigabytes of SFX and music, preview and trim waveforms instantly, and drop audio straight into your timeline in <b>2 seconds</b>.
+          A lightweight, local desktop app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.
         </p>
 
         <div class="hero-ctas">
@@ -1076,9 +1295,9 @@
         </div>
 
         <div class="hero-trust">
-          <span><b>✓</b> 100% Offline & Local</span>
-          <span><b>✓</b> Zero Subscriptions</span>
-          <span><b>✓</b> Windows, Mac & Linux</span>
+          <span id="trust1"><b>✓</b> 100% Offline & Local</span>
+          <span id="trust2"><b>✓</b> Zero Subscriptions</span>
+          <span id="trust3"><b>✓</b> Windows, Mac & Linux</span>
         </div>
 
         <!-- Desktop App Showcase Shot -->
@@ -1093,13 +1312,13 @@
     <!-- Section Navigation Strip -->
     <section class="contents-strip" id="contents">
       <div class="wide contents-in">
-        <span class="contents-lbl" id="contentsLbl">The Toolkit / Instant Desktop Workflow</span>
         <div class="contents-links">
           <a class="contents-item" href="#workflow"><span class="contents-num">01</span> <span id="strip1">Workflow</span></a>
-          <a class="contents-item" href="#overlay"><span class="contents-num">02</span> <span id="strip2">Global Overlay</span></a>
+          <a class="contents-item" href="#overlay"><span class="contents-num">02</span> <span id="strip2">QuickSearch Overlay</span></a>
           <a class="contents-item" href="#waveform"><span class="contents-num">03</span> <span id="strip3">Waveform & Trim</span></a>
-          <a class="contents-item" href="#converter"><span class="contents-num">04</span> <span id="strip4">Converter</span></a>
-          <a class="contents-item" href="#makers"><span class="contents-num">05</span> <span id="strip5">About</span></a>
+          <a class="contents-item" href="#sync"><span class="contents-num">04</span> <span id="strip4">Folder Sync</span></a>
+          <a class="contents-item" href="#converter"><span class="contents-num">05</span> <span id="strip5">Converter</span></a>
+          <a class="contents-item" href="#makers"><span class="contents-num">06</span> <span id="strip6">About</span></a>
         </div>
       </div>
     </section>
@@ -1109,21 +1328,21 @@
       <div class="wide">
         <p class="rk" id="caseKicker">How It Works</p>
         <p class="statement-lead" id="caseLead">
-          Finding audio in video editors is usually five slow steps: open nested folders, wait for a media player, scrub the file, clutter the project bin. MySoundLib turns that into <em>one direct shortcut.</em>
+          Finding the right audio for your edit usually takes lots of slow steps. <em>MySoundLib turns that into one direct shortcut.</em>
         </p>
 
         <div class="statement-grid">
           <div class="statement-card">
-            <span class="sn" id="caseCol1Title">One Global Shortcut</span>
+            <span class="sn" id="caseCol1Title">QuickSearch Overlay</span>
             <p class="statement-desc" id="caseCol1Body">
-              Hit Alt + Shift + F anywhere on your system. A fast search bar pops up right over Premiere, DaVinci, or CapCut without switching windows.
+              Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. A fast search bar pops up to search your sound libraries without switching windows.
             </p>
           </div>
 
           <div class="statement-card">
             <span class="sn" id="caseCol2Title">Instant Trim And Drag</span>
             <p class="statement-desc" id="caseCol2Body">
-              Hit spacebar to hear the waveform. Select only the transient or tail you need and drag that exact snippet straight into your timeline.
+              Preview the waveform, select just the transient or tail you need, and drag that exact snippet straight into your timeline.
             </p>
           </div>
 
@@ -1137,54 +1356,14 @@
       </div>
     </section>
 
-    <!-- The Daily Frustration (2-Column Side Layout) -->
-    <section class="pain-section" id="pain">
-      <div class="wide">
-        <div class="pain-layout">
-          <div class="pain-side">
-            <p class="rk" id="painKicker">Why I Built This</p>
-            <h2 class="feature-head" id="painTitle">The tedious loop every video editor gets stuck in</h2>
-            <p class="feature-desc" id="painIntro">Finding one sound effect often turns into a chore:</p>
-          </div>
-
-          <div class="pain-steps-list">
-            <div class="pain-step-row">
-              <span class="pain-step-idx">01</span>
-              <p class="pain-step-content" id="pain1">You download another 5GB sound pack that claims to be "super organized."</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">02</span>
-              <p class="pain-step-content" id="pain2">You open the folder and find <code>whoosh_sub_final_v2.wav</code> buried under six subfolders.</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">03</span>
-              <p class="pain-step-content" id="pain3">You double-click it, waiting for your default media player to slowly boot up.</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">04</span>
-              <p class="pain-step-content" id="pain4">The sound is 12 seconds long, but you only need the tiny transient at the tail end.</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">05</span>
-              <p class="pain-step-content" id="pain5">You drag the entire raw file into your project bin, clutter your timeline, slice it down, and repeat 80 times per edit.</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">06</span>
-              <p class="pain-step-content" id="pain6">Eventually, you give up and just use the same 4 sounds sitting on your desktop.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pillar 01: Global Overlay -->
+    <!-- Pillar 01: QuickSearch Overlay -->
     <section class="feature-section" id="overlay">
       <div class="wide feature-in">
         <div class="feature-copy">
-          <p class="pk"><span class="pn">01</span> <span id="feat1Pillar">Global Overlay</span></p>
+          <p class="pk"><span id="feat1Pillar">QuickSearch Overlay</span></p>
           <h3 class="feature-head" id="feat1Head">Search sounds over your timeline.</h3>
           <p class="feature-desc" id="feat1Desc">
-            Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. Search, preview on spacebar, and drop audio straight into your track without leaving your editor.
+            Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. Search, audition sounds instantly, and drop audio straight into your track without leaving your editor.
           </p>
           <ul class="feat-list">
             <li class="feat-item"><span class="feat-num">01</span> <span id="feat1List1"><b>Global hotkey:</b> pops up over any editor.</span></li>
@@ -1195,7 +1374,7 @@
 
         <div class="feature-stage">
           <div class="stage-mount">
-            <img src="static/quick_search.png" alt="Quick Search Overlay Screenshot" class="stage-img" loading="lazy">
+            <img src="static/quick_search.png" alt="QuickSearch Overlay Screenshot" class="stage-img" loading="lazy">
           </div>
         </div>
       </div>
@@ -1205,10 +1384,10 @@
     <section class="feature-section flip" id="waveform">
       <div class="wide feature-in">
         <div class="feature-copy">
-          <p class="pk"><span class="pn">02</span> <span id="feat2Pillar">Pillar / Precision Trimming</span></p>
-          <h3 class="feature-head" id="feat2Head">Preview on spacebar, drag only the section you need.</h3>
+          <p class="pk"><span id="feat2Pillar">Precision Trimming</span></p>
+          <h3 class="feature-head" id="feat2Head">Preview the waveform, drag only the section you need.</h3>
           <p class="feature-desc" id="feat2Desc">
-            Press spacebar to hear the sound. Drag across the waveform to select just the transient, riser impact, or tail, and drop only that selection onto your timeline.
+            Preview the sound instantly. Drag across the waveform to select just the transient, riser impact, or tail, and drop only that selection onto your timeline.
           </p>
           <ul class="feat-list">
             <li class="feat-item"><span class="feat-num">01</span> <span id="feat2List1"><b>In-app trimming:</b> cuts out the part you need before dragging to your timeline.</span></li>
@@ -1225,19 +1404,41 @@
       </div>
     </section>
 
-    <!-- Pillar 03: Tagging & Conversion -->
-    <section class="feature-section" id="converter">
+    <!-- Feature 03: Folder Sync -->
+    <section class="feature-section" id="sync">
       <div class="wide feature-in">
         <div class="feature-copy">
-          <p class="pk"><span class="pn">03</span> <span id="feat3Pillar">Pillar / Built-in Converter & Sync</span></p>
-          <h3 class="feature-head" id="feat3Head">Folder sync and audio format conversion.</h3>
+          <p class="pk"><span id="feat3Pillar">Folder Sync</span></p>
+          <h3 class="feature-head" id="feat3Head">Folder sync and audio indexing.</h3>
           <p class="feature-desc" id="feat3Desc">
-            Point the app to your downloads folder or audio library. When you download a new sound pack, hit refresh to index it. If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.
+            Point the app to your downloads folder or audio library. When you download a new sound pack or delete old files, hit refresh to index changes instantly without re-importing everything.
           </p>
           <ul class="feat-list">
             <li class="feat-item"><span class="feat-num">01</span> <span id="feat3List1"><b>Folder sync:</b> updates additions, edits, or removals on disk.</span></li>
-            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.</span></li>
-            <li class="feat-item"><span class="feat-num">03</span> <span id="feat3List3"><b>Multiple libraries:</b> keep personal sound assets separate from client libraries.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Direct read:</b> accesses your files where they live with zero duplicate files created.</span></li>
+          </ul>
+        </div>
+
+        <div class="feature-stage">
+          <div class="stage-mount">
+            <img src="static/main_window.png" alt="Folder Sync Screenshot" class="stage-img" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature 04: Built-in Converter (Flipped) -->
+    <section class="feature-section flip" id="converter">
+      <div class="wide feature-in">
+        <div class="feature-copy">
+          <p class="pk"><span id="feat4Pillar">Built-in Converter</span></p>
+          <h3 class="feature-head" id="feat4Head">Audio format conversion.</h3>
+          <p class="feature-desc" id="feat4Desc">
+            If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.
+          </p>
+          <ul class="feat-list">
+            <li class="feat-item"><span class="feat-num">01</span> <span id="feat4List1"><b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat4List2"><b>Batch conversion:</b> convert individual tracks or entire folders in seconds.</span></li>
           </ul>
         </div>
 
@@ -1260,21 +1461,9 @@
       </div>
     </section>
 
-    <!-- Pull Quote -->
-    <section class="pull" id="pull">
-      <div class="hero-bg-anim" id="pullBgAnim" aria-hidden="true"></div>
-      <div class="wide pull-wrap">
-        <blockquote class="pull-quote" id="pullQuote">
-          I spent years digging through messy 5GB sound packs. <em>Then I built the tool I actually needed.</em>
-        </blockquote>
-        <cite class="pull-cite" id="pullCite">Why I Built MySoundLib</cite>
-      </div>
-    </section>
-
     <!-- Compatibility Section -->
     <section class="compat-section" id="compatibility">
       <div class="wide">
-        <p class="rk" id="compatKicker">Compatibility</p>
         <h2 class="feature-head" id="compatTitle">Works with whatever you already use to edit</h2>
         <p class="compat-desc" id="compatDesc">
           No extra plugins or extensions needed. If your software supports dragging files into the timeline, it works directly:
@@ -1321,6 +1510,56 @@
       </div>
     </section>
 
+    <!-- Pull Quote -->
+    <section class="pull" id="pull">
+      <div class="hero-bg-anim" id="pullBgAnim" aria-hidden="true"></div>
+      <div class="wide pull-wrap">
+        <blockquote class="pull-quote" id="pullQuote">
+          I spent years digging through messy sound packs. <em>Then I built the tool I actually needed.</em>
+        </blockquote>
+        <cite class="pull-cite" id="pullCite">Why I Built MySoundLib</cite>
+      </div>
+    </section>
+
+    <!-- The Daily Frustration (2-Column Side Layout) -->
+    <section class="pain-section" id="pain">
+      <div class="wide">
+        <div class="pain-layout">
+          <div class="pain-side">
+            <h2 class="feature-head" id="painTitle">The <span class="pain-highlight">tedious loop</span> every video editor gets stuck in</h2>
+            <p class="feature-desc" id="painIntro">Finding one sound effect often turns into a chore:</p>
+          </div>
+
+          <div class="pain-steps-list">
+            <div class="pain-step-row">
+              <span class="pain-step-idx">01</span>
+              <p class="pain-step-content" id="pain1">You download another 5GB sound pack that claims to be "super organized."</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">02</span>
+              <p class="pain-step-content" id="pain2">You open the folder and find <code>whoosh_sub_final_v2.wav</code> buried under six subfolders.</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">03</span>
+              <p class="pain-step-content" id="pain3">You double-click it, waiting for your default media player to slowly boot up.</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">04</span>
+              <p class="pain-step-content" id="pain4">The sound is 12 seconds long, but you only need the tiny transient at the tail end.</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">05</span>
+              <p class="pain-step-content" id="pain5">You drag the entire raw file into your project bin, clutter your timeline, slice it down, and repeat 80 times per edit.</p>
+            </div>
+            <div class="pain-step-row">
+              <span class="pain-step-idx">06</span>
+              <p class="pain-step-content" id="pain6">Eventually, you give up and just use the same 4 sounds sitting on your desktop.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- The Maker / About Section -->
     <section class="makers-section" id="makers">
       <div class="wide">
@@ -1331,13 +1570,67 @@
 
           <div class="makers-copy">
             <div class="makers-intro">
-              <p class="rk" id="makerKicker">About The Project</p>
-              <h3 id="makerHead">I edit videos and design for a living too.</h3>
+              <p class="rk" id="makerKicker">About</p>
+              <h3 id="makerHead">Built by a video editor, for video editors</h3>
               <p id="makerP1">
-                I built MySoundLib because I needed it. I am a video editor and graphic designer. I have been through this exact folder-hunting loop thousands of times, and at some point I got tired enough to actually build the fix.
+                I spend most of my workdays editing in Premiere Pro and After Effects. Over the years, my sound library grew to tens of gigabytes across messy folders. Most dedicated audio managers were either built for large post-production studios or required monthly subscriptions just to search local files.
               </p>
               <p id="makerP2">
-                I run this as an independent project, not a software company. I use the app daily on my own edit timelines, so I care most about stability, speed, and keeping your files strictly on your machine. If you find a bug or have feedback, you reach me directly.
+                I built MySoundLib to solve that bottleneck on my own edits. The goal was simple: hit a shortcut over your editor, find what you need, and drop the exact slice right onto your timeline. Your files stay on your machine, and you own the app for life.
+              </p>
+              <div class="maker-signature">
+                <span class="maker-name">Thiago Neppel</span>
+                <span class="maker-role" id="makerRole">Video Editor & Creator of MySoundLib</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audio Library & Sourcing Callout Banner -->
+    <section class="notice-section" id="audioNotice">
+      <div class="wide">
+        <div class="notice-banner">
+          <div class="notice-banner-header">
+            <div class="notice-tag-wrap">
+              <svg class="notice-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span class="rk notice-kicker" id="noticeKicker">Audio Files & Sourcing</span>
+            </div>
+            <h2 class="notice-head" id="noticeHead">MySoundLib does not come with audio files.</h2>
+            <p class="notice-desc" id="noticeDesc">
+              MySoundLib is a sound manager to organize, search, and trim audio files you already have or plan to obtain in the future. The software does not include built-in sound effects or music tracks.
+            </p>
+          </div>
+
+          <div class="notice-details-grid">
+            <div class="notice-detail-item">
+              <div class="notice-detail-title-row">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+                <h3 id="noticeCard1Head">Where to find sounds</h3>
+              </div>
+              <p id="noticeCard1Body">
+                Many video editors and sound designers sell SFX packs at various price points, and some offer free starter downloads. Another great option is searching for public domain (CC0) audio on platforms like the <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.
+              </p>
+            </div>
+
+            <div class="notice-detail-item">
+              <div class="notice-detail-title-row">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <h3 id="noticeCard2Head">Disclaimer</h3>
+              </div>
+              <p id="noticeCard2Body">
+                We do not sell, license, distribute, or assume responsibility for any sound effects or music files. You are responsible for the licensing and usage rights of any audio files you use in your edits.
               </p>
             </div>
           </div>
@@ -1367,8 +1660,8 @@
               <p class="faq-a" id="faq3A">One-time payment. You pay $19 once and own MySoundLib with all v1 updates included. No subscriptions.</p>
             </div>
             <div class="faq-item">
-              <h3 class="faq-q" id="faq4Q">How does the global search shortcut work?</h3>
-              <p class="faq-a" id="faq4A">Press Alt + Shift + F (or Cmd + Shift + F on macOS) while editing. The search bar opens over your screen, you preview sounds with spacebar, drag the clip into your timeline, and return to editing.</p>
+              <h3 class="faq-q" id="faq4Q">How does the QuickSearch Overlay work?</h3>
+              <p class="faq-a" id="faq4A">Press Alt + Shift + F (or Cmd + Shift + F on macOS) while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.</p>
             </div>
           </div>
 
@@ -1390,6 +1683,10 @@
               <h3 class="faq-q" id="faq8Q">How many machines can I activate with one license?</h3>
               <p class="faq-a" id="faq8A">Each license can be used on up to 5 personal computers (such as your desktop workstation and laptop).</p>
             </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq9Q">Does MySoundLib come with sound effects or music?</h3>
+              <p class="faq-a" id="faq9A">No. MySoundLib is purely an audio manager and workflow tool. It indexes and searches audio files already on your computer or sound packs you buy or download separately. We do not distribute or license audio files.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1397,10 +1694,11 @@
 
     <!-- Final Call to Action -->
     <section class="final-cta" id="buy">
+      <div class="hero-bg-anim" id="ctaBgAnim" aria-hidden="true"></div>
       <div class="wide">
-        <h2 class="final-head" id="finalHead">Stop digging through folders. Keep editing.</h2>
+        <h2 class="final-head" id="finalHead">Stop digging through folders. <em>Keep editing.</em></h2>
         <p class="final-sub" id="finalSub">
-          Download link and license key sent by email right after purchase. Runs on Windows, macOS, and Linux.
+          Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.
         </p>
         <button class="btn btn-solid btn-lg" id="finalCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
           Buy MySoundLib $19
@@ -1417,7 +1715,7 @@
           <a href="#top" class="footer-logo" aria-label="MySoundLib home">
             <img src="static/logo.svg" alt="MySoundLib" class="footer-logo-img">
           </a>
-          <p class="footer-tagline" id="footerTagline">Local audio search and trim utility for video editors.</p>
+          <p class="footer-tagline" id="footerTagline">Audio manager for video editors.</p>
         </div>
 
         <div class="footer-nav">
@@ -1425,15 +1723,19 @@
           <a href="features.html" id="footerNavFeatures">All Features</a>
           <a href="#compatibility" id="footerNavCompat">Compatibility</a>
           <a href="#faq" id="footerNavFaq">FAQ</a>
-          <a href="tech.html" id="footerTechLink">Under the Hood</a>
         </div>
       </div>
 
       <div class="footer-bottom">
         <span id="footerCopy">&copy; 2026 MySoundLib. All rights reserved.</span>
-        <span class="footer-author" id="footerAuthor">
-          Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>
-        </span>
+        <div class="footer-bottom-links">
+          <a href="tech.html" id="footerTechLink">For Nerds</a>
+          <a href="terms.html" id="footerNavTerms">Terms</a>
+          <a href="privacy.html" id="footerNavPrivacy">Privacy</a>
+          <span class="footer-author" id="footerAuthor">
+            Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>
+          </span>
+        </div>
       </div>
     </div>
   </footer>
@@ -1449,29 +1751,32 @@
         navFaq:           'FAQ',
         navCta:           'Buy MySoundLib',
 
-        heroHead:         'Your OS file search is terrible for audio. <em>MySoundLib fixes that.</em>',
-        heroSub:          'A lightweight, local desktop app to organize gigabytes of SFX and music, preview and trim waveforms instantly, and drop audio straight into your timeline in <b>2 seconds</b>.',
+        heroHead:         'Thousands of scattered and lost sound files? <em>MySoundLib fixes that.</em>',
+        heroSub:          'A lightweight, local desktop app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.',
         heroCta:          'Buy MySoundLib $19',
         heroSecBtn:       'Explore workflow',
+        trust1:           '<b>✓</b> 100% Offline & Local',
+        trust2:           '<b>✓</b> Zero Subscriptions',
+        trust3:           '<b>✓</b> Windows, Mac & Linux',
 
-        contentsLbl:      'The Toolkit / Instant Desktop Workflow',
         strip1:           'Workflow',
-        strip2:           'Global Overlay',
+        strip2:           'QuickSearch Overlay',
         strip3:           'Waveform & Trim',
-        strip4:           'Converter',
-        strip5:           'About',
+        strip4:           'Folder Sync',
+        strip5:           'Converter',
+        strip6:           'About',
 
         caseKicker:       'How It Works',
-        caseLead:         'Finding audio in video editors is usually five slow steps: open nested folders, wait for a media player, scrub the file, clutter the project bin. MySoundLib turns that into <em>one direct shortcut.</em>',
-        caseCol1Title:    'One Global Shortcut',
-        caseCol1Body:     'Hit Alt + Shift + F anywhere on your system. A fast search bar pops up right over Premiere, DaVinci, or CapCut without switching windows.',
+        caseLead:         'Finding the right audio for your edit usually takes lots of slow steps. <em>MySoundLib turns that into one direct shortcut.</em>',
+        caseCol1Title:    'QuickSearch Overlay',
+        caseCol1Body:     'Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. A fast search bar pops up to search your sound libraries without switching windows.',
         caseCol2Title:    'Instant Trim And Drag',
-        caseCol2Body:     'Hit spacebar to hear the waveform. Select only the transient or tail you need and drag that exact snippet straight into your timeline.',
+        caseCol2Body:     'Preview the waveform, select just the transient or tail you need, and drag that exact snippet straight into your timeline.',
         caseCol3Title:    'Why That Matters',
         caseCol3Body:     'You keep editing without interruptions. Your project stays clean because only the trimmed sound goes into your timeline.',
 
-        painKicker:       'Why I Built This',
-        painTitle:        'The tedious loop every video editor gets stuck in',
+
+        painTitle:        'The <span class="pain-highlight">tedious loop</span> every video editor gets stuck in',
         painIntro:        'Finding one sound effect often turns into a chore:',
         pain1:            'You download another 5GB sound pack that claims to be "super organized."',
         pain2:            'You open the folder and find <code>whoosh_sub_final_v2.wav</code> buried under six subfolders.',
@@ -1480,42 +1785,55 @@
         pain5:            'You drag the entire raw file into your project bin, clutter your timeline, slice it down, and repeat 80 times per edit.',
         pain6:            'Eventually, you give up and just use the same 4 sounds sitting on your desktop.',
 
-        feat1Pillar:      'Global Overlay',
+        feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'Search sounds over your timeline.',
-        feat1Desc:        'Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. Search, preview on spacebar, and drop audio straight into your track without leaving your editor.',
+        feat1Desc:        'Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. Search, audition sounds instantly, and drop audio straight into your track without leaving your editor.',
         feat1List1:       '<b>Global hotkey:</b> pops up over any editor.',
         feat1List2:       '<b>Fast search:</b> indexes large local libraries in milliseconds.',
         feat1List3:       '<b>Quick filters:</b> filter by format, channels, or custom tags.',
 
-        feat2Pillar:      'Pillar / Precision Trimming',
-        feat2Head:        'Preview on spacebar, drag only the section you need.',
-        feat2Desc:        'Press spacebar to hear the sound. Drag across the waveform to select just the transient, riser impact, or tail, and drop only that selection onto your timeline.',
+        feat2Pillar:      'Precision Trimming',
+        feat2Head:        'Preview the waveform, drag only the section you need.',
+        feat2Desc:        'Preview the sound instantly. Drag across the waveform to select just the transient, riser impact, or tail, and drop only that selection onto your timeline.',
         feat2List1:       '<b>In-app trimming:</b> cuts out the part you need before dragging to your timeline.',
         feat2List2:       '<b>Pitch & speed controls:</b> adjust playback pitch on the fly before exporting.',
         feat2List3:       '<b>Clean timeline bin:</b> keeps your project files lightweight.',
 
-        feat3Pillar:      'Pillar / Built-in Converter & Sync',
-        feat3Head:        'Folder sync and audio format conversion.',
-        feat3Desc:        'Point the app to your downloads folder or audio library. When you download a new sound pack, hit refresh to index it. If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.',
+        feat3Pillar:      'Folder Sync',
+        feat3Head:        'Folder sync and audio indexing.',
+        feat3Desc:        'Point the app to your downloads folder or audio library. When you download a new sound pack or delete old files, hit refresh to index changes instantly without re-importing everything.',
         feat3List1:       '<b>Folder sync:</b> updates additions, edits, or removals on disk.',
-        feat3List2:       '<b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.',
-        feat3List3:       '<b>Multiple libraries:</b> keep personal sound assets separate from client libraries.',
+        feat3List2:       '<b>Direct read:</b> accesses your files where they live with zero duplicate files created.',
+
+        feat4Pillar:      'Built-in Converter',
+        feat4Head:        'Audio format conversion.',
+        feat4Desc:        'If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.',
+        feat4List1:       '<b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.',
+        feat4List2:       '<b>Batch conversion:</b> convert individual tracks or entire folders in seconds.',
 
         featAllHead:      'Looking for every feature?',
         featAllSub:       'Browse all 24 features and 7 modules in the technical index.',
         featAllBtn:       'Explore All Features &rarr;',
 
-        pullQuote:        'I spent years digging through messy 5GB sound packs. <em>Then I built the tool I actually needed.</em>',
+        pullQuote:        'I spent years digging through messy sound packs. <em>Then I built the tool I actually needed.</em>',
         pullCite:         'Why I Built MySoundLib',
 
-        compatKicker:     'Compatibility',
         compatTitle:      'Works with whatever you already use to edit',
         compatDesc:       'No extra plugins or extensions needed. If your software supports dragging files into the timeline, it works directly:',
 
-        makerKicker:      'About The Project',
-        makerHead:        'I edit videos and design for a living too.',
-        makerP1:          'I built MySoundLib because I needed it. I am a video editor and graphic designer. I have been through this exact folder-hunting loop thousands of times, and at some point I got tired enough to actually build the fix.',
-        makerP2:          'I run this as an independent project, not a software company. I use the app daily on my own edit timelines, so I care most about stability, speed, and keeping your files strictly on your machine. If you find a bug or have feedback, you reach me directly.',
+        makerKicker:      'About',
+        makerHead:        'Built by a video editor, for video editors',
+        makerP1:          'I spend most of my workdays editing in Premiere Pro and After Effects. Over the years, my sound library grew to tens of gigabytes across messy folders. Most dedicated audio managers were either built for large post-production studios or required monthly subscriptions just to search local files.',
+        makerP2:          'I built MySoundLib to solve that bottleneck on my own edits. The goal was simple: hit a shortcut over your editor, find what you need, and drop the exact slice right onto your timeline. Your files stay on your machine, and you own the app for life.',
+        makerRole:        'Video Editor & Creator of MySoundLib',
+
+        noticeKicker:     'Audio Files & Sourcing',
+        noticeHead:       'MySoundLib does not come with audio files.',
+        noticeDesc:       'MySoundLib is a sound manager to organize, search, and trim audio files you already have or plan to obtain in the future. The software does not include built-in sound effects or music tracks.',
+        noticeCard1Head:  'Where to find sounds',
+        noticeCard1Body:  'Many video editors and sound designers sell SFX packs at various price points, and some offer free starter downloads. Another great option is searching for public domain (CC0) audio on platforms like the <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.',
+        noticeCard2Head:  'Disclaimer',
+        noticeCard2Body:  'We do not sell, license, distribute, or assume responsibility for any sound effects or music files. You are responsible for the licensing and usage rights of any audio files you use in your edits.',
 
         faqKicker:        'Frequently Asked Questions',
         faqTitle:         'Questions & Answers',
@@ -1525,8 +1843,8 @@
         faq2A:            'No. Trimming is non-destructive. The app creates a temporary clip for your timeline and leaves your original audio files untouched.',
         faq3Q:            'Is the $19 purchase a lifetime license or subscription?',
         faq3A:            'One-time payment. You pay $19 once and own MySoundLib with all v1 updates included. No subscriptions.',
-        faq4Q:            'How does the global search shortcut work?',
-        faq4A:            'Press Alt + Shift + F (or Cmd + Shift + F on macOS) while editing. The search bar opens over your screen, you preview sounds with spacebar, drag the clip into your timeline, and return to editing.',
+        faq4Q:            'How does the QuickSearch Overlay work?',
+        faq4A:            'Press Alt + Shift + F (or Cmd + Shift + F on macOS) while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.',
         faq5Q:            'Are my sound files uploaded anywhere?',
         faq5A:            'No. MySoundLib runs entirely on your computer. Your audio libraries, folder paths, and project files never leave your machine.',
         faq6Q:            'Which audio formats can it read and convert?',
@@ -1535,17 +1853,21 @@
         faq7A:            'Yes. You can create separate libraries for personal projects, client work, or specific sound packs.',
         faq8Q:            'How many machines can I activate with one license?',
         faq8A:            'Each license can be used on up to 5 personal computers (such as your desktop workstation and laptop).',
+        faq9Q:            'Does MySoundLib come with sound effects or music?',
+        faq9A:            'No. MySoundLib is purely an audio manager and workflow tool. It indexes and searches audio files already on your computer or sound packs you buy or download separately. We do not distribute or license audio files.',
 
-        finalHead:        'Stop digging through folders. Keep editing.',
-        finalSub:         'Download link and license key sent by email right after purchase. Runs on Windows, macOS, and Linux.',
+        finalHead:        'Stop digging through folders. <em>Keep editing.</em>',
+        finalSub:         'Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.',
         finalCta:         'Buy MySoundLib $19',
 
-        footerTagline:    'Local audio search and trim utility for video editors.',
+        footerTagline:    'Audio manager for video editors.',
         footerNavWorkflow:'Workflow',
         footerNavFeatures:'All Features',
         footerNavCompat:  'Compatibility',
         footerNavFaq:     'FAQ',
-        footerTechLink:   'Under the Hood',
+        footerTechLink:   'For Nerds',
+        footerNavTerms:   'Terms',
+        footerNavPrivacy: 'Privacy',
         footerCopy:       '&copy; 2026 MySoundLib. All rights reserved.',
         footerAuthor:     'Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>',
       },
@@ -1557,29 +1879,32 @@
         navFaq:           'Dúvidas',
         navCta:           'Comprar MySoundLib',
 
-        heroHead:         'A busca de arquivos do seu sistema é péssima para áudio. <em>O MySoundLib resolve isso.</em>',
-        heroSub:          'Um app desktop leve e local para organizar gigabytes de SFX e músicas, pré-visualizar e recortar waveforms instantaneamente, e soltar o áudio direto na sua timeline em <b>2 segundos</b>.',
+        heroHead:         'Milhares de arquivos de áudio bagunçados e perdidos? <em>O MySoundLib resolve isso.</em>',
+        heroSub:          'Um app desktop leve e local para organizar sua biblioteca de sons, recortar waveforms e soltar áudios na timeline sem interromper a sua edição.',
         heroCta:          'Comprar MySoundLib $19',
         heroSecBtn:       'Conhecer fluxo',
+        trust1:           '<b>✓</b> 100% Offline e Local',
+        trust2:           '<b>✓</b> Zero Assinaturas',
+        trust3:           '<b>✓</b> Windows, Mac e Linux',
 
-        contentsLbl:      'O Kit De Ferramentas / Fluxo Desktop Instantâneo',
         strip1:           'Fluxo',
-        strip2:           'Atalho Global',
-        strip3:           'Waveform E Corte',
-        strip4:           'Conversor',
-        strip5:           'Sobre',
+        strip2:           'QuickSearch Overlay',
+        strip3:           'Waveform e corte',
+        strip4:           'Sincronização de Pastas',
+        strip5:           'Conversor',
+        strip6:           'Sobre',
 
         caseKicker:       'Como Funciona',
-        caseLead:         'Encontrar áudio em editores de vídeo costuma levar cinco passos lentos: abrir pastas aninhadas, esperar o player abrir, passar o áudio, lotar a bin do projeto. O MySoundLib transforma tudo isso em <em>um único atalho direto.</em>',
-        caseCol1Title:    'Um Atalho Global',
-        caseCol1Body:     'Aperte Alt + Shift + F em qualquer lugar do sistema. Uma barra de busca rápida surge direto em cima do Premiere, DaVinci ou CapCut sem trocar de janela.',
-        caseCol2Title:    'Recorte E Arraste Rápido',
-        caseCol2Body:     'Aperte barra de espaço para ouvir a waveform. Selecione apenas o transiente ou rabo que precisa e arraste esse trecho exato direto para a timeline.',
-        caseCol3Title:    'Por Que Isso Importa',
+        caseLead:         'Encontrar o áudio certo para a sua edição costuma levar vários passos lentos. <em>O MySoundLib transforma tudo isso em um único atalho direto.</em>',
+        caseCol1Title:    'QuickSearch Overlay',
+        caseCol1Body:     'Aperte <code>Alt + Shift + F</code> sobre o Premiere, DaVinci ou CapCut. Uma barra rápida surge para buscar na sua biblioteca de sons sem trocar de janela.',
+        caseCol2Title:    'Recorte e arraste rápido',
+        caseCol2Body:     'Visualize a forma de onda, selecione apenas o transiente ou a cauda que precisa e arraste esse trecho exato direto para a timeline.',
+        caseCol3Title:    'Por que isso importa',
         caseCol3Body:     'Você continua editando sem interrupções. O projeto fica limpo porque só o trecho recortado entra na sua timeline.',
 
-        painKicker:       'Por Que Criei Isso',
-        painTitle:        'O ciclo repetitivo que todo editor conhece',
+
+        painTitle:        'O <span class="pain-highlight">ciclo repetitivo</span> que todo editor conhece',
         painIntro:        'Achar um único efeito sonoro costuma virar perda de tempo:',
         pain1:            'Você baixa outro pacote de som de 5 GB que promete organização impecável.',
         pain2:            'Abre a pasta e acha <code>whoosh_sub_final_v2.wav</code> enterrado em seis subpastas.',
@@ -1588,42 +1913,55 @@
         pain5:            'Arrasta o áudio bruto inteiro pro projeto, polui a timeline, corta a sobra e repete isso dezenas de vezes por vídeo.',
         pain6:            'No fim, você desiste e usa sempre os mesmos quatro sons que ficaram na área de trabalho.',
 
-        feat1Pillar:      'Busca Rápida',
+        feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'Busque sons direto na timeline.',
-        feat1Desc:        'Aperte <code>Alt + Shift + F</code> sobre o Premiere, DaVinci ou CapCut. Busque, ouça na barra de espaço e solte o áudio na timeline sem trocar de janela.',
+        feat1Desc:        'Aperte <code>Alt + Shift + F</code> sobre o Premiere, DaVinci ou CapCut. Busque, ouça o áudio na hora e solte na timeline sem trocar de janela.',
         feat1List1:       '<b>Atalho global:</b> abre sobre qualquer editor.',
         feat1List2:       '<b>Busca rápida:</b> indexa milhares de arquivos locais em milissegundos.',
         feat1List3:       '<b>Filtros práticos:</b> filtre por formato, canais ou tags.',
 
-        feat2Pillar:      'Pilar / Corte Preciso',
-        feat2Head:        'Ouça na barra de espaço, arraste só o trecho necessário.',
-        feat2Desc:        'Aperte espaço para ouvir o áudio. Arraste pela waveform para marcar apenas o impacto ou o final e solte só o recorte na sua timeline.',
+        feat2Pillar:      'Corte Preciso',
+        feat2Head:        'Ouça a forma de onda, arraste só o trecho que você precisa.',
+        feat2Desc:        'Ouça o áudio na hora e arraste pela forma de onda para marcar apenas o impacto ou a cauda, soltando só o recorte na sua timeline.',
         feat2List1:       '<b>Corte direto no app:</b> recorte o trecho antes de levar para a timeline.',
         feat2List2:       '<b>Controle de pitch e velocidade:</b> ajuste a afinação do áudio antes de soltar no projeto.',
         feat2List3:       '<b>Projeto organizado:</b> mantém os arquivos do seu projeto leves e limpos.',
 
-        feat3Pillar:      'Pilar / Sincronização E Conversão',
-        feat3Head:        'Sincronização de pastas e conversão de formatos.',
-        feat3Desc:        'Aponte o app para a sua pasta de downloads ou biblioteca de sons. Ao baixar um pacote novo, aperte atualizar para indexar. Se o seu editor não aceitar um <code>.flac</code> ou <code>.ogg</code>, converta para <code>.wav</code> direto no app antes de arrastar.',
+        feat3Pillar:      'Sincronização de Pastas',
+        feat3Head:        'Sincronização de pastas e indexação de áudio.',
+        feat3Desc:        'Aponte o app para a sua pasta de downloads ou biblioteca de áudio. Ao baixar um pacote novo ou apagar arquivos antigos, aperte atualizar para indexar as mudanças na hora sem precisar reimportar tudo.',
         feat3List1:       '<b>Sincronização de pastas:</b> reflete arquivos novos, editados ou excluídos no disco.',
-        feat3List2:       '<b>Conversão prática:</b> suporte para WAV, MP3, FLAC, OGG e M4A.',
-        feat3List3:       '<b>Múltiplas bibliotecas:</b> separe efeitos pessoais de projetos comerciais.',
+        feat3List2:       '<b>Leitura direta:</b> acessa seus arquivos onde eles estão, sem criar duplicatas.',
+
+        feat4Pillar:      'Conversor Integrado',
+        feat4Head:        'Conversão de formatos de áudio.',
+        feat4Desc:        'Se o seu editor de vídeo rejeitar um arquivo <code>.flac</code> ou <code>.ogg</code>, converta para <code>.wav</code> direto no app antes de arrastar.',
+        feat4List1:       '<b>Conversão prática:</b> suporte para WAV, MP3, FLAC, OGG e M4A.',
+        feat4List2:       '<b>Conversão em lote:</b> converta faixas individuais ou pastas inteiras em segundos.',
 
         featAllHead:      'Quer ver todas as funcionalidades?',
         featAllSub:       'Consulte a lista completa com os 24 recursos e 7 módulos no índice técnico.',
         featAllBtn:       'Ver todas as 24 funcionalidades &rarr;',
 
-        pullQuote:        'Passei anos procurando sons em pastas desorganizadas de 5 GB. <em>Aí resolvi construir a ferramenta que eu queria usar todo dia.</em>',
-        pullCite:         'Por Que Criei O MySoundLib',
+        pullQuote:        'Passei anos procurando sons em pacotes desorganizados. <em>Aí resolvi construir a ferramenta que eu realmente precisava.</em>',
+        pullCite:         'Por que criei o MySoundLib',
 
-        compatKicker:     'Compatibilidade',
         compatTitle:      'Funciona com o editor que você já usa',
         compatDesc:       'Não precisa de plugins nem extensões. Se o seu programa aceita arrastar e soltar arquivos na timeline, funciona direto:',
 
-        makerKicker:      'Sobre O Projeto',
-        makerHead:        'Eu edito vídeos e crio design para viver também.',
-        makerP1:          'Eu construí o MySoundLib porque eu precisava dele. Sou editor de vídeo e designer gráfico. Já passei por esse ciclo de caçar pasta exatamente assim, milhares de vezes, e em algum momento eu enjoei o suficiente para realmente construir a solução.',
-        makerP2:          'Mantenho o projeto de forma independente. Como uso o programa todo dia nas minhas próprias edições, priorizo estabilidade, rapidez e privacidade dos arquivos no seu disco. Se encontrar qualquer problema ou tiver sugestões, você fala diretamente comigo.',
+        makerKicker:      'Sobre',
+        makerHead:        'Criado por quem edita vídeo, para quem edita vídeo',
+        makerP1:          'Passo boa parte da minha rotina editando no Premiere Pro e no After Effects. Com o tempo, acumulei dezenas de gigabytes de efeitos sonoros espalhados em pastas bagunçadas. Os gerenciadores de áudio existentes ou eram voltados para grandes estúdios de pós-produção ou cobravam mensalidades só para organizar arquivos que já estavam no meu computador.',
+        makerP2:          'Criei o MySoundLib para resolver esse gargalo no meu próprio dia a dia. A ideia é simples: acionar um atalho sobre o editor, encontrar o que precisa e arrastar só o trecho cortado direto para a timeline. O app roda 100% offline na sua máquina, com licença vitalícia e sem mensalidades.',
+        makerRole:        'Editor de vídeo e criador do MySoundLib',
+
+        noticeKicker:     'Arquivos de Áudio',
+        noticeHead:       'O MySoundLib não acompanha arquivos de áudio.',
+        noticeDesc:       'O MySoundLib é um gerenciador de som para organizar, buscar e recortar áudios que você já tem ou venha a adquirir no futuro. O aplicativo não inclui efeitos sonoros nem músicas pré-instalados.',
+        noticeCard1Head:  'Onde conseguir sons',
+        noticeCard1Body:  'Vários editores e sound designers vendem pacotes de efeitos sonoros em diferentes faixas de preço, e alguns inclusive disponibilizam pacotes gratuitos. Outra excelente opção é pesquisar áudios em domínio público (CC0) em plataformas como o <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.',
+        noticeCard2Head:  'Aviso de responsabilidade',
+        noticeCard2Body:  'Nós não nos responsabilizamos, não distribuímos e não licenciamos efeitos sonoros ou músicas. O usuário é o único responsável por verificar os direitos e licenças dos arquivos de áudio que utiliza em suas edições.',
 
         faqKicker:        'Perguntas Frequentes',
         faqTitle:         'Perguntas Frequentes',
@@ -1633,8 +1971,8 @@
         faq2A:            'Não. O corte não é destrutivo. O app gera um arquivo temporário para a sua timeline e mantém os áudios originais intactos no disco.',
         faq3Q:            'O valor de $19 é pagamento único ou mensalidade?',
         faq3A:            'Pagamento único. Você paga $19 uma vez e usa o MySoundLib sem mensalidades, com todas as atualizações da versão 1 incluídas.',
-        faq4Q:            'Como funciona o atalho global durante a edição?',
-        faq4A:            'Aperte Alt + Shift + F (ou Cmd + Shift + F no Mac) enquanto edita. A barra de busca abre sobre a tela, você ouve na barra de espaço, arrasta o trecho para a timeline e continua trabalhando.',
+        faq4Q:            'Como funciona o QuickSearch Overlay durante a edição?',
+        faq4A:            'Aperte Alt + Shift + F (ou Cmd + Shift + F no Mac) enquanto edita. A barra de busca abre sobre a tela, você ouve o som de imediato, arrasta o trecho para a timeline e continua trabalhando.',
         faq5Q:            'Meus áudios são enviados para algum servidor?',
         faq5A:            'Não. O MySoundLib roda totalmente no seu computador. Suas pastas, bibliotecas e arquivos de áudio nunca saem do seu disco.',
         faq6Q:            'Quais formatos de áudio ele lê e converte?',
@@ -1643,19 +1981,277 @@
         faq7A:            'Sim. Você pode criar bibliotecas separadas para projetos pessoais, trabalhos comerciais ou pacotes específicos.',
         faq8Q:            'Em quantas máquinas posso usar a mesma licença?',
         faq8A:            'Cada licença pode ser ativada em até 5 computadores de uso pessoal (por exemplo, seu computador principal e notebook).',
+        faq9Q:            'O MySoundLib vem com efeitos sonoros ou músicas inclusos?',
+        faq9A:            'Não. O MySoundLib é exclusivamente um gerenciador de áudio e ferramenta de fluxo de trabalho. Ele indexa e organiza os arquivos já presentes no seu computador ou pacotes que você baixar e comprar separadamente. Não distribuímos nem licenciamos arquivos de áudio.',
 
-        finalHead:        'Chega de procurar em pastas. Foque em editar.',
-        finalSub:         'Link de download e chave de licença enviados por e-mail logo após a compra. Funciona no Windows, macOS e Linux.',
+        finalHead:        'Chega de procurar em pastas. <em>Foque em editar.</em>',
+        finalSub:         'Licença vitalícia, zero mensalidades e 100% offline na sua máquina. Compatível com Windows, macOS e Linux.',
         finalCta:         'Comprar MySoundLib $19',
 
-        footerTagline:    'Utilitário local de busca e corte de áudio para editores.',
+        footerTagline:    'Gerenciador de áudio para editores de vídeo.',
         footerNavWorkflow:'Fluxo',
         footerNavFeatures:'Todas as Funcionalidades',
         footerNavCompat:  'Compatibilidade',
         footerNavFaq:     'Dúvidas',
-        footerTechLink:   'Arquitetura e Segurança',
+        footerTechLink:   'Para Nerds',
+        footerNavTerms:   'Termos',
+        footerNavPrivacy: 'Privacidade',
         footerCopy:       '&copy; 2026 MySoundLib. Todos os direitos reservados.',
         footerAuthor:     'Criado por <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>',
+      },
+      es: {
+        navWorkflow:      'Flujo',
+        navFeatures:      'Funciones',
+        navCompat:        'Compatibilidad',
+        navMaker:         'Sobre el proyecto',
+        navFaq:           'Preguntas',
+        navCta:           'Comprar MySoundLib',
+
+        heroHead:         '¿Miles de archivos de sonido perdidos y desordenados? <em>MySoundLib lo soluciona.</em>',
+        heroSub:          'Una aplicación de escritorio ligera y local para organizar tu biblioteca de sonidos, previsualizar y recortar formas de onda, y soltar audios en tu línea de tiempo sin interrumpir tu edición.',
+        heroCta:          'Comprar MySoundLib $19',
+        heroSecBtn:       'Ver flujo de trabajo',
+        trust1:           '<b>✓</b> 100% Offline y Local',
+        trust2:           '<b>✓</b> Sin Suscripciones',
+        trust3:           '<b>✓</b> Windows, Mac y Linux',
+
+        strip1:           'Flujo',
+        strip2:           'QuickSearch Overlay',
+        strip3:           'Forma de onda y corte',
+        strip4:           'Sincronización de carpetas',
+        strip5:           'Conversor',
+        strip6:           'Sobre el proyecto',
+
+        caseKicker:       'Cómo Funciona',
+        caseLead:         'Encontrar el audio adecuado para tu edición suele requerir muchos pasos lentos. <em>MySoundLib lo transforma en un solo atajo directo.</em>',
+        caseCol1Title:    'QuickSearch Overlay',
+        caseCol1Body:     'Pulsa <code>Alt + Shift + F</code> sobre Premiere, DaVinci o CapCut. Una barra rápida busca en tus bibliotecas de sonido sin necesidad de cambiar de ventana.',
+        caseCol2Title:    'Recorta y arrastra al instante',
+        caseCol2Body:     'Visualiza la forma de onda, selecciona solo el transitorio o la cola que necesitas y arrastra ese fragmento exacto directo a tu línea de tiempo.',
+        caseCol3Title:    'Por qué es importante',
+        caseCol3Body:     'Sigues editando sin interrupciones. Tu proyecto se mantiene limpio porque solo el recorte entra en tu línea de tiempo.',
+
+        painTitle:        'El <span class="pain-highlight">ciclo repetitivo</span> en el que todo editor de video se queda atrapado',
+        painIntro:        'Encontrar un solo efecto de sonido suele convertirse en una molestia:',
+        pain1:            'Descargas otro paquete de sonido de 5 GB que promete estar "súper organizado".',
+        pain2:            'Abres la carpeta y encuentras <code>whoosh_sub_final_v2.wav</code> enterrado bajo seis subcarpetas.',
+        pain3:            'Haces doble clic, esperando a que tu reproductor de medios predeterminado se abra lentamente.',
+        pain4:            'El sonido dura 12 segundos, pero solo necesitas el pequeño impacto al final.',
+        pain5:            'Arrastras el archivo original completo a tu proyecto, saturas tu línea de tiempo, recortas el sobrante y repites esto 80 veces por edición.',
+        pain6:            'Al final, te rindes y usas siempre los mismos 4 sonidos que tienes en el escritorio.',
+
+        feat1Pillar:      'QuickSearch Overlay',
+        feat1Head:        'Busca sonidos directo sobre tu línea de tiempo.',
+        feat1Desc:        'Pulsa <code>Alt + Shift + F</code> sobre Premiere, DaVinci o CapCut. Busca, escucha el audio al instante y suéltalo en tu pista sin salir de tu editor.',
+        feat1List1:       '<b>Atajo global:</b> se abre sobre cualquier editor.',
+        feat1List2:       '<b>Búsqueda rápida:</b> indexa miles de archivos locales en milisegundos.',
+        feat1List3:       '<b>Filtros prácticos:</b> filtra por formato, canales o etiquetas personalizadas.',
+
+        feat2Pillar:      'Recorte Preciso',
+        feat2Head:        'Escucha la forma de onda, arrastra solo la parte que necesitas.',
+        feat2Desc:        'Escucha el sonido al instante. Arrastra sobre la forma de onda para marcar solo el transitorio o la cola, y suelta únicamente esa selección en tu línea de tiempo.',
+        feat2List1:       '<b>Recorte en la app:</b> corta la sección necesaria antes de arrastrarla a la línea de tiempo.',
+        feat2List2:       '<b>Control de tono y velocidad:</b> ajusta el tono de reproducción al instante antes de exportar.',
+        feat2List3:       '<b>Línea de tiempo limpia:</b> mantiene los archivos de tu proyecto ligeros y ordenados.',
+
+        feat3Pillar:      'Sincronización de Carpetas',
+        feat3Head:        'Sincronización de carpetas e indexación de audio.',
+        feat3Desc:        'Apunta la app a tu carpeta de descargas o biblioteca de sonido. Al descargar un nuevo paquete o eliminar archivos, pulsa actualizar para indexar los cambios al instante sin reimportar todo.',
+        feat3List1:       '<b>Sincronización de carpetas:</b> refleja archivos añadidos, modificados o eliminados en el disco.',
+        feat3List2:       '<b>Lectura directa:</b> accede a tus archivos donde están guardados, sin crear duplicados.',
+
+        feat4Pillar:      'Conversor Integrado',
+        feat4Head:        'Conversión de formatos de audio.',
+        feat4Desc:        'Si tu editor rechaza un archivo <code>.flac</code> o <code>.ogg</code>, conviértelo a <code>.wav</code> dentro de la app antes de arrastrar.',
+        feat4List1:       '<b>Conversor multiformato:</b> compatible con WAV, MP3, FLAC, OGG y M4A.',
+        feat4List2:       '<b>Conversión por lotes:</b> convierte pistas individuales o carpetas enteras en segundos.',
+
+        featAllHead:      '¿Buscas todas las funciones?',
+        featAllSub:       'Explora las 24 funciones y 7 módulos en el índice técnico.',
+        featAllBtn:       'Explorar todas las funciones &rarr;',
+
+        pullQuote:        'Pasé años buscando sonidos en paquetes desorganizados. <em>Así que construí la herramienta que realmente necesitaba.</em>',
+        pullCite:         'Por qué creé MySoundLib',
+
+        compatTitle:      'Funciona con el programa que ya utilizas para editar',
+        compatDesc:       'Sin necesidad de plugins ni extensiones. Si tu software permite arrastrar archivos a la línea de tiempo, funciona directamente:',
+
+        makerKicker:      'Sobre',
+        makerHead:        'Creado por un editor de video, para editores de video',
+        makerP1:          'Paso gran parte de mis jornadas editando en Premiere Pro y After Effects. Con los años, acumulé decenas de gigabytes de efectos de sonido en carpetas desordenadas. Los administradores de audio existentes estaban pensados para grandes estudios o exigían suscripciones mensuales solo para buscar archivos locales.',
+        makerP2:          'Creé MySoundLib para resolver ese cuello de botella en mis propias ediciones. El objetivo era sencillo: pulsar un atajo sobre el editor de video, encontrar lo necesario y arrastrar solo el recorte a la línea de tiempo. Todo funciona en local en tu equipo, con pago único y sin mensualidades.',
+        makerRole:        'Editor de video y creador de MySoundLib',
+
+        noticeKicker:     'Archivos de Audio',
+        noticeHead:       'MySoundLib no incluye archivos de audio.',
+        noticeDesc:       'MySoundLib es un gestor de sonido para organizar, buscar y recortar audios que ya tienes o que consigas en el futuro. El software no incluye efectos de sonido ni pistas de música integrados.',
+        noticeCard1Head:  'Dónde conseguir sonidos',
+        noticeCard1Body:  'Muchos editores y diseñadores de sonido venden paquetes de efectos a distintos precios, y algunos también ofrecen paquetes gratuitos. Otra excelente opción es buscar audios de dominio público (CC0) en plataformas como <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.',
+        noticeCard2Head:  'Aviso de responsabilidad',
+        noticeCard2Body:  'Nosotros no vendemos, no licenciamos, no distribuimos ni nos responsabilizamos por ningún efecto de sonido o música. El usuario es el único responsable de verificar los derechos y licencias de los audios que utilice en sus ediciones.',
+
+        faqKicker:        'Preguntas Frecuentes',
+        faqTitle:         'Preguntas y Respuestas',
+        faq1Q:            '¿Con qué editores y DAWs es compatible?',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton y FL Studio. Si tu software permite arrastrar archivos desde el escritorio, funcionará.',
+        faq2Q:            '¿Arrastrar recortes modifica mis archivos de audio originales?',
+        faq2A:            'No. El recorte no es destructivo. La app crea un archivo temporal para tu línea de tiempo y mantiene intactos tus audios originales en el disco.',
+        faq3Q:            '¿El pago de $19 es un pago único o una suscripción?',
+        faq3A:            'Pago único. Pagas $19 una sola vez y usas MySoundLib con todas las actualizaciones de la versión 1 incluidas. Cero suscripciones.',
+        faq4Q:            '¿Cómo funciona el QuickSearch Overlay durante la edición?',
+        faq4A:            'Pulsa Alt + Shift + F (o Cmd + Shift + F en Mac) mientras editas. La barra de búsqueda se abre sobre la pantalla, escuchas el sonido al instante, arrastras el recorte a la línea de tiempo y sigues editando.',
+        faq5Q:            '¿Mis archivos de sonido se suben a algún servidor?',
+        faq5A:            'No. MySoundLib funciona completamente en tu ordenador. Tus bibliotecas, rutas y archivos de audio jamás salen de tu máquina.',
+        faq6Q:            '¿Qué formatos de audio puede leer y convertir?',
+        faq6A:            'WAV, MP3, FLAC, OGG, OPUS, AIFF y M4A/AAC. También incluye conversión por lotes a formato WAV.',
+        faq7Q:            '¿Puedo organizar mis sonidos en bibliotecas independientes?',
+        faq7A:            'Sí. Puedes crear bibliotecas separadas para proyectos personales, trabajos para clientes o paquetes específicos.',
+        faq8Q:            '¿En cuántos equipos puedo activar la misma licencia?',
+        faq8A:            'Cada licencia se puede activar en hasta 5 ordenadores de uso personal (por ejemplo, tu ordenador principal y tu portátil).',
+        faq9Q:            '¿MySoundLib incluye efectos de sonido o música?',
+        faq9A:            'No. MySoundLib es exclusivamente un gestor de audio y herramienta de flujo de trabajo. Indexa y busca archivos ya presentes en tu ordenador o paquetes que compres o descargues por separado. No distribuimos ni licenciamos archivos de audio.',
+
+        finalHead:        'Basta de rebuscar en carpetas. <em>Concéntrate en editar.</em>',
+        finalSub:         'Licencia de por vida, sin suscripciones y 100% offline en tu equipo. Compatible con Windows, macOS y Linux.',
+        finalCta:         'Comprar MySoundLib $19',
+
+        footerTagline:    'Gestor de audio para editores de video.',
+        footerNavWorkflow:'Flujo',
+        footerNavFeatures:'Todas las Funciones',
+        footerNavCompat:  'Compatibilidad',
+        footerNavFaq:     'Preguntas',
+        footerTechLink:   'Para Nerds',
+        footerNavTerms:   'Términos',
+        footerNavPrivacy: 'Privacidad',
+        footerCopy:       '&copy; 2026 MySoundLib. Todos los derechos reservados.',
+        footerAuthor:     'Creado por <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>',
+      },
+      hi: {
+        navWorkflow:      'वर्कफ़्लो',
+        navFeatures:      'फ़ीचर्स',
+        navCompat:        'सपोर्ट',
+        navMaker:         'प्रोजेक्ट',
+        navFaq:           'सवालों के जवाब',
+        navCta:           'MySoundLib खरीदें',
+
+        heroHead:         'हज़ारों बिखरी और खोई हुई साउंड फ़ाइलें? <em>MySoundLib इसे आसान बनाता है।</em>',
+        heroSub:          'अपनी साउंड लाइब्रेरी व्यवस्थित करने, वेवफ़ॉर्म देखने व काटने, और अपनी एडिटिंग रोके बिना ऑडियो सीधे टाइमलाइन पर लाने के लिए एक हल्का और लोकल डेस्कटॉप ऐप।',
+        heroCta:          'MySoundLib खरीदें $19',
+        heroSecBtn:       'वर्कफ़्लो देखें',
+        trust1:           '<b>✓</b> 100% ऑफ़लाइन और लोकल',
+        trust2:           '<b>✓</b> कोई सब्सक्रिप्शन नहीं',
+        trust3:           '<b>✓</b> Windows, Mac और Linux',
+
+        strip1:           'वर्कफ़्लो',
+        strip2:           'QuickSearch Overlay',
+        strip3:           'वेवफ़ॉर्म और ट्रिम',
+        strip4:           'फ़ोल्डर सिंक',
+        strip5:           'कन्वर्टर',
+        strip6:           'प्रोजेक्ट के बारे में',
+
+        caseKicker:       'यह कैसे काम करता है',
+        caseLead:         'अपनी एडिटिंग के लिए सही ऑडियो ढूंढने में अक्सर कई धीमे कदम उठाने पड़ते हैं। <em>MySoundLib इसे सिर्फ़ एक शॉर्टकट में बदल देता है।</em>',
+        caseCol1Title:    'QuickSearch Overlay',
+        caseCol1Body:     'Premiere, DaVinci या CapCut पर <code>Alt + Shift + F</code> दबाएं। बिना विंडो बदले अपनी साउंड लाइब्रेरीज़ में खोजने के लिए एक तेज़ सर्च बार खुल जाता है।',
+        caseCol2Title:    'तुरंत ट्रिम करें और ड्रैग करें',
+        caseCol2Body:     'वेवफ़ॉर्म देखें, केवल वही हिस्सा चुनें जिसकी ज़रूरत है और उसे सीधे टाइमलाइन पर ड्रैग करें।',
+        caseCol3Title:    'यह क्यों महत्वपूर्ण है',
+        caseCol3Body:     'बिना किसी रुकावट के अपनी एडिटिंग जारी रखें। आपका प्रोजेक्ट साफ़ रहता है क्योंकि केवल काटा गया हिस्सा ही टाइमलाइन पर आता है।',
+
+        painTitle:        'वह <span class="pain-highlight">उबाऊ चक्र</span> जिसमें हर वीडियो एडिटर फंस जाता है',
+        painIntro:        'एक साउंड इफ़ेक्ट ढूंढना भी सिरदर्द बन जाता है:',
+        pain1:            'आप 5 GB का एक और साउंड पैक डाउनलोड करते हैं जो "पूरी तरह से व्यवस्थित" होने का दावा करता है।',
+        pain2:            'आप फ़ोल्डर खोलते हैं और छह सब-फ़ोल्डर के नीचे दबी हुई <code>whoosh_sub_final_v2.wav</code> मिलती है।',
+        pain3:            'आप डबल-क्लिक करते हैं और अपने डिफ़ॉल्ट मीडिया प्लेयर के खुलने का इंतज़ार करते हैं।',
+        pain4:            'साउंड 12 सेकंड का है, लेकिन आपको सिर्फ़ आख़िरी का एक छोटा सा हिस्सा चाहिए।',
+        pain5:            'आप पूरी फ़ाइल प्रोजेक्ट में ड्रैग करते हैं, टाइमलाइन भरते हैं, उसे काटते हैं, और एक वीडियो में इसे 80 बार दोहराते हैं।',
+        pain6:            'अंत में आप थक कर डेस्कटॉप पर रखे वही 4 जाने-पहचाने साउंड इस्तेमाल कर लेते हैं।',
+
+        feat1Pillar:      'QuickSearch Overlay',
+        feat1Head:        'सीधे अपनी टाइमलाइन के ऊपर साउंड खोजें।',
+        feat1Desc:        'Premiere, DaVinci या CapCut के ऊपर <code>Alt + Shift + F</code> दबाएं। सर्च करें, तुरंत ऑडियो सुनें और बिना विंडो बदले सीधे टाइमलाइन पर ले जाएं।',
+        feat1List1:       '<b>ग्लोबल शॉर्टकट:</b> किसी भी वीडियो एडिटर के ऊपर तुरंत खुलता है।',
+        feat1List2:       '<b>तेज़ सर्च:</b> हज़ारों लोकल फ़ाइलों को मिलीसेकंड में खोजता है।',
+        feat1List3:       '<b>फ़िल्टर्स:</b> फॉर्मेट, ऑडियो चैनल या कस्टम टैग द्वारा फ़िल्टर करें।',
+
+        feat2Pillar:      'सटीक ट्रिमिंग',
+        feat2Head:        'वेवफ़ॉर्म देखें और सुनें, केवल वही हिस्सा ड्रैग करें जिसकी ज़रूरत है।',
+        feat2Desc:        'तुरंत ऑडियो प्रीव्यू करें। वेवफ़ॉर्म पर केवल आवश्यक हिस्से को चुनें और सीधे अपनी टाइमलाइन पर ड्रॉप करें।',
+        feat2List1:       '<b>ऐप में ट्रिमिंग:</b> टाइमलाइन पर ले जाने से पहले ही ऑडियो क्लिप काट लें।',
+        feat2List2:       '<b>पिच और स्पीड कंट्रोल:</b> एक्सपोर्ट से पहले प्लेबैक पिच और स्पीड तुरंत बदलें।',
+        feat2List3:       '<b>क्लीन टाइमलाइन:</b> प्रोजेक्ट फ़ाइलों को हल्का और साफ़-सुथरा रखता है।',
+
+        feat3Pillar:      'फ़ोल्डर सिंक',
+        feat3Head:        'फ़ोल्डर सिंक और ऑडियो इंडेक्सिंग।',
+        feat3Desc:        'ऐप को अपने डाउनलोड या साउंड फ़ोल्डर से जोड़ें। नया पैक डाउनलोड होने या पुरानी फ़ाइलें हटाने पर रीफ़्रेश दबाकर बदलाव तुरंत इंडेक्स करें।',
+        feat3List1:       '<b>फ़ोल्डर सिंक:</b> डिस्क पर जोड़ी गई, बदली गई या हटाई गई फ़ाइलों को तुरंत अपडेट करता है।',
+        feat3List2:       '<b>सीधा एक्सेस:</b> आपकी फ़ाइलों को उसी जगह से पढ़ता है, बिना कोई डुप्लिकेट बनाए।',
+
+        feat4Pillar:      'इन-बिल्ट कन्वर्टर',
+        feat4Head:        'ऑडियो फॉर्मेट कन्वर्शन।',
+        feat4Desc:        'यदि आपका एडिटर <code>.flac</code> या <code>.ogg</code> स्वीकार न करे, तो ऐप के अंदर ही <code>.wav</code> में बदलें।',
+        feat4List1:       '<b>मल्टी-फॉर्मेट कन्वर्टर:</b> WAV, MP3, FLAC, OGG और M4A सपोर्ट।',
+        feat4List2:       '<b>बैच कन्वर्शन:</b> एक-एक ट्रैक या पूरे फ़ोल्डर को कुछ ही सेकंड में बदलें।',
+
+        featAllHead:      'सभी फ़ीचर्स देखना चाहते हैं?',
+        featAllSub:       'तकनीकी इंडेक्स में सभी 24 फ़ीचर्स और 7 मॉड्यूल्स देखें।',
+        featAllBtn:       'सभी फ़ीचर्स देखें &rarr;',
+
+        pullQuote:        'मैंने बरसों अव्यवस्थित साउंड पैक्स में फ़ाइलें ढूंढने में बिताए। <em>फिर मैंने वही टूल बनाया जिसकी मुझे सच में ज़रूरत थी।</em>',
+        pullCite:         'मैंने MySoundLib क्यों बनाया',
+
+        compatTitle:      'आप जिस भी सॉफ्टवेयर में एडिट करते हैं, उसके साथ काम करता है',
+        compatDesc:       'किसी अतिरिक्त प्लगइन की आवश्यकता नहीं। यदि आपका सॉफ्टवेयर टाइमलाइन में फ़ाइल ड्रैग करना सपोर्ट करता है, तो यह सीधे काम करेगा:',
+
+        makerKicker:      'बारे में',
+        makerHead:        'वीडियो एडिटर्स द्वारा, वीडियो एडिटर्स के लिए बनाया गया',
+        makerP1:          'मैं अपना अधिकांश कार्यदिवस Premiere Pro और After Effects में वीडियो एडिट करते हुए बिताता हूँ। कई वर्षों में मेरी साउंड लाइब्रेरी अव्यवस्थित फ़ोल्डरों में दर्जनों गीगाबाइट तक बढ़ गई। उपलब्ध ऑडियो मैनेजर या तो बड़े स्टूडियो के लिए थे या लोकल फ़ाइलों को खोजने के लिए भी मासिक सब्सक्रिप्शन मांगते थे।',
+        makerP2:          'मैंने अपनी दैनिक एडिटिंग की इसी समस्या को दूर करने के लिए MySoundLib बनाया। इसका उद्देश्य सीधा था: अपने वीडियो एडिटर के ऊपर शॉर्टकट दबाएं, तुरंत सही आवाज़ खोजें और केवल आवश्यक वेवफ़ॉर्म हिस्से को सीधे टाइमलाइन पर ड्रैग करें। सब कुछ आपके कंप्यूटर पर ऑफ़लाइन चलता है, बिना किसी सब्सक्रिप्शन के।',
+        makerRole:        'वीडियो एडिटर और MySoundLib के निर्माता',
+
+        noticeKicker:     'ऑडियो फ़ाइलें और सोर्सिंग',
+        noticeHead:       'MySoundLib में पहले से ऑडियो फ़ाइलें शामिल नहीं हैं।',
+        noticeDesc:       'MySoundLib एक साउंड मैनेजर है जिसे आपके पास पहले से मौजूद या भविष्य में प्राप्त की जाने वाली ऑडियो फ़ाइलों को व्यवस्थित, सर्च और ट्रिम करने के लिए बनाया गया है। इसमें पहले से कोई साउंड इफ़ेक्ट या म्यूज़िक शामिल नहीं है।',
+        noticeCard1Head:  'साउंड कहाँ से प्राप्त करें',
+        noticeCard1Body:  'कई वीडियो एडिटर्स और साउंड डिज़ाइनर्स अलग-अलग कीमतों पर SFX पैक्स बेचते हैं, और कुछ मुफ़्त पैक्स भी उपलब्ध कराते हैं। इसके अलावा <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a> जैसी प्लेटफ़ॉर्म पर CC0 (पब्लिक डोमेन) ऑडियो खोजना भी एक बढ़िया विकल्प है।',
+        noticeCard2Head:  'अस्वीकरण (Disclaimer)',
+        noticeCard2Body:  'हम किसी भी साउंड इफ़ेक्ट या म्यूज़िक को बेचते, लाइसेंस देते, वितरित करते या उनकी ज़िम्मेदारी नहीं लेते हैं। अपने प्रोजेक्ट्स में इस्तेमाल की जाने वाली ऑडियो फ़ाइलों के लाइसेंस और उपयोग अधिकारों की पुष्टि करने की ज़िम्मेदारी पूरी तरह से आपकी है।',
+
+        faqKicker:        'अक्सर पूछे जाने वाले सवाल',
+        faqTitle:         'सवालों के जवाब',
+        faq1Q:            'यह किन एडिटर्स और DAWs के साथ काम करता है?',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton और FL Studio। कोई भी सॉफ्टवेयर जो डेस्कटॉप से ड्रैग की गई फ़ाइलें स्वीकार करता है, सपोर्टेड है।',
+        faq2Q:            'क्या ऑडियो ट्रिम करने से मेरी ओरिजिनल फ़ाइलें बदलती हैं?',
+        faq2A:            'नहीं। ट्रिमिंग नॉन-डिस्ट्रक्टिव है। ऐप आपकी टाइमलाइन के लिए एक अस्थायी क्लिप बनाता है और ओरिजिनल फ़ाइलों को बिल्कुल नहीं छूता।',
+        faq3Q:            'क्या $19 एकमुश्त भुगतान है या सब्सक्रिप्शन?',
+        faq3A:            'एकमुश्त भुगतान। आप $19 केवल एक बार देते हैं और बिना किसी मासिक शुल्क के सभी v1 अपडेट्स के साथ MySoundLib आपका होता है।',
+        faq4Q:            'एडिटिंग के दौरान QuickSearch Overlay कैसे काम करता है?',
+        faq4A:            'एडिटिंग के दौरान Alt + Shift + F (Mac पर Cmd + Shift + F) दबाएं। स्क्रीन पर सर्च बार खुलता है, तुरंत आवाज़ सुनें, क्लिप को टाइमलाइन पर खींचें और एडिटिंग जारी रखें।',
+        faq5Q:            'क्या मेरी ऑडियो फ़ाइलें किसी सर्वर पर अपलोड होती हैं?',
+        faq5A:            'नहीं। MySoundLib पूरी तरह आपके कंप्यूटर पर चलता है। आपकी ऑडियो लाइब्रेरीज़ और फ़ाइलें कभी भी आपके सिस्टम से बाहर नहीं जातीं।',
+        faq6Q:            'यह किन ऑडियो फॉर्मेट्स को पढ़ और कन्वर्ट कर सकता है?',
+        faq6A:            'WAV, MP3, FLAC, OGG, OPUS, AIFF और M4A/AAC। इसमें WAV में बैच कन्वर्शन की सुविधा भी शामिल है।',
+        faq7Q:            'क्या मैं अपनी आवाज़ों को अलग-अलग लाइब्रेरीज़ में रख सकता हूँ?',
+        faq7A:            'हाँ। आप पर्सनल प्रोजेक्ट्स, क्लाइंट वर्क या विशिष्ट साउंड पैक्स के लिए अलग लाइब्रेरीज़ बना सकते हैं।',
+        faq8Q:            'एक लाइसेंस से मैं कितने कंप्यूटरों पर ऐप चला सकता हूँ?',
+        faq8A:            'प्रत्येक लाइसेंस को 5 पर्सनल कंप्यूटरों (जैसे आपका मुख्य डेस्कटॉप और लैपटॉप) पर सक्रिय किया जा सकता है।',
+        faq9Q:            'क्या MySoundLib के साथ साउंड इफ़ेक्ट्स या म्यूज़िक मिलता है?',
+        faq9A:            'नहीं। MySoundLib पूरी तरह से एक ऑडियो मैनेजर और वर्कफ़्लो टूल है। यह आपके कंप्यूटर पर पहले से मौजूद या आपके द्वारा अलग से खरीदे/डाउनलोड किए गए पैक्स को व्यवस्थित और सर्च करता है। हम ऑडियो फ़ाइलें वितरित या लाइसेंस नहीं करते हैं।',
+
+        finalHead:        'फ़ोल्डर्स में ढूंढना बंद करें। <em>एडिटिंग पर ध्यान दें।</em>',
+        finalSub:         'लाइफटाइम लाइसेंस, कोई सब्सक्रिप्शन नहीं और आपके कंप्यूटर पर 100% ऑफ़लाइन। Windows, macOS और Linux के साथ संगत।',
+        finalCta:         'MySoundLib खरीदें $19',
+
+        footerTagline:    'वीडियो एडिटर्स के लिए ऑडियो मैनेजर।',
+        footerNavWorkflow:'वर्कफ़्लो',
+        footerNavFeatures:'सभी फ़ीचर्स',
+        footerNavCompat:  'सपोर्ट',
+        footerNavFaq:     'सवालों के जवाब',
+        footerTechLink:   'फ़ॉर नर्ड्स',
+        footerNavTerms:   'नियम',
+        footerNavPrivacy: 'गोपनीयता',
+        footerCopy:       '&copy; 2026 MySoundLib. सर्वाधिकार सुरक्षित।',
+        footerAuthor:     '<a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a> द्वारा निर्मित',
       }
     };
 
@@ -1674,8 +2270,10 @@
         }
       });
 
-      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
-      document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+      ['EN', 'PT', 'ES', 'HI'].forEach(code => {
+        const btn = document.getElementById('btn' + code);
+        if (btn) btn.classList.toggle('active', lang === code.toLowerCase());
+      });
       document.documentElement.lang = lang;
 
       try { localStorage.setItem('msl_lang', lang); } catch(e) {}
@@ -1689,8 +2287,12 @@
 
       let saved = null;
       try { saved = localStorage.getItem('msl_lang'); } catch(e) {}
-      if (saved === 'pt' || saved === 'en') { setLang(saved); return; }
-      setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+      if (['en', 'pt', 'es', 'hi'].includes(saved)) { setLang(saved); return; }
+      const navLang = (navigator.language || '').toLowerCase();
+      if (navLang.startsWith('pt')) setLang('pt');
+      else if (navLang.startsWith('es')) setLang('es');
+      else if (navLang.startsWith('hi')) setLang('hi');
+      else setLang('en');
     })();
   </script>
 
@@ -1787,7 +2389,9 @@
         let lastTime = performance.now();
 
         class FloatingAudioItem {
-          constructor() {
+          constructor(index) {
+            this.index = index;
+            this.isLeft = (index % 2 === 0);
             this.el = document.createElement('div');
             this.el.className = 'floating-audio-file';
             container.appendChild(this.el);
@@ -1801,17 +2405,26 @@
 
             this.el.innerHTML = `${iconSvg}<span class="floating-audio-name">${name}</span><span class="floating-audio-ext">${ext}</span>`;
 
-            const rect = container.getBoundingClientRect();
-            const w = rect.width || window.innerWidth;
-            const h = rect.height || container.offsetHeight || 300;
+            const w = container.offsetWidth || container.clientWidth || window.innerWidth;
+            const h = container.offsetHeight || container.clientHeight || 350;
 
-            let bestX = 15 + Math.random() * Math.max(w - 240, 60);
-            let bestY = 15 + Math.random() * Math.max(h - 50, 50);
+            // Strict 50% Left / 50% Right distribution
+            let minX, maxX;
+            if (this.isLeft) {
+              minX = 15;
+              maxX = Math.max(w * 0.48 - 60, 40);
+            } else {
+              minX = Math.min(w * 0.52, Math.max(w - 200, 30));
+              maxX = Math.max(w - 180, minX + 40);
+            }
+
+            let bestX = minX + Math.random() * Math.max(maxX - minX, 20);
+            let bestY = 15 + Math.random() * Math.max(h - 50, 30);
             let maxMinDist = 0;
 
             for (let attempt = 0; attempt < 8; attempt++) {
-              const candX = 15 + Math.random() * Math.max(w - 240, 60);
-              const candY = 15 + Math.random() * Math.max(h - 50, 50);
+              const candX = minX + Math.random() * Math.max(maxX - minX, 20);
+              const candY = 15 + Math.random() * Math.max(h - 50, 30);
 
               let minDistToOthers = Infinity;
               for (let j = 0; j < items.length; j++) {
@@ -1829,7 +2442,7 @@
                 bestX = candX;
                 bestY = candY;
               }
-              if (minDistToOthers > 85) break;
+              if (minDistToOthers > 60) break;
             }
 
             this.x = bestX;
@@ -1837,8 +2450,8 @@
             this.vx = (Math.random() - 0.5) * 0.08;
             this.vy = (Math.random() - 0.5) * 0.10;
             this.opacity = 0;
-            this.maxOpacity = 0.30 + Math.random() * 0.38;
-            this.scale = 0.55 + Math.random() * 0.70;
+            this.maxOpacity = 0.32 + Math.random() * 0.38;
+            this.scale = 0.60 + Math.random() * 0.65;
 
             this.duration = 14000 + Math.random() * 12000;
             this.elapsed = initial ? Math.random() * this.duration : 0;
@@ -1869,18 +2482,17 @@
             this.y = this.initialY + (this.vy * (this.elapsed / 16.6));
             this.x = this.initialX + Math.sin(this.elapsed * this.swaySpeed) * this.swayAmount + (this.vx * (this.elapsed / 16.6));
 
-            const rect = container.getBoundingClientRect();
-            const w = rect.width || window.innerWidth;
+            const w = container.offsetWidth || container.clientWidth || window.innerWidth;
             const centerX = w / 2;
             const itemCenterX = this.x + 85;
             const distFromCenter = Math.abs(itemCenterX - centerX);
             const centerProximity = Math.max(0, 1 - (distFromCenter / (w * 0.48)));
 
-            const depthBlur = Math.max(0, (1.15 - this.scale) * 1.6);
-            const centerBlur = Math.pow(centerProximity, 1.4) * 6.5;
+            const depthBlur = Math.max(0, (1.15 - this.scale) * 1.5);
+            const centerBlur = Math.pow(centerProximity, 1.6) * 4.5;
             const totalBlur = (depthBlur + centerBlur).toFixed(1);
 
-            const centerDim = 1 - (centerProximity * 0.35);
+            const centerDim = 1 - (centerProximity * 0.20);
             const currentOpacity = (this.opacity * centerDim).toFixed(3);
 
             this.el.style.opacity = currentOpacity;
@@ -1890,7 +2502,7 @@
         }
 
         for (let i = 0; i < count; i++) {
-          items.push(new FloatingAudioItem());
+          items.push(new FloatingAudioItem(i));
         }
 
         if ('IntersectionObserver' in window) {
@@ -1939,9 +2551,11 @@
       const isMobile = window.innerWidth < 768;
       const heroContainer = document.getElementById('heroBgAnim');
       const pullContainer = document.getElementById('pullBgAnim');
+      const ctaContainer  = document.getElementById('ctaBgAnim');
 
-      if (heroContainer) setupField(heroContainer, isMobile ? 20 : 42);
-      if (pullContainer) setupField(pullContainer, isMobile ? 7 : 14); // -30% further density for pull quote section
+      if (heroContainer) setupField(heroContainer, isMobile ? 22 : 46);
+      if (pullContainer) setupField(pullContainer, isMobile ? 8 : 16);
+      if (ctaContainer)  setupField(ctaContainer,  isMobile ? 8 : 16);
     })();
   </script>
 </body>

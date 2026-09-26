@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Technical Note: Architecture & Dependencies | MySoundLib</title>
-  <meta name="description" content="Technical specification, runtime dependencies, local storage model, and network policies of MySoundLib.">
+  <title>Technical Note: Architecture & System Design | MySoundLib</title>
+  <meta name="description" content="Technical specification, runtime architecture, local storage model, and network policies of MySoundLib.">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -21,7 +21,7 @@
       --text: #ffffff;
       --text-muted: #9e9e9e;
       --text-dim: #666666;
-      --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --sans: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
     }
 
     * {
@@ -289,8 +289,7 @@
     .tech-table td:first-child {
       font-weight: 600;
       color: var(--text);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 13px;
+      font-size: 14px;
       width: 32%;
     }
 
@@ -345,6 +344,8 @@
           <div class="lang-switcher">
             <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
             <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+            <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+            <button class="lang-btn" id="btnHI" onclick="setLang('hi')">HI</button>
           </div>
           <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="index.html#buy">Buy MySoundLib</a>
         </div>
@@ -356,48 +357,40 @@
     <main>
       <!-- Meta & Title -->
       <div class="meta-tag" id="metaTag">Technical Note &bull; Architecture</div>
-      <h1 id="artTitle">Architecture & Dependencies</h1>
+      <h1 id="artTitle">Architecture & System Design</h1>
       <p class="lead" id="artLead">
-        A technical overview of runtime components, local storage, and network behavior in MySoundLib.
+        A technical overview of runtime architecture, local storage, and network behavior in MySoundLib.
       </p>
 
       <!-- Section 1 -->
-      <h2 id="sec1Head">Runtime Stack & Libraries</h2>
+      <h2 id="sec1Head">Architecture & Subsystems</h2>
       <p id="sec1Text">
-        MySoundLib is distributed as a standalone desktop binary. It runs directly on your operating system without web runtimes or background servers.
+        MySoundLib is distributed as a standalone desktop binary. It runs directly on your operating system without web runtimes, browser engines, or background servers.
       </p>
 
       <table class="tech-table">
         <thead>
           <tr>
-            <th id="thComponent">Component</th>
-            <th id="thRole">Role</th>
+            <th id="thComponent">Subsystem</th>
+            <th id="thRole">Technical Scope</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>PySide6 (Qt)</td>
-            <td id="tdQt">Native windowing, hotkey overlays, audio output subsystem, and OS drag-and-drop.</td>
+            <td id="comp1Name">Windowing & Overlay Engine</td>
+            <td id="comp1Role">Native OS windowing, global shortcut daemon, low-latency QuickSearch overlay, and system drag-and-drop protocols.</td>
           </tr>
           <tr>
-            <td>soundfile (libsndfile)</td>
-            <td id="tdSnd">C-based PCM stream decoding and waveform sample extraction.</td>
+            <td id="comp2Name">Audio Decoding Engine</td>
+            <td id="comp2Role">Low-latency PCM stream decoding, sample-accurate waveform extraction, and fast buffer downsampling.</td>
           </tr>
           <tr>
-            <td>NumPy</td>
-            <td id="tdNum">Vectorized waveform peak calculations and buffer downsampling.</td>
+            <td id="comp3Name">Format Transcoding Core</td>
+            <td id="comp3Role">Audio container validation, multi-format transcoding (WAV, MP3, FLAC, OGG, M4A), and broadcast metadata parsing.</td>
           </tr>
           <tr>
-            <td>pydub + tinytag</td>
-            <td id="tdTag">Audio header inspection, container metadata parsing, and format transcoding.</td>
-          </tr>
-          <tr>
-            <td>SQLite 3</td>
-            <td id="tdSql">Embedded SQLite database for indexing and searching audio files.</td>
-          </tr>
-          <tr>
-            <td>sentry-sdk</td>
-            <td id="tdSen">Optional error reporting. Can be disabled in app settings.</td>
+            <td id="comp4Name">Embedded Database</td>
+            <td id="comp4Role">Zero-configuration, serverless local database for sub-millisecond audio indexing and keyword search.</td>
           </tr>
         </tbody>
       </table>
@@ -405,23 +398,23 @@
       <!-- Section 2 -->
       <h2 id="sec2Head">Storage & Data Isolation</h2>
       <ul>
-        <li id="liStorage1"><b>Data Locations:</b> Database records and cache files reside exclusively within standard OS user-data directories (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).</li>
+        <li id="liStorage1"><b>Data Locations:</b> Database records (*.db), configuration (config/), and diagnostic logs (debug/) reside in <code>Documents/MySoundLib</code> by default on Windows (customizable in Settings), with the application binary installed in per-user AppData (<code>%LOCALAPPDATA%/Programs/MySoundLib</code>).</li>
         <li id="liStorage2"><b>Non-Destructive Indexing:</b> Audio folders are scanned in read-only mode. Source files are never modified, tagged, or moved on disk.</li>
-        <li id="liStorage3"><b>Timeline Export:</b> Waveform trimming exports a temporary audio file into a cache directory; master files remain untouched.</li>
+        <li id="liStorage3"><b>Timeline Export:</b> Waveform trimming exports a temporary audio snippet into your OS temporary directory (<code>%TEMP%</code>); master source files remain completely untouched.</li>
       </ul>
 
       <!-- Section 3 -->
       <h2 id="sec3Head">Network & Privacy Policies</h2>
       <ul>
         <li id="liNet1"><b>Offline Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop work entirely offline without an internet connection.</li>
-        <li id="liNet2"><b>No Audio Telemetry:</b> Audio waveforms, file paths, library names, and sound files are never sent to external servers.</li>
-        <li id="liNet3"><b>Error Reports (Optional):</b> When enabled, error reports capture anonymized stack traces with <code>send_default_pii=False</code>. You can turn this off at any time in Settings (<code>telemetry_enabled: false</code>).</li>
+        <li id="liNet2"><b>Zero Automatic Telemetry:</b> Audio waveforms, file contents, and library data are never collected in the background or sent to external tracking servers.</li>
+        <li id="liNet3"><b>Bug Reports & Debug Logs:</b> If you manually submit a bug report through the application, generated debug logs may reference library paths or audio file names involved in the issue to help diagnose the problem.</li>
       </ul>
 
       <!-- Section 4 -->
-      <h2 id="sec4Head">Development Context</h2>
+      <h2 id="sec4Head">Engineering Context</h2>
       <p id="devText">
-        I built MySoundLib independently because I edit videos and needed a faster way to find, preview, and cut sound effects directly on my timeline. The application is built with Python, Qt, and C-based audio libraries, using AI-assisted programming tools for coding and automated testing.
+        MySoundLib was designed and built independently by a video editor facing the daily friction of managing large audio libraries across tight deadlines. The architecture focuses strictly on lightweight desktop performance, low latency, and zero dependency on remote cloud infrastructure.
       </p>
     </main>
 
@@ -429,6 +422,8 @@
     <footer class="article-footer">
       <span>&copy; 2026 MySoundLib</span>
       <span>
+        <a href="terms.html" id="footerTerms">Terms</a> &bull;
+        <a href="privacy.html" id="footerPrivacy">Privacy</a> &bull;
         <a href="features.html" id="footerFeatures">All Features</a> &bull;
         <a href="index.html" id="footerBack">Return to main page</a>
       </span>
@@ -447,37 +442,41 @@
         navFaq:         'FAQ',
         navCta:         'Buy MySoundLib',
 
-        metaTag:      'Technical Note • Architecture',
-        artTitle:     'Architecture & Dependencies',
-        artLead:      'A technical overview of runtime components, local storage, and network behavior in MySoundLib.',
+        metaTag:        'Technical Note • Architecture',
+        artTitle:       'Architecture & System Design',
+        artLead:        'A technical overview of runtime architecture, local storage, and network behavior in MySoundLib.',
 
-        sec1Head:     'Runtime Stack & Libraries',
-        sec1Text:     'MySoundLib is distributed as a standalone desktop binary. It runs directly on your operating system without web runtimes or background servers.',
+        sec1Head:       'Architecture & Subsystems',
+        sec1Text:       'MySoundLib is distributed as a standalone desktop binary. It runs directly on your operating system without web runtimes, browser engines, or background servers.',
 
-        thComponent:  'Component',
-        thRole:       'Role',
-        tdQt:         'Native windowing, hotkey overlays, audio output subsystem, and OS drag-and-drop.',
-        tdSnd:        'C-based PCM stream decoding and waveform sample extraction.',
-        tdNum:        'Vectorized waveform peak calculations and buffer downsampling.',
-        tdTag:        'Audio header inspection, container metadata parsing, and format transcoding.',
-        tdSql:        'Embedded SQLite database for indexing and searching audio files.',
-        tdSen:        'Optional error reporting. Can be disabled in app settings.',
+        thComponent:    'Subsystem',
+        thRole:         'Technical Scope',
+        comp1Name:      'Windowing & Overlay Engine',
+        comp1Role:      'Native OS windowing, global shortcut daemon, low-latency QuickSearch overlay, and system drag-and-drop protocols.',
+        comp2Name:      'Audio Decoding Engine',
+        comp2Role:      'Low-latency PCM stream decoding, sample-accurate waveform extraction, and fast buffer downsampling.',
+        comp3Name:      'Format Transcoding Core',
+        comp3Role:      'Audio container validation, multi-format transcoding (WAV, MP3, FLAC, OGG, M4A), and broadcast metadata parsing.',
+        comp4Name:      'Embedded Database',
+        comp4Role:      'Zero-configuration, serverless local database for sub-millisecond audio indexing and keyword search.',
 
-        sec2Head:     'Storage & Data Isolation',
-        liStorage1:   '<b>Data Locations:</b> Database records and cache files reside exclusively within standard OS user-data directories (<code>%APPDATA%</code> on Windows, <code>~/Library/Application Support</code> on macOS, <code>~/.config</code> on Linux).',
-        liStorage2:   '<b>Non-Destructive Indexing:</b> Audio folders are scanned in read-only mode. Source files are never modified, tagged, or moved on disk.',
-        liStorage3:   '<b>Timeline Export:</b> Waveform trimming exports a temporary audio file into a cache directory; master files remain untouched.',
+        sec2Head:       'Storage & Data Isolation',
+        liStorage1:     '<b>Data Locations:</b> Database records (*.db), configuration (config/), and diagnostic logs (debug/) reside in <code>Documents/MySoundLib</code> by default on Windows (customizable in Settings), with the application binary installed in per-user AppData (<code>%LOCALAPPDATA%/Programs/MySoundLib</code>).',
+        liStorage2:     '<b>Non-Destructive Indexing:</b> Audio folders are scanned in read-only mode. Source files are never modified, tagged, or moved on disk.',
+        liStorage3:     '<b>Timeline Export:</b> Waveform trimming exports a temporary audio snippet into your OS temporary directory (<code>%TEMP%</code>); master source files remain completely untouched.',
 
-        sec3Head:     'Network & Privacy Policies',
-        liNet1:       '<b>Offline Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop work entirely offline without an internet connection.',
-        liNet2:       '<b>No Audio Telemetry:</b> Audio waveforms, file paths, library names, and sound files are never sent to external servers.',
-        liNet3:       '<b>Error Reports (Optional):</b> When enabled, error reports capture anonymized stack traces with <code>send_default_pii=False</code>. You can turn this off at any time in Settings (<code>telemetry_enabled: false</code>).',
+        sec3Head:       'Network & Privacy Policies',
+        liNet1:         '<b>Offline Operation:</b> Searching, indexing, waveform rendering, and timeline drag-and-drop work entirely offline without an internet connection.',
+        liNet2:         '<b>Zero Automatic Telemetry:</b> Audio waveforms, file contents, and library data are never collected in the background or sent to external tracking servers.',
+        liNet3:         '<b>Bug Reports & Debug Logs:</b> If you manually submit a bug report through the application, generated debug logs may reference library paths or audio file names involved in the issue to help diagnose the problem.',
 
-        sec4Head:     'Development Context',
-        devText:      'I built MySoundLib independently because I edit videos and needed a faster way to find, preview, and cut sound effects directly on my timeline. The application is built with Python, Qt, and C-based audio libraries, using AI-assisted programming tools for coding and automated testing.',
+        sec4Head:       'Engineering Context',
+        devText:        'MySoundLib was designed and built independently by a video editor facing the daily friction of managing large audio libraries across tight deadlines. The architecture focuses strictly on lightweight desktop performance, low latency, and zero dependency on remote cloud infrastructure.',
 
-        footerFeatures:'All Features',
-        footerBack:   'Return to main page'
+        footerTerms:    'Terms',
+        footerPrivacy:  'Privacy',
+        footerFeatures: 'All Features',
+        footerBack:     'Return to main page'
       },
       pt: {
         navWorkflow:    'Fluxo',
@@ -487,37 +486,129 @@
         navFaq:         'Dúvidas',
         navCta:         'Comprar MySoundLib',
 
-        metaTag:      'Nota Técnica • Arquitetura',
-        artTitle:     'Arquitetura e Dependências',
-        artLead:      'Uma visão técnica dos componentes de execução, armazenamento local e comportamento de rede no MySoundLib.',
+        metaTag:        'Nota Técnica • Arquitetura',
+        artTitle:       'Arquitetura e Projeto do Sistema',
+        artLead:        'Uma visão técnica da arquitetura de execução, armazenamento local e comportamento de rede no MySoundLib.',
 
-        sec1Head:     'Componentes e Bibliotecas',
-        sec1Text:     'O MySoundLib é distribuído como um executável desktop independente. Roda diretamente no sistema operacional sem navegadores embutidos ou servidores em segundo plano.',
+        sec1Head:       'Arquitetura e Subsistemas',
+        sec1Text:       'O MySoundLib é distribuído como um executável desktop independente. Roda diretamente no sistema operacional sem navegadores embutidos, motores web ou servidores em segundo plano.',
 
-        thComponent:  'Componente',
-        thRole:       'Função',
-        tdQt:         'Janelas nativas, atalho global, saída de áudio e arrastar e soltar para a timeline.',
-        tdSnd:        'Decodificação de streams PCM em C e extração de amostras de áudio.',
-        tdNum:        'Cálculo vetorizado de picos e amostragem para desenho de waveform.',
-        tdTag:        'Leitura de metadados, identificação de contêineres e conversão de formato.',
-        tdSql:        'Banco de dados SQLite local para indexação e busca dos arquivos.',
-        tdSen:        'Relatórios opcionais de erros. Pode ser desativado nas configurações do app.',
+        thComponent:    'Subsistema',
+        thRole:         'Escopo Técnico',
+        comp1Name:      'Interface e QuickSearch Overlay',
+        comp1Role:      'Janelas nativas do sistema, atalho global do overlay de busca e protocolo nativo de arrastar e soltar (drag & drop).',
+        comp2Name:      'Motor de Decodificação de Áudio',
+        comp2Role:      'Decodificação de streams PCM em baixa latência, extração de amostras com precisão de sample e renderização rápida de forma de onda.',
+        comp3Name:      'Módulo de Conversão e Formatos',
+        comp3Role:      'Validação de contêineres de áudio, conversão multiformato (WAV, MP3, FLAC, OGG, M4A) e leitura de metadados broadcast.',
+        comp4Name:      'Banco de Dados Embarcado',
+        comp4Role:      'Banco relacional local sem servidor (serverless) e sem configuração, projetado para busca instantânea e indexação sub-milissegundo.',
 
-        sec2Head:     'Armazenamento e Isolamento de Dados',
-        liStorage1:   '<b>Local dos Dados:</b> Registros do banco e cache residem exclusivamente nos caminhos padrão do sistema (<code>%APPDATA%</code> no Windows, <code>~/Library/Application Support</code> no macOS, <code>~/.config</code> no Linux).',
-        liStorage2:   '<b>Indexação Não Destrutiva:</b> Suas pastas de áudio são lidas apenas em modo de leitura. Nenhum arquivo original é modificado, alterado ou movido no disco.',
-        liStorage3:   '<b>Recorte para a Timeline:</b> O recorte de áudio gera apenas um arquivo temporário em cache; os arquivos originais permanecem intactos.',
+        sec2Head:       'Armazenamento e Isolamento de Dados',
+        liStorage1:     '<b>Local dos Dados:</b> Bancos de dados (*.db), configurações (config/) e logs (debug/) residem em <code>Documents/MySoundLib</code> por padrão no Windows (customizável nas Preferências), com o executável instalado no AppData local do usuário (<code>%LOCALAPPDATA%/Programs/MySoundLib</code>).',
+        liStorage2:     '<b>Indexação Não Destrutiva:</b> Suas pastas de áudio são lidas apenas em modo de leitura. Nenhum arquivo original é modificado, alterado ou movido no disco.',
+        liStorage3:     '<b>Recorte para a Timeline:</b> O recorte de áudio gera apenas um arquivo temporário na pasta temporária do sistema (<code>%TEMP%</code>); os arquivos originais permanecem intactos.',
 
-        sec3Head:     'Rede e Privacidade',
-        liNet1:       '<b>Operação Offline:</b> Busca, indexação, visualização de waveform e arraste para a timeline funcionam totalmente sem conexão com a internet.',
-        liNet2:       '<b>Sem Telemetria de Conteúdo:</b> Formas de onda, caminhos de arquivo, nomes de pastas e arquivos de áudio nunca são enviados para servidores externos.',
-        liNet3:       '<b>Relatórios de Erro (Opcionais):</b> Quando ativados, enviam apenas relatórios anônimos de falha com <code>send_default_pii=False</code>. Podem ser desativados a qualquer momento nas Configurações (<code>telemetry_enabled: false</code>).',
+        sec3Head:       'Rede e Privacidade',
+        liNet1:         '<b>Operação Offline:</b> Busca, indexação, visualização de waveform e arraste para a timeline funcionam totalmente sem conexão com a internet.',
+        liNet2:         '<b>Zero Telemetria Automática:</b> Formas de onda, conteúdo de áudio e dados de bibliotecas nunca são coletados em segundo plano nem enviados para servidores de rastreamento.',
+        liNet3:         '<b>Relatórios de Erros e Logs:</b> Caso você decida relatar um bug diretamente pelo aplicativo, os logs de depuração anexados podem conter nomes de arquivos e caminhos de bibliotecas para ajudar a identificar e corrigir o problema.',
 
-        sec4Head:     'Contexto de Desenvolvimento',
-        devText:      'Construí o MySoundLib de forma independente porque edito vídeos e precisava de um jeito mais rápido de achar, ouvir e cortar efeitos sonoros direto na timeline. O aplicativo foi desenvolvido com Python, Qt e bibliotecas de áudio em C, utilizando ferramentas de programação auxiliadas por IA para código e testes automatizados.',
+        sec4Head:       'Contexto de Engenharia',
+        devText:        'O MySoundLib foi projetado e desenvolvido de forma independente por um editor de vídeo que enfrentava no dia a dia o gargalo de gerenciar dezenas de gigabytes de áudio em prazos apertados. A arquitetura foi pensada para entregar desempenho desktop leve, baixa latência e total independência de serviços ou nuvem.',
 
-        footerFeatures:'Todas as Funcionalidades',
-        footerBack:   'Voltar à página principal'
+        footerTerms:    'Termos',
+        footerPrivacy:  'Privacidade',
+        footerFeatures: 'Todas as Funcionalidades',
+        footerBack:     'Voltar à página principal'
+      },
+      es: {
+        navWorkflow:    'Flujo',
+        navFeatures:    'Funciones',
+        navCompat:      'Compatibilidad',
+        navMaker:       'Sobre el proyecto',
+        navFaq:         'Preguntas',
+        navCta:         'Comprar MySoundLib',
+
+        metaTag:        'Nota Técnica • Arquitectura',
+        artTitle:       'Arquitectura y Diseño del Sistema',
+        artLead:        'Una descripción técnica de los componentes de ejecución, almacenamiento local y comportamiento de red en MySoundLib.',
+
+        sec1Head:       'Arquitectura y Subsistemas',
+        sec1Text:       'MySoundLib se distribuye como un ejecutable de escritorio independiente. Se ejecuta directamente en tu sistema operativo sin motores web, navegadores embebidos ni servidores en segundo plano.',
+
+        thComponent:    'Subsistema',
+        thRole:         'Alcance Técnico',
+        comp1Name:      'Interfaz y QuickSearch Overlay',
+        comp1Role:      'Ventanas nativas del sistema operativo, atajo global de búsqueda y protocolo de arrastrar y soltar hacia la línea de tiempo.',
+        comp2Name:      'Motor de Decodificación de Audio',
+        comp2Role:      'Decodificación de flujo PCM con baja latencia, extracción precisa de muestras de audio y renderizado rápido de formas de onda.',
+        comp3Name:      'Módulo de Conversión y Formatos',
+        comp3Role:      'Inspección de contenedores de audio, conversión multiformato (WAV, MP3, FLAC, OGG, M4A) y análisis de metadatos de emisión.',
+        comp4Name:      'Base de Datos Integrada',
+        comp4Role:      'Base de datos relacional local sin servidor y sin configuración previa para indexación en submilisegundos y búsqueda instantánea.',
+
+        sec2Head:       'Almacenamiento y Aislamiento de Datos',
+        liStorage1:     '<b>Ubicación de Datos:</b> Bases de datos (*.db), configuraciones (config/) y registros (debug/) residen en <code>Documents/MySoundLib</code> por defecto en Windows (personalizable en Ajustes), con el ejecutable instalado en el AppData local del usuario (<code>%LOCALAPPDATA%/Programs/MySoundLib</code>).',
+        liStorage2:     '<b>Indexación No Destructiva:</b> Las carpetas de audio se escanean en modo de solo lectura. Los archivos originales jamás se modifican, etiquetan ni mueven en el disco.',
+        liStorage3:     '<b>Exportación a Línea de Tiempo:</b> El recorte de forma de onda genera un archivo temporal en la carpeta temporal del sistema (<code>%TEMP%</code>); los archivos originales permanecen intactos.',
+
+        sec3Head:       'Políticas de Red y Privacidad',
+        liNet1:         '<b>Funcionamiento Offline:</b> Búsqueda, indexación, renderizado de forma de onda y arrastre a la línea de tiempo funcionan 100% sin conexión a internet.',
+        liNet2:         '<b>Cero Telemetría Automática:</b> Formas de onda, contenidos de audio y datos de bibliotecas nunca se recopilan en segundo plano ni se envían a servidores de seguimiento.',
+        liNet3:         '<b>Reportes de Errores y Logs:</b> Si decides reportar un error directamente a través de la aplicación, los registros de depuración adjuntos pueden incluir nombres de archivos y rutas de bibliotecas para ayudar a solucionar el problema.',
+
+        sec4Head:       'Contexto de Ingeniería',
+        devText:        'MySoundLib fue diseñado y desarrollado de forma independiente por un editor de video que enfrentaba a diario la molestia de gestionar grandes bibliotecas de audio en plazos ajustados. La arquitectura se enfoca en un rendimiento de escritorio ligero, baja latencia y cero dependencia de servidores en la nube.',
+
+        footerTerms:    'Términos',
+        footerPrivacy:  'Privacidad',
+        footerFeatures: 'Todas las Funciones',
+        footerBack:     'Volver a la página principal'
+      },
+      hi: {
+        navWorkflow:    'वर्कफ़्लो',
+        navFeatures:    'फ़ीचर्स',
+        navCompat:      'सपोर्ट',
+        navMaker:         'प्रोजेक्ट',
+        navFaq:           'सवालों के जवाब',
+        navCta:           'MySoundLib खरीदें',
+
+        metaTag:        'तकनीकी नोट • आर्किटेक्चर',
+        artTitle:       'आर्किटेक्चर और सिस्टम डिज़ाइन',
+        artLead:        'MySoundLib के रनटाइम आर्किटेक्चर, लोकल स्टोरेज और नेटवर्क व्यवहार का एक तकनीकी अवलोकन।',
+
+        sec1Head:       'आर्किटेक्चर और सबसिस्टम',
+        sec1Text:       'MySoundLib एक स्टैंडअलोन डेस्कटॉप बाइनरी के रूप में वितरित किया जाता है। यह बिना किसी वेब रनटाइम, ब्राउज़र इंजन या बैकग्राउंड सर्वर के सीधे आपके ऑपरेटिंग सिस्टम पर चलता है।',
+
+        thComponent:    'सबसिस्टम',
+        thRole:         'तकनीकी विवरण',
+        comp1Name:      'विंडोइंग और ओवरले इंजन',
+        comp1Role:      'नेटिव विंडोइंग, ग्लोबल शॉर्टकट डेमन, कम लेटेंसी वाला QuickSearch ओवरले और टाइमलाइन ड्रैग-एंड-ड्रॉप प्रोटोकॉल।',
+        comp2Name:      'ऑडियो डिकोडिंग इंजन',
+        comp2Role:      'कम लेटेंसी वाली PCM स्ट्रीम डिकोडिंग, सटीक वेवफ़ॉर्म सैंपल निष्कर्षण और तेज़ बफ़र रेंडरिंग।',
+        comp3Name:      'फॉर्मेट कन्वर्शन कोर',
+        comp3Role:      'ऑडियो कंटेनर निरीक्षण, मल्टी-फॉर्मेट कन्वर्शन (WAV, MP3, FLAC, OGG, M4A) और ब्रॉडकास्ट मेटाडेटा पार्सिंग।',
+        comp4Name:      'एम्बेडेड डेटाबेस',
+        comp4Role:      'बिना किसी बाहरी सर्वर या कॉन्फ़िगरेशन के सब-मिलीसेकंड सर्च और तेज़ ऑडियो इंडेक्सिंग के लिए स्थानीय डेटाबेस।',
+
+        sec2Head:       'स्टोरेज और डेटा सुरक्षा',
+        liStorage1:     '<b>डेटा का स्थान:</b> डेटाबेस रिकॉर्ड (*.db), कॉन्फ़िगरेशन (config/) और लॉग फ़ाइलें डिफ़ॉल्ट रूप से <code>Documents/MySoundLib</code> में रहती हैं (सेटिंग्स में कस्टमाइज़ किया जा सकता है), जबकि ऐप फ़ाइलें <code>%LOCALAPPDATA%/Programs/MySoundLib</code> में इंस्टॉल होती हैं।',
+        liStorage2:     '<b>नॉन-डिस्ट्रक्टिव इंडेक्सिंग:</b> ऑडियो फ़ोल्डर्स को केवल रीड-ओनली मोड में स्कैन किया जाता है। स्रोत फ़ाइलों को कभी भी बदला, टैग या स्थानांतरित नहीं किया जाता है।',
+        liStorage3:     '<b>टाइमलाइन एक्सपोर्ट:</b> वेवफ़ॉर्म ट्रिमिंग केवल सिस्टम की अस्थायी निर्देशिका (<code>%TEMP%</code>) में एक अस्थायी फ़ाइल निर्यात करती है; मूल फ़ाइलें अछूती रहती हैं।',
+
+        sec3Head:       'नेटवर्क और प्राइवेसी नीतियां',
+        liNet1:         '<b>ऑफ़लाइन संचालन:</b> खोजना, इंडेक्स करना, वेवफ़ॉर्म देखना और टाइमलाइन ड्रैग-एंड-ड्रॉप बिना किसी इंटरनेट कनेक्शन के पूरी तरह से ऑफ़लाइन काम करता है।',
+        liNet2:         '<b>शून्य स्वचालित टेलीमेट्री:</b> ऑडियो वेवफ़ॉर्म, फ़ाइल सामग्री और लाइब्रेरी डेटा कभी भी बैकग्राउंड में एकत्र नहीं किए जाते हैं और न ही ट्रैकिंग सर्वर पर भेजे जाते हैं।',
+        liNet3:         '<b>बग रिपोर्ट और डीबग लॉग:</b> यदि आप सीधे ऐप के माध्यम से किसी बग की रिपोर्ट करते हैं, तो उत्पन्न डीबग लॉग में समस्या के समाधान में सहायता के लिए फ़ाइल नाम और लाइब्रेरी पथ शामिल हो सकते हैं।',
+
+        sec4Head:       'इंजीनियरिंग संदर्भ',
+        devText:        'MySoundLib को स्वतंत्र रूप से एक वीडियो एडिटर द्वारा डिज़ाइन और विकसित किया गया था, जो अपनी दैनिक एडिटिंग में बड़ी ऑडियो लाइब्रेरीज़ को खोजने और व्यवस्थित करने की धीमी प्रक्रिया से परेशान था। इसका आर्किटेक्चर मुख्य रूप से हल्के डेस्कटॉप परफॉरमेंस, कम लेटेंसी और क्लाउड से पूरी तरह स्वतंत्र रहने पर केंद्रित है।',
+
+        footerTerms:    'नियम',
+        footerPrivacy:  'गोपनीयता',
+        footerFeatures: 'सभी फ़ीचर्स',
+        footerBack:     'मुख्य पृष्ठ पर वापस जाएं'
       }
     };
 
@@ -526,8 +617,10 @@
       if (!dict_or_c(c)) return;
 
       document.documentElement.lang = lang;
-      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
-      document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+      ['EN', 'PT', 'ES', 'HI'].forEach(code => {
+        const btn = document.getElementById('btn' + code);
+        if (btn) btn.classList.toggle('active', lang === code.toLowerCase());
+      });
 
       for (const [id, text] of Object.entries(c)) {
         const el = document.getElementById(id);
@@ -548,8 +641,12 @@
     (function() {
       let saved = null;
       try { saved = localStorage.getItem('msl_lang'); } catch (e) {}
-      if (saved === 'pt' || saved === 'en') { setLang(saved); return; }
-      setLang((navigator.language || '').toLowerCase().startsWith('pt') ? 'pt' : 'en');
+      if (['en', 'pt', 'es', 'hi'].includes(saved)) { setLang(saved); return; }
+      const navLang = (navigator.language || '').toLowerCase();
+      if (navLang.startsWith('pt')) setLang('pt');
+      else if (navLang.startsWith('es')) setLang('es');
+      else if (navLang.startsWith('hi')) setLang('hi');
+      else setLang('en');
     })();
   </script>
 </body>

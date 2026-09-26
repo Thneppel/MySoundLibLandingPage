@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | MySoundLib</title>
+  <meta name="description" content="Privacy policy for MySoundLib desktop software and website: 100% local-first, zero background telemetry, and complete file safety.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #1C1C1C;
+      --surface: #242424;
+      --surface-light: #2c2c2c;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --green: #1dcd9f;
+      --text: #ffffff;
+      --text-muted: #9e9e9e;
+      --text-dim: #666666;
+      --sans: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wide {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Header & Navigation ─────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: rgba(28, 28, 28, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-brand img {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: -0.01em;
+      transition: color 0.15s ease;
+      text-decoration: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 6px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 100px;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn:hover {
+      color: var(--text-muted);
+    }
+
+    .lang-btn.active {
+      background: var(--green);
+      color: #1c1c1c;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-solid {
+      background: var(--green);
+      color: #0b0b0e;
+    }
+
+    .btn-solid:hover {
+      background: #25e0b0;
+      transform: translateY(-1px);
+      color: #0b0b0e;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ── Article Layout ──────────────────────── */
+    .article-container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 0;
+    }
+
+    .article-container a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .article-container a:hover {
+      color: var(--green);
+    }
+
+    /* ── Article Content ─────────────────────── */
+    .meta-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 40px 0 16px;
+      color: var(--text);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    p b, p strong {
+      color: var(--text);
+    }
+
+    ul {
+      margin-bottom: 24px;
+      padding-left: 20px;
+    }
+
+    li {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    li b {
+      color: var(--text);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #e0e0e0;
+    }
+
+    /* ── Footer ──────────────────────────────── */
+    .article-footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .article-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .article-footer a:hover {
+      color: var(--green);
+    }
+  </style>
+  <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body>
+
+  <!-- Sticky Transparent Header -->
+  <header class="site-header">
+    <div class="wide">
+      <nav class="nav" aria-label="Main Navigation">
+        <a href="index.html#top" class="nav-brand" aria-label="MySoundLib home">
+          <img src="static/logo.svg" alt="MySoundLib">
+        </a>
+
+        <div class="nav-links">
+          <a class="nav-link" href="index.html#workflow" id="navWorkflow">Workflow</a>
+          <a class="nav-link" href="features.html" id="navFeatures">Features</a>
+          <a class="nav-link" href="index.html#compatibility" id="navCompat">Compatibility</a>
+          <a class="nav-link" href="index.html#makers" id="navMaker">About</a>
+          <a class="nav-link" href="index.html#faq" id="navFaq">FAQ</a>
+        </div>
+
+        <div class="nav-right">
+          <div class="lang-switcher">
+            <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+            <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+            <button class="lang-btn" id="btnHI" onclick="setLang('hi')">HI</button>
+          </div>
+          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="index.html#buy">Buy MySoundLib</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-container">
+    <main>
+      <!-- Meta & Title -->
+      <div class="meta-tag" id="metaTag">Legal &bull; Privacy Policy</div>
+      <h1 id="artTitle">Privacy Policy</h1>
+      <p class="lead" id="artLead">
+        MySoundLib is built on a strict local-first philosophy. Your audio files, library structures, waveform data, and creative projects never leave your computer. Last updated: March 2026.
+      </p>
+
+      <!-- Section 1 -->
+      <h2 id="sec1Head">1. Local-First Philosophy</h2>
+      <p id="sec1P1">
+        We believe audio tools should respect your hardware and your creative assets. MySoundLib operates entirely offline as a local binary on your machine.
+      </p>
+      <ul>
+        <li id="sec1Li1"><b>No Account Needed:</b> You do not need to register, log in, or authenticate with an external server to use MySoundLib.</li>
+        <li id="sec1Li2"><b>No Cloud Dependencies:</b> Searching, filtering, audio previewing, waveform generation, and NLE timeline drag-and-drop happen 100% offline.</li>
+        <li id="sec1Li3"><b>No Advertising or Trackers:</b> The application contains zero ad SDKs, analytics tracking networks, or third-party behavioral profiling code.</li>
+      </ul>
+
+      <!-- Section 2 -->
+      <h2 id="sec2Head">2. Zero Automatic Telemetry</h2>
+      <p id="sec2P1">
+        The application does not collect background telemetry. Specifically:
+      </p>
+      <ul>
+        <li id="sec2Li1">Your audio waveforms, PCM audio buffers, and file contents are never transmitted across the network.</li>
+        <li id="sec2Li2">Your folder paths, disk directory structures, sound effect tags, and search keywords stay strictly on your local computer.</li>
+        <li id="sec2Li3">There is no silent background pinging or automatic crash telemetry transmitting your usage data to external endpoints.</li>
+      </ul>
+
+      <!-- Section 3 -->
+      <h2 id="sec3Head">3. Local Storage on Your Device</h2>
+      <p id="sec3P1">
+        MySoundLib stores index records and cache data solely within your operating system's standard user-data directories:
+      </p>
+      <ul>
+        <li id="sec3Li1"><b>Windows:</b> <code>Documents/MySoundLib</code> (databases, configs, logs) and <code>%LOCALAPPDATA%/Programs/MySoundLib</code> (application binary)</li>
+        <li id="sec3Li2"><b>macOS:</b> <code>~/Documents/MySoundLib</code> (databases and configs)</li>
+        <li id="sec3Li3"><b>Linux:</b> <code>~/Documents/MySoundLib</code> (databases and configs)</li>
+      </ul>
+      <p id="sec3P2">
+        This includes the local SQLite 3 databases (*.db), configuration files, and temporary sliced audio clips generated when trimming sounds (which reside in your system temporary directory, e.g. %TEMP%). You can inspect, back up, move, or erase these directories at any time without impacting your master sound library.
+      </p>
+
+      <!-- Section 4 -->
+      <h2 id="sec4Head">4. User-Initiated Bug Reports & Debug Logs</h2>
+      <p id="sec4P1">
+        If you encounter an issue and choose to report a bug directly through the application or via email, you may voluntarily send relevant debug logs to assist troubleshooting.
+      </p>
+      <p id="sec4P2">
+        These debug logs may contain technical error stack traces, operating system versions, and filenames or library paths directly associated with the crash. We use this information exclusively to investigate and fix bugs, and we never share or sell this data.
+      </p>
+
+      <!-- Section 5 -->
+      <h2 id="sec5Head">5. Payment & Website Transactions</h2>
+      <p id="sec5P1">
+        Purchases of MySoundLib are handled securely by Gumroad as our authorized merchant of record payment processor.
+      </p>
+      <p id="sec5P2">
+        We never receive, view, or store your credit card or financial account numbers. Gumroad collects billing details necessary for tax compliance, fraud mitigation, and invoicing in accordance with its privacy policy.
+      </p>
+
+      <!-- Section 6 -->
+      <h2 id="sec6Head">6. External Links & Editor Integrations</h2>
+      <p id="sec6P1">
+        MySoundLib interfaces with video editing software (Adobe Premiere Pro, DaVinci Resolve, CapCut Desktop, Final Cut Pro, Reaper, etc.) via standard operating system file drag-and-drop protocols. There is no background data exchange or telemetry link between MySoundLib and those external software providers.
+      </p>
+
+      <!-- Section 7 -->
+      <h2 id="sec7Head">7. Questions & Contact</h2>
+      <p id="sec7P1">
+        If you have any questions about this Privacy Policy or how your data is handled, feel free to contact us directly at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a>.
+      </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="article-footer">
+      <span>&copy; 2026 MySoundLib</span>
+      <span>
+        <a href="terms.html" id="footerTerms">Terms & Conditions</a> &bull;
+        <a href="features.html" id="footerFeatures">All Features</a> &bull;
+        <a href="index.html" id="footerBack">Return to main page</a>
+      </span>
+    </footer>
+
+  </div>
+
+  <!-- Multilingual Dictionary & Logic -->
+  <script>
+    const copy = {
+      en: {
+        navWorkflow:    'Workflow',
+        navFeatures:    'Features',
+        navCompat:      'Compatibility',
+        navMaker:       'About',
+        navFaq:         'FAQ',
+        navCta:         'Buy MySoundLib',
+
+        metaTag:        'Legal • Privacy Policy',
+        artTitle:       'Privacy Policy',
+        artLead:        'MySoundLib is built local-first. Your audio files, libraries, waveforms, and projects never leave your computer. Last updated: March 2026.',
+
+        sec1Head:       '1. Local-First Philosophy',
+        sec1P1:         'We believe audio tools should respect your hardware and your creative assets. MySoundLib operates entirely offline as a local binary on your machine.',
+        sec1Li1:        '<b>No Account Needed:</b> You do not need to register, log in, or authenticate with an external server to use MySoundLib.',
+        sec1Li2:        '<b>No Cloud Dependencies:</b> Searching, filtering, audio previewing, waveform generation, and NLE timeline drag-and-drop happen 100% offline.',
+        sec1Li3:        '<b>No Advertising or Trackers:</b> The application contains zero ad SDKs, analytics tracking networks, or third-party behavioral profiling code.',
+
+        sec2Head:       '2. Zero Automatic Telemetry',
+        sec2P1:         'The application does not collect background telemetry. Specifically:',
+        sec2Li1:        'Your audio waveforms, PCM audio buffers, and file contents are never transmitted across the network.',
+        sec2Li2:        'Your folder paths, disk directory structures, sound effect tags, and search keywords stay strictly on your local computer.',
+        sec2Li3:        'There is no silent background pinging or automatic crash telemetry transmitting your usage data to external endpoints.',
+
+        sec3Head:       '3. Local Storage on Your Device',
+        sec3P1:         'MySoundLib stores index records and cache data solely within your operating system\'s standard user-data directories:',
+        sec3Li1:        '<b>Windows:</b> <code>Documents/MySoundLib</code> (databases, configs, logs) and <code>%LOCALAPPDATA%/Programs/MySoundLib</code> (application binary)',
+        sec3Li2:        '<b>macOS:</b> <code>~/Documents/MySoundLib</code> (databases and configs)',
+        sec3Li3:        '<b>Linux:</b> <code>~/Documents/MySoundLib</code> (databases and configs)',
+        sec3P2:         'This includes the local SQLite 3 databases (*.db), configuration files, and temporary sliced audio clips generated when trimming sounds (which reside in your system temporary directory, e.g. %TEMP%). You can inspect, back up, move, or erase these directories at any time without impacting your master sound library.',
+
+        sec4Head:       '4. User-Initiated Bug Reports & Debug Logs',
+        sec4P1:         'If you encounter an issue and choose to report a bug directly through the application or via email, you may voluntarily send relevant debug logs to assist troubleshooting.',
+        sec4P2:         'These debug logs may contain technical error stack traces, operating system versions, and filenames or library paths directly associated with the crash. We use this information exclusively to investigate and fix bugs, and we never share or sell this data.',
+
+        sec5Head:       '5. Payment & Website Transactions',
+        sec5P1:         'Purchases of MySoundLib are handled securely by Gumroad as our authorized merchant of record payment processor.',
+        sec5P2:         'We never receive, view, or store your credit card or financial account numbers. Gumroad collects billing details necessary for tax compliance, fraud mitigation, and invoicing in accordance with its privacy policy.',
+
+        sec6Head:       '6. External Links & Editor Integrations',
+        sec6P1:         'MySoundLib interfaces with video editing software (Adobe Premiere Pro, DaVinci Resolve, CapCut Desktop, Final Cut Pro, Reaper, etc.) via standard operating system file drag-and-drop protocols. There is no background data exchange or telemetry link between MySoundLib and those external software providers.',
+
+        sec7Head:       '7. Questions & Contact',
+        sec7P1:         'If you have any questions about this Privacy Policy or how your data is handled, feel free to contact us directly at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a>.',
+
+        footerTerms:    'Terms & Conditions',
+        footerFeatures: 'All Features',
+        footerBack:     'Return to main page'
+      },
+      pt: {
+        navWorkflow:    'Fluxo',
+        navFeatures:    'Recursos',
+        navCompat:      'Compatibilidade',
+        navMaker:       'Sobre',
+        navFaq:         'Dúvidas',
+        navCta:         'Comprar MySoundLib',
+
+        metaTag:        'Legal • Política de Privacidade',
+        artTitle:       'Política de Privacidade',
+        artLead:        'O MySoundLib foi construído local-first. Seus arquivos de áudio, bibliotecas, formas de onda e projetos nunca saem do seu computador. Atualizado em: Março de 2026.',
+
+        sec1Head:       '1. Filosofia Local-First',
+        sec1P1:         'Acreditamos que ferramentas criativas de áudio devem respeitar seu hardware e sua privacidade. O MySoundLib roda inteiramente offline como um executável local no seu computador.',
+        sec1Li1:        '<b>Sem Necessidade de Conta:</b> Você não precisa se cadastrar, fazer login ou autenticar em servidores na nuvem para usar o MySoundLib.',
+        sec1Li2:        '<b>Zero Dependência de Nuvem:</b> Busca, filtragem, reprodução, cálculo de waveform e arraste para a timeline acontecem 100% offline.',
+        sec1Li3:        '<b>Sem Anúncios ou Rastreadores:</b> O app não contém nenhum módulo de anúncios, redes analíticas de rastreamento ou criação de perfis comportamentais.',
+
+        sec2Head:       '2. Zero Telemetria Automática',
+        sec2P1:         'O aplicativo não realiza coleta de telemetria em segundo plano. Especificamente:',
+        sec2Li1:        'Suas formas de onda, amostras PCM e conteúdos de áudio nunca são enviados pela rede.',
+        sec2Li2:        'Caminhos de pastas, nomes de arquivos, coleções e termos pesquisados permanecem restritos à sua máquina.',
+        sec2Li3:        'Não há envio silencioso de estatísticas de uso nem relatórios automáticos de falhas para servidores remotos.',
+
+        sec3Head:       '3. Armazenamento Local no Seu Computador',
+        sec3P1:         'O MySoundLib armazena registros de indexação e arquivos de cache exclusivamente dentro dos diretórios de dados padrão do seu sistema:',
+        sec3Li1:        '<b>Windows:</b> <code>Documents/MySoundLib</code> (bancos de dados, configs, logs) e <code>%LOCALAPPDATA%/Programs/MySoundLib</code> (executável)',
+        sec3Li2:        '<b>macOS:</b> <code>~/Documents/MySoundLib</code> (bancos de dados e configs)',
+        sec3Li3:        '<b>Linux:</b> <code>~/Documents/MySoundLib</code> (bancos de dados e configs)',
+        sec3P2:         'Isso inclui o banco de dados local SQLite 3 (*.db), arquivos de configuração e arquivos temporários de waveform gerados ao recortar trechos para a timeline (que residem na pasta temporária do sistema, ex: %TEMP%). Você pode inspecionar, copiar, mover ou apagar essas pastas a qualquer momento sem afetar seus arquivos originais.',
+
+        sec4Head:       '4. Relatórios de Erros e Logs Manuais',
+        sec4P1:         'Caso encontre algum erro e opte por relatar um bug diretamente pelo aplicativo ou por e-mail, você pode optar voluntariamente por enviar os logs de depuração para nos ajudar a identificar o problema.',
+        sec4P2:         'Esses logs de diagnóstico técnico podem incluir linhas do erro, versão do sistema operacional e nomes de arquivos ou caminhos de bibliotecas diretamente envolvidos na falha. Essas informações são usadas estritamente para corrigir erros e nunca são compartilhadas ou vendidas.',
+
+        sec5Head:       '5. Pagamentos e Transações no Site',
+        sec5P1:         'As compras da licença do MySoundLib são processadas com segurança pelo Gumroad, nosso intermediador oficial de pagamentos.',
+        sec5P2:         'Nós nunca temos acesso aos dados completos do seu cartão de crédito ou conta bancária. O Gumroad coleta informações cadastrais estritamente para faturamento, prevenção a fraudes e tributação, seguindo sua política de privacidade.',
+
+        sec6Head:       '6. Integrações com Editores de Vídeo',
+        sec6P1:         'A integração com editores de vídeo (Adobe Premiere Pro, DaVinci Resolve, CapCut Desktop, Final Cut Pro, Reaper, etc.) ocorre puramente pelo mecanismo nativo de arrastar e soltar do sistema operacional. Não há troca de dados nem telemetria entre o MySoundLib e esses softwares externos.',
+
+        sec7Head:       '7. Dúvidas e Contato',
+        sec7P1:         'Se você tiver qualquer dúvida sobre esta Política de Privacidade ou sobre o tratamento local dos dados, entre em contato diretamente pelo e-mail <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a>.',
+
+        footerTerms:    'Termos e Condições',
+        footerFeatures: 'Todas as Funcionalidades',
+        footerBack:     'Voltar à página principal'
+      },
+      es: {
+        navWorkflow:    'Flujo',
+        navFeatures:    'Funciones',
+        navCompat:      'Compatibilidad',
+        navMaker:       'Sobre el proyecto',
+        navFaq:         'Preguntas',
+        navCta:         'Comprar MySoundLib',
+
+        metaTag:        'Legal • Política de Privacidad',
+        artTitle:       'Política de Privacidad',
+        artLead:        'MySoundLib fue construido local-first. Tus archivos de audio, bibliotecas, formas de onda y proyectos nunca salen de tu ordenador. Última actualización: Marzo 2026.',
+
+        sec1Head:       '1. Filosofía Local-First',
+        sec1P1:         'Creemos que las herramientas de audio deben respetar tu hardware y tus archivos. MySoundLib funciona completamente fuera de línea como una aplicación local en tu equipo.',
+        sec1Li1:        '<b>Sin Necesidad de Cuenta:</b> No necesitas registrarte ni iniciar sesión en servidores externos para usar la app.',
+        sec1Li2:        '<b>Cero Dependencia de la Nube:</b> Búsquedas, filtros, preescucha, formas de onda y arrastre a la línea de tiempo operan 100% offline.',
+        sec1Li3:        '<b>Sin Publicidad ni Rastreadores:</b> La aplicación no contiene módulos de anuncios ni redes de análisis de comportamiento.',
+
+        sec2Head:       '2. Cero Telemetría Automática',
+        sec2P1:         'La aplicación no recopila telemetría en segundo plano. Específicamente:',
+        sec2Li1:        'Tus formas de onda, búferes de audio PCM y contenidos nunca se transmiten por la red.',
+        sec2Li2:        'Tus rutas de carpetas, nombres de archivos, etiquetas y términos de búsqueda permanecen en tu equipo local.',
+        sec2Li3:        'No hay envío oculto de estadísticas ni informes automáticos de errores hacia servidores externos.',
+
+        sec3Head:       '3. Almacenamiento Local en tu Dispositivo',
+        sec3P1:         'MySoundLib guarda el índice y la caché exclusivamente en los directorios estándar de usuario del sistema operativo:',
+        sec3Li1:        '<b>Windows:</b> <code>Documents/MySoundLib</code> (bases de datos, configs, logs) y <code>%LOCALAPPDATA%/Programs/MySoundLib</code> (ejecutable)',
+        sec3Li2:        '<b>macOS:</b> <code>~/Documents/MySoundLib</code> (bases de datos y configs)',
+        sec3Li3:        '<b>Linux:</b> <code>~/Documents/MySoundLib</code> (bases de datos y configs)',
+        sec3P2:         'Esto incluye la base de datos SQLite 3 (*.db) local, archivos de configuración y los archivos temporales generados al recortar audios para tu editor (almacenados en la carpeta temporal del sistema, p. ej. %TEMP%). Puedes inspeccionar, mover o borrar estas carpetas cuando desees sin alterar tus archivos originales.',
+
+        sec4Head:       '4. Reportes de Errores y Logs Manuales',
+        sec4P1:         'Si encuentras un fallo y decides enviar un reporte de error voluntariamente a través de la aplicación o por correo, puedes adjuntar los registros de depuración necesarios.',
+        sec4P2:         'Estos registros técnicos pueden incluir trazas de error, versión del sistema y nombres de archivos o rutas vinculadas al incidente para ayudarnos a solucionarlo. Esta información se usa únicamente para reparar el fallo y jamás se comparte o vende.',
+
+        sec5Head:       '5. Pagos y Transacciones del Sitio Web',
+        sec5P1:         'Las compras de licencias se procesan de forma segura a través de Gumroad, nuestro intermediario autorizado de pagos.',
+        sec5P2:         'Nosotros nunca vemos ni almacenamos los números de tu tarjeta bancaria. Gumroad gestiona la facturación y los impuestos de acuerdo con su política de privacidad.',
+
+        sec6Head:       '6. Integración con Editores de Video',
+        sec6P1:         'La compatibilidad con editores (Premiere Pro, DaVinci Resolve, CapCut, Reaper, etc.) funciona únicamente a través del arrastrar y soltar nativo del sistema operativo. No existe intercambio de telemetría interprocesos.',
+
+        sec7Head:       '7. Preguntas y Contacto',
+        sec7P1:         'Para cualquier duda sobre esta Política de Privacidad, puedes escribir directamente a <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a>.',
+
+        footerTerms:    'Términos y Condiciones',
+        footerFeatures: 'Todas las Funciones',
+        footerBack:     'Volver a la página principal'
+      },
+      hi: {
+        navWorkflow:    'वर्कफ़्लो',
+        navFeatures:    'फ़ीचर्स',
+        navCompat:      'सपोर्ट',
+        navMaker:         'प्रोजेक्ट',
+        navFaq:           'सवालों के जवाब',
+        navCta:           'MySoundLib खरीदें',
+
+        metaTag:        'कानूनी • गोपनीयता नीति',
+        artTitle:       'गोपनीयता नीति',
+        artLead:        'MySoundLib एक सख्त लोकल-फ़र्स्ट दर्शन पर आधारित है। आपकी ऑडियो फ़ाइलें, लाइब्रेरी संरचनाएं और प्रोजेक्ट कभी भी आपके कंप्यूटर से बाहर नहीं जाते हैं। अंतिम अपडेट: मार्च 2026।',
+
+        sec1Head:       '1. लोकल-फ़र्स्ट सिद्धांत',
+        sec1P1:         'हमारा मानना है कि ऑडियो टूल्स को आपके हार्डवेयर और प्राइवेसी का सम्मान करना चाहिए। MySoundLib आपकी मशीन पर पूरी तरह से ऑफ़लाइन चलता है।',
+        sec1Li1:        '<b>किसी खाते की आवश्यकता नहीं:</b> MySoundLib का उपयोग करने के लिए आपको पंजीकरण या लॉगिन करने की आवश्यकता नहीं है।',
+        sec1Li2:        '<b>कोई क्लाउड निर्भरता नहीं:</b> खोजना, फ़िल्टर करना, ऑडियो सुनना, वेवफ़ॉर्म बनाना और टाइमलाइन ड्रैग-एंड-ड्रॉप 100% ऑफ़लाइन होता है।',
+        sec1Li3:        '<b>कोई विज्ञापन या ट्रैकर नहीं:</b> एप्लिकेशन में कोई विज्ञापन या ट्रैकिंग नेटवर्क शामिल नहीं है।',
+
+        sec2Head:       '2. शून्य स्वचालित टेलीमेट्री',
+        sec2P1:         'एप्लिकेशन बैकग्राउंड में डेटा एकत्र नहीं करता है। विशेष रूप से:',
+        sec2Li1:        'आपके वेवफ़ॉर्म और ऑडियो फ़ाइल सामग्री को कभी भी नेटवर्क पर प्रसारित नहीं किया जाता है।',
+        sec2Li2:        'आपके फ़ोल्डर पथ, फ़ाइल नाम और खोज शब्द पूरी तरह से आपके कंप्यूटर पर ही रहते हैं।',
+        sec2Li3:        'बाहरी सर्वरों को आपका उपयोग डेटा भेजने वाली कोई स्वचालित क्रैश टेलीमेट्री नहीं है।',
+
+        sec3Head:       '3. आपके डिवाइस पर लोकल स्टोरेज',
+        sec3P1:         'MySoundLib इंडेक्स रिकॉर्ड और डेटा को ऑपरेटिंग सिस्टम की मानक निर्देशिकाओं में संग्रहीत करता है:',
+        sec3Li1:        '<b>Windows:</b> <code>Documents/MySoundLib</code> (डेटाबेस, सेटिंग्स) और <code>%LOCALAPPDATA%/Programs/MySoundLib</code> (ऐप फ़ाइलें)',
+        sec3Li2:        '<b>macOS:</b> <code>~/Documents/MySoundLib</code> (डेटाबेस और सेटिंग्स)',
+        sec3Li3:        '<b>Linux:</b> <code>~/Documents/MySoundLib</code> (डेटाबेस और सेटिंग्स)',
+        sec3P2:         'इसमें स्थानीय SQLite 3 डेटाबेस (*.db) और ऑडियो ट्रिमिंग के लिए उत्पन्न अस्थायी फ़ाइलें (%TEMP% में) शामिल हैं। आप अपनी मुख्य ऑडियो फ़ाइलों को प्रभावित किए बिना इन निर्देशिकाओं को किसी भी समय साफ़ कर सकते हैं।',
+
+        sec4Head:       '4. बग रिपोर्ट और मैनुअल डीबग लॉग',
+        sec4P1:         'यदि आपको कोई समस्या आती है और आप सीधे ऐप या ईमेल के माध्यम से बग रिपोर्ट करते हैं, तो आप समस्या निवारण के लिए डीबग लॉग भेज सकते हैं।',
+        sec4P2:         'इन डीबग लॉग में समस्या से जुड़े फ़ाइल नाम या पथ शामिल हो सकते हैं। हम इस जानकारी का उपयोग केवल समस्याओं को ठीक करने के लिए करते हैं, और इसे कभी भी साझा या बेचा नहीं जाता है।',
+
+        sec5Head:       '5. भुगतान और लेनदेन',
+        sec5P1:         'MySoundLib की खरीद Gumroad के माध्यम से सुरक्षित रूप से प्रबंधित की जाती है, जो हमारा अधिकृत पेमेंट प्रोसेसर है।',
+        sec5P2:         'हम कभी भी आपका पूरा क्रेडिट कार्ड नंबर प्राप्त या संग्रहीत नहीं करते हैं। Gumroad अपनी नीतियों के अनुसार बिलिंग और कर अनुपालन का प्रबंधन करता है।',
+
+        sec6Head:       '6. वीडियो संपादकों के साथ एकीकरण',
+        sec6P1:         'वीडियो संपादन सॉफ़्टवेयर (Premiere Pro, DaVinci Resolve, CapCut आदि) के साथ एकीकरण पूरी तरह से ऑपरेटिंग सिस्टम के नेटिव ड्रैग-एंड-ड्रॉप के माध्यम से काम करता है। कोई बैकग्राउंड डेटा साझाकरण नहीं है।',
+
+        sec7Head:       '7. प्रश्न और संपर्क',
+        sec7P1:         'यदि आपके पास इस गोपनीयता नीति के बारे में कोई प्रश्न हैं, तो आप सीधे <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> पर संपर्क कर सकते हैं।',
+
+        footerTerms:    'नियम और शर्तें',
+        footerFeatures: 'सभी फ़ीचर्स',
+        footerBack:     'मुख्य पृष्ठ पर वापस जाएं'
+      }
+    };
+
+    function setLang(lang) {
+      const c = copy[lang];
+      if (!c) return;
+
+      document.documentElement.lang = lang;
+      ['EN', 'PT', 'ES', 'HI'].forEach(code => {
+        const btn = document.getElementById('btn' + code);
+        if (btn) btn.classList.toggle('active', lang === code.toLowerCase());
+      });
+
+      for (const [id, text] of Object.entries(c)) {
+        const el = document.getElementById(id);
+        if (el) {
+          if (text.includes('<') || text.includes('&') || text.includes('\n')) {
+            el.innerHTML = text.replace(/\n/g, '<br>');
+          } else {
+            el.textContent = text;
+          }
+        }
+      }
+
+      try { localStorage.setItem('msl_lang', lang); } catch (e) {}
+    }
+
+    (function() {
+      let saved = null;
+      try { saved = localStorage.getItem('msl_lang'); } catch (e) {}
+      if (['en', 'pt', 'es', 'hi'].includes(saved)) { setLang(saved); return; }
+      const navLang = (navigator.language || '').toLowerCase();
+      if (navLang.startsWith('pt')) setLang('pt');
+      else if (navLang.startsWith('es')) setLang('es');
+      else if (navLang.startsWith('hi')) setLang('hi');
+      else setLang('en');
+    })();
+  </script>
+</body>
+</html>
