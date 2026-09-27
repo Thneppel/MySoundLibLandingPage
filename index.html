@@ -64,6 +64,10 @@
       scroll-behavior: smooth;
     }
 
+    section[id] {
+      scroll-margin-top: 84px;
+    }
+
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -750,49 +754,111 @@
 
     /* ── Compatibility Section ───────────────── */
     .compat-section {
-      padding: 88px 0;
+      background: var(--bg-darker);
+      padding: 64px 0 68px;
       border-bottom: 1px solid var(--border);
     }
 
+    .compat-header {
+      text-align: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .compat-header .feature-head {
+      font-size: clamp(24px, 3.2vw, 34px);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
     .compat-desc {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--text-muted);
-      margin-top: 12px;
-      max-width: 640px;
+      margin: 12px auto 0;
+      max-width: 860px;
+      line-height: 1.5;
     }
 
-    .nle-grid {
+    .nle-carousel-wrap {
+      margin-top: 32px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 8px 0;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+
+    .nle-carousel-track {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 28px;
+      width: max-content;
+      animation: nleScroll 75s linear infinite;
+      will-change: transform;
     }
 
-    .nle-tag {
+    .nle-carousel-wrap:hover .nle-carousel-track {
+      animation-play-state: paused;
+    }
+
+    .nle-carousel-group {
+      display: flex;
+      gap: 16px;
+      padding-right: 16px;
+      flex-shrink: 0;
+    }
+
+    .nle-pill {
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text);
       font-size: 14px;
-      font-weight: 700;
-      padding: 12px 20px;
-      border-radius: 8px;
+      font-weight: 600;
+      padding: 11px 22px;
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      transition: all 0.15s ease;
+      white-space: nowrap;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
-    .nle-tag:hover {
-      border-color: var(--border-light);
+    .nle-pill:hover {
+      border-color: rgba(255, 255, 255, 0.25);
       background: var(--surface-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
     }
 
-    .nle-tag img,
-    .nle-tag svg {
+    .nle-pill img,
+    .nle-pill svg {
       width: 24px;
       height: 24px;
       display: block;
       flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    @keyframes nleScroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nle-carousel-track {
+        animation: none;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .nle-carousel-wrap {
+        mask-image: none;
+        -webkit-mask-image: none;
+      }
     }
 
     /* ── The Maker / About Section ───────────── */
@@ -1316,9 +1382,8 @@
           <a class="contents-item" href="#workflow"><span class="contents-num">01</span> <span id="strip1">Workflow</span></a>
           <a class="contents-item" href="#overlay"><span class="contents-num">02</span> <span id="strip2">QuickSearch Overlay</span></a>
           <a class="contents-item" href="#waveform"><span class="contents-num">03</span> <span id="strip3">Waveform & Trim</span></a>
-          <a class="contents-item" href="#sync"><span class="contents-num">04</span> <span id="strip4">Folder Sync</span></a>
-          <a class="contents-item" href="#converter"><span class="contents-num">05</span> <span id="strip5">Converter</span></a>
-          <a class="contents-item" href="#makers"><span class="contents-num">06</span> <span id="strip6">About</span></a>
+          <a class="contents-item" href="#converter"><span class="contents-num">04</span> <span id="strip4">Converter</span></a>
+          <a class="contents-item" href="#makers"><span class="contents-num">05</span> <span id="strip5">About</span></a>
         </div>
       </div>
     </section>
@@ -1404,41 +1469,18 @@
       </div>
     </section>
 
-    <!-- Feature 03: Folder Sync -->
-    <section class="feature-section" id="sync">
+    <!-- Feature 03: Built-in Converter -->
+    <section class="feature-section" id="converter">
       <div class="wide feature-in">
         <div class="feature-copy">
-          <p class="pk"><span id="feat3Pillar">Folder Sync</span></p>
-          <h3 class="feature-head" id="feat3Head">Folder sync and audio indexing.</h3>
+          <p class="pk"><span id="feat3Pillar">Built-in Converter</span></p>
+          <h3 class="feature-head" id="feat3Head">Audio format conversion.</h3>
           <p class="feature-desc" id="feat3Desc">
-            Point the app to your downloads folder or audio library. When you download a new sound pack or delete old files, hit refresh to index changes instantly without re-importing everything.
-          </p>
-          <ul class="feat-list">
-            <li class="feat-item"><span class="feat-num">01</span> <span id="feat3List1"><b>Folder sync:</b> updates additions, edits, or removals on disk.</span></li>
-            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Direct read:</b> accesses your files where they live with zero duplicate files created.</span></li>
-          </ul>
-        </div>
-
-        <div class="feature-stage">
-          <div class="stage-mount">
-            <img src="static/main_window.png" alt="Folder Sync Screenshot" class="stage-img" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Feature 04: Built-in Converter (Flipped) -->
-    <section class="feature-section flip" id="converter">
-      <div class="wide feature-in">
-        <div class="feature-copy">
-          <p class="pk"><span id="feat4Pillar">Built-in Converter</span></p>
-          <h3 class="feature-head" id="feat4Head">Audio format conversion.</h3>
-          <p class="feature-desc" id="feat4Desc">
             If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.
           </p>
           <ul class="feat-list">
-            <li class="feat-item"><span class="feat-num">01</span> <span id="feat4List1"><b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.</span></li>
-            <li class="feat-item"><span class="feat-num">02</span> <span id="feat4List2"><b>Batch conversion:</b> convert individual tracks or entire folders in seconds.</span></li>
+            <li class="feat-item"><span class="feat-num">01</span> <span id="feat3List1"><b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Batch conversion:</b> convert individual tracks or entire folders in seconds.</span></li>
           </ul>
         </div>
 
@@ -1464,60 +1506,117 @@
     <!-- Compatibility Section -->
     <section class="compat-section" id="compatibility">
       <div class="wide">
-        <h2 class="feature-head" id="compatTitle">Works with whatever you already use to edit</h2>
-        <p class="compat-desc" id="compatDesc">
-          No extra plugins or extensions needed. If your software supports dragging files into the timeline, it works directly:
-        </p>
-
-        <div class="nle-grid">
-          <span class="nle-tag">
-            <img src="static/premiere.svg" alt="" width="24" height="24" loading="lazy">
-            <span>Adobe Premiere Pro</span>
-          </span>
-          <span class="nle-tag">
-            <img src="static/davinci.svg" alt="" width="24" height="24" loading="lazy">
-            <span>DaVinci Resolve</span>
-          </span>
-          <span class="nle-tag">
-            <img src="static/capcut.svg" alt="" width="24" height="24" loading="lazy">
-            <span>CapCut Desktop</span>
-          </span>
-          <span class="nle-tag">
-            <img src="static/aftereffects.svg" alt="" width="24" height="24" loading="lazy">
-            <span>Adobe After Effects</span>
-          </span>
-          <span class="nle-tag">
-            <img src="static/finalcut.svg" alt="" width="24" height="24" loading="lazy">
-            <span>Final Cut Pro</span>
-          </span>
-          <span class="nle-tag">
-            <img src="static/reaper.svg" alt="" width="24" height="24" loading="lazy">
-            <span>Reaper</span>
-          </span>
-          <span class="nle-tag">
-            <img src="static/ableton.svg" alt="" width="24" height="24" loading="lazy">
-            <span>Ableton Live</span>
-          </span>
-          <span class="nle-tag">
-            <img src="static/flstudio.svg" alt="" width="24" height="24" loading="lazy">
-            <span>FL Studio</span>
-          </span>
-          <span class="nle-tag">
-            <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
-            <span>Vegas Pro</span>
-          </span>
+        <div class="compat-header">
+          <h2 class="feature-head" id="compatTitle">Works with whatever you already use to edit</h2>
+          <p class="compat-desc" id="compatDesc">
+            No plugins needed. If your software accepts dragged files, it works directly.
+          </p>
         </div>
       </div>
-    </section>
 
-    <!-- Pull Quote -->
-    <section class="pull" id="pull">
-      <div class="hero-bg-anim" id="pullBgAnim" aria-hidden="true"></div>
-      <div class="wide pull-wrap">
-        <blockquote class="pull-quote" id="pullQuote">
-          I spent years digging through messy sound packs. <em>Then I built the tool I actually needed.</em>
-        </blockquote>
-        <cite class="pull-cite" id="pullCite">Why I Built MySoundLib</cite>
+      <div class="nle-carousel-wrap">
+        <div class="nle-carousel-track">
+          <div class="nle-carousel-group">
+            <span class="nle-pill">
+              <img src="static/premiere.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Adobe Premiere Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/davinci.svg" alt="" width="24" height="24" loading="lazy">
+              <span>DaVinci Resolve</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/capcut.svg" alt="" width="24" height="24" loading="lazy">
+              <span>CapCut Desktop</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/aftereffects.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Adobe After Effects</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/finalcut.png" alt="" width="24" height="24" loading="lazy">
+              <span>Final Cut Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Vegas Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/premiere.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Adobe Premiere Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/davinci.svg" alt="" width="24" height="24" loading="lazy">
+              <span>DaVinci Resolve</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/capcut.svg" alt="" width="24" height="24" loading="lazy">
+              <span>CapCut Desktop</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/aftereffects.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Adobe After Effects</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/finalcut.png" alt="" width="24" height="24" loading="lazy">
+              <span>Final Cut Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Vegas Pro</span>
+            </span>
+          </div>
+          <div class="nle-carousel-group" aria-hidden="true">
+            <span class="nle-pill">
+              <img src="static/premiere.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Adobe Premiere Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/davinci.svg" alt="" width="24" height="24" loading="lazy">
+              <span>DaVinci Resolve</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/capcut.svg" alt="" width="24" height="24" loading="lazy">
+              <span>CapCut Desktop</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/aftereffects.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Adobe After Effects</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/finalcut.png" alt="" width="24" height="24" loading="lazy">
+              <span>Final Cut Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Vegas Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/premiere.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Adobe Premiere Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/davinci.svg" alt="" width="24" height="24" loading="lazy">
+              <span>DaVinci Resolve</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/capcut.svg" alt="" width="24" height="24" loading="lazy">
+              <span>CapCut Desktop</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/aftereffects.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Adobe After Effects</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/finalcut.png" alt="" width="24" height="24" loading="lazy">
+              <span>Final Cut Pro</span>
+            </span>
+            <span class="nle-pill">
+              <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
+              <span>Vegas Pro</span>
+            </span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1557,6 +1656,17 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Pull Quote -->
+    <section class="pull" id="pull">
+      <div class="hero-bg-anim" id="pullBgAnim" aria-hidden="true"></div>
+      <div class="wide pull-wrap">
+        <blockquote class="pull-quote" id="pullQuote">
+          I spent years digging through messy sound packs. <em>Then I built the tool I actually needed.</em>
+        </blockquote>
+        <cite class="pull-cite" id="pullCite">Why I Built MySoundLib</cite>
       </div>
     </section>
 
@@ -1649,7 +1759,7 @@
           <div class="faq-col">
             <div class="faq-item">
               <h3 class="faq-q" id="faq1Q">Which editors and DAWs are supported?</h3>
-              <p class="faq-a" id="faq1A">Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton, and FL Studio. If your software accepts files dragged from your desktop, it works.</p>
+              <p class="faq-a" id="faq1A">Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, and Vegas Pro. If your software accepts files dragged from your desktop, it works.</p>
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq2Q">Does dragging snippets modify my original audio files?</h3>
@@ -1762,9 +1872,8 @@
         strip1:           'Workflow',
         strip2:           'QuickSearch Overlay',
         strip3:           'Waveform & Trim',
-        strip4:           'Folder Sync',
-        strip5:           'Converter',
-        strip6:           'About',
+        strip4:           'Converter',
+        strip5:           'About',
 
         caseKicker:       'How It Works',
         caseLead:         'Finding the right audio for your edit usually takes lots of slow steps. <em>MySoundLib turns that into one direct shortcut.</em>',
@@ -1799,17 +1908,11 @@
         feat2List2:       '<b>Pitch & speed controls:</b> adjust playback pitch on the fly before exporting.',
         feat2List3:       '<b>Clean timeline bin:</b> keeps your project files lightweight.',
 
-        feat3Pillar:      'Folder Sync',
-        feat3Head:        'Folder sync and audio indexing.',
-        feat3Desc:        'Point the app to your downloads folder or audio library. When you download a new sound pack or delete old files, hit refresh to index changes instantly without re-importing everything.',
-        feat3List1:       '<b>Folder sync:</b> updates additions, edits, or removals on disk.',
-        feat3List2:       '<b>Direct read:</b> accesses your files where they live with zero duplicate files created.',
-
-        feat4Pillar:      'Built-in Converter',
-        feat4Head:        'Audio format conversion.',
-        feat4Desc:        'If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.',
-        feat4List1:       '<b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.',
-        feat4List2:       '<b>Batch conversion:</b> convert individual tracks or entire folders in seconds.',
+        feat3Pillar:      'Built-in Converter',
+        feat3Head:        'Audio format conversion.',
+        feat3Desc:        'If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.',
+        feat3List1:       '<b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.',
+        feat3List2:       '<b>Batch conversion:</b> convert individual tracks or entire folders in seconds.',
 
         featAllHead:      'Looking for every feature?',
         featAllSub:       'Browse all 24 features and 7 modules in the technical index.',
@@ -1819,7 +1922,7 @@
         pullCite:         'Why I Built MySoundLib',
 
         compatTitle:      'Works with whatever you already use to edit',
-        compatDesc:       'No extra plugins or extensions needed. If your software supports dragging files into the timeline, it works directly:',
+        compatDesc:       'No plugins needed. If your software accepts dragged files, it works directly.',
 
         makerKicker:      'About',
         makerHead:        'Built by a video editor, for video editors',
@@ -1838,7 +1941,7 @@
         faqKicker:        'Frequently Asked Questions',
         faqTitle:         'Questions & Answers',
         faq1Q:            'Which editors and DAWs are supported?',
-        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton, and FL Studio. If your software accepts files dragged from your desktop, it works.',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, and Vegas Pro. If your software accepts files dragged from your desktop, it works.',
         faq2Q:            'Does dragging snippets modify my original audio files?',
         faq2A:            'No. Trimming is non-destructive. The app creates a temporary clip for your timeline and leaves your original audio files untouched.',
         faq3Q:            'Is the $19 purchase a lifetime license or subscription?',
@@ -1890,9 +1993,8 @@
         strip1:           'Fluxo',
         strip2:           'QuickSearch Overlay',
         strip3:           'Waveform e corte',
-        strip4:           'Sincronização de Pastas',
-        strip5:           'Conversor',
-        strip6:           'Sobre',
+        strip4:           'Conversor',
+        strip5:           'Sobre',
 
         caseKicker:       'Como Funciona',
         caseLead:         'Encontrar o áudio certo para a sua edição costuma levar vários passos lentos. <em>O MySoundLib transforma tudo isso em um único atalho direto.</em>',
@@ -1927,17 +2029,11 @@
         feat2List2:       '<b>Controle de pitch e velocidade:</b> ajuste a afinação do áudio antes de soltar no projeto.',
         feat2List3:       '<b>Projeto organizado:</b> mantém os arquivos do seu projeto leves e limpos.',
 
-        feat3Pillar:      'Sincronização de Pastas',
-        feat3Head:        'Sincronização de pastas e indexação de áudio.',
-        feat3Desc:        'Aponte o app para a sua pasta de downloads ou biblioteca de áudio. Ao baixar um pacote novo ou apagar arquivos antigos, aperte atualizar para indexar as mudanças na hora sem precisar reimportar tudo.',
-        feat3List1:       '<b>Sincronização de pastas:</b> reflete arquivos novos, editados ou excluídos no disco.',
-        feat3List2:       '<b>Leitura direta:</b> acessa seus arquivos onde eles estão, sem criar duplicatas.',
-
-        feat4Pillar:      'Conversor Integrado',
-        feat4Head:        'Conversão de formatos de áudio.',
-        feat4Desc:        'Se o seu editor de vídeo rejeitar um arquivo <code>.flac</code> ou <code>.ogg</code>, converta para <code>.wav</code> direto no app antes de arrastar.',
-        feat4List1:       '<b>Conversão prática:</b> suporte para WAV, MP3, FLAC, OGG e M4A.',
-        feat4List2:       '<b>Conversão em lote:</b> converta faixas individuais ou pastas inteiras em segundos.',
+        feat3Pillar:      'Conversor Integrado',
+        feat3Head:        'Conversão de formatos de áudio.',
+        feat3Desc:        'Se o seu editor de vídeo rejeitar um arquivo <code>.flac</code> ou <code>.ogg</code>, converta para <code>.wav</code> direto no app antes de arrastar.',
+        feat3List1:       '<b>Conversão prática:</b> suporte para WAV, MP3, FLAC, OGG e M4A.',
+        feat3List2:       '<b>Conversão em lote:</b> converta faixas individuais ou pastas inteiras em segundos.',
 
         featAllHead:      'Quer ver todas as funcionalidades?',
         featAllSub:       'Consulte a lista completa com os 24 recursos e 7 módulos no índice técnico.',
@@ -1947,7 +2043,7 @@
         pullCite:         'Por que criei o MySoundLib',
 
         compatTitle:      'Funciona com o editor que você já usa',
-        compatDesc:       'Não precisa de plugins nem extensões. Se o seu programa aceita arrastar e soltar arquivos na timeline, funciona direto:',
+        compatDesc:       'Sem plugins ou extensões. Arraste qualquer áudio direto para a sua timeline.',
 
         makerKicker:      'Sobre',
         makerHead:        'Criado por quem edita vídeo, para quem edita vídeo',
@@ -1966,7 +2062,7 @@
         faqKicker:        'Perguntas Frequentes',
         faqTitle:         'Perguntas Frequentes',
         faq1Q:            'Com quais editores e DAWs ele funciona?',
-        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton e FL Studio. Qualquer programa que aceite arrastar arquivos para a timeline funciona.',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut e Vegas Pro. Qualquer programa que aceite arrastar arquivos para a timeline funciona.',
         faq2Q:            'Recortar trechos altera os arquivos originais?',
         faq2A:            'Não. O corte não é destrutivo. O app gera um arquivo temporário para a sua timeline e mantém os áudios originais intactos no disco.',
         faq3Q:            'O valor de $19 é pagamento único ou mensalidade?',
@@ -2018,9 +2114,8 @@
         strip1:           'Flujo',
         strip2:           'QuickSearch Overlay',
         strip3:           'Forma de onda y corte',
-        strip4:           'Sincronización de carpetas',
-        strip5:           'Conversor',
-        strip6:           'Sobre el proyecto',
+        strip4:           'Conversor',
+        strip5:           'Sobre el proyecto',
 
         caseKicker:       'Cómo Funciona',
         caseLead:         'Encontrar el audio adecuado para tu edición suele requerir muchos pasos lentos. <em>MySoundLib lo transforma en un solo atajo directo.</em>',
@@ -2054,17 +2149,11 @@
         feat2List2:       '<b>Control de tono y velocidad:</b> ajusta el tono de reproducción al instante antes de exportar.',
         feat2List3:       '<b>Línea de tiempo limpia:</b> mantiene los archivos de tu proyecto ligeros y ordenados.',
 
-        feat3Pillar:      'Sincronización de Carpetas',
-        feat3Head:        'Sincronización de carpetas e indexación de audio.',
-        feat3Desc:        'Apunta la app a tu carpeta de descargas o biblioteca de sonido. Al descargar un nuevo paquete o eliminar archivos, pulsa actualizar para indexar los cambios al instante sin reimportar todo.',
-        feat3List1:       '<b>Sincronización de carpetas:</b> refleja archivos añadidos, modificados o eliminados en el disco.',
-        feat3List2:       '<b>Lectura directa:</b> accede a tus archivos donde están guardados, sin crear duplicados.',
-
-        feat4Pillar:      'Conversor Integrado',
-        feat4Head:        'Conversión de formatos de audio.',
-        feat4Desc:        'Si tu editor rechaza un archivo <code>.flac</code> o <code>.ogg</code>, conviértelo a <code>.wav</code> dentro de la app antes de arrastrar.',
-        feat4List1:       '<b>Conversor multiformato:</b> compatible con WAV, MP3, FLAC, OGG y M4A.',
-        feat4List2:       '<b>Conversión por lotes:</b> convierte pistas individuales o carpetas enteras en segundos.',
+        feat3Pillar:      'Conversor Integrado',
+        feat3Head:        'Conversión de formatos de audio.',
+        feat3Desc:        'Si tu editor rechaza un archivo <code>.flac</code> o <code>.ogg</code>, conviértelo a <code>.wav</code> dentro de la app antes de arrastrar.',
+        feat3List1:       '<b>Conversor multiformato:</b> compatible con WAV, MP3, FLAC, OGG y M4A.',
+        feat3List2:       '<b>Conversión por lotes:</b> convierte pistas individuales o carpetas enteras en segundos.',
 
         featAllHead:      '¿Buscas todas las funciones?',
         featAllSub:       'Explora las 24 funciones y 7 módulos en el índice técnico.',
@@ -2073,8 +2162,8 @@
         pullQuote:        'Pasé años buscando sonidos en paquetes desorganizados. <em>Así que construí la herramienta que realmente necesitaba.</em>',
         pullCite:         'Por qué creé MySoundLib',
 
-        compatTitle:      'Funciona con el programa que ya utilizas para editar',
-        compatDesc:       'Sin necesidad de plugins ni extensiones. Si tu software permite arrastrar archivos a la línea de tiempo, funciona directamente:',
+        compatTitle:      'Funciona con el editor que ya utilizas',
+        compatDesc:       'Sin plugins ni extensiones. Arrastra cualquier audio directo a tu línea de tiempo.',
 
         makerKicker:      'Sobre',
         makerHead:        'Creado por un editor de video, para editores de video',
@@ -2093,7 +2182,7 @@
         faqKicker:        'Preguntas Frecuentes',
         faqTitle:         'Preguntas y Respuestas',
         faq1Q:            '¿Con qué editores y DAWs es compatible?',
-        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton y FL Studio. Si tu software permite arrastrar archivos desde el escritorio, funcionará.',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut y Vegas Pro. Si tu software permite arrastrar archivos desde el escritorio, funcionará.',
         faq2Q:            '¿Arrastrar recortes modifica mis archivos de audio originales?',
         faq2A:            'No. El recorte no es destructivo. La app crea un archivo temporal para tu línea de tiempo y mantiene intactos tus audios originales en el disco.',
         faq3Q:            '¿El pago de $19 es un pago único o una suscripción?',
@@ -2145,9 +2234,8 @@
         strip1:           'वर्कफ़्लो',
         strip2:           'QuickSearch Overlay',
         strip3:           'वेवफ़ॉर्म और ट्रिम',
-        strip4:           'फ़ोल्डर सिंक',
-        strip5:           'कन्वर्टर',
-        strip6:           'प्रोजेक्ट के बारे में',
+        strip4:           'कन्वर्टर',
+        strip5:           'प्रोजेक्ट के बारे में',
 
         caseKicker:       'यह कैसे काम करता है',
         caseLead:         'अपनी एडिटिंग के लिए सही ऑडियो ढूंढने में अक्सर कई धीमे कदम उठाने पड़ते हैं। <em>MySoundLib इसे सिर्फ़ एक शॉर्टकट में बदल देता है।</em>',
@@ -2181,17 +2269,11 @@
         feat2List2:       '<b>पिच और स्पीड कंट्रोल:</b> एक्सपोर्ट से पहले प्लेबैक पिच और स्पीड तुरंत बदलें।',
         feat2List3:       '<b>क्लीन टाइमलाइन:</b> प्रोजेक्ट फ़ाइलों को हल्का और साफ़-सुथरा रखता है।',
 
-        feat3Pillar:      'फ़ोल्डर सिंक',
-        feat3Head:        'फ़ोल्डर सिंक और ऑडियो इंडेक्सिंग।',
-        feat3Desc:        'ऐप को अपने डाउनलोड या साउंड फ़ोल्डर से जोड़ें। नया पैक डाउनलोड होने या पुरानी फ़ाइलें हटाने पर रीफ़्रेश दबाकर बदलाव तुरंत इंडेक्स करें।',
-        feat3List1:       '<b>फ़ोल्डर सिंक:</b> डिस्क पर जोड़ी गई, बदली गई या हटाई गई फ़ाइलों को तुरंत अपडेट करता है।',
-        feat3List2:       '<b>सीधा एक्सेस:</b> आपकी फ़ाइलों को उसी जगह से पढ़ता है, बिना कोई डुप्लिकेट बनाए।',
-
-        feat4Pillar:      'इन-बिल्ट कन्वर्टर',
-        feat4Head:        'ऑडियो फॉर्मेट कन्वर्शन।',
-        feat4Desc:        'यदि आपका एडिटर <code>.flac</code> या <code>.ogg</code> स्वीकार न करे, तो ऐप के अंदर ही <code>.wav</code> में बदलें।',
-        feat4List1:       '<b>मल्टी-फॉर्मेट कन्वर्टर:</b> WAV, MP3, FLAC, OGG और M4A सपोर्ट।',
-        feat4List2:       '<b>बैच कन्वर्शन:</b> एक-एक ट्रैक या पूरे फ़ोल्डर को कुछ ही सेकंड में बदलें।',
+        feat3Pillar:      'इन-बिल्ट कन्वर्टर',
+        feat3Head:        'ऑडियो फॉर्मेट कन्वर्शन।',
+        feat3Desc:        'यदि आपका एडिटर <code>.flac</code> या <code>.ogg</code> स्वीकार न करे, तो ऐप के अंदर ही <code>.wav</code> में बदलें।',
+        feat3List1:       '<b>मल्टी-फॉर्मेट कन्वर्टर:</b> WAV, MP3, FLAC, OGG और M4A सपोर्ट।',
+        feat3List2:       '<b>बैच कन्वर्शन:</b> एक-एक ट्रैक या पूरे फ़ोल्डर को कुछ ही सेकंड में बदलें।',
 
         featAllHead:      'सभी फ़ीचर्स देखना चाहते हैं?',
         featAllSub:       'तकनीकी इंडेक्स में सभी 24 फ़ीचर्स और 7 मॉड्यूल्स देखें।',
@@ -2201,7 +2283,7 @@
         pullCite:         'मैंने MySoundLib क्यों बनाया',
 
         compatTitle:      'आप जिस भी सॉफ्टवेयर में एडिट करते हैं, उसके साथ काम करता है',
-        compatDesc:       'किसी अतिरिक्त प्लगइन की आवश्यकता नहीं। यदि आपका सॉफ्टवेयर टाइमलाइन में फ़ाइल ड्रैग करना सपोर्ट करता है, तो यह सीधे काम करेगा:',
+        compatDesc:       'बिना किसी प्लगइन के। सीधे अपनी टाइमलाइन पर ऑडियो फ़ाइलें ड्रैग करें।',
 
         makerKicker:      'बारे में',
         makerHead:        'वीडियो एडिटर्स द्वारा, वीडियो एडिटर्स के लिए बनाया गया',
@@ -2220,7 +2302,7 @@
         faqKicker:        'अक्सर पूछे जाने वाले सवाल',
         faqTitle:         'सवालों के जवाब',
         faq1Q:            'यह किन एडिटर्स और DAWs के साथ काम करता है?',
-        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, Reaper, Ableton और FL Studio। कोई भी सॉफ्टवेयर जो डेस्कटॉप से ड्रैग की गई फ़ाइलें स्वीकार करता है, सपोर्टेड है।',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut और Vegas Pro। कोई भी सॉफ्टवेयर जो डेस्कटॉप से ड्रैग की गई फ़ाइलें स्वीकार करता है, सपोर्टेड है।',
         faq2Q:            'क्या ऑडियो ट्रिम करने से मेरी ओरिजिनल फ़ाइलें बदलती हैं?',
         faq2A:            'नहीं। ट्रिमिंग नॉन-डिस्ट्रक्टिव है। ऐप आपकी टाइमलाइन के लिए एक अस्थायी क्लिप बनाता है और ओरिजिनल फ़ाइलों को बिल्कुल नहीं छूता।',
         faq3Q:            'क्या $19 एकमुश्त भुगतान है या सब्सक्रिप्शन?',
