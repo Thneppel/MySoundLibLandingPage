@@ -26,6 +26,11 @@
       "priceCurrency": "USD"
     },
     "description": "Fast, local audio manager for video editors. Organize sound effects, preview and trim waveforms instantly, and drag audio straight into your timeline.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MySoundLib",
+      "url": "https://mysoundlib.com"
+    },
     "author": {
       "@type": "Person",
       "name": "Thiago Neppel",
@@ -220,6 +225,27 @@
     .btn-lg {
       padding: 14px 28px;
       font-size: 15px;
+    }
+
+    /* App Version in Navigation Header */
+    .app-version-badge {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      user-select: none;
+      transition: color 0.15s ease;
+      z-index: 10;
+    }
+
+    .app-version-badge:hover {
+      color: var(--text-muted);
     }
 
     /* ── Hero Section (Instatic Style) ───────── */
@@ -1273,6 +1299,12 @@
       }
     }
 
+    @media (max-width: 1400px) and (min-width: 601px) {
+      .site-header .nav {
+        padding-right: 175px;
+      }
+    }
+
     @media (max-width: 600px) {
       .hero {
         padding: 64px 0 48px;
@@ -1283,6 +1315,9 @@
       }
       .hero-ctas .btn {
         width: 100%;
+      }
+      .app-version-badge {
+        display: none;
       }
       .contents-links {
         gap: 12px;
@@ -1303,6 +1338,12 @@
       }
       .footer-bottom-links {
         gap: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-right {
+        gap: 10px;
       }
     }
   </style>
@@ -1336,6 +1377,7 @@
         </div>
       </nav>
     </div>
+    <span class="app-version-badge" id="appVersion" title="Last Version">Last version: v1.0.0-beta.1</span>
   </header>
 
   <main>
@@ -1476,11 +1518,11 @@
           <p class="pk"><span id="feat3Pillar">Built-in Converter</span></p>
           <h3 class="feature-head" id="feat3Head">Audio format conversion.</h3>
           <p class="feature-desc" id="feat3Desc">
-            If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.
+            Downloaded an <code>.opus</code> file from the web that no editor opens, or your software rejects <code>.flac</code> and <code>.ogg</code>? Convert from <b>OPUS, WAV, MP3, FLAC, OGG, M4A, or AIFF</b> straight into editor-ready <b>WAV, MP3, FLAC, OGG, or M4A</b> before dragging.
           </p>
           <ul class="feat-list">
-            <li class="feat-item"><span class="feat-num">01</span> <span id="feat3List1"><b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.</span></li>
-            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Batch conversion:</b> convert individual tracks or entire folders in seconds.</span></li>
+            <li class="feat-item"><span class="feat-num">01</span> <span id="feat3List1"><b>Full input format support:</b> converts from OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF into WAV, MP3, FLAC, OGG, or M4A.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Batch conversion:</b> convert individual tracks or entire folders in seconds — perfect for turning unplayable .opus files into timeline-ready .wav.</span></li>
           </ul>
         </div>
 
@@ -1767,7 +1809,7 @@
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq3Q">Is the $19 purchase a lifetime license or subscription?</h3>
-              <p class="faq-a" id="faq3A">One-time payment. You pay $19 once and own MySoundLib with all v1 updates included. No subscriptions.</p>
+              <p class="faq-a" id="faq3A">One-time payment. You pay $19 once and own MySoundLib with all updates included. No subscriptions.</p>
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq4Q">How does the QuickSearch Overlay work?</h3>
@@ -1783,15 +1825,15 @@
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq6Q">Which audio formats can it read and convert?</h3>
-              <p class="faq-a" id="faq6A">WAV, MP3, FLAC, OGG, OPUS, AIFF, and M4A/AAC. It also includes batch conversion to WAV.</p>
+              <p class="faq-a" id="faq6A">MySoundLib reads and indexes <b>OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF</b>. You can convert any of these formats — especially web-downloaded <b>.opus</b> files that video editors refuse to open — into editor-compatible <b>WAV, MP3, FLAC, OGG, or M4A</b> individually or in batch.</p>
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq7Q">Can I organize sounds into separate libraries?</h3>
               <p class="faq-a" id="faq7A">Yes. You can create separate libraries for personal projects, client work, or specific sound packs.</p>
             </div>
             <div class="faq-item">
-              <h3 class="faq-q" id="faq8Q">How many machines can I activate with one license?</h3>
-              <p class="faq-a" id="faq8A">Each license can be used on up to 5 personal computers (such as your desktop workstation and laptop).</p>
+              <h3 class="faq-q" id="faq8Q">Can I use my license on multiple computers?</h3>
+              <p class="faq-a" id="faq8A">Yes. Your license is for your personal use, allowing you to activate it across your own computers (such as your desktop workstation and laptop). Sharing with third parties is not permitted; automated fair-use thresholds apply, and if an unusually high number of activations is detected, simply contact support@mysoundlib.com.</p>
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq9Q">Does MySoundLib come with sound effects or music?</h3>
@@ -1910,9 +1952,9 @@
 
         feat3Pillar:      'Built-in Converter',
         feat3Head:        'Audio format conversion.',
-        feat3Desc:        'If an editor rejects a <code>.flac</code> or <code>.ogg</code> file, convert it to <code>.wav</code> inside the app before dragging.',
-        feat3List1:       '<b>Multi-format converter:</b> WAV, MP3, FLAC, OGG, and M4A supported.',
-        feat3List2:       '<b>Batch conversion:</b> convert individual tracks or entire folders in seconds.',
+        feat3Desc:        'Downloaded an <code>.opus</code> file from the web that no editor opens, or your software rejects <code>.flac</code> and <code>.ogg</code>? Convert from <b>OPUS, WAV, MP3, FLAC, OGG, M4A, or AIFF</b> straight into editor-ready <b>WAV, MP3, FLAC, OGG, or M4A</b> before dragging.',
+        feat3List1:       '<b>Full input format support:</b> converts from OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF into WAV, MP3, FLAC, OGG, or M4A.',
+        feat3List2:       '<b>Batch conversion:</b> convert individual tracks or entire folders in seconds — perfect for turning unplayable .opus files into timeline-ready .wav.',
 
         featAllHead:      'Looking for every feature?',
         featAllSub:       'Browse all 24 features and 7 modules in the technical index.',
@@ -1945,17 +1987,17 @@
         faq2Q:            'Does dragging snippets modify my original audio files?',
         faq2A:            'No. Trimming is non-destructive. The app creates a temporary clip for your timeline and leaves your original audio files untouched.',
         faq3Q:            'Is the $19 purchase a lifetime license or subscription?',
-        faq3A:            'One-time payment. You pay $19 once and own MySoundLib with all v1 updates included. No subscriptions.',
+        faq3A:            'One-time payment. You pay $19 once and own MySoundLib with all updates included. No subscriptions.',
         faq4Q:            'How does the QuickSearch Overlay work?',
         faq4A:            'Press Alt + Shift + F (or Cmd + Shift + F on macOS) while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.',
         faq5Q:            'Are my sound files uploaded anywhere?',
         faq5A:            'No. MySoundLib runs entirely on your computer. Your audio libraries, folder paths, and project files never leave your machine.',
         faq6Q:            'Which audio formats can it read and convert?',
-        faq6A:            'WAV, MP3, FLAC, OGG, OPUS, AIFF, and M4A/AAC. It also includes batch conversion to WAV.',
+        faq6A:            'MySoundLib reads and indexes <b>OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF</b>. You can convert any of these formats — especially web-downloaded <b>.opus</b> files that video editors refuse to open — into editor-compatible <b>WAV, MP3, FLAC, OGG, or M4A</b> individually or in batch.',
         faq7Q:            'Can I organize sounds into separate libraries?',
         faq7A:            'Yes. You can create separate libraries for personal projects, client work, or specific sound packs.',
-        faq8Q:            'How many machines can I activate with one license?',
-        faq8A:            'Each license can be used on up to 5 personal computers (such as your desktop workstation and laptop).',
+        faq8Q:            'Can I use my license on multiple computers?',
+        faq8A:            'Yes. Your license is for your personal use, allowing you to activate it across your own computers (such as your desktop workstation and laptop). Sharing with third parties is not permitted; automated fair-use thresholds apply, and if an unusually high number of activations is detected, simply contact support@mysoundlib.com.',
         faq9Q:            'Does MySoundLib come with sound effects or music?',
         faq9A:            'No. MySoundLib is purely an audio manager and workflow tool. It indexes and searches audio files already on your computer or sound packs you buy or download separately. We do not distribute or license audio files.',
 
@@ -2031,9 +2073,9 @@
 
         feat3Pillar:      'Conversor Integrado',
         feat3Head:        'Conversão de formatos de áudio.',
-        feat3Desc:        'Se o seu editor de vídeo rejeitar um arquivo <code>.flac</code> ou <code>.ogg</code>, converta para <code>.wav</code> direto no app antes de arrastar.',
-        feat3List1:       '<b>Conversão prática:</b> suporte para WAV, MP3, FLAC, OGG e M4A.',
-        feat3List2:       '<b>Conversão em lote:</b> converta faixas individuais ou pastas inteiras em segundos.',
+        feat3Desc:        'Baixou um arquivo <code>.opus</code> da web que nenhum editor de vídeo abre, ou seu programa rejeitou <code>.flac</code> ou <code>.ogg</code>? Converta de <b>OPUS, WAV, MP3, FLAC, OGG, M4A e AIFF</b> direto para <b>WAV, MP3, FLAC, OGG ou M4A</b> antes de arrastar para a timeline.',
+        feat3List1:       '<b>Suporte completo de entrada:</b> converte de OPUS, WAV, MP3, FLAC, OGG, M4A e AIFF para WAV, MP3, FLAC, OGG ou M4A.',
+        feat3List2:       '<b>Conversão em lote:</b> converta faixas individuais ou pastas inteiras em segundos — ideal para transformar arquivos .opus baixados em .wav prontos para o editor.',
 
         featAllHead:      'Quer ver todas as funcionalidades?',
         featAllSub:       'Consulte a lista completa com os 24 recursos e 7 módulos no índice técnico.',
@@ -2066,17 +2108,17 @@
         faq2Q:            'Recortar trechos altera os arquivos originais?',
         faq2A:            'Não. O corte não é destrutivo. O app gera um arquivo temporário para a sua timeline e mantém os áudios originais intactos no disco.',
         faq3Q:            'O valor de $19 é pagamento único ou mensalidade?',
-        faq3A:            'Pagamento único. Você paga $19 uma vez e usa o MySoundLib sem mensalidades, com todas as atualizações da versão 1 incluídas.',
+        faq3A:            'Pagamento único. Você paga $19 uma vez e usa o MySoundLib sem mensalidades, com todas as atualizações incluídas.',
         faq4Q:            'Como funciona o QuickSearch Overlay durante a edição?',
         faq4A:            'Aperte Alt + Shift + F (ou Cmd + Shift + F no Mac) enquanto edita. A barra de busca abre sobre a tela, você ouve o som de imediato, arrasta o trecho para a timeline e continua trabalhando.',
         faq5Q:            'Meus áudios são enviados para algum servidor?',
         faq5A:            'Não. O MySoundLib roda totalmente no seu computador. Suas pastas, bibliotecas e arquivos de áudio nunca saem do seu disco.',
         faq6Q:            'Quais formatos de áudio ele lê e converte?',
-        faq6A:            'WAV, MP3, FLAC, OGG, OPUS, AIFF e M4A/AAC. O app também inclui conversão em lote para WAV.',
+        faq6A:            'O MySoundLib lê e indexa <b>OPUS, WAV, MP3, FLAC, OGG, M4A e AIFF</b>. Você pode converter qualquer um desses formatos — especialmente arquivos <b>.opus</b> baixados da web que nenhum editor aceita — diretamente para <b>WAV, MP3, FLAC, OGG ou M4A</b>, avulso ou em lote.',
         faq7Q:            'Dá para separar os sons em bibliotecas diferentes?',
         faq7A:            'Sim. Você pode criar bibliotecas separadas para projetos pessoais, trabalhos comerciais ou pacotes específicos.',
-        faq8Q:            'Em quantas máquinas posso usar a mesma licença?',
-        faq8A:            'Cada licença pode ser ativada em até 5 computadores de uso pessoal (por exemplo, seu computador principal e notebook).',
+        faq8Q:            'Posso usar minha licença em mais de um computador?',
+        faq8A:            'Sim. Sua licença é de uso pessoal e pode ser ativada nos seus próprios computadores (por exemplo, no seu computador principal e notebook). O compartilhamento com terceiros não é permitido; aplicamos limites automáticos de uso justo e, caso seja detectado um número atípico de ativações, basta entrar em contato com support@mysoundlib.com.',
         faq9Q:            'O MySoundLib vem com efeitos sonoros ou músicas inclusos?',
         faq9A:            'Não. O MySoundLib é exclusivamente um gerenciador de áudio e ferramenta de fluxo de trabalho. Ele indexa e organiza os arquivos já presentes no seu computador ou pacotes que você baixar e comprar separadamente. Não distribuímos nem licenciamos arquivos de áudio.',
 
@@ -2151,9 +2193,9 @@
 
         feat3Pillar:      'Conversor Integrado',
         feat3Head:        'Conversión de formatos de audio.',
-        feat3Desc:        'Si tu editor rechaza un archivo <code>.flac</code> o <code>.ogg</code>, conviértelo a <code>.wav</code> dentro de la app antes de arrastrar.',
-        feat3List1:       '<b>Conversor multiformato:</b> compatible con WAV, MP3, FLAC, OGG y M4A.',
-        feat3List2:       '<b>Conversión por lotes:</b> convierte pistas individuales o carpetas enteras en segundos.',
+        feat3Desc:        '¿Descargaste un archivo <code>.opus</code> de internet que ningún editor abre, o tu programa rechaza <code>.flac</code> o <code>.ogg</code>? Convierte desde <b>OPUS, WAV, MP3, FLAC, OGG, M4A y AIFF</b> directo a <b>WAV, MP3, FLAC, OGG o M4A</b> antes de arrastrar.',
+        feat3List1:       '<b>Compatibilidad total de entrada:</b> convierte desde OPUS, WAV, MP3, FLAC, OGG, M4A y AIFF hacia WAV, MP3, FLAC, OGG o M4A.',
+        feat3List2:       '<b>Conversión por lotes:</b> convierte pistas sueltas o carpetas completas en segundos — ideal para transformar archivos .opus descargados a .wav.',
 
         featAllHead:      '¿Buscas todas las funciones?',
         featAllSub:       'Explora las 24 funciones y 7 módulos en el índice técnico.',
@@ -2186,17 +2228,17 @@
         faq2Q:            '¿Arrastrar recortes modifica mis archivos de audio originales?',
         faq2A:            'No. El recorte no es destructivo. La app crea un archivo temporal para tu línea de tiempo y mantiene intactos tus audios originales en el disco.',
         faq3Q:            '¿El pago de $19 es un pago único o una suscripción?',
-        faq3A:            'Pago único. Pagas $19 una sola vez y usas MySoundLib con todas las actualizaciones de la versión 1 incluidas. Cero suscripciones.',
+        faq3A:            'Pago único. Pagas $19 una sola vez y usas MySoundLib con todas las actualizaciones incluidas. Cero suscripciones.',
         faq4Q:            '¿Cómo funciona el QuickSearch Overlay durante la edición?',
         faq4A:            'Pulsa Alt + Shift + F (o Cmd + Shift + F en Mac) mientras editas. La barra de búsqueda se abre sobre la pantalla, escuchas el sonido al instante, arrastras el recorte a la línea de tiempo y sigues editando.',
         faq5Q:            '¿Mis archivos de sonido se suben a algún servidor?',
         faq5A:            'No. MySoundLib funciona completamente en tu ordenador. Tus bibliotecas, rutas y archivos de audio jamás salen de tu máquina.',
         faq6Q:            '¿Qué formatos de audio puede leer y convertir?',
-        faq6A:            'WAV, MP3, FLAC, OGG, OPUS, AIFF y M4A/AAC. También incluye conversión por lotes a formato WAV.',
+        faq6A:            'MySoundLib lee e indexa <b>OPUS, WAV, MP3, FLAC, OGG, M4A y AIFF</b>. Puedes convertir cualquiera de estos formatos — especialmente archivos <b>.opus</b> descargados de internet que los editores no abren — hacia <b>WAV, MP3, FLAC, OGG o M4A</b>, de forma individual o por lotes.',
         faq7Q:            '¿Puedo organizar mis sonidos en bibliotecas independientes?',
         faq7A:            'Sí. Puedes crear bibliotecas separadas para proyectos personales, trabajos para clientes o paquetes específicos.',
-        faq8Q:            '¿En cuántos equipos puedo activar la misma licencia?',
-        faq8A:            'Cada licencia se puede activar en hasta 5 ordenadores de uso personal (por ejemplo, tu ordenador principal y tu portátil).',
+        faq8Q:            '¿Puedo usar mi licencia en más de un ordenador?',
+        faq8A:            'Sí. Tu licencia es de uso personal y puedes activarla en tus propios equipos (por ejemplo, tu ordenador principal y tu portátil). No está permitido compartirla con terceros; aplicamos límites automáticos de uso responsable y, si se detecta un número atípico de activaciones, solo debes contactar a support@mysoundlib.com.',
         faq9Q:            '¿MySoundLib incluye efectos de sonido o música?',
         faq9A:            'No. MySoundLib es exclusivamente un gestor de audio y herramienta de flujo de trabajo. Indexa y busca archivos ya presentes en tu ordenador o paquetes que compres o descargues por separado. No distribuimos ni licenciamos archivos de audio.',
 
@@ -2271,9 +2313,9 @@
 
         feat3Pillar:      'इन-बिल्ट कन्वर्टर',
         feat3Head:        'ऑडियो फॉर्मेट कन्वर्शन।',
-        feat3Desc:        'यदि आपका एडिटर <code>.flac</code> या <code>.ogg</code> स्वीकार न करे, तो ऐप के अंदर ही <code>.wav</code> में बदलें।',
-        feat3List1:       '<b>मल्टी-फॉर्मेट कन्वर्टर:</b> WAV, MP3, FLAC, OGG और M4A सपोर्ट।',
-        feat3List2:       '<b>बैच कन्वर्शन:</b> एक-एक ट्रैक या पूरे फ़ोल्डर को कुछ ही सेकंड में बदलें।',
+        feat3Desc:        'इंटरनेट से डाउनलोड की गई <code>.opus</code> फ़ाइल जो किसी वीडियो एडिटर में नहीं चलती, या एडिटर <code>.flac</code>/<code>.ogg</code> स्वीकार नहीं करता? ड्रैग करने से पहले <b>OPUS, WAV, MP3, FLAC, OGG, M4A या AIFF</b> से सीधे <b>WAV, MP3, FLAC, OGG या M4A</b> में बदलें।',
+        feat3List1:       '<b>पूर्ण इनपुट फॉर्मेट सपोर्ट:</b> OPUS, WAV, MP3, FLAC, OGG, M4A और AIFF से WAV, MP3, FLAC, OGG या M4A में बदलता है।',
+        feat3List2:       '<b>बैच कन्वर्शन:</b> अलग-अलग ट्रैक्स या पूरे फ़ोल्डर्स को सेकंडों में बदलें — डाउनलोड की गई .opus फ़ाइलों को टाइमलाइन के लिए .wav में बदलने के लिए बेहतरीन।',
 
         featAllHead:      'सभी फ़ीचर्स देखना चाहते हैं?',
         featAllSub:       'तकनीकी इंडेक्स में सभी 24 फ़ीचर्स और 7 मॉड्यूल्स देखें।',
@@ -2306,17 +2348,17 @@
         faq2Q:            'क्या ऑडियो ट्रिम करने से मेरी ओरिजिनल फ़ाइलें बदलती हैं?',
         faq2A:            'नहीं। ट्रिमिंग नॉन-डिस्ट्रक्टिव है। ऐप आपकी टाइमलाइन के लिए एक अस्थायी क्लिप बनाता है और ओरिजिनल फ़ाइलों को बिल्कुल नहीं छूता।',
         faq3Q:            'क्या $19 एकमुश्त भुगतान है या सब्सक्रिप्शन?',
-        faq3A:            'एकमुश्त भुगतान। आप $19 केवल एक बार देते हैं और बिना किसी मासिक शुल्क के सभी v1 अपडेट्स के साथ MySoundLib आपका होता है।',
+        faq3A:            'एकमुश्त भुगतान। आप $19 केवल एक बार देते हैं और बिना किसी मासिक शुल्क के सभी अपडेट्स के साथ MySoundLib आपका होता है।',
         faq4Q:            'एडिटिंग के दौरान QuickSearch Overlay कैसे काम करता है?',
         faq4A:            'एडिटिंग के दौरान Alt + Shift + F (Mac पर Cmd + Shift + F) दबाएं। स्क्रीन पर सर्च बार खुलता है, तुरंत आवाज़ सुनें, क्लिप को टाइमलाइन पर खींचें और एडिटिंग जारी रखें।',
         faq5Q:            'क्या मेरी ऑडियो फ़ाइलें किसी सर्वर पर अपलोड होती हैं?',
         faq5A:            'नहीं। MySoundLib पूरी तरह आपके कंप्यूटर पर चलता है। आपकी ऑडियो लाइब्रेरीज़ और फ़ाइलें कभी भी आपके सिस्टम से बाहर नहीं जातीं।',
         faq6Q:            'यह किन ऑडियो फॉर्मेट्स को पढ़ और कन्वर्ट कर सकता है?',
-        faq6A:            'WAV, MP3, FLAC, OGG, OPUS, AIFF और M4A/AAC। इसमें WAV में बैच कन्वर्शन की सुविधा भी शामिल है।',
+        faq6A:            'MySoundLib <b>OPUS, WAV, MP3, FLAC, OGG, M4A और AIFF</b> को पढ़ता और इंडेक्स करता है। आप इनमें से किसी भी फॉर्मेट को — विशेष रूप से वेब से डाउनलोड की गई <b>.opus</b> फ़ाइलें जिन्हें वीडियो एडिटर्स नहीं खोलते — सीधे <b>WAV, MP3, FLAC, OGG या M4A</b> में अकेले या बैच में कन्वर्ट कर सकते हैं।',
         faq7Q:            'क्या मैं अपनी आवाज़ों को अलग-अलग लाइब्रेरीज़ में रख सकता हूँ?',
         faq7A:            'हाँ। आप पर्सनल प्रोजेक्ट्स, क्लाइंट वर्क या विशिष्ट साउंड पैक्स के लिए अलग लाइब्रेरीज़ बना सकते हैं।',
-        faq8Q:            'एक लाइसेंस से मैं कितने कंप्यूटरों पर ऐप चला सकता हूँ?',
-        faq8A:            'प्रत्येक लाइसेंस को 5 पर्सनल कंप्यूटरों (जैसे आपका मुख्य डेस्कटॉप और लैपटॉप) पर सक्रिय किया जा सकता है।',
+        faq8Q:            'क्या मैं अपने लाइसेंस का उपयोग कई कंप्यूटरों पर कर सकता हूँ?',
+        faq8A:            'हाँ। आपका लाइसेंस व्यक्तिगत उपयोग के लिए है और इसे आप अपने स्वयं के कंप्यूटरों (जैसे आपका मुख्य डेस्कटॉप और लैपटॉप) पर सक्रिय कर सकते हैं। इसे दूसरों के साथ साझा करने की अनुमति नहीं है।',
         faq9Q:            'क्या MySoundLib के साथ साउंड इफ़ेक्ट्स या म्यूज़िक मिलता है?',
         faq9A:            'नहीं। MySoundLib पूरी तरह से एक ऑडियो मैनेजर और वर्कफ़्लो टूल है। यह आपके कंप्यूटर पर पहले से मौजूद या आपके द्वारा अलग से खरीदे/डाउनलोड किए गए पैक्स को व्यवस्थित और सर्च करता है। हम ऑडियो फ़ाइलें वितरित या लाइसेंस नहीं करते हैं।',
 
@@ -2375,6 +2417,19 @@
       else if (navLang.startsWith('es')) setLang('es');
       else if (navLang.startsWith('hi')) setLang('hi');
       else setLang('en');
+    })();
+
+    (function initVersionBadge() {
+      fetch('version.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.latest_version) {
+            var el = document.getElementById('appVersion');
+            var ver = data.latest_version.startsWith('v') ? data.latest_version : ('v' + data.latest_version);
+            if (el) el.textContent = 'Last version: ' + ver;
+          }
+        })
+        .catch(function() {});
     })();
   </script>
 

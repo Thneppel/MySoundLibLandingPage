@@ -182,6 +182,27 @@
       font-size: 15px;
     }
 
+    /* App Version in Navigation Header */
+    .app-version-badge {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      user-select: none;
+      transition: color 0.15s ease;
+      z-index: 10;
+    }
+
+    .app-version-badge:hover {
+      color: var(--text-muted);
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -408,6 +429,12 @@
       color: var(--green);
     }
 
+    @media (max-width: 1400px) and (min-width: 601px) {
+      .site-header .nav {
+        padding-right: 175px;
+      }
+    }
+
     @media (max-width: 680px) {
       .features-content-wrap {
         padding: 40px 0 60px;
@@ -423,6 +450,18 @@
       .footer-in {
         flex-direction: column;
         align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .app-version-badge {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-right {
+        gap: 10px;
       }
     }
   </style>
@@ -457,6 +496,7 @@
         </div>
       </nav>
     </div>
+    <span class="app-version-badge" id="appVersion" title="Last Version">Last version: v1.0.0-beta.1</span>
   </header>
 
   <!-- Main Features Wrap with Ambient Animation covering all 7 modules -->
@@ -558,7 +598,7 @@
           </div>
           <div class="feature-row">
             <div class="feature-name" id="f13Name">Advanced Filters</div>
-            <div class="feature-desc" id="f13Desc">Filter results by format (WAV, MP3, FLAC, OGG), category, and channel layout (mono, stereo, multichannel).</div>
+            <div class="feature-desc" id="f13Desc">Filter results by format (OPUS, WAV, MP3, FLAC, OGG, M4A, AIFF), category, and channel layout (mono, stereo, multichannel).</div>
           </div>
           <div class="feature-row">
             <div class="feature-name" id="f14Name">QuickSearch Overlay</div>
@@ -588,7 +628,7 @@
           </div>
           <div class="feature-row">
             <div class="feature-name" id="f18Name">Format Conversion</div>
-            <div class="feature-desc" id="f18Desc">Batch convert between supported audio formats with one-click export to WAV.</div>
+            <div class="feature-desc" id="f18Desc">Batch convert audio from OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF into WAV, MP3, FLAC, OGG, or M4A — ideal for making web-downloaded .opus files immediately editable.</div>
           </div>
         </div>
       </section>
@@ -711,7 +751,7 @@
         f12Name:        'Multi-Factor Search',
         f12Desc:        'Search across filenames, tags, categories, and source folders at the same time.',
         f13Name:        'Advanced Filters',
-        f13Desc:        'Filter results by format (WAV, MP3, FLAC, OGG), category, and channel layout (mono, stereo, multichannel).',
+        f13Desc:        'Filter results by format (OPUS, WAV, MP3, FLAC, OGG, M4A, AIFF), category, and channel layout (mono, stereo, multichannel).',
         f14Name:        'QuickSearch Overlay',
         f14Desc:        'Press Alt + Shift + F while editing in Premiere, DaVinci, or CapCut. Search, audition sounds instantly, and drag the clip into your timeline without switching windows.',
 
@@ -723,7 +763,7 @@
         f17Name:        'Pitch Shifter',
         f17Desc:        'Adjust audio pitch and speed before dragging the sound into your timeline.',
         f18Name:        'Format Conversion',
-        f18Desc:        'Batch convert between supported audio formats with one-click export to WAV.',
+        f18Desc:        'Batch convert audio from OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF into WAV, MP3, FLAC, OGG, or M4A — ideal for making web-downloaded .opus files immediately editable.',
 
         m6Title:        'Workflow & Integration',
         f19Name:        'Drag to Timeline',
@@ -793,7 +833,7 @@
         f12Name:        'Busca combinada',
         f12Desc:        'Busque por nome do arquivo, tags, categorias e pastas de origem ao mesmo tempo.',
         f13Name:        'Filtros por formato e canal',
-        f13Desc:        'Filtre resultados por formato (WAV, MP3, FLAC, OGG), categoria e canais (mono, estéreo ou multicanal).',
+        f13Desc:        'Filtre resultados por formato (OPUS, WAV, MP3, FLAC, OGG, M4A, AIFF), categoria e canais (mono, estéreo ou multicanal).',
         f14Name:        'QuickSearch Overlay',
         f14Desc:        'Aperte Alt + Shift + F enquanto edita no Premiere, DaVinci ou CapCut. Busque, ouça na hora e arraste o áudio para a timeline sem trocar de janela.',
 
@@ -805,7 +845,7 @@
         f17Name:        'Ajuste de pitch',
         f17Desc:        'Ajuste afinação e velocidade do áudio antes de arrastar o som para a timeline.',
         f18Name:        'Conversão de formatos',
-        f18Desc:        'Converta lotes de arquivos entre formatos suportados com exportação direta para WAV.',
+        f18Desc:        'Converta áudios em lote a partir de OPUS, WAV, MP3, FLAC, OGG, M4A e AIFF para WAV, MP3, FLAC, OGG ou M4A — ideal para tornar arquivos .opus baixados da web imediatamente editáveis.',
 
         m6Title:        'Integração e fluxo',
         f19Name:        'Arraste para a timeline',
@@ -875,7 +915,7 @@
         f12Name:        'Búsqueda Multifactorial',
         f12Desc:        'Busca por nombre de archivo, etiquetas, categorías y carpetas de origen a la vez.',
         f13Name:        'Filtros Avanzados',
-        f13Desc:        'Filtra por formato (WAV, MP3, FLAC, OGG), categoría y canales (mono, estéreo, multicanal).',
+        f13Desc:        'Filtra por formato (OPUS, WAV, MP3, FLAC, OGG, M4A, AIFF), categoría y canales (mono, estéreo, multicanal).',
         f14Name:        'QuickSearch Overlay',
         f14Desc:        'Pulsa Alt + Shift + F mientras editas en Premiere, DaVinci o CapCut. Busca, escucha al instante y arrastra el audio a tu línea de tiempo sin cambiar de ventana.',
 
@@ -887,7 +927,7 @@
         f17Name:        'Cambio de Tono (Pitch Shifter)',
         f17Desc:        'Ajusta el tono y la velocidad de reproducción antes de soltar el audio en tu línea de tiempo.',
         f18Name:        'Conversión de Formatos',
-        f18Desc:        'Conversión por lotes entre formatos de audio compatibles con exportación en un clic a WAV.',
+        f18Desc:        'Convierte archivos de audio por lotes desde OPUS, WAV, MP3, FLAC, OGG, M4A y AIFF hacia WAV, MP3, FLAC, OGG o M4A — ideal para editar al instante archivos .opus descargados de internet.',
 
         m6Title:        'Flujo de Trabajo e Integración',
         f19Name:        'Arrastrar a la Línea de Tiempo',
@@ -957,7 +997,7 @@
         f12Name:        'मल्टी-फैक्टर सर्च',
         f12Desc:        'फ़ाइल नाम, टैग, कैटेगरी और सोर्स फ़ोल्डर्स में एक साथ खोजें।',
         f13Name:        'एडवांस्ड फ़िल्टर्स',
-        f13Desc:        'फॉर्मेट (WAV, MP3, FLAC, OGG), कैटेगरी और चैनल लेआउट (मोनो, स्टीरियो) द्वारा फ़िल्टर करें।',
+        f13Desc:        'फॉर्मेट (OPUS, WAV, MP3, FLAC, OGG, M4A, AIFF), कैटेगरी और चैनल लेआउट (मोनो, स्टीरियो, मल्टीचैनल) द्वारा फ़िल्टर करें।',
         f14Name:        'QuickSearch Overlay',
         f14Desc:        'Premiere, DaVinci या CapCut में एडिट करते समय Alt + Shift + F दबाएं। सर्च करें, तुरंत ऑडियो सुनें और बिना विंडो बदले टाइमलाइन पर लाएं।',
 
@@ -969,7 +1009,7 @@
         f17Name:        'पिच शिफ्टर',
         f17Desc:        'टाइमलाइन में ऑडियो खींचने से पहले पिच और प्लेबैक स्पीड बदलें।',
         f18Name:        'फॉर्मेट कन्वर्शन',
-        f18Desc:        'एक क्लिक में WAV में एक्सपोर्ट के साथ समर्थित ऑडियो फॉर्मेट्स के बीच बैच कन्वर्शन।',
+        f18Desc:        'OPUS, WAV, MP3, FLAC, OGG, M4A और AIFF से WAV, MP3, FLAC, OGG या M4A में ऑडियो बैच कन्वर्ट करें — डाउनलोड की गई .opus फ़ाइलों को तुरंत संपादन योग्य बनाने के लिए उपयुक्त।',
 
         m6Title:        'वर्कफ़्लो और इंटीग्रेशन',
         f19Name:        'टाइमलाइन पर ड्रैग करें',
@@ -1029,6 +1069,19 @@
       else if (navLang.startsWith('es')) setLang('es');
       else if (navLang.startsWith('hi')) setLang('hi');
       else setLang('en');
+    })();
+
+    (function initVersionBadge() {
+      fetch('version.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.latest_version) {
+            var el = document.getElementById('appVersion');
+            var ver = data.latest_version.startsWith('v') ? data.latest_version : ('v' + data.latest_version);
+            if (el) el.textContent = 'Last version: ' + ver;
+          }
+        })
+        .catch(function() {});
     })();
   </script>
 
