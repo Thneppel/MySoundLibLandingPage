@@ -174,6 +174,45 @@
       color: #0b0b0e;
     }
 
+    /* App Version in Navigation Header */
+    .app-version-badge {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      user-select: none;
+      transition: color 0.15s ease;
+      z-index: 10;
+    }
+
+    .app-version-badge:hover {
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1400px) and (min-width: 601px) {
+      .site-header .nav {
+        padding-right: 175px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .app-version-badge {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-right {
+        gap: 10px;
+      }
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -351,6 +390,7 @@
         </div>
       </nav>
     </div>
+    <span class="app-version-badge" id="appVersion" title="Last Version">Last version: v1.0.0-beta.1</span>
   </header>
 
   <div class="article-container">
@@ -386,7 +426,7 @@
           </tr>
           <tr>
             <td id="comp3Name">Format Transcoding Core</td>
-            <td id="comp3Role">Audio container validation, multi-format transcoding (WAV, MP3, FLAC, OGG, M4A), and broadcast metadata parsing.</td>
+            <td id="comp3Role">Audio container validation, multi-format transcoding from OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF into WAV, MP3, FLAC, OGG, or M4A, and broadcast metadata parsing.</td>
           </tr>
           <tr>
             <td id="comp4Name">Embedded Database</td>
@@ -456,7 +496,7 @@
         comp2Name:      'Audio Decoding Engine',
         comp2Role:      'Low-latency PCM stream decoding, sample-accurate waveform extraction, and fast buffer downsampling.',
         comp3Name:      'Format Transcoding Core',
-        comp3Role:      'Audio container validation, multi-format transcoding (WAV, MP3, FLAC, OGG, M4A), and broadcast metadata parsing.',
+        comp3Role:      'Audio container validation, multi-format transcoding from OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF into WAV, MP3, FLAC, OGG, or M4A, and broadcast metadata parsing.',
         comp4Name:      'Embedded Database',
         comp4Role:      'Zero-configuration, serverless local database for sub-millisecond audio indexing and keyword search.',
 
@@ -500,7 +540,7 @@
         comp2Name:      'Motor de Decodificação de Áudio',
         comp2Role:      'Decodificação de streams PCM em baixa latência, extração de amostras com precisão de sample e renderização rápida de forma de onda.',
         comp3Name:      'Módulo de Conversão e Formatos',
-        comp3Role:      'Validação de contêineres de áudio, conversão multiformato (WAV, MP3, FLAC, OGG, M4A) e leitura de metadados broadcast.',
+        comp3Role:      'Validação de contêineres de áudio, conversão a partir de OPUS, WAV, MP3, FLAC, OGG, M4A e AIFF para WAV, MP3, FLAC, OGG ou M4A, e leitura de metadados broadcast.',
         comp4Name:      'Banco de Dados Embarcado',
         comp4Role:      'Banco relacional local sem servidor (serverless) e sem configuração, projetado para busca instantânea e indexação sub-milissegundo.',
 
@@ -544,7 +584,7 @@
         comp2Name:      'Motor de Decodificación de Audio',
         comp2Role:      'Decodificación de flujo PCM con baja latencia, extracción precisa de muestras de audio y renderizado rápido de formas de onda.',
         comp3Name:      'Módulo de Conversión y Formatos',
-        comp3Role:      'Inspección de contenedores de audio, conversión multiformato (WAV, MP3, FLAC, OGG, M4A) y análisis de metadatos de emisión.',
+        comp3Role:      'Inspección de contenedores de audio, conversión multiformato desde OPUS, WAV, MP3, FLAC, OGG, M4A y AIFF hacia WAV, MP3, FLAC, OGG o M4A, y análisis de metadatos de emisión.',
         comp4Name:      'Base de Datos Integrada',
         comp4Role:      'Base de datos relacional local sin servidor y sin configuración previa para indexación en submilisegundos y búsqueda instantánea.',
 
@@ -588,7 +628,7 @@
         comp2Name:      'ऑडियो डिकोडिंग इंजन',
         comp2Role:      'कम लेटेंसी वाली PCM स्ट्रीम डिकोडिंग, सटीक वेवफ़ॉर्म सैंपल निष्कर्षण और तेज़ बफ़र रेंडरिंग।',
         comp3Name:      'फॉर्मेट कन्वर्शन कोर',
-        comp3Role:      'ऑडियो कंटेनर निरीक्षण, मल्टी-फॉर्मेट कन्वर्शन (WAV, MP3, FLAC, OGG, M4A) और ब्रॉडकास्ट मेटाडेटा पार्सिंग।',
+        comp3Role:      'ऑडियो कंटेनर निरीक्षण, OPUS, WAV, MP3, FLAC, OGG, M4A और AIFF से WAV, MP3, FLAC, OGG या M4A में मल्टी-फॉर्मेट कन्वर्शन और ब्रॉडकास्ट मेटाडेटा पार्सिंग।',
         comp4Name:      'एम्बेडेड डेटाबेस',
         comp4Role:      'बिना किसी बाहरी सर्वर या कॉन्फ़िगरेशन के सब-मिलीसेकंड सर्च और तेज़ ऑडियो इंडेक्सिंग के लिए स्थानीय डेटाबेस।',
 
@@ -647,6 +687,19 @@
       else if (navLang.startsWith('es')) setLang('es');
       else if (navLang.startsWith('hi')) setLang('hi');
       else setLang('en');
+    })();
+
+    (function initVersionBadge() {
+      fetch('version.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.latest_version) {
+            var el = document.getElementById('appVersion');
+            var ver = data.latest_version.startsWith('v') ? data.latest_version : ('v' + data.latest_version);
+            if (el) el.textContent = 'Last version: ' + ver;
+          }
+        })
+        .catch(function() {});
     })();
   </script>
 </body>

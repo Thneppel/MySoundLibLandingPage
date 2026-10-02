@@ -174,6 +174,45 @@
       color: #0b0b0e;
     }
 
+    /* App Version in Navigation Header */
+    .app-version-badge {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      user-select: none;
+      transition: color 0.15s ease;
+      z-index: 10;
+    }
+
+    .app-version-badge:hover {
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1400px) and (min-width: 601px) {
+      .site-header .nav {
+        padding-right: 175px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .app-version-badge {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-right {
+        gap: 10px;
+      }
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -317,26 +356,27 @@
         </div>
       </nav>
     </div>
+    <span class="app-version-badge" id="appVersion" title="Last Version">Last version: v1.0.0-beta.1</span>
   </header>
 
   <div class="article-container">
     <main>
       <!-- Meta & Title -->
-      <div class="meta-tag" id="metaTag">Legal &bull; Terms of Service</div>
+      <div class="meta-tag" id="metaTag">Legal &bull; Terms of Service & EULA</div>
       <h1 id="artTitle">Terms & Conditions</h1>
       <p class="lead" id="artLead">
-        Clear, transparent terms governing the purchase and use of the MySoundLib desktop software and website. Last updated: March 2026.
+        Clear, transparent legal terms and End User License Agreement (EULA) governing the purchase and use of the MySoundLib desktop software and website. Software license granted by MySoundLib as an entity. Developed by Thiago Neppel (Thneppel). Last updated: March 2026.
       </p>
 
       <!-- Section 1 -->
-      <h2 id="sec1Head">1. License Grant & Usage</h2>
+      <h2 id="sec1Head">1. License Grant & Usage (EULA)</h2>
       <p id="sec1P1">
-        When you purchase MySoundLib, you receive a perpetual, non-exclusive, non-transferable license to download, install, and run the software on computers that you own or operate for commercial or personal audio management, sound design, and video editing workflows.
+        This End User License Agreement ("EULA") is a legal agreement between you and MySoundLib ("Company", "Licensor"). When you purchase MySoundLib, the Company grants you a personal, perpetual, non-exclusive, non-transferable license to download, install, and run the software on computers that you own or operate for commercial or personal audio management, sound design, and video editing workflows.
       </p>
       <ul>
-        <li id="sec1Li1"><b>One-Time Purchase:</b> Your license is lifetime for the version purchased. There are no recurring subscriptions or hidden maintenance fees.</li>
-        <li id="sec1Li2"><b>Devices:</b> A single license may be activated and used concurrently on up to 5 computers owned or operated by you (such as your desktop workstations and laptops).</li>
-        <li id="sec1Li3"><b>Restrictions:</b> You may not redistribute, resell, lease, sublicense, reverse engineer, or decompile the application binary.</li>
+        <li id="sec1Li1"><b>One-Time Purchase:</b> Your license is lifetime and includes all updates. There are no recurring subscriptions or hidden maintenance fees.</li>
+        <li id="sec1Li2"><b>Multiple Devices:</b> Your license is for your personal use and can be activated across your own computers (such as your desktop workstations and laptops). Sharing or distributing license keys to third parties is not permitted. Automated fair-use activation thresholds apply; if an unusually high number of activations is detected on a single key, further activations will require verification via support@mysoundlib.com.</li>
+        <li id="sec1Li3"><b>Intellectual Property & Restrictions:</b> The software is licensed, not sold. All rights, title, and intellectual property in MySoundLib remain exclusively with MySoundLib (created and developed by Thiago Neppel). You may not redistribute, resell, lease, sublicense, reverse engineer, or decompile the application binary.</li>
       </ul>
 
       <!-- Section 2 -->
@@ -345,7 +385,7 @@
         <b>You retain 100% ownership of your audio files, sound libraries, metadata, and creative projects.</b>
       </p>
       <p id="sec2P2">
-        MySoundLib functions as an offline indexing, previewing, and asset management utility. The software does not provide bundled audio content; you create, import, and organize all libraries independently. The software claims zero ownership, rights, or royalties over any sounds, music, recordings, or files you index, preview, trim, or export.
+        MySoundLib functions as an offline indexing, previewing, and asset management utility. The software does not provide bundled audio content; you create, import, and organize all libraries independently. MySoundLib claims zero ownership, rights, or royalties whatsoever over any sounds, music, recordings, or files you index, preview, trim, or export.
       </p>
 
       <!-- Section 3 -->
@@ -371,19 +411,19 @@
       <!-- Section 5 -->
       <h2 id="sec5Head">5. Disclaimer & Limitation of Liability</h2>
       <p id="sec5P1">
-        MySoundLib is provided "as is" and "as available", without warranty of any kind, express or implied. While we strive for uncompromising stability and reliability across creative workflows, in no event shall the developer be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use this software.
+        MySoundLib is provided "as is" and "as available", without warranty of any kind, express or implied. While we strive for uncompromising stability and reliability across creative workflows, in no event shall MySoundLib, its founder, contributors, or affiliates be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use this software.
       </p>
 
       <!-- Section 6 -->
       <h2 id="sec6Head">6. Contact & Support</h2>
       <p id="sec6P1">
-        If you have any questions, feedback, or need assistance regarding these terms or your license, you can reach out directly via email at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> or via our feedback form in app.
+        If you have any questions, feedback, or need assistance regarding these terms, EULA, or your license, you can reach MySoundLib directly via email at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> or via our feedback form in app. Development and design led by Thiago Neppel (Thneppel).
       </p>
     </main>
 
     <!-- Footer -->
     <footer class="article-footer">
-      <span>&copy; 2026 MySoundLib</span>
+      <span>&copy; 2026 MySoundLib. All rights reserved. &bull; Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a></span>
       <span>
         <a href="privacy.html" id="footerPrivacy">Privacy Policy</a> &bull;
         <a href="features.html" id="footerFeatures">All Features</a> &bull;
@@ -404,19 +444,19 @@
         navFaq:         'FAQ',
         navCta:         'Buy MySoundLib',
 
-        metaTag:        'Legal • Terms of Service',
+        metaTag:        'Legal • Terms of Service & EULA',
         artTitle:       'Terms & Conditions',
-        artLead:        'Clear, transparent terms governing the purchase and use of the MySoundLib desktop software and website. Last updated: March 2026.',
+        artLead:        'Clear, transparent legal terms and End User License Agreement (EULA) governing the purchase and use of the MySoundLib desktop software and website. Software license granted by MySoundLib as an entity. Developed by Thiago Neppel (Thneppel). Last updated: March 2026.',
 
-        sec1Head:       '1. License Grant & Usage',
-        sec1P1:         'When you purchase MySoundLib, you receive a perpetual, non-exclusive, non-transferable license to download, install, and run the software on computers that you own or operate for commercial or personal audio management, sound design, and video editing workflows.',
-        sec1Li1:        '<b>One-Time Purchase:</b> Your license is lifetime for the version purchased. There are no recurring subscriptions or hidden maintenance fees.',
-        sec1Li2:        '<b>Devices:</b> A single license may be activated and used concurrently on up to 5 computers owned or operated by you (such as your desktop workstations and laptops).',
-        sec1Li3:        '<b>Restrictions:</b> You may not redistribute, resell, lease, sublicense, reverse engineer, or decompile the application binary.',
+        sec1Head:       '1. License Grant & Usage (EULA)',
+        sec1P1:         'This End User License Agreement ("EULA") is a legal agreement between you and MySoundLib ("Company", "Licensor"). When you purchase MySoundLib, the Company grants you a personal, perpetual, non-exclusive, non-transferable license to download, install, and run the software on computers that you own or operate for commercial or personal audio management, sound design, and video editing workflows.',
+        sec1Li1:        '<b>One-Time Purchase:</b> Your license is lifetime and includes all updates. There are no recurring subscriptions or hidden maintenance fees.',
+        sec1Li2:        '<b>Multiple Devices:</b> Your license is for your personal use and can be activated across your own computers (such as your desktop workstations and laptops). Sharing or distributing license keys to third parties is not permitted. Automated fair-use activation thresholds apply; if an unusually high number of activations is detected on a single key, further activations will require verification via support@mysoundlib.com.',
+        sec1Li3:        '<b>Intellectual Property & Restrictions:</b> The software is licensed, not sold. All rights, title, and intellectual property in MySoundLib remain exclusively with MySoundLib (created and developed by Thiago Neppel). You may not redistribute, resell, lease, sublicense, reverse engineer, or decompile the application binary.',
 
         sec2Head:       '2. Ownership of Your Audio & Content',
         sec2P1:         '<b>You retain 100% ownership of your audio files, sound libraries, metadata, and creative projects.</b>',
-        sec2P2:         'MySoundLib functions as an offline indexing, previewing, and asset management utility. The software does not provide bundled audio content; you create, import, and organize all libraries independently. The software claims zero ownership, rights, or royalties over any sounds, music, recordings, or files you index, preview, trim, or export.',
+        sec2P2:         'MySoundLib functions as an offline indexing, previewing, and asset management utility. The software does not provide bundled audio content; you create, import, and organize all libraries independently. MySoundLib claims zero ownership, rights, or royalties whatsoever over any sounds, music, recordings, or files you index, preview, trim, or export.',
 
         sec3Head:       '3. Local File Safety & Non-Destructive Processing',
         sec3P1:         'MySoundLib is engineered around non-destructive local workflows:',
@@ -429,10 +469,10 @@
         sec4P2:         'If MySoundLib does not function properly on your supported operating system and our support cannot resolve the issue, we provide a <b>7-day money back guarantee</b> from the date of purchase upon request with proof of purchase.',
 
         sec5Head:       '5. Disclaimer & Limitation of Liability',
-        sec5P1:         'MySoundLib is provided "as is" and "as available", without warranty of any kind, express or implied. While we prioritize stability in real editing workflows, in no event shall the developer be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use this software.',
+        sec5P1:         'MySoundLib is provided "as is" and "as available", without warranty of any kind, express or implied. While we prioritize stability in real editing workflows, in no event shall MySoundLib, its founder, contributors, or affiliates be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use this software.',
 
         sec6Head:       '6. Contact & Support',
-        sec6P1:         'If you have any questions, feedback, or need assistance regarding these terms or your license, you can reach out directly via email at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> or via our feedback form in app.',
+        sec6P1:         'If you have any questions, feedback, or need assistance regarding these terms, EULA, or your license, you can reach MySoundLib directly via email at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> or via our feedback form in app. Development and design led by Thiago Neppel (Thneppel).',
 
         footerPrivacy:  'Privacy Policy',
         footerFeatures: 'All Features',
@@ -446,19 +486,19 @@
         navFaq:         'Dúvidas',
         navCta:         'Comprar MySoundLib',
 
-        metaTag:        'Legal • Termos de Serviço',
+        metaTag:        'Legal • Termos de Serviço e EULA',
         artTitle:       'Termos e Condições',
-        artLead:        'Termos claros e transparentes que regem a compra e o uso do software desktop MySoundLib e deste site. Atualizado em: Março de 2026.',
+        artLead:        'Termos claros e Contrato de Licença de Usuário Final (EULA) que regem a compra e o uso do software desktop MySoundLib e deste site. A licença é concedida pela MySoundLib como entidade licenciadora. Desenvolvido por Thiago Neppel (Thneppel). Atualizado em: Março de 2026.',
 
-        sec1Head:       '1. Concessão de Licença e Uso',
-        sec1P1:         'Ao adquirir o MySoundLib, você recebe uma licença perpétua, não exclusiva e intransferível para baixar, instalar e executar o software em computadores de sua propriedade para projetos comerciais ou pessoais de gerenciamento de áudio, sound design e edição de vídeo.',
-        sec1Li1:        '<b>Compra Única:</b> Sua licença é vitalícia para a versão adquirida. Não existem assinaturas recorrentes nem taxas ocultas de manutenção.',
-        sec1Li2:        '<b>Dispositivos:</b> Uma única licença pode ser ativada e usada simultaneamente em até 5 computadores de sua propriedade (ex: desktops e notebooks).',
-        sec1Li3:        '<b>Restrições:</b> Você não pode redistribuir, revender, alugar, sublicenciar, fazer engenharia reversa ou descompilar os binários do aplicativo.',
+        sec1Head:       '1. Concessão de Licença e Uso (EULA)',
+        sec1P1:         'Este Contrato de Licença de Usuário Final ("EULA") é um acordo legal entre você e a MySoundLib ("Empresa", "Licenciadora"). Ao adquirir o MySoundLib, a Empresa concede a você uma licença pessoal, perpétua, não exclusiva e intransferível para baixar, instalar e executar o software em computadores de sua propriedade para projetos comerciais ou pessoais de gerenciamento de áudio, sound design e edição de vídeo.',
+        sec1Li1:        '<b>Compra Única:</b> Sua licença é vitalícia e inclui todas as atualizações. Não existem assinaturas recorrentes nem taxas ocultas de manutenção.',
+        sec1Li2:        '<b>Múltiplos Dispositivos:</b> Sua licença é de uso pessoal e pode ser ativada nos seus próprios computadores (como desktops e notebooks). O compartilhamento ou distribuição da chave com terceiros não é permitido. Aplicam-se limites automatizados de uso justo; caso seja detectado um número atípico de ativações em uma mesma chave, novas ativações exigirão verificação pelo suporte em support@mysoundlib.com.',
+        sec1Li3:        '<b>Propriedade Intelectual e Restrições:</b> O software é licenciado, não vendido. Todos os direitos de propriedade intelectual sobre o MySoundLib pertencem exclusivamente à MySoundLib (criado e desenvolvido por Thiago Neppel). Você não pode redistribuir, revender, alugar, sublicenciar, fazer engenharia reversa ou descompilar os binários do aplicativo.',
 
         sec2Head:       '2. Propriedade do Seu Conteúdo e Áudios',
         sec2P1:         '<b>Você mantém 100% da propriedade sobre seus arquivos de áudio, pacotes de som, metadados e projetos.</b>',
-        sec2P2:         'O MySoundLib funciona como um utilitário local de indexação, pré-escuta e organização de áudios. O software não fornece sons pré-empacotados; você cria, importa e organiza todas as suas bibliotecas de forma autônoma. O software não reivindica quaisquer direitos, propriedade ou royalties sobre sons ou arquivos que você organize, recorte ou exporte.',
+        sec2P2:         'O MySoundLib funciona como um utilitário local de indexação, pré-escuta e organização de áudios. O software não fornece sons pré-empacotados; você cria, importa e organiza todas as suas bibliotecas de forma autônoma. A MySoundLib não reivindica quaisquer direitos, titularidade ou royalties sobre sons, músicas ou arquivos que você organize, recorte ou exporte.',
 
         sec3Head:       '3. Segurança dos Arquivos e Processamento Não Destrutivo',
         sec3P1:         'O MySoundLib foi projetado sob um fluxo local e não destrutivo:',
@@ -471,10 +511,10 @@
         sec4P2:         'Caso o MySoundLib apresente incompatibilidade técnica com o seu sistema suportado e não consigamos solucionar, oferecemos <b>garantia de reembolso de 7 dias</b> a partir da data da compra, mediante solicitação e comprovante.',
 
         sec5Head:       '5. Isenção de Garantias e Limitação de Responsabilidade',
-        sec5P1:         'O MySoundLib é fornecido "no estado em que se encontra" ("as is"), sem garantias expressas ou implícitas. Embora a estabilidade em fluxos de trabalho reais seja prioridade, em hipótese alguma o desenvolvedor será responsável por danos indiretos, incidentais ou consequentes decorrentes do uso do software.',
+        sec5P1:         'O MySoundLib é fornecido "no estado em que se encontra" ("as is"), sem garantias expressas ou implícitas. Embora a estabilidade em fluxos de trabalho reais seja prioridade, em hipótese alguma a MySoundLib, seu fundador ou colaboradores serão responsáveis por danos indiretos, incidentais ou consequentes decorrentes do uso do software.',
 
         sec6Head:       '6. Contato e Suporte',
-        sec6P1:         'Para dúvidas, sugestões ou suporte sobre a licença ou estes termos, você pode entrar em contato diretamente pelo e-mail <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> ou pelo formulário de feedback no aplicativo.',
+        sec6P1:         'Para dúvidas, sugestões ou suporte sobre a licença, EULA ou estes termos, você pode entrar em contato diretamente com a MySoundLib pelo e-mail <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> ou pelo formulário de feedback no aplicativo. Desenvolvimento e criação por Thiago Neppel (Thneppel).',
 
         footerPrivacy:  'Política de Privacidade',
         footerFeatures: 'Todas as Funcionalidades',
@@ -488,19 +528,19 @@
         navFaq:         'Preguntas',
         navCta:         'Comprar MySoundLib',
 
-        metaTag:        'Legal • Términos de Servicio',
+        metaTag:        'Legal • Términos de Servicio y EULA',
         artTitle:       'Términos y Condiciones',
-        artLead:        'Términos claros y transparentes que rigen la compra y el uso del software de escritorio MySoundLib y este sitio web. Última actualización: Marzo 2026.',
+        artLead:        'Términos legales y Contrato de Licencia de Usuario Final (EULA) que rigen la compra y el uso del software de escritorio MySoundLib y este sitio web. Licencia concedida por MySoundLib como entidad licenciadora. Desarrollado por Thiago Neppel (Thneppel). Última actualización: Marzo 2026.',
 
-        sec1Head:       '1. Concesión de Licencia y Uso',
-        sec1P1:         'Al comprar MySoundLib, obtienes una licencia perpetua, no exclusiva e intransferible para descargar, instalar y ejecutar el software en equipos de tu propiedad para proyectos comerciales o personales de gestión de audio, diseño de sonido y edición de video.',
-        sec1Li1:        '<b>Pago Único:</b> Tu licencia es vitalicia para la versión adquirida. Sin suscripciones recurrentes ni costos ocultos de mantenimiento.',
-        sec1Li2:        '<b>Dispositivos:</b> Una misma licencia puede ser activada y utilizada simultáneamente en hasta 5 ordenadores de tu propiedad (p. ej. PCs de escritorio y portátiles).',
-        sec1Li3:        '<b>Restricciones:</b> No puedes redistribuir, revender, alquilar, sublicenciar, descompilar ni realizar ingeniería inversa del software.',
+        sec1Head:       '1. Concesión de Licencia y Uso (EULA)',
+        sec1P1:         'Este Contrato de Licencia de Usuario Final ("EULA") es un acuerdo legal entre usted y MySoundLib ("Empresa", "Licenciante"). Al comprar MySoundLib, la Empresa le otorga una licencia personal, perpetua, no exclusiva e intransferible para descargar, instalar y ejecutar el software en equipos de su propiedad para proyectos comerciales o personales de gestión de audio, diseño de sonido y edición de video.',
+        sec1Li1:        '<b>Pago Único:</b> Tu licencia es vitalicia e incluye todas las actualizaciones. Sin suscripciones recurrentes ni costos ocultos de mantenimiento.',
+        sec1Li2:        '<b>Múltiples Dispositivos:</b> Tu licencia es de uso personal y puede ser activada en tus propios ordenadores (como PCs de escritorio y portátiles). No está permitido compartir ni distribuir la clave con terceros. Se aplican límites automáticos de uso responsable; si se detecta un número atípico de activaciones en una misma clave, nuevas activaciones requerirán verificación con el soporte en support@mysoundlib.com.',
+        sec1Li3:        '<b>Propiedad Intelectual y Restricciones:</b> El software se licencia, no se vende. Todos los derechos de propiedad intelectual sobre MySoundLib pertenecen exclusivamente a MySoundLib (creado y desarrollado por Thiago Neppel). No puedes redistribuir, revender, alquilar, sublicenciar, descompilar ni realizar ingeniería inversa del software.',
 
         sec2Head:       '2. Propiedad de tus Archivos y Contenido',
         sec2P1:         '<b>Conservas el 100% de la propiedad sobre tus archivos de audio, colecciones de sonidos, metadatos y proyectos.</b>',
-        sec2P2:         'MySoundLib opera como una herramienta local de indexación, preescucha y organización. El software no incluye librerías empaquetadas; tú creas, importas y organizas tus colecciones de forma independiente. El software no reclama ningún derecho, propiedad ni regalías sobre los sonidos o archivos que organices, recortes o exportes.',
+        sec2P2:         'MySoundLib opera como una herramienta local de indexación, preescucha y organización. El software no incluye librerías empaquetadas; tú creas, importas y organizas tus colecciones de forma independiente. MySoundLib no reclama ningún derecho, propiedad ni regalías sobre los sonidos o archivos que organices, recortes o exportes.',
 
         sec3Head:       '3. Seguridad de Archivos y Procesamiento No Destructivo',
         sec3P1:         'MySoundLib está diseñado en torno a flujos locales no destructivos:',
@@ -513,10 +553,10 @@
         sec4P2:         'Si MySoundLib no funciona correctamente en tu sistema operativo compatible y no podemos solucionarlo, ofrecemos una <b>garantía de reembolso de 7 días</b> tras la compra previa solicitud con comprobante.',
 
         sec5Head:       '5. Exención y Limitación de Responsabilidad',
-        sec5P1:         'MySoundLib se entrega "tal cual", sin garantías de ningún tipo, expresas o implícitas. Aunque la estabilidad del software en flujos de edición reales es una prioridad, en ningún caso el desarrollador será responsable por daños indirectos o consecuentes derivados de su uso.',
+        sec5P1:         'MySoundLib se entrega "tal cual", sin garantías de ningún tipo, expresas o implícitas. Aunque la estabilidad del software en flujos de edición reales es una prioridad, en ningún caso MySoundLib, su fundador o colaboradores serán responsables por daños indirectos o consecuentes derivados de su uso.',
 
         sec6Head:       '6. Contacto y Soporte',
-        sec6P1:         'Para preguntas o asistencia sobre estos términos o tu licencia, contáctanos en <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> o mediante nuestro formulario de feedback en la app.',
+        sec6P1:         'Para preguntas o asistencia sobre estos términos, EULA o tu licencia, contáctanos en <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> o mediante nuestro formulario de feedback en la app. Desarrollo y diseño por Thiago Neppel (Thneppel).',
 
         footerPrivacy:  'Política de Privacidad',
         footerFeatures: 'Todas las Funciones',
@@ -530,19 +570,19 @@
         navFaq:           'सवालों के जवाब',
         navCta:           'MySoundLib खरीदें',
 
-        metaTag:        'कानूनी • नियम और शर्तें',
+        metaTag:        'कानूनी • नियम और शर्तें एवं EULA',
         artTitle:       'नियम और शर्तें',
-        artLead:        'MySoundLib डेस्कटॉप सॉफ़्टवेयर और वेबसाइट के उपयोग और खरीद को नियंत्रित करने वाले पारदर्शी नियम। अंतिम अपडेट: मार्च 2026।',
+        artLead:        'MySoundLib डेस्कटॉप सॉफ़्टवेयर और वेबसाइट के उपयोग और खरीद को नियंत्रित करने वाले कानूनी नियम और एंड यूज़र लाइसेंस एग्रीमेंट (EULA)। लाइसेंसिंग इकाई MySoundLib द्वारा प्रदान किया गया। थियागो नेपेल (Thiago Neppel / Thneppel) द्वारा निर्मित और विकसित। अंतिम अपडेट: मार्च 2026।',
 
-        sec1Head:       '1. लाइसेंस और उपयोग',
-        sec1P1:         'जब आप MySoundLib खरीदते हैं, तो आपको ऑडियो प्रबंधन, साउंड डिज़ाइन और वीडियो एडिटिंग प्रोजेक्ट्स के लिए अपने स्वामित्व वाले कंप्यूटरों पर सॉफ़्टवेयर डाउनलोड, इंस्टॉल और चलाने का एक स्थायी लाइसेंस मिलता है।',
-        sec1Li1:        '<b>एकमुश्त खरीद:</b> आपका लाइसेंस खरीदे गए संस्करण के लिए आजीवन वैध है। कोई आवर्ती सदस्यता या छिपी हुई फीस नहीं है।',
-        sec1Li2:        '<b>डिवाइस:</b> एक ही लाइसेंस को आपके स्वामित्व वाले अधिकतम 5 कंप्यूटरों (जैसे डेस्कटॉप और लैपटॉप) पर एक साथ सक्रिय और उपयोग किया जा सकता है।',
-        sec1Li3:        '<b>प्रतिबंध:</b> आप एप्लिकेशन को पुनर्विक्रय, रिवर्स इंजीनियर, या डिकम्पाइल नहीं कर सकते।',
+        sec1Head:       '1. लाइसेंस और उपयोग (EULA)',
+        sec1P1:         'यह एंड यूज़र लाइसेंस एग्रीमेंट ("EULA") आपके और MySoundLib ("कंपनी", "लाइसेंसदाता") के बीच एक कानूनी अनुबंध है। जब आप MySoundLib खरीदते हैं, तो कंपनी आपको ऑडियो प्रबंधन, साउंड डिज़ाइन और वीडियो एडिटिंग प्रोजेक्ट्स के लिए अपने स्वामित्व वाले कंप्यूटरों पर सॉफ़्टवेयर डाउनलोड, इंस्टॉल और चलाने का एक व्यक्तिगत, स्थायी और गैर-हस्तांतरणीय लाइसेंस प्रदान करती है।',
+        sec1Li1:        '<b>एकमुश्त खरीद:</b> आपका लाइसेंस आजीवन वैध है और इसमें सभी अपडेट शामिल हैं। कोई आवर्ती सदस्यता या छिपी हुई फीस नहीं है।',
+        sec1Li2:        '<b>डिवाइस:</b> आपका लाइसेंस आपके व्यक्तिगत उपयोग के लिए है और इसे आप अपने स्वयं के कंप्यूटरों (जैसे डेस्कटॉप और लैपटॉप) पर सक्रिय कर सकते हैं। लाइसेंस की को दूसरों के साथ साझा करने की अनुमति नहीं है।',
+        sec1Li3:        '<b>बौद्धिक संपदा और प्रतिबंध:</b> सॉफ़्टवेयर को लाइसेंस दिया जाता है, बेचा नहीं जाता। MySoundLib के सभी बौद्धिक संपदा अधिकार MySoundLib के पास सुरक्षित हैं (थियागो नेपेल / Thneppel द्वारा निर्मित और विकसित)। आप एप्लिकेशन को पुनर्विक्रय, रिवर्स इंजीनियर, या डिकम्पाइल नहीं कर सकते।',
 
         sec2Head:       '2. आपकी ऑडियो सामग्री का स्वामित्व',
         sec2P1:         '<b>आप अपनी ऑडियो फ़ाइलों, साउंड पैक और प्रोजेक्ट्स का 100% स्वामित्व बनाए रखते हैं।</b>',
-        sec2P2:         'MySoundLib एक ऑफ़लाइन इंडेक्सिंग और संगठन टूल के रूप में काम करता है। सॉफ़्टवेयर पहले से बंडल ऑडियो प्रदान नहीं करता; आप अपनी सभी लाइब्रेरी स्वयं बनाते और प्रबंधित करते हैं। सॉफ़्टवेयर आपके द्वारा उपयोग की जाने वाली किसी भी ध्वनि या सामग्री पर कोई स्वामित्व या रॉयल्टी का दावा नहीं करता है।',
+        sec2P2:         'MySoundLib एक ऑफ़लाइन इंडेक्सिंग और संगठन टूल के रूप में काम करता है। सॉफ़्टवेयर पहले से बंडल ऑडियो प्रदान नहीं करता; आप अपनी सभी लाइब्रेरी स्वयं बनाते और प्रबंधित करते हैं। MySoundLib आपके द्वारा उपयोग की जाने वाली किसी भी ध्वनि या सामग्री पर कोई स्वामित्व या रॉयल्टी का दावा नहीं करता है।',
 
         sec3Head:       '3. सुरक्षित और नॉन-डिस्ट्रक्टिव प्रोसेसिंग',
         sec3P1:         'MySoundLib को नॉन-डिस्ट्रक्टिव वर्कफ़्लो के अनुसार डिज़ाइन किया गया है:',
@@ -555,10 +595,10 @@
         sec4P2:         'यदि MySoundLib आपके समर्थित ऑपरेटिंग सिस्टम पर काम नहीं करता है, तो हम खरीद की तारीख से <b>7 दिनों की रिफ़ंड पॉलिसी</b> प्रदान करते हैं।',
 
         sec5Head:       '5. दायित्व की सीमा',
-        sec5P1:         'MySoundLib को "जैसा है" के आधार पर प्रदान किया जाता है। किसी भी परिस्थिति में डेवलपर सॉफ़्टवेयर के उपयोग से होने वाले किसी भी अप्रत्यक्ष नुकसान के लिए उत्तरदायी नहीं होगा।',
+        sec5P1:         'MySoundLib को "जैसा है" के आधार पर प्रदान किया जाता है। किसी भी परिस्थिति में MySoundLib, इसके संस्थापक या सहयोगी सॉफ़्टवेयर के उपयोग से होने वाले किसी भी अप्रत्यक्ष या परिणामी नुकसान के लिए उत्तरदायी नहीं होंगे।',
 
         sec6Head:       '6. संपर्क और सहायता',
-        sec6P1:         'यदि आपके पास इन शर्तों के संबंध में कोई प्रश्न हैं, तो आप सीधे <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> या ऐप के फीडबैक फॉर्म के माध्यम से संपर्क कर सकते हैं।',
+        sec6P1:         'यदि आपके पास इन शर्तों, EULA या अपने लाइसेंस के संबंध में कोई प्रश्न हैं, तो आप सीधे <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a> या ऐप के फीडबैक फॉर्म के माध्यम से MySoundLib से संपर्क कर सकते हैं। थियागो नेपेल (Thneppel) द्वारा निर्मित।',
 
         footerPrivacy:  'गोपनीयता नीति',
         footerFeatures: 'सभी फ़ीचर्स',
@@ -599,6 +639,19 @@
       else if (navLang.startsWith('es')) setLang('es');
       else if (navLang.startsWith('hi')) setLang('hi');
       else setLang('en');
+    })();
+
+    (function initVersionBadge() {
+      fetch('version.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.latest_version) {
+            var el = document.getElementById('appVersion');
+            var ver = data.latest_version.startsWith('v') ? data.latest_version : ('v' + data.latest_version);
+            if (el) el.textContent = 'Last version: ' + ver;
+          }
+        })
+        .catch(function() {});
     })();
   </script>
 </body>

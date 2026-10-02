@@ -174,6 +174,45 @@
       color: #0b0b0e;
     }
 
+    /* App Version in Navigation Header */
+    .app-version-badge {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      user-select: none;
+      transition: color 0.15s ease;
+      z-index: 10;
+    }
+
+    .app-version-badge:hover {
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1400px) and (min-width: 601px) {
+      .site-header .nav {
+        padding-right: 175px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .app-version-badge {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-right {
+        gap: 10px;
+      }
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -317,6 +356,7 @@
         </div>
       </nav>
     </div>
+    <span class="app-version-badge" id="appVersion" title="Last Version">Last version: v1.0.0-beta.1</span>
   </header>
 
   <div class="article-container">
@@ -397,7 +437,7 @@
 
     <!-- Footer -->
     <footer class="article-footer">
-      <span>&copy; 2026 MySoundLib</span>
+      <span>&copy; 2026 MySoundLib. All rights reserved. &bull; Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a></span>
       <span>
         <a href="terms.html" id="footerTerms">Terms & Conditions</a> &bull;
         <a href="features.html" id="footerFeatures">All Features</a> &bull;
@@ -641,6 +681,19 @@
       else if (navLang.startsWith('es')) setLang('es');
       else if (navLang.startsWith('hi')) setLang('hi');
       else setLang('en');
+    })();
+
+    (function initVersionBadge() {
+      fetch('version.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.latest_version) {
+            var el = document.getElementById('appVersion');
+            var ver = data.latest_version.startsWith('v') ? data.latest_version : ('v' + data.latest_version);
+            if (el) el.textContent = 'Last version: ' + ver;
+          }
+        })
+        .catch(function() {});
     })();
   </script>
 </body>
