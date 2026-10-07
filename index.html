@@ -6,6 +6,21 @@
   <meta name="description" content="MySoundLib: fast, local audio manager for video editors. Organize your sound library, preview and trim waveforms, and drop audio straight into your timeline.">
   <title>MySoundLib | Fast Local Audio Manager for Video Editors</title>
 
+  <!-- Open Graph / WhatsApp / Reddit / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mysoundlib.com/">
+  <meta property="og:title" content="MySoundLib | Fast Local Audio Manager for Video Editors">
+  <meta property="og:description" content="Fast, local audio manager for video editors. Organize sound effects, preview and trim waveforms instantly, and drag audio straight into your timeline.">
+  <meta property="og:image" content="https://mysoundlib.com/static/og-image.png">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="mysoundlib.com">
+  <meta property="twitter:url" content="https://mysoundlib.com/">
+  <meta name="twitter:title" content="MySoundLib | Fast Local Audio Manager for Video Editors">
+  <meta name="twitter:description" content="Fast, local audio manager for video editors. Organize sound effects, preview and trim waveforms instantly, and drag audio straight into your timeline.">
+  <meta name="twitter:image" content="https://mysoundlib.com/static/og-image.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
@@ -199,6 +214,14 @@
       transition: all 0.15s ease;
       text-decoration: none;
       white-space: nowrap;
+    }
+
+    .cta-mob {
+      display: none;
+    }
+
+    .cta-dt {
+      display: inline;
     }
 
     .btn-solid {
@@ -1279,6 +1302,12 @@
     }
 
     /* ── Responsive Rules ────────────────────── */
+    @media (max-width: 1400px) and (min-width: 901px) {
+      .site-header .nav {
+        padding-right: 175px;
+      }
+    }
+
     @media (max-width: 900px) {
       .feature-in,
       .feature-section.flip .feature-in {
@@ -1297,53 +1326,400 @@
       .nav-links {
         display: none;
       }
+      .app-version-badge {
+        display: none;
+      }
     }
 
-    @media (max-width: 1400px) and (min-width: 601px) {
-      .site-header .nav {
-        padding-right: 175px;
+    @media (max-width: 768px) {
+      .nav {
+        gap: 12px;
+      }
+      .nav-right {
+        gap: 12px;
+      }
+      .notice-section {
+        padding: 40px 0;
+      }
+      .notice-banner {
+        padding: 24px 20px;
+      }
+      .notice-details-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
     }
 
     @media (max-width: 600px) {
+      .wide {
+        padding: 0 16px;
+      }
+      section[id] {
+        scroll-margin-top: 68px;
+      }
+
+      /* Navigation Bar */
+      .site-header .nav {
+        height: 58px;
+        gap: 8px;
+        padding-right: 0;
+      }
+      .nav-brand img {
+        height: 20px;
+        width: auto;
+      }
+      .nav-right {
+        gap: 8px;
+      }
+      .lang-switcher {
+        padding: 2px 3px;
+        gap: 2px;
+      }
+      .lang-btn {
+        font-size: 10px;
+        padding: 2px 5px;
+      }
+      #navCta {
+        padding: 7px 12px;
+        font-size: 12px;
+        border-radius: 6px;
+      }
+      .cta-mob {
+        display: inline;
+      }
+      .cta-dt {
+        display: none;
+      }
+
+      /* Hero Section */
       .hero {
-        padding: 64px 0 48px;
+        padding: 48px 0 36px;
+      }
+      .hero-head {
+        font-size: clamp(28px, 7.5vw, 42px);
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+        margin-bottom: 16px;
+      }
+      .hero-sub {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 24px;
       }
       .hero-ctas {
         flex-direction: column;
         width: 100%;
+        gap: 12px;
+        margin-bottom: 24px;
       }
       .hero-ctas .btn {
         width: 100%;
       }
-      .app-version-badge {
-        display: none;
+      .hero-trust {
+        gap: 10px 16px;
+        margin-bottom: 32px;
+        font-size: 12px;
+      }
+      .hero-frame {
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .hero-img {
+        border-radius: 6px;
+      }
+
+      /* Floating Ambient Items */
+      .floating-audio-file {
+        font-size: 9.5px;
+        padding: 3px 8px;
+        gap: 5px;
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .floating-audio-icon {
+        width: 10px;
+        height: 10px;
+      }
+
+      /* Contents Navigation Strip */
+      .contents-strip {
+        padding: 12px 0;
       }
       .contents-links {
+        gap: 8px 10px;
+        justify-content: center;
+      }
+      .contents-item {
+        font-size: 12px;
+        padding: 4px 10px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+      }
+
+      /* Statement / Case */
+      .statement {
+        padding: 52px 0;
+      }
+      .statement-lead {
+        font-size: clamp(22px, 5.5vw, 30px);
+        line-height: 1.25;
+        margin-bottom: 28px;
+      }
+      .statement-grid {
+        gap: 24px;
+      }
+
+      /* Features */
+      .feature-section {
+        padding: 52px 0;
+      }
+      .feature-in {
+        gap: 28px;
+      }
+      .feature-head {
+        font-size: clamp(22px, 6vw, 30px);
+        line-height: 1.2;
+      }
+      .feature-desc {
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .feat-list {
+        gap: 10px;
+        margin-top: 6px;
+      }
+      .feat-item {
+        font-size: 13.5px;
+        line-height: 1.5;
+      }
+      .stage-mount {
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .stage-img {
+        border-radius: 6px;
+      }
+
+      /* Features End Bar */
+      .features-all-bar {
+        padding: 20px 16px;
+        margin-top: 36px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .features-all-bar .btn {
+        width: 100%;
+        text-align: center;
+      }
+      .features-all-text h4 {
+        font-size: 15px;
+      }
+      .features-all-text p {
+        font-size: 13px;
+      }
+
+      /* Compatibility Section */
+      .compat-section {
+        padding: 48px 0;
+      }
+      .compat-header .feature-head {
+        font-size: clamp(22px, 5.5vw, 28px);
+      }
+      .compat-desc {
+        font-size: 14px;
+        margin-top: 8px;
+      }
+      .nle-carousel-wrap {
+        margin-top: 24px;
+      }
+      .nle-pill {
+        padding: 8px 16px;
+        font-size: 13px;
+        gap: 8px;
+      }
+      .nle-pill img,
+      .nle-pill svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Pain Points / Daily Friction */
+      .pain-section {
+        padding: 52px 0;
+      }
+      .pain-layout {
+        gap: 28px;
+      }
+      .pain-step-row {
+        grid-template-columns: 28px 1fr;
         gap: 12px;
+        padding: 14px 0;
+      }
+      .pain-step-idx {
+        font-size: 12px;
+      }
+      .pain-step-content {
+        font-size: 14px;
+        line-height: 1.55;
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+      .pain-step-content code {
+        overflow-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+      }
+
+      /* Pull Quote */
+      .pull {
+        padding: 52px 0;
+      }
+      .pull-quote {
+        font-size: clamp(20px, 5.5vw, 28px);
+        line-height: 1.35;
+        margin-bottom: 14px;
+      }
+      .pull-cite {
+        font-size: 12px;
+      }
+
+      /* About / Maker */
+      .makers-section {
+        padding: 52px 0;
+      }
+      .makers-layout {
+        gap: 28px;
+      }
+      .makers-intro h3 {
+        font-size: clamp(22px, 5.5vw, 28px);
+      }
+      .makers-intro p {
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .makers-art {
+        max-width: 240px;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+      }
+
+      /* Notice Callout Banner */
+      .notice-section {
+        padding: 36px 0;
+      }
+      .notice-banner {
+        padding: 20px 16px;
+        border-radius: 10px;
+      }
+      .notice-head {
+        font-size: 19px;
+      }
+      .notice-desc {
+        font-size: 13.5px;
+        margin-bottom: 18px;
+      }
+      .notice-details-grid {
+        gap: 16px;
+        padding-top: 16px;
+      }
+
+      /* FAQ */
+      .faq-section {
+        padding: 52px 0;
+      }
+      .faq-columns {
+        margin-top: 28px;
+        gap: 0;
+      }
+      .faq-item {
+        padding: 16px 0;
+      }
+      .faq-col:first-child .faq-item:last-child {
+        border-bottom: none;
+      }
+      .faq-q {
+        font-size: 14.5px;
+      }
+      .faq-a {
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
+      /* Final CTA */
+      .final-cta {
+        padding: 56px 0;
+      }
+      .final-head {
+        font-size: clamp(24px, 7vw, 36px);
+        line-height: 1.15;
+      }
+      .final-sub {
+        font-size: 14.5px;
+        margin-bottom: 24px;
+      }
+      .final-cta .btn {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      /* Footer */
+      .site-footer {
+        padding: 40px 0 32px;
       }
       .footer-top {
         flex-direction: column;
         gap: 24px;
+        padding-bottom: 24px;
+      }
+      .footer-brand {
+        max-width: 100%;
       }
       .footer-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px 18px;
+        flex-wrap: wrap;
       }
       .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
+        padding-top: 20px;
         gap: 12px;
       }
       .footer-bottom-links {
-        gap: 14px;
+        gap: 10px 16px;
+        flex-wrap: wrap;
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 380px) {
+      .site-header .nav {
+        height: 54px;
+        gap: 6px;
+      }
+      .nav-brand img {
+        height: 17px;
+      }
       .nav-right {
-        gap: 10px;
+        gap: 5px;
+      }
+      .lang-switcher {
+        padding: 2px;
+        gap: 1px;
+      }
+      .lang-btn {
+        font-size: 9px;
+        padding: 2px 3.5px;
+      }
+      #navCta {
+        padding: 6px 8px;
+        font-size: 11px;
       }
     }
   </style>
@@ -1373,7 +1749,7 @@
             <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
             <button class="lang-btn" id="btnHI" onclick="setLang('hi')">HI</button>
           </div>
-          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="#buy">Buy MySoundLib</a>
+          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="#buy"><span class="cta-dt">Buy MySoundLib</span><span class="cta-mob">Buy $19</span></a>
         </div>
       </nav>
     </div>
@@ -1902,6 +2278,7 @@
         navMaker:         'About',
         navFaq:           'FAQ',
         navCta:           'Buy MySoundLib',
+        navCtaMob:        'Buy $19',
 
         heroHead:         'Thousands of scattered and lost sound files? <em>MySoundLib fixes that.</em>',
         heroSub:          'A lightweight, local desktop app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.',
@@ -2023,6 +2400,7 @@
         navMaker:         'Sobre',
         navFaq:           'Dúvidas',
         navCta:           'Comprar MySoundLib',
+        navCtaMob:        'Comprar $19',
 
         heroHead:         'Milhares de arquivos de áudio bagunçados e perdidos? <em>O MySoundLib resolve isso.</em>',
         heroSub:          'Um app desktop leve e local para organizar sua biblioteca de sons, recortar waveforms e soltar áudios na timeline sem interromper a sua edição.',
@@ -2144,6 +2522,7 @@
         navMaker:         'Sobre el proyecto',
         navFaq:           'Preguntas',
         navCta:           'Comprar MySoundLib',
+        navCtaMob:        'Comprar $19',
 
         heroHead:         '¿Miles de archivos de sonido perdidos y desordenados? <em>MySoundLib lo soluciona.</em>',
         heroSub:          'Una aplicación de escritorio ligera y local para organizar tu biblioteca de sonidos, previsualizar y recortar formas de onda, y soltar audios en tu línea de tiempo sin interrumpir tu edición.',
@@ -2264,6 +2643,7 @@
         navMaker:         'प्रोजेक्ट',
         navFaq:           'सवालों के जवाब',
         navCta:           'MySoundLib खरीदें',
+        navCtaMob:        'खरीदें $19',
 
         heroHead:         'हज़ारों बिखरी और खोई हुई साउंड फ़ाइलें? <em>MySoundLib इसे आसान बनाता है।</em>',
         heroSub:          'अपनी साउंड लाइब्रेरी व्यवस्थित करने, वेवफ़ॉर्म देखने व काटने, और अपनी एडिटिंग रोके बिना ऑडियो सीधे टाइमलाइन पर लाने के लिए एक हल्का और लोकल डेस्कटॉप ऐप।',
@@ -2386,6 +2766,13 @@
       Object.keys(c).forEach(key => {
         const el = document.getElementById(key);
         if (!el) return;
+
+        if (key === 'navCta') {
+          const dtText = c[key];
+          const mobText = c[key + 'Mob'] || dtText;
+          el.innerHTML = `<span class="cta-dt">${dtText}</span><span class="cta-mob">${mobText}</span>`;
+          return;
+        }
 
         if (c[key].includes('<') || c[key].includes('&') || c[key].includes('\n')) {
           el.innerHTML = c[key].replace(/\n/g, '<br>');
@@ -2690,9 +3077,9 @@
       const pullContainer = document.getElementById('pullBgAnim');
       const ctaContainer  = document.getElementById('ctaBgAnim');
 
-      if (heroContainer) setupField(heroContainer, isMobile ? 22 : 46);
-      if (pullContainer) setupField(pullContainer, isMobile ? 8 : 16);
-      if (ctaContainer)  setupField(ctaContainer,  isMobile ? 8 : 16);
+      if (heroContainer) setupField(heroContainer, isMobile ? 12 : 46);
+      if (pullContainer) setupField(pullContainer, isMobile ? 5 : 16);
+      if (ctaContainer)  setupField(ctaContainer,  isMobile ? 5 : 16);
     })();
   </script>
 </body>
