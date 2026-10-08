@@ -407,19 +407,17 @@
     }
 
     .hero-frame {
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      overflow: visible;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      overflow: hidden;
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
     }
 
-    .hero-img {
+    .hero-frame iframe {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
-      border-radius: 0;
-      border: none;
+      border: 0;
     }
 
     /* ── Section Ribbon / Contents Strip ─────── */
@@ -1784,10 +1782,10 @@
           <span id="trust3"><b>✓</b> Windows, Mac & Linux</span>
         </div>
 
-        <!-- Desktop App Showcase Shot -->
+        <!-- Desktop App Showcase Video -->
         <div class="hero-shot">
           <div class="hero-frame">
-            <img src="static/main_window.png" alt="MySoundLib Desktop Interface" class="hero-img" loading="eager">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/0CywIkLw3Do?si=-KMKtE95MTH1Ucrg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -1892,13 +1890,13 @@
       <div class="wide feature-in">
         <div class="feature-copy">
           <p class="pk"><span id="feat3Pillar">Built-in Converter</span></p>
-          <h3 class="feature-head" id="feat3Head">Audio format conversion.</h3>
+          <h3 class="feature-head" id="feat3Head">Convert unplayable audio without leaving your edit.</h3>
           <p class="feature-desc" id="feat3Desc">
-            Downloaded an <code>.opus</code> file from the web that no editor opens, or your software rejects <code>.flac</code> and <code>.ogg</code>? Convert from <b>OPUS, WAV, MP3, FLAC, OGG, M4A, or AIFF</b> straight into editor-ready <b>WAV, MP3, FLAC, OGG, or M4A</b> before dragging.
+            Downloaded an <code>.opus</code> voice note or a web rip that your editor refuses to import? Convert it straight to clean <b>WAV or MP3</b> before dragging it to your timeline, without opening external tools.
           </p>
           <ul class="feat-list">
-            <li class="feat-item"><span class="feat-num">01</span> <span id="feat3List1"><b>Full input format support:</b> converts from OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF into WAV, MP3, FLAC, OGG, or M4A.</span></li>
-            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Batch conversion:</b> convert individual tracks or entire folders in seconds — perfect for turning unplayable .opus files into timeline-ready .wav.</span></li>
+            <li class="feat-item"><span class="feat-num">01</span> <span id="feat3List1"><b>Broad format support:</b> handles OPUS, FLAC, OGG, M4A, AIFF, MP3, and WAV with zero fuss.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat3List2"><b>Batch processing:</b> convert individual tracks or clean up an entire folder in seconds.</span></li>
           </ul>
         </div>
 
@@ -2328,10 +2326,10 @@
         feat2List3:       '<b>Clean timeline bin:</b> keeps your project files lightweight.',
 
         feat3Pillar:      'Built-in Converter',
-        feat3Head:        'Audio format conversion.',
-        feat3Desc:        'Downloaded an <code>.opus</code> file from the web that no editor opens, or your software rejects <code>.flac</code> and <code>.ogg</code>? Convert from <b>OPUS, WAV, MP3, FLAC, OGG, M4A, or AIFF</b> straight into editor-ready <b>WAV, MP3, FLAC, OGG, or M4A</b> before dragging.',
-        feat3List1:       '<b>Full input format support:</b> converts from OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF into WAV, MP3, FLAC, OGG, or M4A.',
-        feat3List2:       '<b>Batch conversion:</b> convert individual tracks or entire folders in seconds — perfect for turning unplayable .opus files into timeline-ready .wav.',
+        feat3Head:        'Convert unplayable audio without leaving your edit.',
+        feat3Desc:        'Downloaded an <code>.opus</code> voice note or a web rip that your editor refuses to import? Convert it straight to clean <b>WAV or MP3</b> before dragging it to your timeline, without opening external tools.',
+        feat3List1:       '<b>Broad format support:</b> handles OPUS, FLAC, OGG, M4A, AIFF, MP3, and WAV with zero fuss.',
+        feat3List2:       '<b>Batch processing:</b> convert individual tracks or clean up an entire folder in seconds.',
 
         featAllHead:      'Looking for every feature?',
         featAllSub:       'Browse all 24 features and 7 modules in the technical index.',
@@ -2450,10 +2448,10 @@
         feat2List3:       '<b>Projeto organizado:</b> mantém os arquivos do seu projeto leves e limpos.',
 
         feat3Pillar:      'Conversor Integrado',
-        feat3Head:        'Conversão de formatos de áudio.',
-        feat3Desc:        'Baixou um arquivo <code>.opus</code> da web que nenhum editor de vídeo abre, ou seu programa rejeitou <code>.flac</code> ou <code>.ogg</code>? Converta de <b>OPUS, WAV, MP3, FLAC, OGG, M4A e AIFF</b> direto para <b>WAV, MP3, FLAC, OGG ou M4A</b> antes de arrastar para a timeline.',
-        feat3List1:       '<b>Suporte completo de entrada:</b> converte de OPUS, WAV, MP3, FLAC, OGG, M4A e AIFF para WAV, MP3, FLAC, OGG ou M4A.',
-        feat3List2:       '<b>Conversão em lote:</b> converta faixas individuais ou pastas inteiras em segundos — ideal para transformar arquivos .opus baixados em .wav prontos para o editor.',
+        feat3Head:        'Resolva áudios incompatíveis sem sair da edição.',
+        feat3Desc:        'Baixou um áudio em <code>.opus</code> ou rip da web que o editor recusa importar? Converta direto para <b>WAV ou MP3</b> antes de jogar na timeline, sem precisar abrir conversores externos.',
+        feat3List1:       '<b>Suporte amplo:</b> lê formatos como OPUS, FLAC, OGG, M4A, AIFF, MP3 e WAV sem complicação.',
+        feat3List2:       '<b>Conversão em lote:</b> converta arquivos avulsos ou uma pasta inteira em poucos segundos.',
 
         featAllHead:      'Quer ver todas as funcionalidades?',
         featAllSub:       'Consulte a lista completa com os 24 recursos e 7 módulos no índice técnico.',
@@ -2571,10 +2569,10 @@
         feat2List3:       '<b>Línea de tiempo limpia:</b> mantiene los archivos de tu proyecto ligeros y ordenados.',
 
         feat3Pillar:      'Conversor Integrado',
-        feat3Head:        'Conversión de formatos de audio.',
-        feat3Desc:        '¿Descargaste un archivo <code>.opus</code> de internet que ningún editor abre, o tu programa rechaza <code>.flac</code> o <code>.ogg</code>? Convierte desde <b>OPUS, WAV, MP3, FLAC, OGG, M4A y AIFF</b> directo a <b>WAV, MP3, FLAC, OGG o M4A</b> antes de arrastrar.',
-        feat3List1:       '<b>Compatibilidad total de entrada:</b> convierte desde OPUS, WAV, MP3, FLAC, OGG, M4A y AIFF hacia WAV, MP3, FLAC, OGG o M4A.',
-        feat3List2:       '<b>Conversión por lotes:</b> convierte pistas sueltas o carpetas completas en segundos — ideal para transformar archivos .opus descargados a .wav.',
+        feat3Head:        'Convierte audios incompatibles sin salir de la edición.',
+        feat3Desc:        '¿Descargaste un audio en <code>.opus</code> o rip de internet que tu editor se niega a importar? Conviértelo directo a <b>WAV o MP3</b> antes de arrastrarlo a la línea de tiempo, sin abrir convertidores externos.',
+        feat3List1:       '<b>Amplio soporte:</b> lee formatos como OPUS, FLAC, OGG, M4A, AIFF, MP3 y WAV sin complicaciones.',
+        feat3List2:       '<b>Conversión por lotes:</b> convierte pistas sueltas o una carpeta entera en pocos segundos.',
 
         featAllHead:      '¿Buscas todas las funciones?',
         featAllSub:       'Explora las 24 funciones y 7 módulos en el índice técnico.',
@@ -2692,10 +2690,10 @@
         feat2List3:       '<b>क्लीन टाइमलाइन:</b> प्रोजेक्ट फ़ाइलों को हल्का और साफ़-सुथरा रखता है।',
 
         feat3Pillar:      'इन-बिल्ट कन्वर्टर',
-        feat3Head:        'ऑडियो फॉर्मेट कन्वर्शन।',
-        feat3Desc:        'इंटरनेट से डाउनलोड की गई <code>.opus</code> फ़ाइल जो किसी वीडियो एडिटर में नहीं चलती, या एडिटर <code>.flac</code>/<code>.ogg</code> स्वीकार नहीं करता? ड्रैग करने से पहले <b>OPUS, WAV, MP3, FLAC, OGG, M4A या AIFF</b> से सीधे <b>WAV, MP3, FLAC, OGG या M4A</b> में बदलें।',
-        feat3List1:       '<b>पूर्ण इनपुट फॉर्मेट सपोर्ट:</b> OPUS, WAV, MP3, FLAC, OGG, M4A और AIFF से WAV, MP3, FLAC, OGG या M4A में बदलता है।',
-        feat3List2:       '<b>बैच कन्वर्शन:</b> अलग-अलग ट्रैक्स या पूरे फ़ोल्डर्स को सेकंडों में बदलें — डाउनलोड की गई .opus फ़ाइलों को टाइमलाइन के लिए .wav में बदलने के लिए बेहतरीन।',
+        feat3Head:        'एडिटिंग छोड़े बिना असंगत ऑडियो फाइलों को तुरंत बदलें।',
+        feat3Desc:        'इंटरनेट से कोई <code>.opus</code> या वेब ऑडियो डाउनलोड किया जिसे आपका एडिटर इम्पोर्ट नहीं कर रहा? टाइमलाइन पर ड्रैग करने से पहले ही उसे सीधे <b>WAV या MP3</b> में बदलें, बिना किसी बाहरी कनवर्टर के।',
+        feat3List1:       '<b>व्यापक फॉर्मेट सपोर्ट:</b> OPUS, FLAC, OGG, M4A, AIFF, MP3 और WAV को बिना किसी परेशानी के पढ़ता है।',
+        feat3List2:       '<b>बैच कन्वर्शन:</b> एक ऑडियो क्लिप हो या पूरा फ़ोल्डर, कुछ ही सेकंड में एक साथ बदलें।',
 
         featAllHead:      'सभी फ़ीचर्स देखना चाहते हैं?',
         featAllSub:       'तकनीकी इंडेक्स में सभी 24 फ़ीचर्स और 7 मॉड्यूल्स देखें।',
