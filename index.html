@@ -521,63 +521,6 @@
 
 
 
-    /* ── The Frustration (Pain Points) ───────── */
-    /* ── The Daily Friction (2-Column Side-by-Side Layout) ── */
-    .pain-section {
-      padding: 96px 0;
-      border-bottom: 1px solid var(--border);
-      background: radial-gradient(circle at 8% 35%, rgba(239, 83, 80, 0.04) 0%, transparent 60%);
-    }
-
-    .pain-layout {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 56px;
-      align-items: flex-start;
-    }
-
-    .pain-side {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .pain-highlight {
-      color: var(--red);
-    }
-
-    .pain-steps-list {
-      display: flex;
-      flex-direction: column;
-      border-top: 1px solid var(--border);
-    }
-
-    .pain-step-row {
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 18px;
-      align-items: baseline;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s ease;
-    }
-
-    .pain-step-row:hover {
-      background: rgba(239, 83, 80, 0.025);
-    }
-
-    .pain-step-idx {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--red);
-    }
-
-    .pain-step-content {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
     code {
       font-size: 13px;
       font-weight: 600;
@@ -587,12 +530,6 @@
       padding: 2px 6px;
       border-radius: 4px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    }
-
-    .pain-step-content code {
-      background: var(--red-dim);
-      color: #fca5a5;
-      border-color: var(--red-border);
     }
 
     /* ── Pillar Feature Sections (Instatic Alternating) */
@@ -1314,7 +1251,6 @@
         direction: ltr;
       }
       .statement-grid,
-      .pain-layout,
       .makers-cards,
       .notice-details-grid,
       .faq-columns {
@@ -1546,32 +1482,6 @@
         height: 20px;
       }
 
-      /* Pain Points / Daily Friction */
-      .pain-section {
-        padding: 52px 0;
-      }
-      .pain-layout {
-        gap: 28px;
-      }
-      .pain-step-row {
-        grid-template-columns: 28px 1fr;
-        gap: 12px;
-        padding: 14px 0;
-      }
-      .pain-step-idx {
-        font-size: 12px;
-      }
-      .pain-step-content {
-        font-size: 14px;
-        line-height: 1.55;
-        overflow-wrap: break-word;
-        word-break: break-word;
-      }
-      .pain-step-content code {
-        overflow-wrap: break-word;
-        word-break: break-word;
-        white-space: normal;
-      }
 
       /* Pull Quote */
       .pull {
@@ -2036,45 +1946,6 @@
       </div>
     </section>
 
-    <!-- The Daily Frustration (2-Column Side Layout) -->
-    <section class="pain-section" id="pain">
-      <div class="wide">
-        <div class="pain-layout">
-          <div class="pain-side">
-            <h2 class="feature-head" id="painTitle">The <span class="pain-highlight">tedious loop</span> every video editor gets stuck in</h2>
-            <p class="feature-desc" id="painIntro">Finding one sound effect often turns into a chore:</p>
-          </div>
-
-          <div class="pain-steps-list">
-            <div class="pain-step-row">
-              <span class="pain-step-idx">01</span>
-              <p class="pain-step-content" id="pain1">You download another 5GB sound pack that claims to be "super organized."</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">02</span>
-              <p class="pain-step-content" id="pain2">You open the folder and find <code>whoosh_sub_final_v2.wav</code> buried under six subfolders.</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">03</span>
-              <p class="pain-step-content" id="pain3">You double-click it, waiting for your default media player to slowly boot up.</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">04</span>
-              <p class="pain-step-content" id="pain4">The sound is 12 seconds long, but you only need the tiny transient at the tail end.</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">05</span>
-              <p class="pain-step-content" id="pain5">You drag the entire raw file into your project bin, clutter your timeline, slice it down, and repeat 80 times per edit.</p>
-            </div>
-            <div class="pain-step-row">
-              <span class="pain-step-idx">06</span>
-              <p class="pain-step-content" id="pain6">Eventually, you give up and just use the same 4 sounds sitting on your desktop.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Pull Quote -->
     <section class="pull" id="pull">
       <div class="hero-bg-anim" id="pullBgAnim" aria-hidden="true"></div>
@@ -2302,15 +2173,6 @@
         caseCol3Body:     'You keep editing without interruptions. Your project stays clean because only the trimmed sound goes into your timeline.',
 
 
-        painTitle:        'The <span class="pain-highlight">tedious loop</span> every video editor gets stuck in',
-        painIntro:        'Finding one sound effect often turns into a chore:',
-        pain1:            'You download another 5GB sound pack that claims to be "super organized."',
-        pain2:            'You open the folder and find <code>whoosh_sub_final_v2.wav</code> buried under six subfolders.',
-        pain3:            'You double-click it, waiting for your default media player to slowly boot up.',
-        pain4:            'The sound is 12 seconds long, but you only need the tiny transient at the tail end.',
-        pain5:            'You drag the entire raw file into your project bin, clutter your timeline, slice it down, and repeat 80 times per edit.',
-        pain6:            'Eventually, you give up and just use the same 4 sounds sitting on your desktop.',
-
         feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'Search sounds over your timeline.',
         feat1Desc:        'Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. Search, audition sounds instantly, and drop audio straight into your track without leaving your editor.',
@@ -2424,15 +2286,6 @@
         caseCol3Body:     'Você continua editando sem interrupções. O projeto fica limpo porque só o trecho recortado entra na sua timeline.',
 
 
-        painTitle:        'O <span class="pain-highlight">ciclo repetitivo</span> que todo editor conhece',
-        painIntro:        'Achar um único efeito sonoro costuma virar perda de tempo:',
-        pain1:            'Você baixa outro pacote de som de 5 GB que promete organização impecável.',
-        pain2:            'Abre a pasta e acha <code>whoosh_sub_final_v2.wav</code> enterrado em seis subpastas.',
-        pain3:            'Dá dois cliques e espera o tocador padrão abrir devagar.',
-        pain4:            'O áudio dura 12 segundos, mas você só precisa do impacto rápido no final.',
-        pain5:            'Arrasta o áudio bruto inteiro pro projeto, polui a timeline, corta a sobra e repete isso dezenas de vezes por vídeo.',
-        pain6:            'No fim, você desiste e usa sempre os mesmos quatro sons que ficaram na área de trabalho.',
-
         feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'Busque sons direto na timeline.',
         feat1Desc:        'Aperte <code>Alt + Shift + F</code> sobre o Premiere, DaVinci ou CapCut. Busque, ouça o áudio na hora e solte na timeline sem trocar de janela.',
@@ -2545,15 +2398,6 @@
         caseCol3Title:    'Por qué es importante',
         caseCol3Body:     'Sigues editando sin interrupciones. Tu proyecto se mantiene limpio porque solo el recorte entra en tu línea de tiempo.',
 
-        painTitle:        'El <span class="pain-highlight">ciclo repetitivo</span> en el que todo editor de video se queda atrapado',
-        painIntro:        'Encontrar un solo efecto de sonido suele convertirse en una molestia:',
-        pain1:            'Descargas otro paquete de sonido de 5 GB que promete estar "súper organizado".',
-        pain2:            'Abres la carpeta y encuentras <code>whoosh_sub_final_v2.wav</code> enterrado bajo seis subcarpetas.',
-        pain3:            'Haces doble clic, esperando a que tu reproductor de medios predeterminado se abra lentamente.',
-        pain4:            'El sonido dura 12 segundos, pero solo necesitas el pequeño impacto al final.',
-        pain5:            'Arrastras el archivo original completo a tu proyecto, saturas tu línea de tiempo, recortas el sobrante y repites esto 80 veces por edición.',
-        pain6:            'Al final, te rindes y usas siempre los mismos 4 sonidos que tienes en el escritorio.',
-
         feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'Busca sonidos directo sobre tu línea de tiempo.',
         feat1Desc:        'Pulsa <code>Alt + Shift + F</code> sobre Premiere, DaVinci o CapCut. Busca, escucha el audio al instante y suéltalo en tu pista sin salir de tu editor.',
@@ -2665,15 +2509,6 @@
         caseCol2Body:     'वेवफ़ॉर्म देखें, केवल वही हिस्सा चुनें जिसकी ज़रूरत है और उसे सीधे टाइमलाइन पर ड्रैग करें।',
         caseCol3Title:    'यह क्यों महत्वपूर्ण है',
         caseCol3Body:     'बिना किसी रुकावट के अपनी एडिटिंग जारी रखें। आपका प्रोजेक्ट साफ़ रहता है क्योंकि केवल काटा गया हिस्सा ही टाइमलाइन पर आता है।',
-
-        painTitle:        'वह <span class="pain-highlight">उबाऊ चक्र</span> जिसमें हर वीडियो एडिटर फंस जाता है',
-        painIntro:        'एक साउंड इफ़ेक्ट ढूंढना भी सिरदर्द बन जाता है:',
-        pain1:            'आप 5 GB का एक और साउंड पैक डाउनलोड करते हैं जो "पूरी तरह से व्यवस्थित" होने का दावा करता है।',
-        pain2:            'आप फ़ोल्डर खोलते हैं और छह सब-फ़ोल्डर के नीचे दबी हुई <code>whoosh_sub_final_v2.wav</code> मिलती है।',
-        pain3:            'आप डबल-क्लिक करते हैं और अपने डिफ़ॉल्ट मीडिया प्लेयर के खुलने का इंतज़ार करते हैं।',
-        pain4:            'साउंड 12 सेकंड का है, लेकिन आपको सिर्फ़ आख़िरी का एक छोटा सा हिस्सा चाहिए।',
-        pain5:            'आप पूरी फ़ाइल प्रोजेक्ट में ड्रैग करते हैं, टाइमलाइन भरते हैं, उसे काटते हैं, और एक वीडियो में इसे 80 बार दोहराते हैं।',
-        pain6:            'अंत में आप थक कर डेस्कटॉप पर रखे वही 4 जाने-पहचाने साउंड इस्तेमाल कर लेते हैं।',
 
         feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'सीधे अपनी टाइमलाइन के ऊपर साउंड खोजें।',
