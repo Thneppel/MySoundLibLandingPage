@@ -1,6 +1,6 @@
 {
-  "latest_version": "1.0.0-beta.1",
-  "release_date": "2026-10-02",
-  "changelog": "• MySoundLib v1.0.0 Beta 1 release\n• High performance audio asset management for video editors and sound designers\n• Fast search, audio playback, tags, and batch conversion",
+  "latest_version": "1.0.1-beta.1",
+  "release_date": "2026-10-13",
+  "changelog": "• MySoundLib v1.0.1 Beta 1 release\n• Fix HTTPS CA certificate verification on macOS and Linux standalone builds\n• Bundled certifi root CA store and system certificate fallback\n• Improved license verification stability across platforms",
   "gumroad_url": "https://gumroad.com/l/your_product"
 }
