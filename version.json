@@ -1,6 +1,6 @@
 {
-  "latest_version": "1.0.1-beta.1",
-  "release_date": "2026-10-13",
-  "changelog": "• MySoundLib v1.0.1 Beta 1 release\n• Fix HTTPS CA certificate verification on macOS and Linux standalone builds\n• Bundled certifi root CA store and system certificate fallback\n• Improved license verification stability across platforms",
-  "gumroad_url": "https://gumroad.com/l/your_product"
+  "latest_version": "1.1.0-beta.1",
+  "release_date": "2026-11-03",
+  "changelog": "• MySoundLib v1.1.0 Beta 1 release\n• Waveform: new green selection color, dedicated SoundQ-style drag & drop button with fade animation and translated hint\n• Waveform: dynamic time ruler that adapts from minutes down to milliseconds as you zoom\n• Waveform: fixed playhead z-order and drag & drop freezing; dropping into DAWs and folders now works reliably\n• Quick Search: taller waveform, fixes and global hotkey no longer stops responding on macOS after idle\n• Much faster startup: folder sync no longer re-reads files already in the library and now runs in the background\n• macOS: permanent hardware ID licensing, quit-on-close crash fix and Reveal in Finder\n• Windows: native API isolation fixes and Reveal in Explorer\n• Bug report: fixed 403 block on submission",
+  "gumroad_url": "https://mysoundlib.gumroad.com/l/mysoundlib"
 }
