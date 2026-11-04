@@ -421,13 +421,30 @@
     }
 
     /* ── Video Embed Section ─────────────────── */
-    .statement-video {
-      margin: 56px auto 0;
+    .statement-split {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 56px;
+      align-items: center;
     }
 
-    @media (max-width: 760px) {
-      .statement-video {
-        margin-top: 32px;
+    .statement-split .statement-lead {
+      font-size: clamp(22px, 2.4vw, 30px);
+      margin-bottom: 32px;
+    }
+
+    .statement-split .statement-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .statement-split {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .statement-split .statement-video {
+        order: 2;
       }
     }
 
@@ -1727,40 +1744,42 @@
 
     <!-- The Case / Statement -->
     <section class="statement" id="workflow">
-      <div class="wide">
+      <div class="wide statement-split">
+        <!-- Video Embed: Find Any Sound in Seconds -->
+        <div class="hero-shot statement-video">
+          <div class="hero-frame">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/4P-VuJH1nks?si=fI6pM5a85Kizr5O0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div class="statement-text">
         <p class="rk" id="caseKicker">How It Works</p>
         <p class="statement-lead" id="caseLead">
-          Finding the right audio for your edit usually takes lots of slow steps. <em>MySoundLib turns that into one direct shortcut.</em>
+          Finding the right sound takes too many steps. <em>MySoundLib makes it one shortcut.</em>
         </p>
 
         <div class="statement-grid">
           <div class="statement-card">
             <span class="sn" id="caseCol1Title">QuickSearch Overlay</span>
             <p class="statement-desc" id="caseCol1Body">
-              Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. A fast search bar pops up to search your sound libraries without switching windows.
+              <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut opens a search bar for your libraries. No window switching.
             </p>
           </div>
 
           <div class="statement-card">
             <span class="sn" id="caseCol2Title">Instant Trim And Drag</span>
             <p class="statement-desc" id="caseCol2Body">
-              Preview the waveform, select just the transient or tail you need, and drag that exact snippet straight into your timeline.
+              Select just the part of the waveform you need and drag it straight into your timeline.
             </p>
           </div>
 
           <div class="statement-card">
             <span class="sn" id="caseCol3Title">Why That Matters</span>
             <p class="statement-desc" id="caseCol3Body">
-              You keep editing without interruptions. Your project stays clean because only the trimmed sound goes into your timeline.
+              No interruptions, and a clean project: only the trimmed sound goes in.
             </p>
           </div>
         </div>
-
-        <!-- Video Embed: Find Any Sound in Seconds -->
-        <div class="hero-shot statement-video">
-          <div class="hero-frame">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/QovJnlMAEaQ?si=N9Iz9nHzvqyYjrlg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-          </div>
         </div>
       </div>
     </section>
@@ -2182,13 +2201,13 @@
         strip5:           'About',
 
         caseKicker:       'How It Works',
-        caseLead:         'Finding the right audio for your edit usually takes lots of slow steps. <em>MySoundLib turns that into one direct shortcut.</em>',
+        caseLead:         'Finding the right sound takes too many steps. <em>MySoundLib makes it one shortcut.</em>',
         caseCol1Title:    'QuickSearch Overlay',
-        caseCol1Body:     'Hit <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut. A fast search bar pops up to search your sound libraries without switching windows.',
+        caseCol1Body:     '<code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut opens a search bar for your libraries. No window switching.',
         caseCol2Title:    'Instant Trim And Drag',
-        caseCol2Body:     'Preview the waveform, select just the transient or tail you need, and drag that exact snippet straight into your timeline.',
+        caseCol2Body:     'Select just the part of the waveform you need and drag it straight into your timeline.',
         caseCol3Title:    'Why That Matters',
-        caseCol3Body:     'You keep editing without interruptions. Your project stays clean because only the trimmed sound goes into your timeline.',
+        caseCol3Body:     'No interruptions, and a clean project: only the trimmed sound goes in.',
 
 
         feat1Pillar:      'QuickSearch Overlay',
@@ -2295,13 +2314,13 @@
         strip5:           'Sobre',
 
         caseKicker:       'Como Funciona',
-        caseLead:         'Encontrar o áudio certo para a sua edição costuma levar vários passos lentos. <em>O MySoundLib transforma tudo isso em um único atalho direto.</em>',
+        caseLead:         'Achar o som certo leva passos demais. <em>O MySoundLib resolve com um atalho.</em>',
         caseCol1Title:    'QuickSearch Overlay',
-        caseCol1Body:     'Aperte <code>Alt + Shift + F</code> sobre o Premiere, DaVinci ou CapCut. Uma barra rápida surge para buscar na sua biblioteca de sons sem trocar de janela.',
+        caseCol1Body:     '<code>Alt + Shift + F</code> sobre o Premiere, DaVinci ou CapCut abre uma busca nas suas bibliotecas. Sem trocar de janela.',
         caseCol2Title:    'Recorte e arraste rápido',
-        caseCol2Body:     'Visualize a forma de onda, selecione apenas o transiente ou a cauda que precisa e arraste esse trecho exato direto para a timeline.',
+        caseCol2Body:     'Selecione só o trecho da forma de onda que precisa e arraste direto para a timeline.',
         caseCol3Title:    'Por que isso importa',
-        caseCol3Body:     'Você continua editando sem interrupções. O projeto fica limpo porque só o trecho recortado entra na sua timeline.',
+        caseCol3Body:     'Sem interrupções e com o projeto limpo: só o trecho recortado entra.',
 
 
         feat1Pillar:      'QuickSearch Overlay',
@@ -2408,13 +2427,13 @@
         strip5:           'Sobre el proyecto',
 
         caseKicker:       'Cómo Funciona',
-        caseLead:         'Encontrar el audio adecuado para tu edición suele requerir muchos pasos lentos. <em>MySoundLib lo transforma en un solo atajo directo.</em>',
+        caseLead:         'Encontrar el sonido correcto lleva demasiados pasos. <em>MySoundLib lo resuelve con un atajo.</em>',
         caseCol1Title:    'QuickSearch Overlay',
-        caseCol1Body:     'Pulsa <code>Alt + Shift + F</code> sobre Premiere, DaVinci o CapCut. Una barra rápida busca en tus bibliotecas de sonido sin necesidad de cambiar de ventana.',
+        caseCol1Body:     '<code>Alt + Shift + F</code> sobre Premiere, DaVinci o CapCut abre una búsqueda en tus bibliotecas. Sin cambiar de ventana.',
         caseCol2Title:    'Recorta y arrastra al instante',
-        caseCol2Body:     'Visualiza la forma de onda, selecciona solo el transitorio o la cola que necesitas y arrastra ese fragmento exacto directo a tu línea de tiempo.',
+        caseCol2Body:     'Selecciona solo la parte de la forma de onda que necesitas y arrástrala directo a tu línea de tiempo.',
         caseCol3Title:    'Por qué es importante',
-        caseCol3Body:     'Sigues editando sin interrupciones. Tu proyecto se mantiene limpio porque solo el recorte entra en tu línea de tiempo.',
+        caseCol3Body:     'Sin interrupciones y con el proyecto limpio: solo entra el recorte.',
 
         feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'Busca sonidos directo sobre tu línea de tiempo.',
@@ -2520,13 +2539,13 @@
         strip5:           'प्रोजेक्ट के बारे में',
 
         caseKicker:       'यह कैसे काम करता है',
-        caseLead:         'अपनी एडिटिंग के लिए सही ऑडियो ढूंढने में अक्सर कई धीमे कदम उठाने पड़ते हैं। <em>MySoundLib इसे सिर्फ़ एक शॉर्टकट में बदल देता है।</em>',
+        caseLead:         'सही साउंड ढूंढने में बहुत सारे कदम लगते हैं। <em>MySoundLib इसे एक शॉर्टकट बना देता है।</em>',
         caseCol1Title:    'QuickSearch Overlay',
-        caseCol1Body:     'Premiere, DaVinci या CapCut पर <code>Alt + Shift + F</code> दबाएं। बिना विंडो बदले अपनी साउंड लाइब्रेरीज़ में खोजने के लिए एक तेज़ सर्च बार खुल जाता है।',
+        caseCol1Body:     'Premiere, DaVinci या CapCut पर <code>Alt + Shift + F</code> से आपकी लाइब्रेरीज़ का सर्च बार खुलता है। विंडो बदलने की ज़रूरत नहीं।',
         caseCol2Title:    'तुरंत ट्रिम करें और ड्रैग करें',
-        caseCol2Body:     'वेवफ़ॉर्म देखें, केवल वही हिस्सा चुनें जिसकी ज़रूरत है और उसे सीधे टाइमलाइन पर ड्रैग करें।',
+        caseCol2Body:     'वेवफ़ॉर्म का सिर्फ़ ज़रूरी हिस्सा चुनें और सीधे टाइमलाइन पर ड्रैग करें।',
         caseCol3Title:    'यह क्यों महत्वपूर्ण है',
-        caseCol3Body:     'बिना किसी रुकावट के अपनी एडिटिंग जारी रखें। आपका प्रोजेक्ट साफ़ रहता है क्योंकि केवल काटा गया हिस्सा ही टाइमलाइन पर आता है।',
+        caseCol3Body:     'कोई रुकावट नहीं, और प्रोजेक्ट साफ़: सिर्फ़ ट्रिम किया हिस्सा ही जाता है।',
 
         feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'सीधे अपनी टाइमलाइन के ऊपर साउंड खोजें।',
