@@ -420,6 +420,17 @@
       border: 0;
     }
 
+    /* ── Video Embed Section ─────────────────── */
+    .statement-video {
+      margin: 56px auto 0;
+    }
+
+    @media (max-width: 760px) {
+      .statement-video {
+        margin-top: 32px;
+      }
+    }
+
     /* ── Section Ribbon / Contents Strip ─────── */
     .contents-strip {
       border-top: 1px solid var(--border);
@@ -1744,6 +1755,13 @@
             </p>
           </div>
         </div>
+
+        <!-- Video Embed: Find Any Sound in Seconds -->
+        <div class="hero-shot statement-video">
+          <div class="hero-frame">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/QovJnlMAEaQ?si=N9Iz9nHzvqyYjrlg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1881,8 +1899,8 @@
         </div>
 
         <div class="feature-stage">
-          <div class="stage-mount">
-            <img src="static/quick_search.png" alt="QuickSearch Overlay Screenshot" class="stage-img" loading="lazy">
+          <div class="stage-mount" style="box-shadow:none">
+            <img src="static/MySoundLib_quicksearch_loop_720.webp" width="540" height="540" class="stage-img" loading="lazy" alt="QuickSearch finding a sound and dropping it on the timeline">
           </div>
         </div>
       </div>
@@ -1892,21 +1910,21 @@
     <section class="feature-section flip" id="waveform">
       <div class="wide feature-in">
         <div class="feature-copy">
-          <p class="pk"><span id="feat2Pillar">Precision Trimming</span></p>
-          <h3 class="feature-head" id="feat2Head">Preview the waveform, drag only the section you need.</h3>
+          <p class="pk"><span id="feat2Pillar">Your Library, Your Way</span></p>
+          <h3 class="feature-head" id="feat2Head">Import your own files and organize them your way.</h3>
           <p class="feature-desc" id="feat2Desc">
-            Preview the sound instantly. Drag across the waveform to select just the transient, riser impact, or tail, and drop only that selection onto your timeline.
+            Bring in your own sound files, create as many libraries as you want, and organize everything the way that fits your workflow.
           </p>
           <ul class="feat-list">
-            <li class="feat-item"><span class="feat-num">01</span> <span id="feat2List1"><b>In-app trimming:</b> cuts out the part you need before dragging to your timeline.</span></li>
-            <li class="feat-item"><span class="feat-num">02</span> <span id="feat2List2"><b>Pitch & speed controls:</b> adjust playback pitch on the fly before exporting.</span></li>
-            <li class="feat-item"><span class="feat-num">03</span> <span id="feat2List3"><b>Clean timeline bin:</b> keeps your project files lightweight.</span></li>
+            <li class="feat-item"><span class="feat-num">01</span> <span id="feat2List1"><b>Import your files:</b> add your own sounds from any folder on your computer.</span></li>
+            <li class="feat-item"><span class="feat-num">02</span> <span id="feat2List2"><b>Multiple libraries:</b> create separate libraries for SFX, music, memes or any project.</span></li>
+            <li class="feat-item"><span class="feat-num">03</span> <span id="feat2List3"><b>Your organization:</b> arrange sounds with your own folders and tags.</span></li>
           </ul>
         </div>
 
         <div class="feature-stage">
-          <div class="stage-mount">
-            <img src="static/main_window.png" alt="Waveform Trimming Screenshot" class="stage-img" loading="lazy">
+          <div class="stage-mount" style="box-shadow:none">
+            <img src="static/MySoundLib_import_loop_720.webp" width="540" height="540" class="stage-img" loading="lazy" alt="Sound files being imported into the MySoundLib library">
           </div>
         </div>
       </div>
@@ -1928,8 +1946,8 @@
         </div>
 
         <div class="feature-stage">
-          <div class="stage-mount">
-            <img src="static/audio_converter.png" alt="Audio Converter Screenshot" class="stage-img" loading="lazy">
+          <div class="stage-mount" style="box-shadow:none">
+            <img src="static/MySoundLib_converter_loop_720.webp" width="540" height="540" class="stage-img" loading="lazy" alt="MySoundLib converter turning OPUS, FLAC, M4A, OGG and AIFF files into WAV">
           </div>
         </div>
       </div>
@@ -2180,12 +2198,12 @@
         feat1List2:       '<b>Fast search:</b> indexes large local libraries in milliseconds.',
         feat1List3:       '<b>Quick filters:</b> filter by format, channels, or custom tags.',
 
-        feat2Pillar:      'Precision Trimming',
-        feat2Head:        'Preview the waveform, drag only the section you need.',
-        feat2Desc:        'Preview the sound instantly. Drag across the waveform to select just the transient, riser impact, or tail, and drop only that selection onto your timeline.',
-        feat2List1:       '<b>In-app trimming:</b> cuts out the part you need before dragging to your timeline.',
-        feat2List2:       '<b>Pitch & speed controls:</b> adjust playback pitch on the fly before exporting.',
-        feat2List3:       '<b>Clean timeline bin:</b> keeps your project files lightweight.',
+        feat2Pillar:      'Your Library, Your Way',
+        feat2Head:        'Import your own files and organize them your way.',
+        feat2Desc:        'Bring in your own sound files, create as many libraries as you want, and organize everything the way that fits your workflow.',
+        feat2List1:       '<b>Import your files:</b> add your own sounds from any folder on your computer.',
+        feat2List2:       '<b>Multiple libraries:</b> create separate libraries for SFX, music, memes or any project.',
+        feat2List3:       '<b>Your organization:</b> arrange sounds with your own folders and tags.',
 
         feat3Pillar:      'Built-in Converter',
         feat3Head:        'Convert unplayable audio without leaving your edit.',
@@ -2293,12 +2311,12 @@
         feat1List2:       '<b>Busca rápida:</b> indexa milhares de arquivos locais em milissegundos.',
         feat1List3:       '<b>Filtros práticos:</b> filtre por formato, canais ou tags.',
 
-        feat2Pillar:      'Corte Preciso',
-        feat2Head:        'Ouça a forma de onda, arraste só o trecho que você precisa.',
-        feat2Desc:        'Ouça o áudio na hora e arraste pela forma de onda para marcar apenas o impacto ou a cauda, soltando só o recorte na sua timeline.',
-        feat2List1:       '<b>Corte direto no app:</b> recorte o trecho antes de levar para a timeline.',
-        feat2List2:       '<b>Controle de pitch e velocidade:</b> ajuste a afinação do áudio antes de soltar no projeto.',
-        feat2List3:       '<b>Projeto organizado:</b> mantém os arquivos do seu projeto leves e limpos.',
+        feat2Pillar:      'Sua Biblioteca, Do Seu Jeito',
+        feat2Head:        'Importe seus próprios arquivos e organize do seu jeito.',
+        feat2Desc:        'Traga seus próprios sons, crie diferentes bibliotecas e organize tudo da maneira que combina com o seu fluxo de edição.',
+        feat2List1:       '<b>Importe seus arquivos:</b> adicione seus próprios sons de qualquer pasta do computador.',
+        feat2List2:       '<b>Várias bibliotecas:</b> crie bibliotecas separadas para efeitos, músicas, memes ou qualquer projeto.',
+        feat2List3:       '<b>Organização sua:</b> arrume os sons com suas próprias pastas e tags.',
 
         feat3Pillar:      'Conversor Integrado',
         feat3Head:        'Resolva áudios incompatíveis sem sair da edição.',
@@ -2405,12 +2423,12 @@
         feat1List2:       '<b>Búsqueda rápida:</b> indexa miles de archivos locales en milisegundos.',
         feat1List3:       '<b>Filtros prácticos:</b> filtra por formato, canales o etiquetas personalizadas.',
 
-        feat2Pillar:      'Recorte Preciso',
-        feat2Head:        'Escucha la forma de onda, arrastra solo la parte que necesitas.',
-        feat2Desc:        'Escucha el sonido al instante. Arrastra sobre la forma de onda para marcar solo el transitorio o la cola, y suelta únicamente esa selección en tu línea de tiempo.',
-        feat2List1:       '<b>Recorte en la app:</b> corta la sección necesaria antes de arrastrarla a la línea de tiempo.',
-        feat2List2:       '<b>Control de tono y velocidad:</b> ajusta el tono de reproducción al instante antes de exportar.',
-        feat2List3:       '<b>Línea de tiempo limpia:</b> mantiene los archivos de tu proyecto ligeros y ordenados.',
+        feat2Pillar:      'Tu Biblioteca, a Tu Manera',
+        feat2Head:        'Importa tus propios archivos y organízalos a tu manera.',
+        feat2Desc:        'Trae tus propios sonidos, crea distintas bibliotecas y organiza todo de la forma que mejor encaje con tu flujo de edición.',
+        feat2List1:       '<b>Importa tus archivos:</b> añade tus propios sonidos desde cualquier carpeta de tu equipo.',
+        feat2List2:       '<b>Varias bibliotecas:</b> crea bibliotecas separadas para efectos, música, memes o cualquier proyecto.',
+        feat2List3:       '<b>Tu organización:</b> ordena los sonidos con tus propias carpetas y etiquetas.',
 
         feat3Pillar:      'Conversor Integrado',
         feat3Head:        'Convierte audios incompatibles sin salir de la edición.',
@@ -2517,12 +2535,12 @@
         feat1List2:       '<b>तेज़ सर्च:</b> हज़ारों लोकल फ़ाइलों को मिलीसेकंड में खोजता है।',
         feat1List3:       '<b>फ़िल्टर्स:</b> फॉर्मेट, ऑडियो चैनल या कस्टम टैग द्वारा फ़िल्टर करें।',
 
-        feat2Pillar:      'सटीक ट्रिमिंग',
-        feat2Head:        'वेवफ़ॉर्म देखें और सुनें, केवल वही हिस्सा ड्रैग करें जिसकी ज़रूरत है।',
-        feat2Desc:        'तुरंत ऑडियो प्रीव्यू करें। वेवफ़ॉर्म पर केवल आवश्यक हिस्से को चुनें और सीधे अपनी टाइमलाइन पर ड्रॉप करें।',
-        feat2List1:       '<b>ऐप में ट्रिमिंग:</b> टाइमलाइन पर ले जाने से पहले ही ऑडियो क्लिप काट लें।',
-        feat2List2:       '<b>पिच और स्पीड कंट्रोल:</b> एक्सपोर्ट से पहले प्लेबैक पिच और स्पीड तुरंत बदलें।',
-        feat2List3:       '<b>क्लीन टाइमलाइन:</b> प्रोजेक्ट फ़ाइलों को हल्का और साफ़-सुथरा रखता है।',
+        feat2Pillar:      'आपकी लाइब्रेरी, आपके तरीके से',
+        feat2Head:        'अपनी खुद की फ़ाइलें इम्पोर्ट करें और अपने तरीके से व्यवस्थित करें।',
+        feat2Desc:        'अपनी साउंड फ़ाइलें लाएँ, अलग-अलग लाइब्रेरी बनाएँ और सब कुछ अपने एडिटिंग वर्कफ़्लो के हिसाब से व्यवस्थित करें।',
+        feat2List1:       '<b>अपनी फ़ाइलें इम्पोर्ट करें:</b> कंप्यूटर के किसी भी फ़ोल्डर से अपनी साउंड जोड़ें।',
+        feat2List2:       '<b>कई लाइब्रेरी:</b> इफ़ेक्ट, म्यूज़िक, मीम या किसी भी प्रोजेक्ट के लिए अलग लाइब्रेरी बनाएँ।',
+        feat2List3:       '<b>आपका संगठन:</b> अपने फ़ोल्डर और टैग से साउंड व्यवस्थित करें।',
 
         feat3Pillar:      'इन-बिल्ट कन्वर्टर',
         feat3Head:        'एडिटिंग छोड़े बिना असंगत ऑडियो फाइलों को तुरंत बदलें।',
