@@ -159,6 +159,26 @@ button{font:inherit;color:inherit}
 .stat{font-size:clamp(2.6rem,min(6.4vw,12vh),6rem);font-weight:800;line-height:1;letter-spacing:-.03em;white-space:nowrap}
 .stat span{color:var(--mint-deep)}
 .stat .u{font-size:.42em;letter-spacing:-.01em}
+#slide-problema .eyebrow{color:#ff6b80}
+/* largura justa ao texto: a nuvem de arquivos desvia só do que está escrito */
+#slide-problema .eyebrow,#slide-problema .provoke-kick,#slide-problema .src,.provoke .stat-xl,.provoke-sub{width:fit-content;max-width:100%}
+#slide-solucao .h2{font-size:clamp(2rem,min(4.2vw,7.8vh),3.6rem)}
+/* slide 12: benefícios de montar a própria biblioteca local */
+.own-split{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:center}
+.own{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,18px)}
+.own-c{display:flex;flex-direction:column;gap:clamp(6px,1.2vh,10px);padding:clamp(16px,2vw,26px);border-radius:22px;border:1px solid var(--paper-line);background:var(--paper-card)}
+.own-c .ico{width:clamp(28px,3vw,38px);height:clamp(28px,3vw,38px);color:var(--mint)}
+.own-c .body{font-size:clamp(.88rem,min(1.15vw,2.3vh),1.02rem);line-height:1.4}
+/* ritmo vertical: eyebrow colado no título, título coeso, frase de apoio respirando, fonte como rodapé */
+#slide-problema .inner{gap:0}
+#slide-problema .eyebrow{margin:0 0 clamp(4px,1vh,10px)}
+#slide-problema .src{margin-top:clamp(28px,6vh,56px)}
+.provoke{margin:0;font-weight:800;letter-spacing:-.035em}
+.provoke .stat-xl{display:block;font-size:clamp(4.5rem,min(13vw,24vh),12rem);line-height:.8;white-space:nowrap}
+.provoke .stat-xl .ar{background:linear-gradient(90deg,#ff6b80,#ff8a9a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.provoke-sub{display:block;font-size:clamp(1.8rem,min(4.4vw,8vh),4.2rem);line-height:1.05;margin-top:.3em;text-wrap:balance}
+.provoke-kick{font-size:clamp(1rem,min(1.7vw,3vh),1.45rem);font-weight:600;color:var(--dim);margin:clamp(18px,3.5vh,32px) 0 0}
+.light .provoke-kick{color:var(--paper-muted)}
 .num{font-family:var(--font-mono);font-weight:700;font-size:clamp(1.6rem,3vw,2.6rem);color:var(--mint-deep);line-height:1}
 
 /* ---------- Waveform decorativa ---------- */
@@ -403,10 +423,6 @@ body[data-edge="red"]{--e1:rgba(255,128,146,1);--e2:rgba(255,107,128,.6)}
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
   opacity:var(--go,0);transition:opacity .35s ease}
-/* transição de elemento compartilhado: a biblioteca (slide 3) vira o editor (slide 4) */
-.js .slide [data-r].morph-in,.js .slide.is-active [data-r].morph-in{opacity:1;transform:none;filter:none;transition:none}
-.morph-fly{position:fixed;z-index:5;pointer-events:none;transform-origin:50% 50%;will-change:transform,opacity,filter}
-.morph-fly > *{width:100% !important;height:100% !important;margin:0 !important;max-width:none !important;border:0 !important;box-shadow:none !important;background:transparent !important;border-radius:0 !important;overflow:visible !important}
 /* ---------- vídeo do YouTube ---------- */
 .vid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.6fr);gap:clamp(24px,4vw,64px);align-items:center}
 .vid-head{display:flex;flex-direction:column;gap:clamp(10px,2vh,20px)}
@@ -418,6 +434,10 @@ body[data-edge="red"]{--e1:rgba(255,128,146,1);--e2:rgba(255,107,128,.6)}
 .panel{border:1px solid var(--line);background:var(--ink-1);border-radius:24px;padding:clamp(18px,2.4vw,36px);display:flex;flex-direction:column;gap:clamp(14px,2.4vh,26px);min-width:0}
 .field label,.field .lbl{display:flex;justify-content:space-between;gap:12px;font-size:var(--fs-label);font-weight:600;color:var(--muted);margin-bottom:.6em}
 .field output{font-family:var(--font-mono);color:var(--text);font-weight:700}
+/* número editável: parece texto, vira campo ao clicar */
+.num-in{-webkit-appearance:none;appearance:none;font:700 1em/1.2 var(--font-mono);color:var(--text);background:none;border:0;border-radius:0;padding:0;margin:0;box-shadow:none;text-align:right;width:var(--w,9ch);min-width:3ch;cursor:text;caret-color:var(--mint);transition:color .2s ease}
+.num-in:hover{color:var(--mint-hi)}
+.num-in:focus{outline:none;color:var(--mint-hi)}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:var(--line-2);outline-offset:6px}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--mint);border:3px solid var(--ink-0);box-shadow:0 0 0 2px var(--mint);cursor:pointer}
 input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--mint);border:3px solid var(--ink-0);box-shadow:0 0 0 2px var(--mint);cursor:pointer}
@@ -426,7 +446,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .chip:hover{border-color:var(--mint)}
 .chip[aria-pressed="true"]{background:var(--mint);border-color:var(--mint);color:var(--mint-ink)}
 .result{justify-content:center;background:linear-gradient(160deg,#0e2a24,var(--ink-1))}
-.result .big{font-size:clamp(2.6rem,min(7vw,13vh),6rem);font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--mint-hi);font-variant-numeric:tabular-nums}
+.result .big{white-space:nowrap;font-size:clamp(2.6rem,min(7vw,13vh),6rem);font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--mint-hi);font-variant-numeric:tabular-nums}
 .result dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .result dt{font-size:var(--fs-label);color:var(--dim)}
 .result dd{margin:0;font-family:var(--font-mono);font-weight:700;font-size:var(--fs-lead);font-variant-numeric:tabular-nums}
@@ -468,7 +488,7 @@ body.idle .ticks,body.ui-off .ticks{opacity:.35;pointer-events:none}
 body.ui-off .ticks{opacity:0}
 body.idle{cursor:none}
 @media (max-width:860px){
-  .grid3,.grid2,.split,.calc,.vid,.split-sub{grid-template-columns:1fr}
+  .own,.own-split,.grid3,.grid2,.split,.calc,.vid,.split-sub{grid-template-columns:1fr}
   .aud{grid-template-columns:1fr}
   .slide{justify-content:flex-start}
   .is-active .bignum{opacity:.1}
@@ -491,7 +511,7 @@ body.idle{cursor:none}
 <!-- 1 · Capa -->
 <section class="slide dark glow-tr" id="slide-cover" data-title="Capa" data-en-title="Cover">
   <div class="inner">
-    <p class="eyebrow" data-r data-en="MySoundLib · Affiliate program">MySoundLib · Programa de afiliados</p>
+    <p class="eyebrow" data-r data-en="Affiliate program">Programa de afiliados</p>
     <h1 class="h1" style="max-width:15ch" data-r data-en="Earn money as a <span class='ag'>MySoundLib</span> affiliate">Ganhe dinheiro como afiliado <span class="ag">MySoundLib</span></h1>
     <p class="lead" data-r data-en="Recommend MySoundLib to your audience and earn 15% on every sale.">Indique o MySoundLib para o seu público e ganhe 15% em dólar por cada venda.</p>
     <div class="pills" data-r>
@@ -502,35 +522,26 @@ body.idle{cursor:none}
 </section>
 
 <!-- 2 · O problema em números -->
-<section class="slide light" id="slide-problema" data-mood="red" data-title="O problema em números" data-en-title="The problem in numbers">
+<section class="slide light" id="slide-problema" data-mood="red" data-title="O problema" data-en-title="The problem">
   <div class="inner">
-    <h2 class="h2" data-r data-en="The chaos every editor <span class='ar'>knows</span>">O caos que todo editor <span class="ar">conhece</span></h2>
-    <div class="grid3">
-      <div class="card" data-r>
-        <p class="stat"><b class="count-up" data-to="83" data-dec="0" style="font-weight:800">83</b><span>%</span></p>
-        <p class="body" data-en="of creative pros lose time every week hunting for lost files">dos profissionais criativos perdem tempo toda semana procurando arquivos perdidos</p>
-      </div>
-      <div class="card" data-r>
-        <p class="stat"><b class="count-up" data-to="3" data-dec="0" style="font-weight:800">3</b> <span class="u" data-en="weeks">semanas</span></p>
-        <p class="body" data-en="a year spent searching for files by 1 in 3 marketing pros">por ano procurando arquivos, para 1 em cada 3 profissionais de marketing</p>
-      </div>
-      <div class="card" data-r>
-        <p class="stat"><b class="count-up" data-to="11" data-dec="0" style="font-weight:800">11</b><span>%</span></p>
-        <p class="body" data-en="of creative pros search for lost files every hour">dos profissionais criativos procuram arquivos perdidos a cada hora</p>
-      </div>
-    </div>
-    <p class="src" data-r data-en="Sources: Santa Cruz Software survey of 500+ design professionals (2021); Canto and Civey survey of 500 marketing professionals (2021).">Fontes: pesquisa Santa Cruz Software com mais de 500 profissionais de design (2021); pesquisa Canto e Civey com 500 profissionais de marketing (2021).</p>
+    <p class="eyebrow" data-r data-en="1 in 3 professionals lose">1 em cada 3 profissionais perde</p>
+    <h2 class="provoke" data-r>
+      <span class="stat-xl"><b class="count-up" data-to="3" data-dec="0">3</b> <span class="ar" data-en="weeks">semanas</span></span>
+      <span class="provoke-sub" data-en="a year just looking for files.">por ano só procurando arquivo.</span>
+    </h2>
+    <p class="provoke-kick" data-r data-en="No editing. No delivering. No getting paid.">Sem editar. Sem entregar. Sem faturar.</p>
+    <p class="src" data-r data-en="Source: Canto and Civey survey of 500 marketing professionals (2021), 1 in 3 respondents.">Fonte: pesquisa Canto e Civey com 500 profissionais de marketing (2021), 1 em cada 3 entrevistados.</p>
   </div>
 </section>
 
 <!-- 3 · Tudo num lugar só -->
-<section class="slide dark" id="slide-biblioteca" data-title="Tudo num lugar só" data-en-title="All in one place">
+<section class="slide dark" id="slide-biblioteca" data-title="Seus sons num lugar só" data-en-title="All your sounds in one place">
   <div class="inner">
     <div class="split split-media">
       <div class="col">
         <p class="eyebrow" data-r data-en="The turn">A virada</p>
-        <h2 class="h2" data-r data-en="All the mess, <span class='ag'>in one place</span>">Toda a bagunça, <span class="ag">num lugar só</span></h2>
-        <p class="lead" data-r data-en="MySoundLib imports your folders and turns them into one searchable library, stored on your own drive.">O MySoundLib importa suas pastas e transforma tudo numa biblioteca pesquisável, salva no seu próprio disco.</p>
+        <h2 class="h2" data-r data-en="Every sound effect, <span class='ag'>in one place</span>">Todos os seus efeitos sonoros, <span class="ag">num lugar só</span></h2>
+        <p class="lead" data-r data-en="The whooshes, impacts and music you use when editing become one searchable library, stored on your own drive.">Os whooshes, impactos e trilhas que você usa na edição viram uma biblioteca pesquisável, salva no seu próprio disco.</p>
       </div>
       <div class="col">
         <div class="demo ui libbig" data-r role="img" aria-label="Arquivos bagunçados entrando na biblioteca do MySoundLib e virando uma lista organizada" data-en-label="Messy files flowing into the MySoundLib library and becoming an organized list">
@@ -551,11 +562,13 @@ body.idle{cursor:none}
 </section>
 
 <!-- 4 · A solução -->
-<section class="slide dark site-bg glow-bl" id="slide-solucao" data-title="A solução" data-en-title="The solution">
+<section class="slide dark glow-bl" id="slide-solucao" data-title="A solução" data-en-title="The solution">
   <div class="inner">
     <div class="split split-media">
       <div class="col">
-        <h2 class="h2" data-r data-en="One shortcut. <span class='ag'>Your entire library</span>">Um atalho. <span class="ag">Sua biblioteca inteira</span></h2>
+        <p class="eyebrow" data-r>QuickSearch</p>
+        <h2 class="h2" data-r data-en="The right sound on the timeline <span class='ag'>without leaving the editor</span>">O som certo na timeline <span class="ag">sem sair do editor</span></h2>
+        <p class="lead" data-r data-en="One shortcut opens the search over any editor. Find it, preview it, trim it and drag it into the timeline. No opening folders, no switching windows.">Um atalho abre a busca por cima de qualquer editor. Você acha, ouve, corta e arrasta pra timeline. Sem abrir pasta, sem trocar de janela.</p>
         <div class="keys" data-r aria-label="Atalho Alt, Shift e F" data-en-label="Shortcut Alt, Shift and F"><span class="key">Alt</span><span class="key">Shift</span><span class="key go">F</span></div>
       </div>
       <div class="col">
@@ -759,7 +772,26 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 12 · Fácil de vender -->
+<!-- 12 · Sua própria biblioteca -->
+<section class="slide light" id="slide-propria" data-title="Sua própria biblioteca" data-en-title="Your own library">
+  <div class="inner">
+    <div class="split own-split">
+      <div class="col">
+        <p class="eyebrow" data-r data-en="The alternative">A alternativa</p>
+        <h2 class="h2" data-r data-en="Dig. Collect. <span class='ag'>Build your own library.</span>">Garimpe. Guarde. <span class="ag">Monte a sua biblioteca.</span></h2>
+        <p class="lead" data-r data-en="Free sounds or paid packs, from anywhere on the internet. Editors who build their own local library find the right sound faster.">Sons grátis ou packs comprados, de qualquer lugar da internet. O editor que monta a própria biblioteca local acha o som certo mais rápido.</p>
+      </div>
+      <div class="own" data-r>
+        <div class="own-c"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg><h3 class="h3" data-en="Pay once">Paga só uma vez</h3><p class="body" data-en="No monthly fee to keep access. What you saved stays yours.">Sem mensalidade pra manter acesso. O que você guardou é seu.</p></div>
+        <div class="own-c"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18M7 18h.01"/></svg><h3 class="h3" data-en="All local">Tudo local</h3><p class="body" data-en="On your own drive, opening instantly, depending on no one.">No seu próprio disco, abrindo na hora, sem depender de ninguém.</p></div>
+        <div class="own-c"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg><h3 class="h3" data-en="Only what's useful">Só o que é útil</h3><p class="body" data-en="Keep the sounds you actually use. No bloated catalog to scroll through.">Você guarda os sons que usa de verdade. Nada de catálogo inchado.</p></div>
+        <div class="own-c"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M12 10v6M9 13h6"/></svg><h3 class="h3" data-en="Collect and create">Coleciona e cria</h3><p class="body" data-en="Build your own libraries by project, client or style. It grows with you.">Monte bibliotecas próprias por projeto, cliente ou estilo. Cresce com você.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · Fácil de vender -->
 <section class="slide dark" id="slide-preco" data-title="Fácil de vender" data-en-title="Easy to sell">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Easy to sell">Fácil de vender</p>
@@ -775,7 +807,7 @@ body.idle{cursor:none}
       <span class="pill" data-en="Updates included">Atualizações incluídas</span>
       <span class="pill" data-en="No subscription">Sem assinatura</span>
     </div>
-    <p class="lead" data-r data-en="A price your audience buys without thinking twice.">Um preço que o seu público compra sem pensar duas vezes.</p>
+    <p class="lead" data-r data-en="Less than a single month of a sound subscription. And it's yours forever.">Custa menos que um único mês de assinatura de banco de som. E é pra sempre.</p>
   </div>
 </section>
 
@@ -786,11 +818,11 @@ body.idle{cursor:none}
     <div class="calc" data-r>
       <div class="panel" style="justify-content:center">
         <div class="field">
-          <label for="rFol"><span data-en="Followers">Seguidores</span> <output id="oFol" for="rFol">100.000</output></label>
+          <div class="lbl"><label for="rFol" data-en="Followers">Seguidores</label> <input id="oFol" class="num-in" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" value="100.000" aria-label="Seguidores, digite um valor" data-en-label="Followers, type a value"></div>
           <input id="rFol" type="range" min="5000" max="500000" step="5000" value="100000">
         </div>
         <div class="field">
-          <label for="rConv"><span data-en="Buy through your link">Compram pelo seu link</span> <output id="oConv" for="rConv">1,0%</output></label>
+          <div class="lbl"><label for="rConv" data-en="Buy through your link">Compram pelo seu link</label> <input id="oConv" class="num-in" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="1%" aria-label="Porcentagem que compra, digite um valor" data-en-label="Percent who buy, type a value"></div>
           <input id="rConv" type="range" min="0.25" max="3" step="0.25" value="1">
         </div>
       </div>
@@ -846,9 +878,9 @@ body.idle{cursor:none}
         <p class="body" data-en="Hit the goals and your commission goes up.">Bateu a meta, sua porcentagem sobe.</p>
       </div>
       <div class="card" data-r>
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01M12 12h.01M16 12h.01" stroke-width="2.6"/></svg>
-        <h3 class="h3" data-en="Your voice in the app">Sua voz no app</h3>
-        <p class="body" data-en="I listen to you and your audience to keep improving MySoundLib.">Ouço você e o seu público para melhorar o MySoundLib.</p>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.9.3 5 2.6 5 5.8"/></svg>
+        <h3 class="h3" data-en="A direct line to the team">Linha direta com o time</h3>
+        <p class="body" data-en="Close access to me and my team, and your feedback helps shape the app.">Acesso próximo a mim e à minha equipe, e o seu feedback ajuda a moldar o app.</p>
       </div>
     </div>
   </div>
@@ -1019,8 +1051,7 @@ body.idle{cursor:none}
     var L = function(a, b, x){ return a + (b - a) * x; };
     function spring(t, w, z){ if (t <= 0) return 0; w = w || 13; z = z || .5; var wd = w * Math.sqrt(1 - z * z); return 1 - Math.exp(-z * w * t) * (Math.cos(wd * t) + (z * w / wd) * Math.sin(wd * t)); }
     function pos(el){ var x = 0, y = 0; while (el && el !== root) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x: x, y: y }; }
-    var LOOP = 8.6, t0 = 0, raf = 0, on = false;
-    /* inclinado em 3D como o card do slide de assinaturas: entra girando com mola e balança de leve */
+    var LOOP = 8.6, t0 = 0, raf = 0, on = false;    /* inclinado em 3D como o card do slide de assinaturas: entra girando com mola e balança de leve */
     var S = 1, lastT = 0, intro = true;
     function tilt(T){
       var ci = reduce || !intro ? 1 : spring(T - .1, 9, .62), w = box.clientWidth, h = box.clientHeight || w;
@@ -1631,7 +1662,9 @@ body.idle{cursor:none}
 
   /* calculadora */
   var rate = 15, PRICE = 19, FX = 5.1;
-  var rFol = $('rFol'), rConv = $('rConv');
+  var rFol = $('rFol'), rConv = $('rConv'), oFol = $('oFol'), oConv = $('oConv');
+  /* valores reais: os sliders têm limite, mas o número digitado pode passar dele */
+  var vFol = +rFol.value, vConv = +rConv.value;
   var shown = { usd: 2850, brl: 14535 };
   var nUsd0, nUsd2;
   function setFormats(){
@@ -1641,78 +1674,81 @@ body.idle{cursor:none}
   setFormats();
   var tween = null;
   function setNum(el, from, to, prefix){
-    if (reduce) { el.textContent = prefix + nUsd0.format(to); return; }
+    if (reduce) { el.textContent = prefix + nUsd0.format(to); fitBig(el); return; }
     var t0 = null;
     if (tween) cancelAnimationFrame(tween);
     var step = function(t){
       if (t0 === null) t0 = t;
       var p = Math.min(1, (t - t0) / 380), e = 1 - Math.pow(1 - p, 3);
-      el.textContent = prefix + nUsd0.format(from + (to - from) * e);
+      el.textContent = prefix + nUsd0.format(from + (to - from) * e); fitBig(el);
       if (p < 1) tween = requestAnimationFrame(step);
     };
     tween = requestAnimationFrame(step);
   }
+  /* valores enormes digitados encolhem o número para caber no card */
+  function fitBig(el){
+    el.style.fontSize = '';
+    if (el.scrollWidth > el.clientWidth + 1) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * el.clientWidth / el.scrollWidth * .98).toFixed(1) + 'px';
+  }
   function calc(animate){
-    var fol = +rFol.value, conv = +rConv.value;
+    var fol = vFol, conv = vConv;
     var sales = Math.round(fol * conv / 100);
     var each = PRICE * rate / 100;
     var usd = sales * each, brl = usd * FX;
     var U = T[lang].usd;
-    $('oFol').textContent = nUsd0.format(fol);
-    $('oConv').textContent = nUsd2.format(conv).replace(/0$/, '') + '%';
+    if (document.activeElement !== oFol) oFol.value = nUsd0.format(fol);
+    if (document.activeElement !== oConv) oConv.value = nUsd2.format(conv).replace(/[.,]?0+$/, '') + '%';
+    fitIn(oFol); fitIn(oConv);
     $('outSales').textContent = nUsd0.format(sales);
     $('outBrl').textContent = 'R$ ' + nUsd0.format(brl);
     $('priceBrl').textContent = 'R$ ' + nUsd0.format(Math.round(PRICE * FX));
-    if (animate === false) { if (tween) cancelAnimationFrame(tween); $('outUsd').textContent = U + nUsd0.format(usd); }
+    if (animate === false) { if (tween) cancelAnimationFrame(tween); $('outUsd').textContent = U + nUsd0.format(usd); fitBig($('outUsd')); }
     else setNum($('outUsd'), shown.usd, usd, U);
     shown.usd = usd; shown.brl = brl;
     document.querySelectorAll('[data-preset]').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.dataset.preset === fol)); });
     document.querySelectorAll('[data-rate]').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.dataset.rate === rate)); });
   }
-  rFol.addEventListener('input', function(){ calc(); });
-  rConv.addEventListener('input', function(){ calc(); });
+  function fitIn(el){ el.style.setProperty('--w', Math.max(4, el.value.length + 1) + 'ch'); }
+  /* lê "250.000", "250k", "1,5m", "2,5%" em qualquer idioma */
+  function parseNum(str, isPct){
+    var t = String(str).trim().toLowerCase().replace(/\s|%/g, ''), mul = 1;
+    if (!isPct) { var m = t.match(/([km])$/); if (m) { mul = m[1] === 'k' ? 1e3 : 1e6; t = t.slice(0, -1); } }
+    if (!isPct && mul === 1) t = t.replace(/[.,]/g, '');
+    else { var d = t.lastIndexOf(','), p = t.lastIndexOf('.'); t = d > p ? t.replace(/\./g, '').replace(',', '.') : t.replace(/,/g, ''); }
+    var n = parseFloat(t) * mul;
+    return isFinite(n) ? n : NaN;
+  }
+  function syncRange(r, v){ r.value = Math.min(+r.max, Math.max(+r.min, v)); }
+  function commit(el){
+    var isPct = el === oConv, n = parseNum(el.value, isPct);
+    if (!isNaN(n) && n >= 0) {
+      if (isPct) { vConv = Math.min(100, n); syncRange(rConv, vConv); }
+      else { vFol = Math.round(n); syncRange(rFol, vFol); }
+    }
+    calc();
+  }
+  [oFol, oConv].forEach(function(el){
+    /* ao clicar, seleciona o número inteiro para digitar por cima */
+    var fresh = false;
+    el.addEventListener('focus', function(){ fresh = true; el.select(); });
+    el.addEventListener('mouseup', function(e){ if (fresh) { e.preventDefault(); el.select(); fresh = false; } });
+    el.addEventListener('input', function(){ fitIn(el); });
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+      else if (e.key === 'Escape') { e.preventDefault(); el.value = ''; el.blur(); }
+      e.stopPropagation(); /* setas e espaço não trocam de slide enquanto digita */
+    });
+    el.addEventListener('blur', function(){ commit(el); });
+  });
+  rFol.addEventListener('input', function(){ vFol = +rFol.value; calc(); });
+  rConv.addEventListener('input', function(){ vConv = +rConv.value; calc(); });
   document.querySelectorAll('[data-preset]').forEach(function(b){
-    b.addEventListener('click', function(){ rFol.value = b.dataset.preset; calc(); });
+    b.addEventListener('click', function(){ rFol.value = b.dataset.preset; vFol = +rFol.value; calc(); });
   });
   document.querySelectorAll('[data-rate]').forEach(function(b){
     b.addEventListener('click', function(){ rate = +b.dataset.rate; calc(); });
   });
 
-  /* ---------- transição 3 → 4: a biblioteca minimiza, o editor abre, depois a busca ---------- */
-  function morph(fromEl, toEl){
-    if (reduce || !fromEl || !toEl || !document.body.animate) return false;
-    var a = fromEl.getBoundingClientRect();
-    if (!a.width) return false;
-    toEl.classList.add('morph-in');
-    var fly = document.createElement('div'), c = fromEl.cloneNode(true);
-    c.removeAttribute('data-r'); c.removeAttribute('id'); Array.prototype.forEach.call(c.querySelectorAll('[id]'), function(n){ n.removeAttribute('id'); });
-    fly.className = 'morph-fly'; fly.setAttribute('aria-hidden', 'true');
-    fly.style.left = a.left + 'px'; fly.style.top = a.top + 'px'; fly.style.width = a.width + 'px'; fly.style.height = a.height + 'px';
-    fly.style.transformOrigin = '50% 100%';
-    fly.appendChild(c); document.body.appendChild(fly);
-    fromEl.style.visibility = 'hidden';
-    /* o "–" da barra de título pisca antes de minimizar */
-    var wc = c.querySelector('.wc');
-    if (wc) wc.animate([{ color: '#777', textShadow: 'none' }, { color: '#7af0cf', textShadow: '0 0 6px rgba(122,240,207,.9)' }, { color: '#7af0cf' }], { duration: 260, fill: 'forwards' });
-    /* minimiza: encolhe e desce para a "barra de tarefas" */
-    var down = window.innerHeight - a.bottom + a.height * .1;
-    var an = fly.animate([
-      { transform: 'translateY(0) scale(1,1)', opacity: 1, filter: 'blur(0px)', offset: 0 },
-      { transform: 'translateY(0) scale(1,1)', opacity: 1, filter: 'blur(0px)', offset: .25, easing: 'cubic-bezier(.55,0,.85,.35)' },
-      { transform: 'translateY(' + (down * .55).toFixed(0) + 'px) scale(.42,.3)', opacity: .9, filter: 'blur(.5px)', offset: .7, easing: 'cubic-bezier(.4,0,1,1)' },
-      { transform: 'translateY(' + down.toFixed(0) + 'px) scale(.12,.05)', opacity: 0, filter: 'blur(2px)' }
-    ], { duration: 1050, fill: 'forwards' });
-    var done = function(){ if (!fly.parentNode) return; fly.parentNode.removeChild(fly); fromEl.style.visibility = ''; };
-    an.onfinish = done; setTimeout(done, 1300);
-    /* o editor abre: cresce do centro com uma mola leve */
-    var op = toEl.animate([
-      { opacity: 0, transform: 'translateY(18px) scale(.84)' },
-      { opacity: 1, transform: 'translateY(-3px) scale(1.015)', offset: .7 },
-      { opacity: 1, transform: 'translateY(0) scale(1)' }
-    ], { duration: 750, delay: 900, easing: 'cubic-bezier(.2,.9,.3,1)', fill: 'backwards' });
-    setTimeout(function(){ try { op.finish(); } catch (e) {} toEl.classList.remove('morph-in'); }, 1900);
-    return true;
-  }
 
   /* navegação */
   function go(i, replay){
@@ -1732,14 +1768,13 @@ body.idle{cursor:none}
     var s = slides[i];
     s.scrollTop = 0;
     World.scene(i, s);
-    var morphed = prev >= 0 && slides[prev].id === 'slide-biblioteca' && s.id === 'slide-solucao' && morph(slides[prev].querySelector('.libbig'), s.querySelector('.qsd'));
     document.body.dataset.edge = s.dataset.mood === 'red' ? 'red' : 'green'; EDGE.scan(s);
-    if (s.id === 'slide-problema') { CLOUD.mood('red'); CLOUD.burst(150, s.querySelectorAll('.h2 .w, .card, .src')); }
+    if (s.id === 'slide-problema') { CLOUD.mood('red'); CLOUD.burst(150, s.querySelectorAll('.eyebrow, .stat-xl, .provoke-sub, .provoke-kick, .src')); }
     else if (s.id === 'slide-biblioteca') { CLOUD.mood('green'); BIG.reset(); CLOUD.absorb(prev >= 0 && slides[prev].id === 'slide-problema' ? 650 : 250, BIG.add, BIG.done, s.querySelectorAll('.eyebrow, .h2 .w, .lead, .libbig')); }
     else CLOUD.hide();
     if (s.id === 'slide-assinatura') { SUB.stop(); SUB.start(); } else setTimeout(function(){ if (slides[cur] && slides[cur].id !== 'slide-assinatura') SUB.stop(); }, 900);
     if (prev >= 0 && slides[prev].id === 'slide-video') { try { $('ytAll').contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*'); } catch (e) {} }
-    if (s.id === 'slide-solucao') { QS.stop(); if (morphed) { QS.prep(); setTimeout(function(){ if (slides[cur] === s) QS.start(true); }, 1550); } else QS.start(); } else setTimeout(function(){ if (slides[cur] && slides[cur].id !== 'slide-solucao') QS.stop(); }, 900);
+    if (s.id === 'slide-solucao') { QS.stop(); QS.start(); } else setTimeout(function(){ if (slides[cur] && slides[cur].id !== 'slide-solucao') QS.stop(); }, 900);
     if (s.id === 'slide-recursos') { LIB.stop(); CONV.stop(); TRIM.stop(); LIB.start(); CONV.start(); TRIM.start(); } else setTimeout(function(){ if (slides[cur] && slides[cur].id !== 'slide-recursos') { LIB.stop(); CONV.stop(); TRIM.stop(); } }, 900);
     var tone = s.classList.contains('accent') ? 'accent' : 'dark';
     document.body.setAttribute('data-tone', tone);
