@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tester Checklist | MySoundLib</title>
+  <meta name="description" content="Internal checklist for MySoundLib beta testers.">
+  <!-- Internal page for beta testers: keep it out of search engines -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #1C1C1C;
+      --surface: #242424;
+      --surface-light: #2c2c2c;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --green: #1dcd9f;
+      --red: #ff6b6b;
+      --amber: #f0b429;
+      --text: #ffffff;
+      --text-muted: #9e9e9e;
+      --text-dim: #666666;
+      --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { background-color: var(--bg); scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wide { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── Header ──────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: rgba(28, 28, 28, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .nav { height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .nav-brand img { height: 26px; width: auto; display: block; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+
+    .header-progress {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .header-progress b { color: var(--green); }
+
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 6px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 100px;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn:hover { color: var(--text-muted); }
+    .lang-btn.active { background: var(--green); color: #1c1c1c; }
+
+    .progress-track { height: 2px; background: transparent; }
+    .progress-fill { height: 2px; width: 0; background: var(--green); transition: width 0.25s ease; }
+
+    /* ── Layout ──────────────────────────────── */
+    .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 0; }
+
+    .meta-tag { font-size: 12px; font-weight: 700; color: var(--green); letter-spacing: 0.04em; margin-bottom: 12px; }
+
+    h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 16px; }
+
+    .lead { font-size: 16px; color: var(--text-muted); margin-bottom: 32px; }
+
+    code {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: #e0e0e0;
+      overflow-wrap: anywhere;
+    }
+
+    kbd {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      padding: 0 6px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .card-title { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+
+    /* ── Tester info form ────────────────────── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .field label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+
+    .field input, .field select, textarea {
+      width: 100%;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .field input:focus, .field select:focus, textarea:focus { border-color: var(--green); }
+    .field select { appearance: none; -webkit-appearance: none; cursor: pointer;
+      background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%), linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+      background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+      background-size: 5px 5px; background-repeat: no-repeat; padding-right: 34px; }
+
+    .tips { list-style: none; display: grid; gap: 8px; }
+    .tips li { font-size: 14px; color: var(--text-muted); padding-left: 18px; position: relative; }
+    .tips li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .tips b { color: var(--text); }
+
+    /* ── Summary ─────────────────────────────── */
+    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 36px; }
+
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+    .stat-num { font-size: 22px; font-weight: 800; line-height: 1.2; }
+    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+    .stat.ok .stat-num { color: var(--green); }
+    .stat.fail .stat-num { color: var(--red); }
+    .stat.skip .stat-num { color: var(--amber); }
+
+    /* ── Sections ────────────────────────────── */
+    .section { margin-bottom: 36px; }
+
+    .section-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .section-head h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+    .section-count { font-size: 12px; font-weight: 600; color: var(--text-dim); margin-left: auto; }
+
+    .chip {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 1px 9px;
+      white-space: nowrap;
+    }
+
+    .chip.important { color: var(--amber); border-color: rgba(240, 180, 41, 0.35); }
+
+    .item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .item[data-status="ok"] { border-left-color: var(--green); }
+    .item[data-status="fail"] { border-left-color: var(--red); background: rgba(255, 107, 107, 0.05); }
+    .item[data-status="skip"] { border-left-color: var(--amber); }
+
+    .item-row { display: flex; gap: 16px; align-items: flex-start; }
+    .item-num { font-size: 12px; font-weight: 700; color: var(--text-dim); min-width: 30px; padding-top: 2px; font-variant-numeric: tabular-nums; }
+    .item-text { flex: 1; font-size: 14.5px; color: #dcdcdc; }
+    .item-text .hint { display: block; color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+
+    .item-actions { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-left: 46px; flex-wrap: wrap; }
+
+    .seg { display: inline-flex; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 2px; }
+
+    .seg button, .note-btn {
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      min-height: 32px;
+    }
+
+    .seg button:hover, .note-btn:hover { color: var(--text); }
+    .seg button[aria-pressed="true"][data-v="ok"] { background: var(--green); color: #0b0b0e; }
+    .seg button[aria-pressed="true"][data-v="fail"] { background: var(--red); color: #0b0b0e; }
+    .seg button[aria-pressed="true"][data-v="skip"] { background: var(--amber); color: #0b0b0e; }
+
+    .note-btn { border: 1px dashed var(--border); }
+    .note-btn.has-note { border-style: solid; color: var(--text); }
+
+    .note-wrap { margin-top: 10px; padding-left: 46px; }
+    .note-wrap[hidden] { display: none; }
+    textarea { min-height: 76px; resize: vertical; font-size: 13.5px; line-height: 1.5; }
+
+    /* ── Report ──────────────────────────────── */
+    .report-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .btn-solid { background: var(--green); color: #0b0b0e; }
+    .btn-solid:hover { background: #25e0b0; transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--text-muted); }
+    .btn-danger { background: transparent; color: var(--text-muted); border-color: transparent; margin-left: auto; }
+    .btn-danger:hover { color: var(--red); }
+
+    .report-card p { font-size: 14px; color: var(--text-muted); }
+    .warn { color: var(--amber) !important; font-size: 13px !important; margin-top: 10px; }
+    .warn[hidden] { display: none; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translate(-50%, 20px);
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 100px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 200;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    .footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer a { color: var(--text-muted); }
+    .footer a:hover { color: var(--green); }
+
+    @media (max-width: 640px) {
+      .wide { padding: 0 16px; }
+      .container { padding: 32px 16px 0; }
+      .form-grid { grid-template-columns: 1fr; }
+      .summary { grid-template-columns: repeat(2, 1fr); }
+      .header-progress { display: none; }
+      .item-actions, .note-wrap { padding-left: 0; }
+      .item-row { gap: 10px; }
+      .item-num { min-width: 24px; }
+      .btn-danger { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <nav class="nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-brand" aria-label="MySoundLib home">
+          <img src="static/logo.svg" alt="MySoundLib">
+        </a>
+        <div class="nav-right">
+          <span class="header-progress" id="headerProgress"></span>
+          <div class="lang-switcher">
+            <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" id="btnPT" onclick="setLang('pt')">PT</button>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </header>
+
+  <div class="container">
+    <main>
+      <div class="meta-tag" data-t="metaTag"></div>
+      <h1 data-t="title"></h1>
+      <p class="lead" data-t="lead"></p>
+
+      <!-- Tester info -->
+      <div class="card">
+        <div class="card-title" data-t="infoTitle"></div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="fName" data-t="fName"></label>
+            <input id="fName" type="text" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="fComputer" data-t="fComputer"></label>
+            <select id="fComputer">
+              <option value="" data-t="optChoose"></option>
+              <option value="mac-arm">Mac (Apple Silicon)</option>
+              <option value="mac-intel">Mac (Intel)</option>
+              <option value="windows">Windows</option>
+              <option value="linux">Linux</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fSystem" data-t="fSystem"></label>
+            <input id="fSystem" type="text">
+          </div>
+          <div class="field">
+            <label for="fApp" data-t="fApp"></label>
+            <input id="fApp" type="text">
+          </div>
+        </div>
+      </div>
+
+      <!-- Tips -->
+      <div class="card">
+        <div class="card-title" data-t="tipsTitle"></div>
+        <ul class="tips">
+          <li data-t="tip1"></li>
+          <li data-t="tip2"></li>
+          <li data-t="tip3"></li>
+          <li data-t="tip4"></li>
+        </ul>
+      </div>
+
+      <!-- Summary -->
+      <div class="summary" aria-live="polite">
+        <div class="stat"><div class="stat-num" id="sTotal">0</div><div class="stat-label" data-t="sTested"></div></div>
+        <div class="stat ok"><div class="stat-num" id="sOk">0</div><div class="stat-label" data-t="sOk"></div></div>
+        <div class="stat fail"><div class="stat-num" id="sFail">0</div><div class="stat-label" data-t="sFail"></div></div>
+        <div class="stat skip"><div class="stat-num" id="sSkip">0</div><div class="stat-label" data-t="sSkip"></div></div>
+      </div>
+
+      <!-- Checklist (rendered from CHECKLIST below) -->
+      <div id="checklist"></div>
+
+      <!-- Report -->
+      <div class="card report-card" id="report">
+        <div class="card-title" data-t="reportTitle"></div>
+        <p data-t="reportText"></p>
+        <p class="warn" id="reportWarn" hidden></p>
+        <div class="report-actions">
+          <button class="btn btn-solid" id="btnCopy" data-t="btnCopy"></button>
+          <button class="btn btn-ghost" id="btnDownload" data-t="btnDownload"></button>
+          <button class="btn btn-danger" id="btnReset" data-t="btnReset"></button>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>&copy; MySoundLib</span>
+        <a href="index.html" data-t="footerBack"></a>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    /* ── UI copy ─────────────────────────────── */
+    const UI = {
+      en: {
+        metaTag: 'Beta testing • Internal',
+        title: 'Tester Checklist',
+        lead: 'Thanks for helping test this build! Mark each item as <b>OK</b>, <b>Failed</b> or <b>Skip</b>, add a note when something goes wrong, and send us the report at the end. Your answers are saved in this browser, so you can close the page and come back later.',
+        infoTitle: 'About you and your computer',
+        fName: 'Your name',
+        fComputer: 'Computer',
+        optChoose: 'Choose…',
+        fSystem: 'System version (optional)',
+        fApp: 'App version tested',
+        tipsTitle: 'Before you start',
+        tip1: 'Sections marked <b>macOS</b> only apply to Macs. On Windows or Linux, mark them as <b>Skip</b>.',
+        tip2: 'Not sure which Mac you have? Apple menu > About This Mac shows "Chip: Apple M…" (Apple Silicon) or "Processor: Intel".',
+        tip3: 'When something fails, write down <b>what you did</b>, <b>what you expected</b> and <b>what happened</b>. Error messages and file names help a lot.',
+        tip4: 'If something failed, send the app\'s log file together with the report.',
+        sTested: 'tested',
+        sOk: 'OK',
+        sFail: 'Failed',
+        sSkip: 'Skipped',
+        stOk: 'OK',
+        stFail: 'Failed',
+        stSkip: 'Skip',
+        noteAdd: '+ Note',
+        noteEdit: 'Note',
+        notePh: 'What did you do, what did you expect, and what happened?',
+        headerProgress: '<b>{done}</b> / {total} tested',
+        reportTitle: 'Send the report',
+        reportText: 'When you finish (or need to stop), copy the report or download it as a .txt file and send it to us. Include the log file if something failed.',
+        warnMissing: 'Fill in your name and computer above so we know who sent the report.',
+        btnCopy: 'Copy report',
+        btnDownload: 'Download .txt',
+        btnReset: 'Start over',
+        confirmReset: 'Clear all answers and notes on this page?',
+        toastCopied: 'Report copied to the clipboard',
+        toastCopyFail: 'Could not copy. Use "Download .txt" instead.',
+        toastReset: 'All answers cleared',
+        footerBack: 'Back to the main page',
+        // report text
+        rTitle: 'MySoundLib - Beta test report',
+        rTester: 'Tester',
+        rComputer: 'Computer',
+        rSystem: 'System',
+        rApp: 'App version',
+        rDate: 'Date',
+        rSummary: 'Summary',
+        rFailures: 'FAILURES',
+        rNoFailures: 'No failures reported.',
+        rAll: 'FULL CHECKLIST',
+        rNote: 'Note',
+        rNotTested: 'not tested',
+        rStatus: { ok: 'OK', fail: 'FAILED', skip: 'SKIPPED', '': '-' }
+      },
+      pt: {
+        metaTag: 'Testes beta • Interno',
+        title: 'Checklist de Testes',
+        lead: 'Obrigado por ajudar a testar esta versão! Marque cada item como <b>OK</b>, <b>Falhou</b> ou <b>Pular</b>, escreva uma observação quando algo der errado e envie o relatório no final. As respostas ficam salvas neste navegador, então você pode fechar a página e continuar depois.',
+        infoTitle: 'Sobre você e seu computador',
+        fName: 'Seu nome',
+        fComputer: 'Computador',
+        optChoose: 'Escolha…',
+        fSystem: 'Versão do sistema (opcional)',
+        fApp: 'Versão do app testada',
+        tipsTitle: 'Antes de começar',
+        tip1: 'Seções marcadas com <b>macOS</b> valem só para Mac. No Windows ou no Linux, marque como <b>Pular</b>.',
+        tip2: 'Não sabe qual é o seu Mac? Menu Apple > Sobre Este Mac mostra "Chip: Apple M…" (Apple Silicon) ou "Processador: Intel".',
+        tip3: 'Quando algo falhar, anote <b>o que você fez</b>, <b>o que esperava</b> e <b>o que aconteceu</b>. Mensagens de erro e nomes de arquivos ajudam muito.',
+        tip4: 'Se algo falhou, envie o arquivo de log do app junto com o relatório.',
+        sTested: 'testados',
+        sOk: 'OK',
+        sFail: 'Falharam',
+        sSkip: 'Pulados',
+        stOk: 'OK',
+        stFail: 'Falhou',
+        stSkip: 'Pular',
+        noteAdd: '+ Observação',
+        noteEdit: 'Observação',
+        notePh: 'O que você fez, o que esperava e o que aconteceu?',
+        headerProgress: '<b>{done}</b> / {total} testados',
+        reportTitle: 'Enviar o relatório',
+        reportText: 'Quando terminar (ou precisar parar), copie o relatório ou baixe como arquivo .txt e envie para nós. Mande também o arquivo de log se algo falhou.',
+        warnMissing: 'Preencha seu nome e o computador lá em cima para sabermos quem enviou o relatório.',
+        btnCopy: 'Copiar relatório',
+        btnDownload: 'Baixar .txt',
+        btnReset: 'Recomeçar',
+        confirmReset: 'Apagar todas as respostas e observações desta página?',
+        toastCopied: 'Relatório copiado',
+        toastCopyFail: 'Não foi possível copiar. Use "Baixar .txt".',
+        toastReset: 'Respostas apagadas',
+        footerBack: 'Voltar para a página principal',
+        rTitle: 'MySoundLib - Relatório de testes beta',
+        rTester: 'Testador',
+        rComputer: 'Computador',
+        rSystem: 'Sistema',
+        rApp: 'Versão do app',
+        rDate: 'Data',
+        rSummary: 'Resumo',
+        rFailures: 'FALHAS',
+        rNoFailures: 'Nenhuma falha relatada.',
+        rAll: 'CHECKLIST COMPLETO',
+        rNote: 'Observação',
+        rNotTested: 'não testados',
+        rStatus: { ok: 'OK', fail: 'FALHOU', skip: 'PULADO', '': '-' }
+      }
+    };
+
+    /* ── Checklist content ───────────────────────
+       Item ids are stable across languages and edits: never reuse an id for a
+       different test, or saved answers will attach to the wrong item. */
+    const CHECKLIST = [
+      {
+        id: 'install', platform: 'macOS',
+        en: 'macOS installation', pt: 'Instalação no macOS',
+        items: [
+          { id: 'install-dmg',
+            en: 'There are now two DMGs: <code>…_macOS_arm64.dmg</code> (Apple Silicon: M1, M2, M3…) and <code>…_macOS_x86_64.dmg</code> (Intel). Install the right one for your Mac and confirm the app launches.',
+            pt: 'Agora existem dois DMGs: <code>…_macOS_arm64.dmg</code> (Apple Silicon: M1, M2, M3…) e <code>…_macOS_x86_64.dmg</code> (Intel). Instale o DMG certo para o seu Mac e confirme que o app abre.' },
+          { id: 'install-first-launch',
+            en: 'First launch: if macOS blocks the app, follow the README instructions to allow it and confirm they work on your Mac.',
+            pt: 'Primeira abertura: se o macOS bloquear o app, siga as instruções do README para liberá-lo e confirme que elas funcionam no seu Mac.' },
+          { id: 'install-get-info',
+            en: 'The app\'s "Get Info" window shows the name <b>MySoundLib</b>, the correct version and the icon.',
+            pt: 'Em "Obter Informações" do app, ele aparece como <b>MySoundLib</b>, com a versão correta e o ícone.' },
+          { id: 'install-translocation',
+            en: 'Launch the app straight from the DMG (or from the Downloads folder). A "Please move MySoundLib to your Applications folder" warning should appear. Test both <b>Quit</b> and <b>Continue Anyway</b>.',
+            pt: 'Abra o app direto de dentro do DMG (ou da pasta Downloads). Deve aparecer o aviso "Mova o MySoundLib para a pasta Aplicativos". Teste os botões <b>Sair</b> e <b>Continuar Mesmo Assim</b>.' }
+        ]
+      },
+      {
+        id: 'migration', platform: 'macOS', important: true,
+        en: 'macOS data migration', pt: 'Migração dos dados no macOS',
+        items: [
+          { id: 'mig-update',
+            en: 'Starting from an old version that has data in <code>~/Documents/MySoundLib</code>, update to the new one. Libraries, tags, favorites and settings must all still be there.',
+            pt: 'Com uma versão antiga já usada (dados em <code>~/Documents/MySoundLib</code>), atualize para a nova. As bibliotecas, tags, favoritos e configurações devem aparecer normalmente.' },
+          { id: 'mig-location',
+            en: 'The data should now be in <code>~/Library/Application Support/MySoundLib</code>. The old folder is kept and gets a <code>MOVED_TO_APPLICATION_SUPPORT.txt</code> file.',
+            pt: 'Os dados devem estar em <code>~/Library/Application Support/MySoundLib</code>. A pasta antiga continua existindo e ganha um arquivo <code>MOVED_TO_APPLICATION_SUPPORT.txt</code>.' },
+          { id: 'mig-once',
+            en: 'Relaunch the app. The migration must <b>not</b> run again or overwrite newer data.',
+            pt: 'Feche e abra o app de novo. A migração <b>não</b> pode rodar uma segunda vez nem sobrescrever dados novos.' },
+          { id: 'mig-clean',
+            en: 'Clean install (no old folder): the app starts normally.',
+            pt: 'Instalação limpa (sem a pasta antiga): o app abre normalmente.' },
+          { id: 'mig-custom',
+            en: 'Users with a custom storage folder keep using that same folder.',
+            pt: 'Quem usava uma pasta de armazenamento personalizada deve continuar usando essa mesma pasta.' },
+          { id: 'mig-deny',
+            en: 'If macOS asks for access to the Documents folder and you <b>deny</b> it, the app must not crash.',
+            pt: 'Se o macOS pedir acesso à pasta Documentos e você <b>negar</b>, o app não pode travar.' }
+        ]
+      },
+      {
+        id: 'hotkey', platform: 'macOS',
+        en: 'Global QuickSearch hotkey', pt: 'Atalho global do QuickSearch',
+        items: [
+          { id: 'hk-default',
+            en: 'The default macOS hotkey is now <kbd>Option</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>.',
+            pt: 'O atalho padrão no macOS agora é <kbd>Option</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>.' },
+          { id: 'hk-dialog',
+            en: 'On first launch without permission, the "Enable the QuickSearch Shortcut" dialog appears. Test <b>Open System Settings</b>, <b>Later</b> and <b>Don\'t show this again</b> (the dialog should not come back).',
+            pt: 'Na primeira execução sem permissão, aparece a janela "Ativar o atalho do QuickSearch". Teste os botões <b>Abrir Ajustes do Sistema</b> e <b>Depois</b>, e a opção <b>Não mostrar novamente</b> (a janela não deve voltar a aparecer).' },
+          { id: 'hk-input-monitoring',
+            en: 'Enable <b>Input Monitoring</b> in System Settings > Privacy & Security, restart the app, and confirm the hotkey opens QuickSearch while your DAW or video editor is in front.',
+            pt: 'Ative <b>Monitoramento de Entrada</b> em Ajustes do Sistema > Privacidade e Segurança, reinicie o app e confirme que o atalho abre o QuickSearch com o DAW ou editor de vídeo em primeiro plano.' },
+          { id: 'hk-inside-app',
+            en: 'Without the permission, the hotkey still works <b>inside</b> MySoundLib.',
+            pt: 'Sem a permissão, o atalho continua funcionando <b>dentro</b> do MySoundLib.' },
+          { id: 'hk-change',
+            en: 'Change the hotkey in Settings > Shortcuts and check that the new one works.',
+            pt: 'Troque o atalho em Configurações > Atalhos e veja se o novo funciona.' }
+        ]
+      },
+      {
+        id: 'finder', platform: 'macOS',
+        en: 'Trash, Finder and FFmpeg', pt: 'Lixeira, Finder e FFmpeg',
+        items: [
+          { id: 'fd-trash',
+            en: 'Deleting files and folders from the app moves them to the <b>Trash</b> (they are not permanently deleted) and you can restore them. Also test names with accents, quotes and spaces.',
+            pt: 'Apague arquivos e pastas pelo app: eles vão para a <b>Lixeira</b> (não são apagados para sempre) e dá para restaurar. Teste também nomes com acentos, aspas e espaços.' },
+          { id: 'fd-reveal',
+            en: '"Reveal in Finder" opens Finder with the file selected. Also test it on a folder.',
+            pt: '"Mostrar no Finder" abre o Finder com o arquivo selecionado. Teste também com uma pasta.' },
+          { id: 'fd-ffmpeg',
+            en: 'With FFmpeg installed via Homebrew (<code>brew install ffmpeg</code>) and the app launched from the Dock/Finder, MP3/M4A/OPUS show waveforms, and conversion and export work.',
+            pt: 'Com o FFmpeg instalado pelo Homebrew (<code>brew install ffmpeg</code>) e o app aberto pelo Dock/Finder, MP3/M4A/OPUS devem mostrar a forma de onda, e a conversão e a exportação devem funcionar.' },
+          { id: 'fd-no-ffmpeg',
+            en: 'Without FFmpeg installed, the app must not crash.',
+            pt: 'Sem o FFmpeg instalado, o app não pode travar.' }
+        ]
+      },
+      {
+        id: 'restart', platform: 'all',
+        en: 'Auto-restart', pt: 'Reinício automático',
+        items: [
+          { id: 'rs-restart',
+            en: 'Change a setting that requires a restart (for example, the language). The app should close and <b>reopen by itself</b>.',
+            pt: 'Mude uma configuração que reinicia o app (por exemplo, o idioma). O app fecha e <b>reabre sozinho</b>.' }
+        ]
+      },
+      {
+        id: 'scan', platform: 'all',
+        en: 'Folder scanning and sync', pt: 'Varredura e sincronização de pastas',
+        items: [
+          { id: 'sc-appledouble',
+            en: 'Folders on USB drives or external disks (exFAT/FAT) used on a Mac: <code>._name.wav</code> and <code>.DS_Store</code> files must <b>not</b> show up in the library.',
+            pt: 'Pastas em pendrive ou HD externo (exFAT/FAT) usados no Mac: arquivos <code>._nome.wav</code> e <code>.DS_Store</code> <b>não</b> podem aparecer na biblioteca.' },
+          { id: 'sc-accents',
+            en: 'Files and folders with accented names (e.g. <code>Explosão.wav</code>) must not be duplicated after a rescan or sync.',
+            pt: 'Arquivos e pastas com acentos (ex.: <code>Explosão.wav</code>, <code>Música/</code>) não podem ficar duplicados depois de escanear de novo ou sincronizar.' },
+          { id: 'sc-regroup',
+            en: 'Rescan an already-added folder into a different group. The files should move to that group and not be duplicated.',
+            pt: 'Escaneie de novo uma pasta já adicionada para um grupo diferente. Os arquivos devem mudar de grupo e não ser duplicados.' }
+        ]
+      },
+      {
+        id: 'trim', platform: 'all',
+        en: 'Trim, convert and groups', pt: 'Recortar, converter e grupos',
+        items: [
+          { id: 'tr-replace',
+            en: '"Trim and Replace Original File" on MP3, M4A, FLAC and WAV: the file keeps its original format and plays normally in other apps.',
+            pt: '"Recortar e substituir o arquivo original" em MP3, M4A, FLAC e WAV: o arquivo continua no formato original e toca normalmente em outros programas.' },
+          { id: 'tr-replace-no-ffmpeg',
+            en: 'Run the same test <b>without FFmpeg</b> on an MP3: an error should appear and the original must stay untouched.',
+            pt: 'O mesmo teste <b>sem o FFmpeg</b> com um MP3: deve aparecer um erro e o original fica intacto.' },
+          { id: 'tr-convert',
+            en: 'Convert to AIF/AIFF, WAV, FLAC and OGG. The output should open and play.',
+            pt: 'Converta para AIF/AIFF, WAV, FLAC e OGG. O resultado deve abrir e tocar.' },
+          { id: 'tr-same-group',
+            en: 'Drag files onto the group they are <b>already</b> in. A message should say they are already there, and nothing gets "moved".',
+            pt: 'Arraste arquivos para o <b>mesmo</b> grupo onde já estão. Deve aparecer uma mensagem explicando que já estão lá, sem "mover" nada.' }
+        ]
+      },
+      {
+        id: 'persist', platform: 'all',
+        en: 'Library persistence', pt: 'Persistência da biblioteca',
+        items: [
+          { id: 'ps-settings',
+            en: 'Open or create a library, then open Settings and save. Restart the app: the library that opens must be the <b>last one</b> you used, not an older one.',
+            pt: 'Abra ou crie uma biblioteca, depois abra Configurações e salve. Reinicie o app: a biblioteca aberta deve ser a <b>última</b> que você usou, e não uma antiga.' },
+          { id: 'ps-actions',
+            en: 'Repeat with: Save Library Copy > switch to the copy, Rename, Close, Delete library, and opening from the Recent list.',
+            pt: 'Faça o mesmo teste com: Salvar cópia > trocar para a cópia, Renomear, Fechar, Apagar biblioteca e abrir pela lista de Recentes.' }
+        ]
+      },
+      {
+        id: 'i18n', platform: 'all',
+        en: 'Translations (PT-BR, ES, HI)', pt: 'Traduções (PT-BR, ES, HI)',
+        items: [
+          { id: 'tl-english-left',
+            en: 'Use the app in each language and look for text still in English in: the status bar, context menus (Library, files, groups, tags), buttons, tooltips, confirmation and error dialogs, conversion options (sample rate/bitrate) and "Mono/Stereo".',
+            pt: 'Use o app em cada idioma e procure textos que ainda estejam em inglês em: barra de status, menus de contexto (Biblioteca, arquivos, grupos, tags), botões, dicas (tooltips), janelas de confirmação e erro, opções de conversão (taxa de amostragem/bitrate) e "Mono/Estéreo".' },
+          { id: 'tl-placeholders',
+            en: 'Messages with names or numbers must show the right values, with no literal <code>{count}</code> or <code>{name}</code>.',
+            pt: 'Mensagens com nomes ou números devem mostrar os valores certos, sem <code>{count}</code> ou <code>{name}</code> aparecendo literalmente.' }
+        ]
+      },
+      {
+        id: 'regression', platform: 'Windows / Linux',
+        en: 'Windows and Linux regression', pt: 'Regressão no Windows e no Linux',
+        items: [
+          { id: 'rg-basic',
+            en: 'Basic flow: launch, scan, play, drag to the DAW, QuickSearch (<kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>), delete to the Recycle Bin, and reveal in Explorer/file manager.',
+            pt: 'Fluxo básico: abrir o app, escanear, tocar, arrastar para o DAW, QuickSearch (<kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>), apagar para a Lixeira e mostrar no Explorer/gerenciador de arquivos.' },
+          { id: 'rg-storage',
+            en: 'Data stays in <code>Documents\\MySoundLib</code>, with no migration.',
+            pt: 'Os dados continuam em <code>Documentos\\MySoundLib</code>, sem nenhuma migração.' }
+        ]
+      }
+    ];
+
+    const PLATFORM_LABEL = {
+      all: { en: 'All platforms', pt: 'Todas as plataformas' },
+      macOS: { en: 'macOS', pt: 'macOS' },
+      'Windows / Linux': { en: 'Windows / Linux', pt: 'Windows / Linux' }
+    };
+    const IMPORTANT_LABEL = { en: 'Important', pt: 'Importante' };
+
+    /* ── State (per browser) ─────────────────── */
+    const STORE_KEY = 'msl_beta_checklist_v1';
+    let state = { info: {}, items: {} };   // items[id] = { s: 'ok'|'fail'|'skip', n: 'note' }
+    let lang = 'en';
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state.info = parsed.info || {};
+          state.items = parsed.items || {};
+        }
+      } catch (e) {}
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+
+    function itemState(id) {
+      return state.items[id] || { s: '', n: '' };
+    }
+
+    function setItem(id, patch) {
+      const cur = itemState(id);
+      const next = Object.assign({}, cur, patch);
+      if (!next.s && !next.n) delete state.items[id];
+      else state.items[id] = next;
+      saveState();
+    }
+
+    /* ── Rendering ───────────────────────────── */
+    function allItems() {
+      const out = [];
+      CHECKLIST.forEach((sec, si) => sec.items.forEach((it, ii) => out.push({ sec, it, num: (si + 1) + '.' + (ii + 1) })));
+      return out;
+    }
+
+    function render() {
+      const t = UI[lang];
+      const root = document.getElementById('checklist');
+      root.innerHTML = '';
+
+      CHECKLIST.forEach((sec, si) => {
+        const section = document.createElement('section');
+        section.className = 'section';
+        section.id = 'sec-' + sec.id;
+
+        const head = document.createElement('div');
+        head.className = 'section-head';
+        head.innerHTML =
+          '<h2>' + (si + 1) + '. ' + sec[lang] + '</h2>' +
+          '<span class="chip">' + PLATFORM_LABEL[sec.platform][lang] + '</span>' +
+          (sec.important ? '<span class="chip important">' + IMPORTANT_LABEL[lang] + '</span>' : '') +
+          '<span class="section-count" data-count="' + sec.id + '"></span>';
+        section.appendChild(head);
+
+        sec.items.forEach((it, ii) => {
+          const st = itemState(it.id);
+          const card = document.createElement('div');
+          card.className = 'item';
+          card.dataset.status = st.s;
+          card.dataset.id = it.id;
+
+          card.innerHTML =
+            '<div class="item-row">' +
+              '<span class="item-num">' + (si + 1) + '.' + (ii + 1) + '</span>' +
+              '<div class="item-text">' + it[lang] + '</div>' +
+            '</div>' +
+            '<div class="item-actions">' +
+              '<div class="seg" role="group">' +
+                ['ok', 'fail', 'skip'].map(v =>
+                  '<button type="button" data-v="' + v + '" aria-pressed="' + (st.s === v) + '">' +
+                  t[v === 'ok' ? 'stOk' : v === 'fail' ? 'stFail' : 'stSkip'] + '</button>').join('') +
+              '</div>' +
+              '<button type="button" class="note-btn' + (st.n ? ' has-note' : '') + '">' + (st.n ? t.noteEdit : t.noteAdd) + '</button>' +
+            '</div>' +
+            '<div class="note-wrap"' + (st.n || st.s === 'fail' ? '' : ' hidden') + '>' +
+              '<textarea placeholder="' + t.notePh + '" aria-label="' + t.noteEdit + ' ' + (si + 1) + '.' + (ii + 1) + '"></textarea>' +
+            '</div>';
+
+          card.querySelector('textarea').value = st.n || '';
+          section.appendChild(card);
+        });
+
+        root.appendChild(section);
+      });
+
+      updateCounts();
+    }
+
+    function updateCounts() {
+      const t = UI[lang];
+      const items = allItems();
+      let ok = 0, fail = 0, skip = 0;
+      items.forEach(({ it }) => {
+        const s = itemState(it.id).s;
+        if (s === 'ok') ok++;
+        else if (s === 'fail') fail++;
+        else if (s === 'skip') skip++;
+      });
+      const done = ok + fail + skip;
+      const total = items.length;
+
+      document.getElementById('sTotal').textContent = done + ' / ' + total;
+      document.getElementById('sOk').textContent = ok;
+      document.getElementById('sFail').textContent = fail;
+      document.getElementById('sSkip').textContent = skip;
+      document.getElementById('headerProgress').innerHTML = t.headerProgress.replace('{done}', done).replace('{total}', total);
+      document.getElementById('progressFill').style.width = (total ? (done / total * 100) : 0) + '%';
+
+      CHECKLIST.forEach(sec => {
+        const n = sec.items.filter(it => itemState(it.id).s).length;
+        const el = document.querySelector('[data-count="' + sec.id + '"]');
+        if (el) el.textContent = n + ' / ' + sec.items.length;
+      });
+    }
+
+    /* ── Events (delegated) ──────────────────── */
+    document.getElementById('checklist').addEventListener('click', e => {
+      const card = e.target.closest('.item');
+      if (!card) return;
+      const id = card.dataset.id;
+      const t = UI[lang];
+
+      const segBtn = e.target.closest('.seg button');
+      if (segBtn) {
+        const v = segBtn.dataset.v;
+        const next = itemState(id).s === v ? '' : v;   // click again to clear
+        setItem(id, { s: next });
+        card.dataset.status = next;
+        card.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === next)));
+        if (next === 'fail') {
+          const wrap = card.querySelector('.note-wrap');
+          wrap.hidden = false;
+          wrap.querySelector('textarea').focus();
+        }
+        updateCounts();
+        return;
+      }
+
+      if (e.target.closest('.note-btn')) {
+        const wrap = card.querySelector('.note-wrap');
+        wrap.hidden = !wrap.hidden;
+        if (!wrap.hidden) wrap.querySelector('textarea').focus();
+      }
+    });
+
+    document.getElementById('checklist').addEventListener('input', e => {
+      if (e.target.tagName !== 'TEXTAREA') return;
+      const card = e.target.closest('.item');
+      const t = UI[lang];
+      const val = e.target.value;
+      setItem(card.dataset.id, { n: val });
+      const btn = card.querySelector('.note-btn');
+      btn.classList.toggle('has-note', !!val.trim());
+      btn.textContent = val.trim() ? t.noteEdit : t.noteAdd;
+    });
+
+    const INFO_FIELDS = { fName: 'name', fComputer: 'computer', fSystem: 'system', fApp: 'app' };
+    Object.entries(INFO_FIELDS).forEach(([elId, key]) => {
+      const el = document.getElementById(elId);
+      el.addEventListener('input', () => {
+        state.info[key] = el.value;
+        saveState();
+        document.getElementById('reportWarn').hidden = true;
+      });
+    });
+
+    function fillInfoFields() {
+      Object.entries(INFO_FIELDS).forEach(([elId, key]) => {
+        document.getElementById(elId).value = state.info[key] || '';
+      });
+    }
+
+    /* ── Report ──────────────────────────────── */
+    function htmlToText(html) {
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      return div.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    function computerLabel(v) {
+      const opt = document.querySelector('#fComputer option[value="' + v + '"]');
+      return v && opt ? opt.textContent : '-';
+    }
+
+    function buildReport() {
+      const t = UI[lang];
+      const items = allItems();
+      const counts = { ok: 0, fail: 0, skip: 0, '': 0 };
+      items.forEach(({ it }) => counts[itemState(it.id).s || '']++);
+
+      const line = '='.repeat(60);
+      const out = [];
+      out.push(t.rTitle, line);
+      out.push(t.rTester + ': ' + (state.info.name || '-'));
+      out.push(t.rComputer + ': ' + computerLabel(state.info.computer));
+      out.push(t.rSystem + ': ' + (state.info.system || '-'));
+      out.push(t.rApp + ': ' + (state.info.app || '-'));
+      out.push(t.rDate + ': ' + new Date().toLocaleString(lang === 'pt' ? 'pt-BR' : 'en-US'));
+      out.push('');
+      out.push(t.rSummary + ': OK ' + counts.ok + ' | ' + t.sFail + ' ' + counts.fail +
+               ' | ' + t.sSkip + ' ' + counts.skip + ' | ' + t.rNotTested + ' ' + counts['']);
+      out.push('');
+
+      out.push(t.rFailures, '-'.repeat(60));
+      const failures = items.filter(({ it }) => itemState(it.id).s === 'fail');
+      if (!failures.length) out.push(t.rNoFailures);
+      failures.forEach(({ it, num }) => {
+        out.push('[' + num + '] ' + htmlToText(it[lang]));
+        const n = (itemState(it.id).n || '').trim();
+        if (n) out.push('    ' + t.rNote + ': ' + n.replace(/\n/g, '\n    '));
+        out.push('');
+      });
+      out.push('');
+
+      out.push(t.rAll, '-'.repeat(60));
+      CHECKLIST.forEach((sec, si) => {
+        out.push('');
+        out.push((si + 1) + '. ' + sec[lang] + ' (' + PLATFORM_LABEL[sec.platform][lang] + ')');
+        sec.items.forEach((it, ii) => {
+          const st = itemState(it.id);
+          const status = t.rStatus[st.s || ''];
+          out.push('  [' + status + '] ' + (si + 1) + '.' + (ii + 1) + ' ' + htmlToText(it[lang]));
+          const n = (st.n || '').trim();
+          if (n && st.s !== 'fail') out.push('      ' + t.rNote + ': ' + n.replace(/\n/g, '\n      '));
+        });
+      });
+
+      return out.join('\n') + '\n';
+    }
+
+    function checkInfo() {
+      const missing = !(state.info.name || '').trim() || !state.info.computer;
+      const warn = document.getElementById('reportWarn');
+      warn.textContent = UI[lang].warnMissing;
+      warn.hidden = !missing;
+      return !missing;
+    }
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => el.classList.remove('show'), 2400);
+    }
+
+    document.getElementById('btnCopy').addEventListener('click', async () => {
+      checkInfo();
+      const text = buildReport();
+      try {
+        await navigator.clipboard.writeText(text);
+        toast(UI[lang].toastCopied);
+      } catch (e) {
+        // Fallback for browsers without async clipboard access
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (err) {}
+        ta.remove();
+        toast(ok ? UI[lang].toastCopied : UI[lang].toastCopyFail);
+      }
+    });
+
+    document.getElementById('btnDownload').addEventListener('click', () => {
+      checkInfo();
+      const text = buildReport();
+      const who = (state.info.name || 'tester').trim().replace(/[^\w\-]+/g, '_').slice(0, 40) || 'tester';
+      const date = new Date().toISOString().slice(0, 10);
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'MySoundLib_beta_report_' + who + '_' + date + '.txt';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    });
+
+    document.getElementById('btnReset').addEventListener('click', () => {
+      if (!confirm(UI[lang].confirmReset)) return;
+      state = { info: {}, items: {} };
+      saveState();
+      fillInfoFields();
+      document.getElementById('reportWarn').hidden = true;
+      render();
+      toast(UI[lang].toastReset);
+    });
+
+    /* ── Language ────────────────────────────── */
+    function setLang(next, persist = true) {
+      if (!UI[next]) next = 'en';
+      lang = next;
+      const t = UI[lang];
+      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+      document.title = t.title + ' | MySoundLib';
+      ['EN', 'PT'].forEach(code => {
+        document.getElementById('btn' + code).classList.toggle('active', lang === code.toLowerCase());
+      });
+      document.querySelectorAll('[data-t]').forEach(el => {
+        const v = t[el.dataset.t];
+        if (v !== undefined) el.innerHTML = v;
+      });
+      if (!document.getElementById('reportWarn').hidden) checkInfo();
+      render();
+      if (persist) { try { localStorage.setItem('msl_lang', lang); } catch (e) {} }
+    }
+
+    /* ── Init ────────────────────────────────── */
+    loadState();
+    fillInfoFields();
+    (function () {
+      let saved = null;
+      try { saved = localStorage.getItem('msl_lang'); } catch (e) {}
+      if (saved === 'en' || saved === 'pt') { setLang(saved); return; }
+      // ES/HI visitors of the main site get English here (the checklist exists in EN and PT only)
+      const navLang = (navigator.language || '').toLowerCase();
+      setLang(navLang.startsWith('pt') ? 'pt' : 'en', false);
+    })();
+  </script>
+</body>
+</html>
