@@ -1,6 +1,6 @@
 {
-  "latest_version": "1.1.0-beta.1",
-  "release_date": "2026-11-03",
-  "changelog": "• MySoundLib v1.1.0 Beta 1 release\n• Waveform: new green selection color, dedicated SoundQ-style drag & drop button with fade animation and translated hint\n• Waveform: dynamic time ruler that adapts from minutes down to milliseconds as you zoom\n• Waveform: fixed playhead z-order and drag & drop freezing; dropping into DAWs and folders now works reliably\n• Quick Search: taller waveform, fixes and global hotkey no longer stops responding on macOS after idle\n• Much faster startup: folder sync no longer re-reads files already in the library and now runs in the background\n• macOS: permanent hardware ID licensing, quit-on-close crash fix and Reveal in Finder\n• Windows: native API isolation fixes and Reveal in Explorer\n• Bug report: fixed 403 block on submission",
+  "latest_version": "1.1.1-beta.1",
+  "release_date": "2026-11-06",
+  "changelog": "• MySoundLib v1.1.1 Beta 1 release\n• macOS: separate downloads for Apple Silicon (arm64) and Intel (x86_64)\n• macOS: app data moves to ~/Library/Application Support/MySoundLib (copied automatically, old folder kept as a backup)\n• macOS: QuickSearch shortcut is now Option+Shift+F, with a guide to enable Input Monitoring\n• macOS: warning when the app is opened straight from the disk image or Downloads\n• macOS: more reliable Move to Trash, Reveal in Finder, FFmpeg detection and automatic restart\n• Scanning: macOS metadata files (._*, .DS_Store) are ignored and accented file names no longer duplicate\n• Trim and Replace keeps the original file format (MP3, M4A, FLAC...)\n• Conversion: AIFF output support\n• The open library is no longer reset after saving Settings\n• More of the interface translated to Portuguese, Spanish and Hindi",
   "gumroad_url": "https://mysoundlib.gumroad.com/l/mysoundlib"
 }
