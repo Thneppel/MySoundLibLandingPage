@@ -449,10 +449,10 @@
         fSystem: 'System version (optional)',
         fApp: 'App version tested',
         tipsTitle: 'Before you start',
-        tip1: 'Sections marked <b>macOS</b> only apply to Macs. On Windows or Linux, mark them as <b>Skip</b>.',
+        tip1: 'Sections marked <b>macOS</b> or <b>Linux</b> only apply to that system. On other computers, mark them as <b>Skip</b>.',
         tip2: 'Not sure which Mac you have? Apple menu > About This Mac shows "Chip: Apple M…" (Apple Silicon) or "Processor: Intel".',
         tip3: 'When something fails, write down <b>what you did</b>, <b>what you expected</b> and <b>what happened</b>. Error messages and file names help a lot.',
-        tip4: 'If something failed, send the app\'s log file together with the report.',
+        tip4: 'If something failed, send the app\'s log file <code>debug.log</code> together with the report. It is in the <code>debug</code> folder inside the app data: <code>Documents\\MySoundLib</code> on Windows, <code>~/Documents/MySoundLib</code> on Linux and <code>~/Library/Application Support/MySoundLib</code> on Mac (or inside your custom storage folder).',
         sTested: 'tested',
         sOk: 'OK',
         sFail: 'failed',
@@ -501,10 +501,10 @@
         fSystem: 'Versão do sistema (opcional)',
         fApp: 'Versão do app testada',
         tipsTitle: 'Antes de começar',
-        tip1: 'Seções marcadas com <b>macOS</b> valem só para Mac. No Windows ou no Linux, marque como <b>Pular</b>.',
+        tip1: 'Seções marcadas com <b>macOS</b> ou <b>Linux</b> valem só para esse sistema. Nos outros computadores, marque como <b>Pular</b>.',
         tip2: 'Não sabe qual é o seu Mac? Menu Apple > Sobre Este Mac mostra "Chip: Apple M…" (Apple Silicon) ou "Processador: Intel".',
         tip3: 'Quando algo falhar, anote <b>o que você fez</b>, <b>o que esperava</b> e <b>o que aconteceu</b>. Mensagens de erro e nomes de arquivos ajudam muito.',
-        tip4: 'Se algo falhou, envie o arquivo de log do app junto com o relatório.',
+        tip4: 'Se algo falhou, envie o arquivo de log do app <code>debug.log</code> junto com o relatório. Ele fica na pasta <code>debug</code> dentro dos dados do app: <code>Documentos\\MySoundLib</code> no Windows, <code>~/Documents/MySoundLib</code> no Linux e <code>~/Library/Application Support/MySoundLib</code> no Mac (ou dentro da sua pasta de armazenamento personalizada).',
         sTested: 'testados',
         sOk: 'OK',
         sFail: 'falharam',
@@ -634,7 +634,16 @@
         items: [
           { id: 'rs-restart',
             en: 'Change a setting that requires a restart (for example, the language). The app should close and <b>reopen by itself</b>.',
-            pt: 'Mude uma configuração que reinicia o app (por exemplo, o idioma). O app fecha e <b>reabre sozinho</b>.' }
+            pt: 'Mude uma configuração que reinicia o app (por exemplo, o idioma). O app fecha e <b>reabre sozinho</b>.' },
+          { id: 'rs-menu',
+            en: 'Use <b>Restart Application</b> in the menu. The app should close and reopen by itself, with only one window and no error.',
+            pt: 'Use <b>Reiniciar aplicativo</b> no menu. O app deve fechar e reabrir sozinho, com uma janela só e sem erro.' },
+          { id: 'rs-storage',
+            en: 'Change the storage folder in Settings and accept the restart. The app reopens using the new folder.',
+            pt: 'Troque a pasta de armazenamento nas Configurações e aceite o reinício. O app reabre usando a pasta nova.' },
+          { id: 'rs-scan-running',
+            en: 'Ask for a restart while a scan is running. If the app asks you to wait for the scan and you cancel, it must keep working normally (no half-closed state).',
+            pt: 'Peça um reinício com uma varredura em andamento. Se o app pedir para esperar a varredura e você cancelar, ele deve continuar funcionando normalmente (sem ficar meio fechado).' }
         ]
       },
       {
@@ -695,6 +704,33 @@
         ]
       },
       {
+        id: 'linux', platform: 'Linux',
+        en: 'Linux (AppImage)', pt: 'Linux (AppImage)',
+        items: [
+          { id: 'lx-launch',
+            en: 'Make the <code>.AppImage</code> executable (<code>chmod +x</code>) and open it. The app launches with its icon in the dock/taskbar, and sounds play.',
+            pt: 'Torne o <code>.AppImage</code> executável (<code>chmod +x</code>) e abra. O app abre com o ícone certo na dock/barra de tarefas, e os sons tocam.' },
+          { id: 'lx-x11-hotkey',
+            en: '<b>X11 session:</b> with another app in front, <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> opens QuickSearch. Also test with Caps Lock / Num Lock on. Holding the keys down must not make it flicker open and closed.',
+            pt: '<b>Sessão X11:</b> com outro app em primeiro plano, <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> abre o QuickSearch. Teste também com Caps Lock / Num Lock ligados. Segurar as teclas não pode ficar abrindo e fechando.' },
+          { id: 'lx-wayland-hint',
+            en: '<b>Wayland session:</b> the "Enable the QuickSearch Shortcut" dialog shows a command. Use <b>Copy Command</b>, add it as a custom shortcut in your desktop settings (GNOME/KDE), and confirm it opens QuickSearch in the running app.',
+            pt: '<b>Sessão Wayland:</b> a janela "Ativar o atalho do QuickSearch" mostra um comando. Use <b>Copiar comando</b>, cadastre como atalho personalizado nas configurações do sistema (GNOME/KDE) e confirme que ele abre o QuickSearch no app aberto.' },
+          { id: 'lx-wayland-closed',
+            en: 'Use that same shortcut with MySoundLib <b>closed</b>: the app should start and open QuickSearch.',
+            pt: 'Use o mesmo atalho com o MySoundLib <b>fechado</b>: o app deve abrir e mostrar o QuickSearch.' },
+          { id: 'lx-file-manager',
+            en: '"Show in File Manager" opens your file manager with the file selected. Also test it on a folder.',
+            pt: '"Mostrar no gerenciador de arquivos" abre o gerenciador de arquivos com o arquivo selecionado. Teste também com uma pasta.' },
+          { id: 'lx-restart',
+            en: 'Restart the app (menu or language change). It must reopen from the AppImage with no "file not found" error.',
+            pt: 'Reinicie o app (pelo menu ou trocando o idioma). Ele deve reabrir a partir do AppImage, sem erro de "arquivo não encontrado".' },
+          { id: 'lx-ffmpeg',
+            en: 'With FFmpeg installed by your package manager, MP3/M4A show waveforms and conversion works.',
+            pt: 'Com o FFmpeg instalado pelo gerenciador de pacotes, MP3/M4A mostram a forma de onda e a conversão funciona.' }
+        ]
+      },
+      {
         id: 'regression', platform: 'Windows / Linux',
         en: 'Windows and Linux regression', pt: 'Regressão no Windows e no Linux',
         items: [
@@ -702,8 +738,8 @@
             en: 'Basic flow: launch, scan, play, drag to the DAW, QuickSearch (<kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>), delete to the Recycle Bin, and reveal in Explorer/file manager.',
             pt: 'Fluxo básico: abrir o app, escanear, tocar, arrastar para o DAW, QuickSearch (<kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>), apagar para a Lixeira e mostrar no Explorer/gerenciador de arquivos.' },
           { id: 'rg-storage',
-            en: 'Data stays in <code>Documents\\MySoundLib</code>, with no migration.',
-            pt: 'Os dados continuam em <code>Documentos\\MySoundLib</code>, sem nenhuma migração.' }
+            en: 'Data stays in <code>Documents\\MySoundLib</code> (Windows) or <code>~/Documents/MySoundLib</code> (Linux), with no migration.',
+            pt: 'Os dados continuam em <code>Documentos\\MySoundLib</code> (Windows) ou <code>~/Documents/MySoundLib</code> (Linux), sem nenhuma migração.' }
         ]
       }
     ];
@@ -711,6 +747,7 @@
     const PLATFORM_LABEL = {
       all: { en: 'All platforms', pt: 'Todas as plataformas' },
       macOS: { en: 'macOS', pt: 'macOS' },
+      Linux: { en: 'Linux', pt: 'Linux' },
       'Windows / Linux': { en: 'Windows / Linux', pt: 'Windows / Linux' }
     };
     const IMPORTANT_LABEL = { en: 'Important', pt: 'Importante' };
@@ -850,10 +887,12 @@
         setItem(id, { s: next });
         card.dataset.status = next;
         card.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === next)));
+        const wrap = card.querySelector('.note-wrap');
         if (next === 'fail') {
-          const wrap = card.querySelector('.note-wrap');
           wrap.hidden = false;
           wrap.querySelector('textarea').focus();
+        } else if (!(itemState(id).n || '').trim()) {
+          wrap.hidden = true;   // no note to keep: close the box again
         }
         updateCounts();
         return;
