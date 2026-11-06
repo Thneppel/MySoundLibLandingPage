@@ -134,10 +134,10 @@
 
     .card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 22px;
-      margin-bottom: 20px;
+      padding: 18px;
+      margin-bottom: 16px;
     }
 
     .card-title { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
@@ -166,89 +166,102 @@
       background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
       background-size: 5px 5px; background-repeat: no-repeat; padding-right: 34px; }
 
-    .tips { list-style: none; display: grid; gap: 8px; }
-    .tips li { font-size: 14px; color: var(--text-muted); padding-left: 18px; position: relative; }
-    .tips li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
-    .tips b { color: var(--text); }
+    /* ── Tips (collapsed by default) ─────────── */
+    .tips-box { margin-bottom: 28px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px; }
+    .tips-box summary {
+      font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer;
+      list-style: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .tips-box summary::-webkit-details-marker { display: none; }
+    .tips-box summary::before { content: '›'; font-size: 16px; line-height: 1; transition: transform 0.15s ease; }
+    .tips-box[open] summary::before { transform: rotate(90deg); }
+    .tips-box summary:hover { color: var(--text); }
+    .tips { list-style: none; display: grid; gap: 6px; margin-top: 12px; }
+    .tips li { font-size: 13.5px; color: var(--text-muted); padding-left: 16px; position: relative; }
+    .tips li::before { content: ''; position: absolute; left: 2px; top: 9px; width: 4px; height: 4px; border-radius: 50%; background: var(--text-dim); }
+    .tips b { color: var(--text); font-weight: 600; }
 
-    /* ── Summary ─────────────────────────────── */
-    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 36px; }
-
-    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
-    .stat-num { font-size: 22px; font-weight: 800; line-height: 1.2; }
-    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-    .stat.ok .stat-num { color: var(--green); }
-    .stat.fail .stat-num { color: var(--red); }
-    .stat.skip .stat-num { color: var(--amber); }
+    /* ── Summary (one quiet line) ────────────── */
+    .summary { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
+    .summary b { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
+    .summary .sum { display: inline-flex; align-items: center; gap: 6px; }
+    .summary .sum.ok::before, .summary .sum.fail::before, .summary .sum.skip::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+    }
+    .summary .sum.ok::before { background: var(--green); }
+    .summary .sum.fail::before { background: var(--red); }
+    .summary .sum.skip::before { background: var(--amber); }
 
     /* ── Sections ────────────────────────────── */
-    .section { margin-bottom: 36px; }
+    .section { margin-bottom: 30px; }
 
-    .section-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-    .section-head h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
-    .section-count { font-size: 12px; font-weight: 600; color: var(--text-dim); margin-left: auto; }
+    .section-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .section-head h2 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+    .section-count { font-size: 12px; font-weight: 600; color: var(--text-dim); margin-left: auto; font-variant-numeric: tabular-nums; }
 
     .chip {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-dim);
+      border: 1px solid var(--border-subtle);
       border-radius: 100px;
-      padding: 1px 9px;
+      padding: 0 8px;
       white-space: nowrap;
     }
 
-    .chip.important { color: var(--amber); border-color: rgba(240, 180, 41, 0.35); }
+    .chip.important { color: var(--amber); border-color: rgba(240, 180, 41, 0.3); }
+
+    /* One container per section, items separated by hairlines */
+    .list { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px; }
 
     .item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--border);
-      border-radius: 10px;
+      display: grid;
+      grid-template-columns: 26px 1fr auto;
+      column-gap: 14px;
+      align-items: start;
       padding: 14px 16px;
-      margin-bottom: 10px;
-      transition: border-color 0.15s ease, background 0.15s ease;
+      border-top: 1px solid var(--border-subtle);
     }
 
-    .item[data-status="ok"] { border-left-color: var(--green); }
-    .item[data-status="fail"] { border-left-color: var(--red); background: rgba(255, 107, 107, 0.05); }
-    .item[data-status="skip"] { border-left-color: var(--amber); }
+    .item:first-child { border-top: 0; }
 
-    .item-row { display: flex; gap: 16px; align-items: flex-start; }
-    .item-num { font-size: 12px; font-weight: 700; color: var(--text-dim); min-width: 30px; padding-top: 2px; font-variant-numeric: tabular-nums; }
-    .item-text { flex: 1; font-size: 14.5px; color: #dcdcdc; }
-    .item-text .hint { display: block; color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+    .item-num { font-size: 12px; font-weight: 600; color: var(--text-dim); padding-top: 2px; font-variant-numeric: tabular-nums; transition: color 0.15s ease; }
+    .item[data-status="ok"] .item-num { color: var(--green); }
+    .item[data-status="fail"] .item-num { color: var(--red); }
+    .item[data-status="skip"] .item-num { color: var(--amber); }
 
-    .item-actions { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-left: 46px; flex-wrap: wrap; }
+    .item-text { font-size: 14px; color: #d6d6d6; line-height: 1.6; }
 
-    .seg { display: inline-flex; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 2px; }
+    .item-actions { display: flex; align-items: center; gap: 4px; }
+
+    .seg { display: inline-flex; gap: 2px; }
 
     .seg button, .note-btn {
       font-family: var(--sans);
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
       background: none;
       border: none;
       border-radius: 6px;
-      padding: 6px 12px;
+      padding: 4px 9px;
       cursor: pointer;
       transition: all 0.12s ease;
-      min-height: 32px;
+      min-height: 28px;
+      white-space: nowrap;
     }
 
-    .seg button:hover, .note-btn:hover { color: var(--text); }
-    .seg button[aria-pressed="true"][data-v="ok"] { background: var(--green); color: #0b0b0e; }
-    .seg button[aria-pressed="true"][data-v="fail"] { background: var(--red); color: #0b0b0e; }
-    .seg button[aria-pressed="true"][data-v="skip"] { background: var(--amber); color: #0b0b0e; }
+    .seg button:hover, .note-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); }
+    .seg button[aria-pressed="true"][data-v="ok"] { background: rgba(29, 205, 159, 0.14); color: var(--green); }
+    .seg button[aria-pressed="true"][data-v="fail"] { background: rgba(255, 107, 107, 0.14); color: var(--red); }
+    .seg button[aria-pressed="true"][data-v="skip"] { background: rgba(240, 180, 41, 0.14); color: var(--amber); }
 
-    .note-btn { border: 1px dashed var(--border); }
-    .note-btn.has-note { border-style: solid; color: var(--text); }
+    .note-btn { margin-left: 4px; }
+    .note-btn.has-note { color: var(--text-muted); }
 
-    .note-wrap { margin-top: 10px; padding-left: 46px; }
+    .note-wrap { grid-column: 2 / -1; margin-top: 10px; }
     .note-wrap[hidden] { display: none; }
-    textarea { min-height: 76px; resize: vertical; font-size: 13.5px; line-height: 1.5; }
+    textarea { min-height: 64px; resize: vertical; font-size: 13.5px; line-height: 1.5; background: var(--bg); }
 
     /* ── Report ──────────────────────────────── */
     .report-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
@@ -317,11 +330,9 @@
       .wide { padding: 0 16px; }
       .container { padding: 32px 16px 0; }
       .form-grid { grid-template-columns: 1fr; }
-      .summary { grid-template-columns: repeat(2, 1fr); }
       .header-progress { display: none; }
-      .item-actions, .note-wrap { padding-left: 0; }
-      .item-row { gap: 10px; }
-      .item-num { min-width: 24px; }
+      .item { grid-template-columns: 22px 1fr; column-gap: 10px; padding: 14px; }
+      .item-actions { grid-column: 2 / -1; margin-top: 8px; margin-left: -9px; }
       .btn-danger { margin-left: 0; }
     }
   </style>
@@ -382,22 +393,22 @@
       </div>
 
       <!-- Tips -->
-      <div class="card">
-        <div class="card-title" data-t="tipsTitle"></div>
+      <details class="tips-box">
+        <summary data-t="tipsTitle"></summary>
         <ul class="tips">
           <li data-t="tip1"></li>
           <li data-t="tip2"></li>
           <li data-t="tip3"></li>
           <li data-t="tip4"></li>
         </ul>
-      </div>
+      </details>
 
       <!-- Summary -->
       <div class="summary" aria-live="polite">
-        <div class="stat"><div class="stat-num" id="sTotal">0</div><div class="stat-label" data-t="sTested"></div></div>
-        <div class="stat ok"><div class="stat-num" id="sOk">0</div><div class="stat-label" data-t="sOk"></div></div>
-        <div class="stat fail"><div class="stat-num" id="sFail">0</div><div class="stat-label" data-t="sFail"></div></div>
-        <div class="stat skip"><div class="stat-num" id="sSkip">0</div><div class="stat-label" data-t="sSkip"></div></div>
+        <span class="sum"><b id="sTotal">0</b> <span data-t="sTested"></span></span>
+        <span class="sum ok"><b id="sOk">0</b> <span data-t="sOk"></span></span>
+        <span class="sum fail"><b id="sFail">0</b> <span data-t="sFail"></span></span>
+        <span class="sum skip"><b id="sSkip">0</b> <span data-t="sSkip"></span></span>
       </div>
 
       <!-- Checklist (rendered from CHECKLIST below) -->
@@ -444,8 +455,8 @@
         tip4: 'If something failed, send the app\'s log file together with the report.',
         sTested: 'tested',
         sOk: 'OK',
-        sFail: 'Failed',
-        sSkip: 'Skipped',
+        sFail: 'failed',
+        sSkip: 'skipped',
         stOk: 'OK',
         stFail: 'Failed',
         stSkip: 'Skip',
@@ -496,8 +507,8 @@
         tip4: 'Se algo falhou, envie o arquivo de log do app junto com o relatório.',
         sTested: 'testados',
         sOk: 'OK',
-        sFail: 'Falharam',
-        sSkip: 'Pulados',
+        sFail: 'falharam',
+        sSkip: 'pulados',
         stOk: 'OK',
         stFail: 'Falhou',
         stSkip: 'Pular',
@@ -762,6 +773,10 @@
           '<span class="section-count" data-count="' + sec.id + '"></span>';
         section.appendChild(head);
 
+        const list = document.createElement('div');
+        list.className = 'list';
+        section.appendChild(list);
+
         sec.items.forEach((it, ii) => {
           const st = itemState(it.id);
           const card = document.createElement('div');
@@ -770,10 +785,8 @@
           card.dataset.id = it.id;
 
           card.innerHTML =
-            '<div class="item-row">' +
-              '<span class="item-num">' + (si + 1) + '.' + (ii + 1) + '</span>' +
-              '<div class="item-text">' + it[lang] + '</div>' +
-            '</div>' +
+            '<span class="item-num">' + (si + 1) + '.' + (ii + 1) + '</span>' +
+            '<div class="item-text">' + it[lang] + '</div>' +
             '<div class="item-actions">' +
               '<div class="seg" role="group">' +
                 ['ok', 'fail', 'skip'].map(v =>
@@ -787,7 +800,7 @@
             '</div>';
 
           card.querySelector('textarea').value = st.n || '';
-          section.appendChild(card);
+          list.appendChild(card);
         });
 
         root.appendChild(section);
