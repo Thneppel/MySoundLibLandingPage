@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="static/icon.svg">
-  <script async src="https://tally.so/widgets/embed.js"></script>
+  <script src="https://gumroad.com/js/gumroad.js"></script>
 
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
@@ -37,7 +37,7 @@
     "applicationCategory": "MultimediaApplication",
     "offers": {
       "@type": "Offer",
-      "price": "19.00",
+      "price": "9.50",
       "priceCurrency": "USD"
     },
     "description": "Fast, local audio manager for video editors. Organize sound effects, preview and trim waveforms instantly, and drag audio straight into your timeline.",
@@ -335,6 +335,56 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+    }
+
+    .early-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .early-badge-row {
+      display: inline-flex;
+      align-items: stretch;
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      overflow: hidden;
+      line-height: 1;
+    }
+
+    .early-badge-tag {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: var(--green);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .early-badge-off {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      background: var(--green);
+      color: var(--bg-darker);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .early-badge-note {
+      white-space: nowrap;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 820px) {
+      .early-badge-note { white-space: normal; max-width: 560px; }
     }
 
     .hero-head {
@@ -1357,6 +1407,13 @@
       .hero {
         padding: 48px 0 36px;
       }
+      .early-badge {
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+      .early-badge-tag { font-size: 13px; padding: 10px 14px; }
+      .early-badge-off { font-size: 24px; padding: 10px 14px; }
+      .early-badge-note { font-size: 12px; white-space: normal; }
       .hero-head {
         font-size: clamp(28px, 7.5vw, 42px);
         line-height: 1.15;
@@ -1658,6 +1715,30 @@
         font-size: 11px;
       }
     }
+
+    .price-tag {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-left: 8px;
+      padding-left: 16px;
+      border-left: 1px solid rgba(22, 22, 22, 0.28);
+    }
+
+    .price-old {
+      font-size: 0.88em;
+      font-weight: 600;
+      opacity: 0.55;
+      text-decoration: line-through;
+      text-decoration-thickness: 1.5px;
+    }
+
+    .cta-mob .price-tag {
+      margin-left: 2px;
+      padding-left: 0;
+      border-left: 0;
+      gap: 5px;
+    }
   </style>
 </head>
 <body id="top">
@@ -1685,7 +1766,7 @@
             <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
             <button class="lang-btn" id="btnHI" onclick="setLang('hi')">HI</button>
           </div>
-          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="#buy"><span class="cta-dt">Buy MySoundLib</span><span class="cta-mob">Buy $19</span></a>
+          <a class="btn btn-solid" id="navCta" href="https://mysoundlib.gumroad.com/l/mysoundlib"><span class="cta-dt">Buy MySoundLib</span><span class="cta-mob">Buy <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span></span></a>
         </div>
       </nav>
     </div>
@@ -1697,6 +1778,13 @@
     <section class="hero" id="hero">
       <div class="hero-bg-anim" id="heroBgAnim" aria-hidden="true"></div>
       <div class="wide hero-wrap">
+        <div class="early-badge">
+          <div class="early-badge-row">
+            <span class="early-badge-tag" id="earlyTag">Early Access</span>
+            <span class="early-badge-off" id="earlyOff">50% OFF</span>
+          </div>
+          <p class="early-badge-note" id="earlyText">Indie project in active development. You may run into some bugs, especially on Mac and Linux.</p>
+        </div>
         <h1 class="hero-head" id="heroHead">
           Thousands of scattered and lost sound files? <em> MySoundLib fixes that.</em>
         </h1>
@@ -1706,9 +1794,9 @@
         </p>
 
         <div class="hero-ctas">
-          <button class="btn btn-solid btn-lg" id="heroCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
-            Buy MySoundLib $19
-          </button>
+          <a class="btn btn-solid btn-lg" id="heroCta" href="https://mysoundlib.gumroad.com/l/mysoundlib">
+            Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
+          </a>
           <a class="btn btn-ghost btn-lg" href="#workflow" id="heroSecBtn">
             Explore workflow
           </a>
@@ -2090,8 +2178,8 @@
               <p class="faq-a" id="faq2A">No. Trimming is non-destructive. The app creates a temporary clip for your timeline and leaves your original audio files untouched.</p>
             </div>
             <div class="faq-item">
-              <h3 class="faq-q" id="faq3Q">Is the $19 purchase a lifetime license or subscription?</h3>
-              <p class="faq-a" id="faq3A">One-time payment. You pay $19 once and own MySoundLib with all updates included. No subscriptions.</p>
+              <h3 class="faq-q" id="faq3Q">Is it a lifetime license or a subscription?</h3>
+              <p class="faq-a" id="faq3A">One-time payment. During Early Access you pay $9.50 once (50% off the regular $19) and own MySoundLib with all updates included. No subscriptions.</p>
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq4Q">How does the QuickSearch Overlay work?</h3>
@@ -2134,9 +2222,9 @@
         <p class="final-sub" id="finalSub">
           Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.
         </p>
-        <button class="btn btn-solid btn-lg" id="finalCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
-          Buy MySoundLib $19
-        </button>
+        <a class="btn btn-solid btn-lg" id="finalCta" href="https://mysoundlib.gumroad.com/l/mysoundlib">
+          Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
+        </a>
       </div>
     </section>
   </main>
@@ -2184,11 +2272,14 @@
         navMaker:         'About',
         navFaq:           'FAQ',
         navCta:           'Buy MySoundLib',
-        navCtaMob:        'Buy $19',
+        navCtaMob:        'Buy <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
+        earlyTag:         'Early Access',
+        earlyOff:         '50% OFF',
+        earlyText:        'Indie project in active development. You may run into some bugs, especially on Mac and Linux.',
         heroHead:         'Thousands of scattered and lost sound files? <em>MySoundLib fixes that.</em>',
         heroSub:          'A lightweight, local desktop app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.',
-        heroCta:          'Buy MySoundLib $19',
+        heroCta:          'Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'Explore workflow',
         trust1:           '<b>✓</b> 100% Offline & Local',
         trust2:           '<b>✓</b> Zero Subscriptions',
@@ -2260,8 +2351,8 @@
         faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, and Vegas Pro. If your software accepts files dragged from your desktop, it works.',
         faq2Q:            'Does dragging snippets modify my original audio files?',
         faq2A:            'No. Trimming is non-destructive. The app creates a temporary clip for your timeline and leaves your original audio files untouched.',
-        faq3Q:            'Is the $19 purchase a lifetime license or subscription?',
-        faq3A:            'One-time payment. You pay $19 once and own MySoundLib with all updates included. No subscriptions.',
+        faq3Q:            'Is it a lifetime license or a subscription?',
+        faq3A:            'One-time payment. During Early Access you pay $9.50 once (50% off the regular $19) and own MySoundLib with all updates included. No subscriptions.',
         faq4Q:            'How does the QuickSearch Overlay work?',
         faq4A:            'Press Alt + Shift + F (or Option + Shift + F on macOS) while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.',
         faq5Q:            'Are my sound files uploaded anywhere?',
@@ -2277,7 +2368,7 @@
 
         finalHead:        'Stop digging through folders. <em>Keep editing.</em>',
         finalSub:         'Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.',
-        finalCta:         'Buy MySoundLib $19',
+        finalCta:         'Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'Audio manager for video editors.',
         footerNavWorkflow:'Workflow',
@@ -2297,11 +2388,14 @@
         navMaker:         'Sobre',
         navFaq:           'Dúvidas',
         navCta:           'Comprar MySoundLib',
-        navCtaMob:        'Comprar $19',
+        navCtaMob:        'Comprar <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
+        earlyTag:         'Acesso antecipado',
+        earlyOff:         '50% OFF',
+        earlyText:        'Projeto indie em desenvolvimento ativo. Você pode encontrar alguns bugs, principalmente no Mac e no Linux.',
         heroHead:         'Milhares de arquivos de áudio bagunçados e perdidos? <em>O MySoundLib resolve isso.</em>',
         heroSub:          'Um app desktop leve e local para organizar sua biblioteca de sons, recortar waveforms e soltar áudios na timeline sem interromper a sua edição.',
-        heroCta:          'Comprar MySoundLib $19',
+        heroCta:          'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'Conhecer fluxo',
         trust1:           '<b>✓</b> 100% Offline e Local',
         trust2:           '<b>✓</b> Zero Assinaturas',
@@ -2373,8 +2467,8 @@
         faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut e Vegas Pro. Qualquer programa que aceite arrastar arquivos para a timeline funciona.',
         faq2Q:            'Recortar trechos altera os arquivos originais?',
         faq2A:            'Não. O corte não é destrutivo. O app gera um arquivo temporário para a sua timeline e mantém os áudios originais intactos no disco.',
-        faq3Q:            'O valor de $19 é pagamento único ou mensalidade?',
-        faq3A:            'Pagamento único. Você paga $19 uma vez e usa o MySoundLib sem mensalidades, com todas as atualizações incluídas.',
+        faq3Q:            'É pagamento único ou mensalidade?',
+        faq3A:            'Pagamento único. Durante o acesso antecipado você paga $9.50 uma vez (50% off sobre os $19 normais) e usa o MySoundLib sem mensalidades, com todas as atualizações incluídas.',
         faq4Q:            'Como funciona o QuickSearch Overlay durante a edição?',
         faq4A:            'Aperte Alt + Shift + F (ou Option + Shift + F no Mac) enquanto edita. A barra de busca abre sobre a tela, você ouve o som de imediato, arrasta o trecho para a timeline e continua trabalhando.',
         faq5Q:            'Meus áudios são enviados para algum servidor?',
@@ -2390,7 +2484,7 @@
 
         finalHead:        'Chega de procurar em pastas. <em>Foque em editar.</em>',
         finalSub:         'Licença vitalícia, zero mensalidades e 100% offline na sua máquina. Compatível com Windows, macOS e Linux.',
-        finalCta:         'Comprar MySoundLib $19',
+        finalCta:         'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'Gerenciador de áudio para editores de vídeo.',
         footerNavWorkflow:'Fluxo',
@@ -2410,11 +2504,14 @@
         navMaker:         'Sobre el proyecto',
         navFaq:           'Preguntas',
         navCta:           'Comprar MySoundLib',
-        navCtaMob:        'Comprar $19',
+        navCtaMob:        'Comprar <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
+        earlyTag:         'Acceso anticipado',
+        earlyOff:         '50% DTO.',
+        earlyText:        'Proyecto indie en desarrollo activo. Puedes encontrar algunos errores, sobre todo en Mac y Linux.',
         heroHead:         '¿Miles de archivos de sonido perdidos y desordenados? <em>MySoundLib lo soluciona.</em>',
         heroSub:          'Una aplicación de escritorio ligera y local para organizar tu biblioteca de sonidos, previsualizar y recortar formas de onda, y soltar audios en tu línea de tiempo sin interrumpir tu edición.',
-        heroCta:          'Comprar MySoundLib $19',
+        heroCta:          'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'Ver flujo de trabajo',
         trust1:           '<b>✓</b> 100% Offline y Local',
         trust2:           '<b>✓</b> Sin Suscripciones',
@@ -2485,8 +2582,8 @@
         faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut y Vegas Pro. Si tu software permite arrastrar archivos desde el escritorio, funcionará.',
         faq2Q:            '¿Arrastrar recortes modifica mis archivos de audio originales?',
         faq2A:            'No. El recorte no es destructivo. La app crea un archivo temporal para tu línea de tiempo y mantiene intactos tus audios originales en el disco.',
-        faq3Q:            '¿El pago de $19 es un pago único o una suscripción?',
-        faq3A:            'Pago único. Pagas $19 una sola vez y usas MySoundLib con todas las actualizaciones incluidas. Cero suscripciones.',
+        faq3Q:            '¿Es un pago único o una suscripción?',
+        faq3A:            'Pago único. Durante el acceso anticipado pagas $9.50 una sola vez (50% de descuento sobre los $19 normales) y usas MySoundLib con todas las actualizaciones incluidas. Cero suscripciones.',
         faq4Q:            '¿Cómo funciona el QuickSearch Overlay durante la edición?',
         faq4A:            'Pulsa Alt + Shift + F (o Option + Shift + F en Mac) mientras editas. La barra de búsqueda se abre sobre la pantalla, escuchas el sonido al instante, arrastras el recorte a la línea de tiempo y sigues editando.',
         faq5Q:            '¿Mis archivos de sonido se suben a algún servidor?',
@@ -2502,7 +2599,7 @@
 
         finalHead:        'Basta de rebuscar en carpetas. <em>Concéntrate en editar.</em>',
         finalSub:         'Licencia de por vida, sin suscripciones y 100% offline en tu equipo. Compatible con Windows, macOS y Linux.',
-        finalCta:         'Comprar MySoundLib $19',
+        finalCta:         'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'Gestor de audio para editores de video.',
         footerNavWorkflow:'Flujo',
@@ -2522,11 +2619,14 @@
         navMaker:         'प्रोजेक्ट',
         navFaq:           'सवालों के जवाब',
         navCta:           'MySoundLib खरीदें',
-        navCtaMob:        'खरीदें $19',
+        navCtaMob:        'खरीदें <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
+        earlyTag:         'अर्ली एक्सेस',
+        earlyOff:         '50% छूट',
+        earlyText:        'सक्रिय विकास में एक इंडी प्रोजेक्ट। आपको कुछ बग मिल सकते हैं, ख़ासकर Mac और Linux पर।',
         heroHead:         'हज़ारों बिखरी और खोई हुई साउंड फ़ाइलें? <em>MySoundLib इसे आसान बनाता है।</em>',
         heroSub:          'अपनी साउंड लाइब्रेरी व्यवस्थित करने, वेवफ़ॉर्म देखने व काटने, और अपनी एडिटिंग रोके बिना ऑडियो सीधे टाइमलाइन पर लाने के लिए एक हल्का और लोकल डेस्कटॉप ऐप।',
-        heroCta:          'MySoundLib खरीदें $19',
+        heroCta:          'MySoundLib खरीदें <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'वर्कफ़्लो देखें',
         trust1:           '<b>✓</b> 100% ऑफ़लाइन और लोकल',
         trust2:           '<b>✓</b> कोई सब्सक्रिप्शन नहीं',
@@ -2597,8 +2697,8 @@
         faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut और Vegas Pro। कोई भी सॉफ्टवेयर जो डेस्कटॉप से ड्रैग की गई फ़ाइलें स्वीकार करता है, सपोर्टेड है।',
         faq2Q:            'क्या ऑडियो ट्रिम करने से मेरी ओरिजिनल फ़ाइलें बदलती हैं?',
         faq2A:            'नहीं। ट्रिमिंग नॉन-डिस्ट्रक्टिव है। ऐप आपकी टाइमलाइन के लिए एक अस्थायी क्लिप बनाता है और ओरिजिनल फ़ाइलों को बिल्कुल नहीं छूता।',
-        faq3Q:            'क्या $19 एकमुश्त भुगतान है या सब्सक्रिप्शन?',
-        faq3A:            'एकमुश्त भुगतान। आप $19 केवल एक बार देते हैं और बिना किसी मासिक शुल्क के सभी अपडेट्स के साथ MySoundLib आपका होता है।',
+        faq3Q:            'क्या यह एकमुश्त भुगतान है या सब्सक्रिप्शन?',
+        faq3A:            'एकमुश्त भुगतान। अर्ली एक्सेस के दौरान आप $9.50 (सामान्य $19 पर 50% छूट) केवल एक बार देते हैं और बिना किसी मासिक शुल्क के सभी अपडेट्स के साथ MySoundLib आपका होता है।',
         faq4Q:            'एडिटिंग के दौरान QuickSearch Overlay कैसे काम करता है?',
         faq4A:            'एडिटिंग के दौरान Alt + Shift + F (Mac पर Option + Shift + F) दबाएं। स्क्रीन पर सर्च बार खुलता है, तुरंत आवाज़ सुनें, क्लिप को टाइमलाइन पर खींचें और एडिटिंग जारी रखें।',
         faq5Q:            'क्या मेरी ऑडियो फ़ाइलें किसी सर्वर पर अपलोड होती हैं?',
@@ -2614,7 +2714,7 @@
 
         finalHead:        'फ़ोल्डर्स में ढूंढना बंद करें। <em>एडिटिंग पर ध्यान दें।</em>',
         finalSub:         'लाइफटाइम लाइसेंस, कोई सब्सक्रिप्शन नहीं और आपके कंप्यूटर पर 100% ऑफ़लाइन। Windows, macOS और Linux के साथ संगत।',
-        finalCta:         'MySoundLib खरीदें $19',
+        finalCta:         'MySoundLib खरीदें <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'वीडियो एडिटर्स के लिए ऑडियो मैनेजर।',
         footerNavWorkflow:'वर्कफ़्लो',

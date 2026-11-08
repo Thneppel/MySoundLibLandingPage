@@ -479,8 +479,32 @@
         gap: 10px;
       }
     }
+
+    .price-tag {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-left: 8px;
+      padding-left: 16px;
+      border-left: 1px solid rgba(22, 22, 22, 0.28);
+    }
+
+    .price-old {
+      font-size: 0.88em;
+      font-weight: 600;
+      opacity: 0.55;
+      text-decoration: line-through;
+      text-decoration-thickness: 1.5px;
+    }
+
+    .cta-mob .price-tag {
+      margin-left: 2px;
+      padding-left: 0;
+      border-left: 0;
+      gap: 5px;
+    }
   </style>
-  <script async src="https://tally.so/widgets/embed.js"></script>
+  <script src="https://gumroad.com/js/gumroad.js"></script>
 </head>
 <body>
 
@@ -507,7 +531,7 @@
             <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
             <button class="lang-btn" id="btnHI" onclick="setLang('hi')">HI</button>
           </div>
-          <a class="btn btn-solid" id="navCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" href="index.html#buy">Buy MySoundLib</a>
+          <a class="btn btn-solid" id="navCta" href="https://mysoundlib.gumroad.com/l/mysoundlib">Buy MySoundLib</a>
         </div>
       </nav>
     </div>
@@ -701,9 +725,9 @@
       <p class="final-sub" id="finalSub">
         Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.
       </p>
-      <button class="btn btn-solid btn-lg" id="finalCta" data-tally-open="44dq9r" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
-        Buy MySoundLib $19
-      </button>
+      <a class="btn btn-solid btn-lg" id="finalCta" href="https://mysoundlib.gumroad.com/l/mysoundlib">
+        Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
+      </a>
     </div>
   </section>
 
@@ -798,7 +822,7 @@
 
         finalHead:      'Stop digging through folders. <em>Keep editing.</em>',
         finalSub:       'Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.',
-        finalCta:       'Buy MySoundLib $19',
+        finalCta:       'Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         footHome:       'Home',
         footTerms:      'Terms',
         footPrivacy:    'Privacy',
@@ -880,7 +904,7 @@
 
         finalHead:      'Chega de procurar em pastas. <em>Foque em editar.</em>',
         finalSub:       'Licença vitalícia, zero mensalidades e 100% offline na sua máquina. Compatível com Windows, macOS e Linux.',
-        finalCta:       'Comprar MySoundLib $19',
+        finalCta:       'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         footHome:       'Início',
         footTerms:      'Termos',
         footPrivacy:    'Privacidade',
@@ -962,7 +986,7 @@
 
         finalHead:      'Basta de rebuscar en carpetas. <em>Concéntrate en editar.</em>',
         finalSub:       'Licencia de por vida, sin suscripciones y 100% offline en tu equipo. Compatible con Windows, macOS y Linux.',
-        finalCta:       'Comprar MySoundLib $19',
+        finalCta:       'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         footHome:       'Inicio',
         footTerms:      'Términos',
         footPrivacy:    'Privacidad',
@@ -1044,7 +1068,7 @@
 
         finalHead:      'फ़ोल्डर्स में ढूंढना बंद करें। <em>एडिटिंग पर ध्यान दें।</em>',
         finalSub:       'लाइफटाइम लाइसेंस, कोई सब्सक्रिप्शन नहीं और आपके कंप्यूटर पर 100% ऑफ़लाइन। Windows, macOS और Linux के साथ संगत।',
-        finalCta:       'MySoundLib खरीदें $19',
+        finalCta:       'MySoundLib खरीदें <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         footHome:       'होम',
         footTerms:      'नियम',
         footPrivacy:    'गोपनीयता',
