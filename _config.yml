@@ -1,0 +1,39 @@
+# Jekyll config. GitHub Pages builds this automatically on every push.
+# Only files with front matter (the --- block at the top) are processed;
+# the existing .html pages have none, so they are published exactly as they are.
+
+title: MySoundLib Blog
+description: Workflows, tips and updates for video editors who keep their own sound library.
+url: https://mysoundlib.com
+lang: en
+timezone: America/Sao_Paulo
+logo: /static/icon.svg
+
+permalink: /blog/:title/
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+feed:
+  path: blog/feed.xml
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      image: /static/og-image.png
+  - scope:
+      path: "beta-checklist.html"
+    values:
+      sitemap: false
+
+exclude:
+  - README.md

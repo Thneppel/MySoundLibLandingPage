@@ -1,0 +1,85 @@
+---
+layout: default
+---
+{%- assign words = content | strip_html | number_of_words -%}
+{%- assign minutes = words | divided_by: 200 | at_least: 1 -%}
+<div class="post-layout">
+  <main>
+    <a class="back-link" href="/blog/" data-i18n="backToBlog">← All posts</a>
+
+    <article class="post" lang="{{ page.lang | default: site.lang }}">
+      <div class="meta-tag">
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%b %-d, %Y' }}</time>
+        &bull; {{ minutes }} <span data-i18n="minRead">min read</span>
+        {%- if page.author %} &bull; <span data-i18n="by">By</span> {{ page.author }}{% endif %}
+      </div>
+      <h1>{{ page.title }}</h1>
+      {%- if page.description %}
+      <p class="lead">{{ page.description }}</p>
+      {%- endif %}
+      {%- if page.image.path %}
+      <img class="post-banner" src="{{ page.image.path }}" alt="{{ page.image.alt | escape }}" width="1200" height="630" fetchpriority="high" decoding="async">
+      {%- endif %}
+
+      <div class="post-body">
+        {{ content }}
+      </div>
+    </article>
+
+    <aside class="post-cta">
+      <h2 data-i18n="ctaTitle">Your sounds, one shortcut away</h2>
+      <p data-i18n="ctaText">MySoundLib finds any sound in your library and drops it on the timeline without leaving your editor.</p>
+      <a class="btn btn-solid" href="https://mysoundlib.gumroad.com/l/mysoundlib" data-i18n="ctaBtn">Get MySoundLib</a>
+    </aside>
+  </main>
+
+  <aside class="post-sidebar" aria-label="More posts">
+    <div class="side-block side-app">
+      <img src="/static/logo-neg.svg" alt="MySoundLib" width="132" height="26">
+      <p data-i18n="sideText">Search your own sound library and drop sounds on the timeline without leaving your editor.</p>
+      <a class="btn" href="https://mysoundlib.gumroad.com/l/mysoundlib" data-i18n="ctaBtn">Get MySoundLib</a>
+    </div>
+
+    <div class="side-block">
+      <h2 class="side-title" data-i18n="morePosts">More posts</h2>
+      <ul class="side-posts">
+        {%- assign shown = 0 %}
+        {%- for post in site.posts %}
+          {%- if post.url != page.url and shown < 10 %}
+          {%- assign shown = shown | plus: 1 %}
+        <li>
+          <a href="{{ post.url }}">
+            {%- if post.image.path %}
+            <img src="{{ post.image.path }}" alt="" width="1200" height="630" loading="lazy" decoding="async">
+            {%- endif %}
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d, %Y' }}</time>
+            <span lang="{{ post.lang | default: site.lang }}">{{ post.title }}</span>
+          </a>
+        </li>
+          {%- endif %}
+        {%- endfor %}
+      </ul>
+      <a class="side-all" href="/blog/" data-i18n="allPosts">See all posts →</a>
+    </div>
+
+  </aside>
+</div>
+<script>
+  /* Keep the sticky sidebar between the header and the end of the post, so it shrinks instead of being cut. */
+  (function () {
+    var side = document.querySelector('.post-sidebar'), layout = document.querySelector('.post-layout');
+    if (!side || !layout) return;
+    var TOP = 92, GAP = 24, ticking = false;
+    function fit() {
+      ticking = false;
+      if (window.innerWidth <= 960) { side.style.maxHeight = ''; return; }
+      var bottom = layout.getBoundingClientRect().bottom;
+      var room = Math.min(window.innerHeight - GAP, bottom) - TOP;
+      side.style.maxHeight = Math.max(260, Math.floor(room)) + 'px';
+    }
+    function queue() { if (!ticking) { ticking = true; requestAnimationFrame(fit); } }
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    fit();
+  })();
+</script>

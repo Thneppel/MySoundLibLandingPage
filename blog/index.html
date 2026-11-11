@@ -1,0 +1,35 @@
+---
+layout: default
+title: Blog
+description: Workflows, tips and updates for video editors who keep their own sound library.
+---
+<main>
+  <div class="meta-tag" data-i18n="blogTag">Blog</div>
+  <h1 data-i18n="blogTitle">Workflows for editors who own their sounds</h1>
+  <p class="lead" data-i18n="blogLead">Tips, workflows and MySoundLib updates for video editors who keep their own sound library.</p>
+
+  {%- if site.posts.size == 0 %}
+  <p data-i18n="empty">No posts yet.</p>
+  {%- endif %}
+
+  <ul class="post-list">
+    {%- for post in site.posts %}
+    <li class="post-item">
+      <a href="{{ post.url }}">
+        {%- if post.image.path %}
+        <img class="post-thumb" src="{{ post.image.path }}" alt="{{ post.image.alt | escape }}" width="1200" height="630" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+        {%- endif %}
+        <div class="post-item-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d, %Y' }}</time>
+          <span class="post-lang">{{ post.lang | default: site.lang | upcase }}</span>
+        </div>
+        <h2 lang="{{ post.lang | default: site.lang }}">{{ post.title }}</h2>
+        {%- if post.description %}
+        <p lang="{{ post.lang | default: site.lang }}">{{ post.description }}</p>
+        {%- endif %}
+        <span class="post-more" data-i18n="readMore">Read post</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+</main>

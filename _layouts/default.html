@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% seo %}
+  {% feed_meta %}
+  <link rel="icon" type="image/svg+xml" href="/static/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/blog.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wide">
+      <nav class="nav" aria-label="Main Navigation">
+        <a href="/" class="nav-brand" aria-label="MySoundLib home">
+          <img src="/static/logo.svg" alt="MySoundLib">
+        </a>
+
+        <div class="nav-links">
+          <a class="nav-link" href="/index.html#workflow" data-i18n="navWorkflow">Workflow</a>
+          <a class="nav-link" href="/index.html#compatibility" data-i18n="navCompat">Compatibility</a>
+          <a class="nav-link" href="/features.html" data-i18n="navFeatures">Features</a>
+          <a class="nav-link" href="/index.html#makers" data-i18n="navMaker">About</a>
+          <a class="nav-link" href="/index.html#faq" data-i18n="navFaq">FAQ</a>
+          <a class="nav-link active" href="/blog/">Blog</a>
+        </div>
+
+        <div class="nav-right">
+          <div class="lang-switcher">
+            <button class="lang-btn" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="pt">PT</button>
+            <button class="lang-btn" data-lang="es">ES</button>
+            <button class="lang-btn" data-lang="hi">HI</button>
+          </div>
+          <a class="btn btn-solid" href="https://mysoundlib.gumroad.com/l/mysoundlib" data-i18n="navCta">Buy MySoundLib</a>
+        </div>
+      </nav>
+    </div>
+    <span class="app-version-badge" id="appVersion" title="Last Version"></span>
+  </header>
+
+  <div class="article-container{% if page.collection == 'posts' %} has-sidebar{% endif %}">
+    {{ content }}
+
+    <footer class="article-footer">
+      <span>&copy; {{ 'now' | date: '%Y' }} MySoundLib. &bull; <span data-i18n="footerBy">Created by</span> <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a></span>
+      <span>
+        <a href="/blog/feed.xml">RSS</a> &bull;
+        <a href="/features.html" data-i18n="footerFeatures">All Features</a> &bull;
+        <a href="/" data-i18n="footerBack">Return to main page</a>
+      </span>
+    </footer>
+  </div>
+
+  <script>
+    /* Site chrome is translated like the other pages; post text stays in the language it was written in. */
+    var copy = {
+      en: { locale: 'en-US', navWorkflow: 'Workflow', navFeatures: 'Features', navCompat: 'Compatibility', navMaker: 'About', navFaq: 'FAQ', navCta: 'Buy MySoundLib',
+            blogTag: 'Blog', blogTitle: 'Workflows for editors who own their sounds', blogLead: 'Tips, workflows and MySoundLib updates for video editors who keep their own sound library.',
+            readMore: 'Read post', by: 'By', morePosts: 'More posts', allPosts: 'See all posts →', sideText: 'Search your own sound library and drop sounds on the timeline without leaving your editor.', minRead: 'min read', backToBlog: '← All posts', empty: 'No posts yet.',
+            ctaTitle: 'Your sounds, one shortcut away', ctaText: 'MySoundLib finds any sound in your library and drops it on the timeline without leaving your editor.', ctaBtn: 'Get MySoundLib',
+            footerBy: 'Created by', footerFeatures: 'All Features', footerBack: 'Return to main page', version: 'Last version: ' },
+      pt: { locale: 'pt-BR', navWorkflow: 'Fluxo', navFeatures: 'Recursos', navCompat: 'Compatibilidade', navMaker: 'Sobre', navFaq: 'Dúvidas', navCta: 'Comprar MySoundLib',
+            blogTag: 'Blog', blogTitle: 'Fluxos para quem edita com a própria biblioteca', blogLead: 'Dicas, fluxos de trabalho e novidades do MySoundLib para editores de vídeo que montam a própria biblioteca de sons.',
+            readMore: 'Ler post', by: 'Por', morePosts: 'Mais posts', allPosts: 'Ver todos os posts →', sideText: 'Busque na sua própria biblioteca de sons e solte na timeline sem sair do editor.', minRead: 'min de leitura', backToBlog: '← Todos os posts', empty: 'Nenhum post ainda.',
+            ctaTitle: 'Seus sons a um atalho de distância', ctaText: 'O MySoundLib acha qualquer som da sua biblioteca e solta na timeline sem você sair do editor.', ctaBtn: 'Quero o MySoundLib',
+            footerBy: 'Criado por', footerFeatures: 'Todas as Funcionalidades', footerBack: 'Voltar à página principal', version: 'Última versão: ' },
+      es: { locale: 'es-ES', navWorkflow: 'Flujo', navFeatures: 'Funciones', navCompat: 'Compatibilidad', navMaker: 'Sobre el proyecto', navFaq: 'Preguntas', navCta: 'Comprar MySoundLib',
+            blogTag: 'Blog', blogTitle: 'Flujos para editores con su propia biblioteca', blogLead: 'Consejos, flujos de trabajo y novedades de MySoundLib para editores de video que arman su propia biblioteca de sonidos.',
+            readMore: 'Leer post', by: 'Por', morePosts: 'Más posts', allPosts: 'Ver todos los posts →', sideText: 'Busca en tu propia biblioteca de sonidos y suéltalos en la línea de tiempo sin salir del editor.', minRead: 'min de lectura', backToBlog: '← Todos los posts', empty: 'Aún no hay posts.',
+            ctaTitle: 'Tus sonidos a un atajo de distancia', ctaText: 'MySoundLib encuentra cualquier sonido de tu biblioteca y lo suelta en la línea de tiempo sin salir del editor.', ctaBtn: 'Obtener MySoundLib',
+            footerBy: 'Creado por', footerFeatures: 'Todas las Funciones', footerBack: 'Volver a la página principal', version: 'Última versión: ' },
+      hi: { locale: 'hi-IN', navWorkflow: 'वर्कफ़्लो', navFeatures: 'फ़ीचर्स', navCompat: 'सपोर्ट', navMaker: 'प्रोजेक्ट', navFaq: 'सवालों के जवाब', navCta: 'MySoundLib खरीदें',
+            blogTag: 'ब्लॉग', blogTitle: 'अपनी साउंड लाइब्रेरी वाले एडिटर्स के लिए वर्कफ़्लो', blogLead: 'वीडियो एडिटर्स के लिए टिप्स, वर्कफ़्लो और MySoundLib अपडेट्स।',
+            readMore: 'पोस्ट पढ़ें', by: 'लेखक:', morePosts: 'और पोस्ट', allPosts: 'सभी पोस्ट देखें →', sideText: 'अपनी साउंड लाइब्रेरी में खोजें और एडिटर छोड़े बिना टाइमलाइन पर रखें।', minRead: 'मिनट', backToBlog: '← सभी पोस्ट', empty: 'अभी कोई पोस्ट नहीं।',
+            ctaTitle: 'आपकी साउंड्स, एक शॉर्टकट दूर', ctaText: 'MySoundLib आपकी लाइब्रेरी से कोई भी साउंड ढूंढकर एडिटर छोड़े बिना टाइमलाइन पर रख देता है।', ctaBtn: 'MySoundLib पाएं',
+            footerBy: 'द्वारा बनाया गया', footerFeatures: 'सभी फ़ीचर्स', footerBack: 'मुख्य पृष्ठ पर वापस जाएं', version: 'नवीनतम संस्करण: ' }
+    };
+    var version = '';
+
+    function setLang(lang) {
+      var c = copy[lang];
+      if (!c) return;
+      document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.lang === lang); });
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var t = c[el.dataset.i18n];
+        if (t !== undefined) el.textContent = t;
+      });
+      var fmt = new Intl.DateTimeFormat(c.locale, { year: 'numeric', month: 'short', day: 'numeric' });
+      document.querySelectorAll('time[datetime]').forEach(function(el) { el.textContent = fmt.format(new Date(el.getAttribute('datetime'))); });
+      if (version) document.getElementById('appVersion').textContent = c.version + version;
+      window.__lang = lang;
+      try { localStorage.setItem('msl_lang', lang); } catch (e) {}
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(function(b) { b.addEventListener('click', function() { setLang(b.dataset.lang); }); });
+
+    (function() {
+      var saved = null;
+      try { saved = localStorage.getItem('msl_lang'); } catch (e) {}
+      if (copy[saved]) { setLang(saved); return; }
+      var nav = (navigator.language || '').toLowerCase().slice(0, 2);
+      setLang(copy[nav] ? nav : 'en');
+    })();
+
+    fetch('/version.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data || !data.latest_version) return;
+        version = data.latest_version.charAt(0) === 'v' ? data.latest_version : 'v' + data.latest_version;
+        setLang(window.__lang || 'en');
+      })
+      .catch(function() {});
+  </script>
+</body>
+</html>
