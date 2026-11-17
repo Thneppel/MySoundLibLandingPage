@@ -84,7 +84,8 @@ button{font:inherit;color:inherit}
 .js .slide.is-leaving [data-r].wsplit{opacity:0;transform:translateY(calc(var(--dir,1) * -24px));filter:blur(10px)}
 /* palavras com mola (como no reel): sobem girando em 3D, desfocadas, passam um pouco do ponto e assentam */
 .w{display:inline-block;perspective:420px}
-.wi{display:inline-block;opacity:0;transform:translateY(.6em) rotateX(-55deg) scale(.9);filter:blur(6px);transform-origin:50% 100%}
+/* padding + margem negativa: a caixa da palavra cobre descendentes (g, p, ç) e acentos sem mudar o layout; sem isso o gradiente e o filtro cortam a letra */
+.wi{padding:.14em .06em .24em;margin:-.14em -.06em -.24em;display:inline-block;opacity:0;transform:translateY(.6em) rotateX(-55deg) scale(.9);filter:blur(6px);transform-origin:50% 100%}
 .is-active .wi,.is-leaving .wi{opacity:1;transform:none;filter:blur(0)}
 .is-active .wi{transition:opacity .25s ease var(--wd,0s), transform 1s cubic-bezier(.34,1.56,.64,1) var(--wd,0s), filter .45s ease var(--wd,0s);
   transition:opacity .25s ease var(--wd,0s), transform 1.1s linear(0, .009, .035 2.1%, .141 4.4%, .723 12.9%, .938 16.7%, 1.017 19.4%, 1.067, 1.099 24.3%, 1.108 26%, 1.103, 1.087 30.8%, 1.031 38.7%, 1.004 44.1%, .991 49.5%, .99 55%, 1.001 72.1%, 1) var(--wd,0s), filter .45s ease var(--wd,0s)}
@@ -130,6 +131,33 @@ button{font:inherit;color:inherit}
 .light .body{color:var(--paper-muted)}
 .src{font-size:var(--fs-label);color:var(--dim)}
 .light .src{color:var(--paper-muted)}
+.src a{color:inherit;text-decoration:underline;text-underline-offset:.22em;transition:color .2s ease}
+.src a:hover,.src a:focus-visible{color:var(--mint-hi)}
+#slide-recebe .src{line-height:1.7}
+/* ---------- FAQ (slide oculto) ---------- */
+#slide-faq .inner{gap:clamp(12px,2.2vh,26px)}
+#slide-faq .h2{font-size:clamp(1.6rem,min(3.4vw,6vh),3rem)}
+.faq{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.8vh,20px) clamp(18px,2.6vw,40px)}
+.faq-i{min-width:0;padding-top:clamp(8px,1.4vh,14px);border-top:1px solid var(--line-2)}
+.faq-i h3{font-size:clamp(.9rem,min(1.3vw,2.3vh),1.12rem);font-weight:700;line-height:1.25;margin-bottom:.35em}
+.faq-i p{font-size:clamp(.8rem,min(1.08vw,1.95vh),.98rem);line-height:1.45;color:var(--muted)}
+#slide-faq .src{line-height:1.6;margin-top:clamp(14px,3.4vh,40px)}
+.faq-i a,.tax-note a{color:var(--mint-hi);text-decoration:underline;text-underline-offset:.22em;white-space:nowrap}
+/* ---------- Taxas na prática (slide oculto) ---------- */
+#slide-tax .inner{gap:clamp(12px,2.4vh,28px)}
+#slide-tax .h2{font-size:clamp(1.6rem,min(3.4vw,6vh),3rem)}
+.tax{width:min(100%,780px);border:1px solid var(--line);background:var(--ink-1);border-radius:24px;padding:clamp(10px,1.6vh,18px) clamp(16px,2.2vw,32px)}
+.tax table{width:100%;border-collapse:collapse;font-size:var(--fs-body)}
+.tax th,.tax td{padding:clamp(7px,1.25vh,13px) 0;text-align:left;border-bottom:1px solid var(--line);font-weight:500;color:var(--muted)}
+.tax thead th{font-size:var(--fs-label);font-weight:600;color:var(--dim)}
+.tax th:nth-child(n+2),.tax td:nth-child(n+2){text-align:right;font-family:var(--font-mono);font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:clamp(12px,2vw,28px)}
+.tax thead th:nth-child(n+2){font-family:var(--font-body);font-weight:600;color:var(--dim)}
+.tax tr.sub td{color:var(--text);font-weight:700}
+.tax tr.out td{border-bottom:0;color:var(--text);font-weight:800;font-size:1.12em}
+.tax tr.out td:last-child{color:var(--mint-hi)}
+.tax-note{font-size:var(--fs-label);color:var(--dim);line-height:1.6;max-width:780px}
+@media (max-width:700px){.tax table{font-size:var(--fs-label)}}
+@media (max-width:900px){.faq{grid-template-columns:1fr}}
 .mint{color:var(--mint)}
 .light .mint{color:var(--mint-deep)}
 .pills{display:flex;flex-wrap:wrap;gap:12px}
@@ -186,15 +214,6 @@ button{font:inherit;color:inherit}
 .wave i{flex:1;min-width:2px;height:calc(var(--h) * 1%);background:var(--mint);border-radius:3px 3px 0 0;transform-origin:bottom;animation:pulse 2.6s ease-in-out infinite;animation-delay:var(--d)}
 @keyframes pulse{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
 
-/* ---------- Teclas ---------- */
-.keys{display:flex;align-items:center;gap:clamp(8px,1.2vw,18px);flex-wrap:nowrap}
-.key{font-family:var(--font-mono);font-weight:700;font-size:clamp(1rem,min(2.5vw,5vh),2.6rem);padding:.55em .8em;border-radius:.45em;background:var(--ink-2);border:2px solid var(--line-2);box-shadow:0 .2em 0 var(--line);color:var(--text)}
-.key.go{background:var(--mint);border-color:var(--mint);color:var(--mint-ink);box-shadow:0 .2em 0 var(--mint-shade)}
-.is-active .key{animation:press 4s ease-in-out infinite}
-.is-active .key:nth-child(2){animation-delay:.45s}
-.is-active .key:nth-child(3){animation-delay:.9s}
-@keyframes press{0%,10%{transform:none}14%,24%{transform:translateY(.16em);box-shadow:0 .04em 0 var(--line)}30%,100%{transform:none}}
-.keys-note{font-size:var(--fs-label);color:var(--dim);margin-top:.9em}
 
 /* ---------- Demo real ---------- */
 .demo{width:min(100%,62vh);margin-inline:auto;aspect-ratio:1;border-radius:24px;overflow:hidden;border:1px solid var(--line-2);box-shadow:0 30px 80px rgba(0,0,0,.5);background:var(--ink-1)}
@@ -417,6 +436,65 @@ html[lang="en"] .pt-only{display:none}
 .sc-yr span:first-child{color:#ff6b80}
 .sc-shine{position:absolute;inset:0;border-radius:22px;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.16) 50%,transparent 65%);background-size:300% 100%;mix-blend-mode:screen;opacity:0}
 .sc-toast{position:absolute;right:-18px;top:-14px;padding:6px 10px;border-radius:999px;background:rgba(255,107,128,.16);border:1px solid rgba(255,107,128,.45);color:#ff8a9a;font-size:11px;font-weight:800;white-space:nowrap;opacity:0;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+/* ---------- celular em 3D (corpo com espessura) na tela de bloqueio, com vendas chegando em loop (slide "o seu papel") — medidas em cqw ---------- */
+.rlw{position:relative;width:min(100%,66vh);aspect-ratio:1;margin-inline:auto;container-type:inline-size}
+.rl{position:absolute;inset:0;perspective:92cqw}
+.rl-g{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(-33deg) rotateX(12deg)}
+.rl-ph{position:absolute;left:27cqw;top:3cqw;width:46cqw;height:94cqw;transform-style:preserve-3d}
+/* espessura: camadas empilhadas no eixo Z formam a lateral do aparelho */
+.rl-ed{position:absolute;inset:0;border-radius:8.5cqw;background:linear-gradient(100deg,#8e8e94,#46464b 30%,#35353a 70%,#7d7d84);transform:translateZ(calc(var(--z) * -.42cqw))}
+/* faixa de brilho no meio da lateral, como metal escovado */
+.rl-ed:not(.bk){background:linear-gradient(100deg,rgba(255,255,255,.3),transparent 30%,rgba(0,0,0,.14) 70%,rgba(255,255,255,.24)),hsl(240 3% calc(38% + 9% * sin(var(--z) * 2.4)))}
+.rl-ed[style="--z:1"],.rl-ed[style="--z:10"]{background:linear-gradient(100deg,#e4e4ea,#8a8a91 30%,#77777e 70%,#d2d2da)}
+/* botão lateral e linhas de antena: placas deitadas sobre a lateral direita */
+.rl-bt,.rl-an{position:absolute;left:100%;transform-origin:0 50%}
+.rl-bt{top:27cqw;width:2.6cqw;height:10cqw;border-radius:.7cqw;transform:translateX(.28cqw) translateZ(-1cqw) rotateY(90deg);
+  background:linear-gradient(90deg,#55555b,#b9b9c1 22%,#8d8d95 50%,#a9a9b1 78%,#4a4a50);box-shadow:0 0 .5cqw rgba(0,0,0,.7)}
+.rl-an{width:4.62cqw;height:.55cqw;transform:translateX(.04cqw) rotateY(90deg);background:rgba(18,18,20,.72)}
+.rl-ed.bk{background:linear-gradient(160deg,#2c2c2f,#161617);box-shadow:0 8cqw 16cqw rgba(0,0,0,.6),0 0 18cqw rgba(29,205,159,.18)}
+.rl-fr{position:absolute;inset:0;box-sizing:border-box;padding:1.05cqw;border-radius:8.5cqw;border:.4cqw solid transparent;
+  background:linear-gradient(#09090a,#09090a) padding-box,linear-gradient(125deg,#e6e6ec,#6a6a70 22%,#a9a9b1 45%,#3d3d42 70%,#c4c4cc) border-box;box-shadow:inset 0 0 .5cqw rgba(0,0,0,.9)}
+.rl-sc{position:relative;width:100%;height:100%;border-radius:7.3cqw;overflow:hidden;display:flex;flex-direction:column;align-items:center;color:#fff;background:#04100d}
+.rl-wp{position:absolute;inset:0;width:100%;height:100%}
+.rl-sc > :not(.rl-wp){z-index:1}
+/* reflexo do vidro */
+.rl-sc::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),inset 0 0 3cqw rgba(0,0,0,.45);
+  background:linear-gradient(112deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.05) 24%,transparent 42%,transparent 78%,rgba(255,255,255,.07) 100%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .13 0 0 0 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/26cqw 26cqw}
+.rl-isl{margin-top:2.4cqw;width:13cqw;height:3.6cqw;border-radius:99cqw;background:radial-gradient(circle at 80% 50%,#33508f 0,#101a33 .45cqw,#05070c .8cqw,#000 1cqw)}
+.rl-date{margin-top:5cqw;font-size:3cqw;font-weight:600;color:rgba(255,255,255,.85)}
+.rl-clock{font-size:15cqw;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.rl-bar{position:absolute;left:50%;bottom:2cqw;width:15cqw;height:.9cqw;margin-left:-7.5cqw;border-radius:99cqw;background:rgba(255,255,255,.7)}
+/* as notificações ficam fora da tela recortada e flutuam à frente do vidro: a paralaxe é o que dá profundidade */
+.rl-ns{position:absolute;left:3.9cqw;right:3.9cqw;top:38.3cqw;height:37cqw;color:#fff;transform-style:preserve-3d;transform:translateZ(3.6cqw)}
+.rl-n{position:absolute;left:0;right:0;top:0;box-sizing:border-box;height:8cqw;translate:0 calc(var(--k,0) * 9.2cqw);display:flex;align-items:center;gap:1.8cqw;padding:0 2cqw 0 1.5cqw;border-radius:2.8cqw;
+  background:rgba(255,255,255,.13);-webkit-backdrop-filter:blur(2.6cqw) saturate(1.5);backdrop-filter:blur(2.6cqw) saturate(1.5);border:1px solid rgba(255,255,255,.24);box-shadow:0 2.6cqw 5cqw rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.2)}
+.rl-n:nth-child(5){opacity:0}
+.rl-ic{flex:none;width:5.2cqw;height:5.2cqw;border-radius:1.5cqw;background:var(--mint);color:var(--mint-ink);display:grid;place-items:center;font-style:normal;font-family:var(--font-mono);font-size:3cqw;font-weight:700}
+.rl-tx{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;white-space:nowrap}
+.rl-tx b{font-size:2.45cqw;font-weight:700;color:#fff}
+.rl-tx span{font-size:2cqw;color:rgba(255,255,255,.72)}
+.rl-n em{font-style:normal;font-family:var(--font-mono);font-size:2.6cqw;font-weight:700;color:#a8f5dd}
+.is-active .rl-g{animation:rlFloat 9s ease-in-out 1.6s infinite}
+.is-active .rl-ph{animation:rlIn 1.3s cubic-bezier(.34,1.2,.64,1) .5s backwards}
+@media (prefers-reduced-motion: no-preference){
+  /* fila em loop: cada venda entra no topo, desce uma posição a cada passo e some embaixo */
+  .is-active .rl-n{translate:none;opacity:0;animation:rlFeed 7.5s cubic-bezier(.3,1.25,.5,1) calc(1.5s + var(--k,0) * 1.5s) infinite}
+}
+@keyframes rlIn{from{transform:translateY(22cqw) rotateY(50deg)}}
+@keyframes rlFloat{0%,100%{transform:rotateY(-33deg) rotateX(12deg)}50%{transform:rotateY(-9deg) rotateX(4deg) translateY(-1.6cqw)}}
+@keyframes rlFeed{
+  0%{opacity:0;transform:translateY(-5cqw) scale(.82)}
+  6%{opacity:1;transform:translateY(0) scale(1)}
+  20%{opacity:1;transform:translateY(0)}
+  26%{opacity:1;transform:translateY(9.2cqw)}
+  40%{opacity:1;transform:translateY(9.2cqw)}
+  46%{opacity:1;transform:translateY(18.4cqw)}
+  60%{opacity:1;transform:translateY(18.4cqw)}
+  66%{opacity:1;transform:translateY(27.6cqw)}
+  80%{opacity:1;transform:translateY(27.6cqw) scale(1)}
+  86%,100%{opacity:0;transform:translateY(32cqw) scale(.94)}
+}
 /* ---------- bordas que acendem perto do cursor ---------- */
 body{--e1:rgba(140,248,218,1);--e2:rgba(29,205,159,.6)}
 body[data-edge="red"]{--e1:rgba(255,128,146,1);--e2:rgba(255,107,128,.6)}
@@ -443,6 +521,11 @@ body[data-edge="red"]{--e1:rgba(255,128,146,1);--e2:rgba(255,107,128,.6)}
 .num-in{-webkit-appearance:none;appearance:none;font:700 1em/1.2 var(--font-mono);color:var(--text);background:none;border:0;border-radius:0;padding:0;margin:0;box-shadow:none;text-align:right;width:var(--w,9ch);min-width:3ch;cursor:text;caret-color:var(--mint);transition:color .2s ease}
 .num-in:hover{color:var(--mint-hi)}
 .num-in:focus{outline:none;color:var(--mint-hi)}
+/* resultado editável: continua sendo texto, só ganha cursor ao clicar */
+.out-ed{cursor:text;outline:none;caret-color:var(--mint);min-height:1lh;transition:color .2s ease}
+.out-ed:hover,.out-ed:focus{color:var(--mint-hi)}
+.out-ed::selection{background:rgba(29,205,159,.26);color:inherit}
+.result .big.out-ed:hover,.result .big.out-ed:focus{color:#d3fcef}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:var(--line-2);outline-offset:6px}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--mint);border:3px solid var(--ink-0);box-shadow:0 0 0 2px var(--mint);cursor:pointer}
 input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--mint);border:3px solid var(--ink-0);box-shadow:0 0 0 2px var(--mint);cursor:pointer}
@@ -554,7 +637,7 @@ body.idle{cursor:none}
     <div class="split split-media">
       <div class="col">
         <p class="eyebrow" data-r data-en="The turn">A virada</p>
-        <h2 class="h2" data-r data-en="Every sound effect, <span class='ag'>in one place</span>">Todos os seus efeitos sonoros, <span class="ag">num lugar só</span></h2>
+        <h2 class="h2" data-r data-en="Your sounds, <span class='ag'>in one place</span>">Seus sons, <span class="ag">num lugar só</span></h2>
         <p class="lead" data-r data-en="The whooshes, impacts and music you use when editing become one searchable library, stored on your own drive.">Os whooshes, impactos e trilhas que você usa na edição viram uma biblioteca pesquisável, salva no seu próprio disco.</p>
       </div>
       <div class="col">
@@ -583,7 +666,6 @@ body.idle{cursor:none}
         <p class="eyebrow" data-r>QuickSearch</p>
         <h2 class="h2" data-r data-en="The right sound on the timeline <span class='ag'>without leaving the editor</span>">O som certo na timeline <span class="ag">sem sair do editor</span></h2>
         <p class="lead" data-r data-en="One shortcut opens the search over any editor. Find it, preview it, trim it and drag it into the timeline. No opening folders, no switching windows.">Um atalho abre a busca por cima de qualquer editor. Você acha, ouve, corta e arrasta pra timeline. Sem abrir pasta, sem trocar de janela.</p>
-        <div class="keys" data-r aria-label="Atalho Alt, Shift e F" data-en-label="Shortcut Alt, Shift and F"><span class="key">Alt</span><span class="key">Shift</span><span class="key go">F</span></div>
       </div>
       <div class="col">
         <div class="demo qsd" data-r role="img" aria-label="Demonstração do QuickSearch do MySoundLib abrindo sobre a timeline do editor" data-en-label="MySoundLib QuickSearch demo opening over the editor timeline">
@@ -619,7 +701,18 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 5 · O que o app faz -->
+<!-- 5 · Por que eu criei -->
+<section class="slide light" id="slide-historia" data-title="Por que eu criei" data-en-title="Why I built it">
+  <div class="inner">
+    <p class="quote" data-r data-en="“I spent years digging through messy sound packs. <em>So I built the tool I needed.</em>”">“Passei anos garimpando pacotes de som bagunçados. <em>Então criei a ferramenta que eu precisava.</em>”</p>
+    <div class="sig" data-r>
+      <b>Thiago Neppel</b>
+      <span data-en="Video editor and creator of MySoundLib">Editor de vídeo e criador do MySoundLib</span>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · O que o app faz -->
 <section class="slide light" id="slide-recursos" data-title="O que o app faz" data-en-title="What the app does">
   <div class="inner">
     <h2 class="h2 wide" data-r data-en="Organize, trim and convert">Organizar, cortar e converter</h2>
@@ -681,7 +774,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 6 · Compatibilidade -->
+<!-- 7 · Compatibilidade -->
 <section class="slide dark" id="slide-compat" data-title="Compatibilidade" data-en-title="Compatibility">
   <div class="inner">
     <h2 class="h2" data-r data-en="Runs on everything">Roda em tudo</h2>
@@ -696,64 +789,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 7 · Feito com MySoundLib -->
-<section class="slide dark glow-b" id="slide-video" data-title="Feito com MySoundLib" data-en-title="Made with MySoundLib">
-  <div class="inner">
-    <div class="vid">
-    <div class="vid-head">
-      <p class="eyebrow" data-r data-en="In practice">Na prática</p>
-      <h2 class="h2 wide" data-r data-en="Made with <span class='ag'>MySoundLib</span>">Feito com <span class="ag">MySoundLib</span></h2>
-      <p class="lead" data-r data-en="All the sound design in this video was done with MySoundLib.">Todo o design de som deste vídeo foi feito com o MySoundLib.</p>
-    </div>
-    <div class="yt" data-r>
-      <iframe id="ytAll" src="https://www.youtube-nocookie.com/embed/0CywIkLw3Do?enablejsapi=1&amp;rel=0&amp;modestbranding=1" title="All in one place | MySoundLib" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-    </div>
-  </div>
-</section>
-
-<!-- 8 · Por que eu criei -->
-<section class="slide light" id="slide-historia" data-title="Por que eu criei" data-en-title="Why I built it">
-  <div class="inner">
-    <p class="quote" data-r data-en="“I spent years digging through messy sound packs. <em>So I built the tool I needed.</em>”">“Passei anos garimpando pacotes de som bagunçados. <em>Então criei a ferramenta que eu precisava.</em>”</p>
-    <div class="sig" data-r>
-      <b>Thiago Neppel</b>
-      <span data-en="Video editor and creator of MySoundLib">Editor de vídeo e criador do MySoundLib</span>
-    </div>
-  </div>
-</section>
-
-<!-- 9 · A oportunidade -->
-<section class="slide accent" id="slide-oportunidade" data-title="A oportunidade" data-en-title="The opportunity" data-fx="wipe">
-  <p class="bignum" aria-hidden="true">15%</p>
-  <div class="inner">
-    <p class="eyebrow" data-r data-en="The opportunity">A oportunidade</p>
-    <h1 class="h1" style="max-width:12ch" data-r data-en="Turn your audience into income">Lucre em dólar com a sua audiência</h1>
-  </div>
-</section>
-
-<!-- 10 · Público ideal -->
-<section class="slide light" id="slide-publico" data-title="Público ideal" data-en-title="Ideal audience">
-  <div class="inner">
-    <div class="split aud-split">
-      <div class="col">
-        <p class="eyebrow" data-r data-en="Who it's for">Para quem é</p>
-        <h2 class="h2" data-r data-en="Your audience is a perfect fit if they work with">Seu público é ideal se ele trabalha com</h2>
-        <p class="lead" data-r data-en="Anyone who collects sound effects and wastes time searching for them.">Qualquer pessoa que coleciona efeitos sonoros e perde tempo procurando.</p>
-      </div>
-      <div class="aud">
-        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 14h5M8 16.5h8"/></svg><div><h3 class="h3" data-en="Video editing">Edição de vídeo</h3><p class="body" data-en="Premiere, DaVinci, Final Cut, CapCut">Premiere, DaVinci, Final Cut, CapCut</p></div></div>
-        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 10l1.5-5 15 3.5-1 1.5"/><path d="M9 6l2 3M14 7l2 3"/></svg><div><h3 class="h3" data-en="Film and filmmaking">Cinema e filmmaking</h3><p class="body" data-en="Shorts, documentaries, music videos">Curtas, documentários, videoclipes</p></div></div>
-        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11"/></svg><div><h3 class="h3" data-en="Marketing and agencies">Marketing e agências</h3><p class="body" data-en="Campaigns, ads, brand videos">Campanhas, anúncios, vídeos de marca</p></div></div>
-        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20c2-8 6-14 16-16"/><circle cx="4" cy="20" r="1.6"/><circle cx="20" cy="4" r="1.6"/><path d="M12 4l1.2 2.6L16 8l-2.8 1.4L12 12l-1.2-2.6L8 8l2.8-1.4z"/></svg><div><h3 class="h3" data-en="Motion design">Motion design</h3><p class="body" data-en="After Effects, animation, idents">After Effects, animação, vinhetas</p></div></div>
-        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4-2.5z"/></svg><div><h3 class="h3" data-en="YouTube and social">YouTube e redes</h3><p class="body" data-en="Long-form, Shorts, Reels">Vídeos longos, Shorts, Reels</p></div></div>
-        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 7v10M21 12h0"/></svg><div><h3 class="h3" data-en="Sound design and podcasts">Sound design e podcast</h3><p class="body" data-en="Effects, ambiences, audio">Efeitos, ambiências, áudio</p></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 11 · Chega de assinaturas -->
+<!-- 8 · Chega de assinaturas -->
 <section class="slide dark" id="slide-assinatura" data-mood="red" data-title="Chega de assinaturas" data-en-title="No more subscriptions">
   <div class="inner">
     <div class="split split-sub">
@@ -786,13 +822,13 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 12 · Sua própria biblioteca -->
+<!-- 9 · Sua própria biblioteca -->
 <section class="slide light" id="slide-propria" data-title="Sua própria biblioteca" data-en-title="Your own library">
   <div class="inner">
     <div class="split own-split">
       <div class="col">
         <p class="eyebrow" data-r data-en="The alternative">A alternativa</p>
-        <h2 class="h2" data-r data-en="Dig. Collect. <span class='ag'>Build your own library.</span>">Garimpe. Guarde. <span class="ag">Monte a sua biblioteca.</span></h2>
+        <h2 class="h2" data-r data-en="Build <span class='ag'>your own library</span>">Monte a <span class="ag">sua biblioteca</span></h2>
         <p class="lead" data-r data-en="Free sounds or paid packs, from anywhere on the internet. Editors who build their own local library find the right sound faster.">Sons grátis ou packs comprados, de qualquer lugar da internet. O editor que monta a própria biblioteca local acha o som certo mais rápido.</p>
       </div>
       <div class="own" data-r>
@@ -800,6 +836,52 @@ body.idle{cursor:none}
         <div class="own-c"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18M7 18h.01"/></svg><h3 class="h3" data-en="All local">Tudo local</h3><p class="body" data-en="On your own drive, opening instantly, depending on no one.">No seu próprio disco, abrindo na hora, sem depender de ninguém.</p></div>
         <div class="own-c"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg><h3 class="h3" data-en="Only what's useful">Só o que é útil</h3><p class="body" data-en="Keep the sounds you actually use. No bloated catalog to scroll through.">Você guarda os sons que usa de verdade. Nada de catálogo inchado.</p></div>
         <div class="own-c"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M12 10v6M9 13h6"/></svg><h3 class="h3" data-en="Collect and create">Coleciona e cria</h3><p class="body" data-en="Build your own libraries by project, client or style. It grows with you.">Monte bibliotecas próprias por projeto, cliente ou estilo. Cresce com você.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · Feito com MySoundLib -->
+<section class="slide dark glow-b" id="slide-video" data-title="Feito com MySoundLib" data-en-title="Made with MySoundLib">
+  <div class="inner">
+    <div class="vid">
+    <div class="vid-head">
+      <p class="eyebrow" data-r data-en="In practice">Na prática</p>
+      <h2 class="h2 wide" data-r data-en="Made with <span class='ag'>MySoundLib</span>">Feito com <span class="ag">MySoundLib</span></h2>
+      <p class="lead" data-r data-en="All the sound design in this video was done with MySoundLib.">Todo o design de som deste vídeo foi feito com o MySoundLib.</p>
+    </div>
+    <div class="yt" data-r>
+      <iframe id="ytAll" src="https://www.youtube-nocookie.com/embed/0CywIkLw3Do?enablejsapi=1&amp;rel=0&amp;modestbranding=1" title="All in one place | MySoundLib" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · A oportunidade -->
+<section class="slide accent" id="slide-oportunidade" data-title="A oportunidade" data-en-title="The opportunity" data-fx="wipe">
+  <p class="bignum" aria-hidden="true">15%</p>
+  <div class="inner">
+    <p class="eyebrow" data-r data-en="The opportunity">A oportunidade</p>
+    <h1 class="h1" style="max-width:12ch" data-r data-en="Turn your audience into income">Lucre em dólar com a sua audiência</h1>
+  </div>
+</section>
+
+<!-- 12 · Público ideal -->
+<section class="slide light" id="slide-publico" data-title="Público ideal" data-en-title="Ideal audience">
+  <div class="inner">
+    <div class="split aud-split">
+      <div class="col">
+        <p class="eyebrow" data-r data-en="Who it's for">Para quem é</p>
+        <h2 class="h2" data-r data-en="Is your audience here?">Seu público está aqui?</h2>
+        <p class="lead" data-r data-en="Anyone who collects sound effects and wastes time searching for them.">Qualquer pessoa que coleciona efeitos sonoros e perde tempo procurando.</p>
+      </div>
+      <div class="aud">
+        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 14h5M8 16.5h8"/></svg><div><h3 class="h3" data-en="Video editing">Edição de vídeo</h3><p class="body" data-en="Premiere, DaVinci, Final Cut, CapCut">Premiere, DaVinci, Final Cut, CapCut</p></div></div>
+        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z"/><path d="M6.2 5.3l3.1 3.9M12.4 3.4l3.1 4"/><path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><h3 class="h3" data-en="Film and filmmaking">Cinema e filmmaking</h3><p class="body" data-en="Shorts, documentaries, music videos">Curtas, documentários, videoclipes</p></div></div>
+        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11"/></svg><div><h3 class="h3" data-en="Marketing and agencies">Marketing e agências</h3><p class="body" data-en="Campaigns, ads, brand videos">Campanhas, anúncios, vídeos de marca</p></div></div>
+        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M5 17A12 12 0 0 1 17 5"/></svg><div><h3 class="h3" data-en="Motion design">Motion design</h3><p class="body" data-en="After Effects, animation, idents">After Effects, animação, vinhetas</p></div></div>
+        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4-2.5z"/></svg><div><h3 class="h3" data-en="YouTube and social">YouTube e redes</h3><p class="body" data-en="Long-form, Shorts, Reels">Vídeos longos, Shorts, Reels</p></div></div>
+        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 7v10M21 12h0"/></svg><div><h3 class="h3" data-en="Sound design and podcasts">Sound design e podcast</h3><p class="body" data-en="Effects, ambiences, audio">Efeitos, ambiências, áudio</p></div></div>
       </div>
     </div>
   </div>
@@ -826,7 +908,33 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 13 · Projeção de comissão -->
+<!-- 14 · O seu papel -->
+<section class="slide dark glow-b" id="slide-papel" data-title="O seu papel" data-en-title="Your role">
+  <div class="inner">
+    <div class="split split-sub">
+      <div class="col">
+        <p class="eyebrow" data-r data-en="Your role">O seu papel</p>
+        <h2 class="h2" data-r data-en="Your audience <span class='ag'>trusts you</span>">Seu público <span class="ag">confia em você</span></h2>
+        <p class="lead" data-r data-en="That trust is what closes the sale. And every creator who uses and promotes MySoundLib makes the brand stronger, so your link sells more.">É essa confiança que fecha a venda. E cada criador que usa e divulga o MySoundLib fortalece a marca, e o seu link vende mais.</p>
+      </div>
+      <div class="col">
+        <div class="rlw" data-r role="img" aria-label="Celular na tela de bloqueio recebendo várias notificações de novas vendas pelo seu link" data-en-label="A phone on its lock screen receiving several notifications of new sales through your link">
+          <div class="rl" aria-hidden="true">
+            <div class="rl-g">
+              <div class="rl-ph"><i class="rl-ed bk" style="--z:11"></i><i class="rl-ed" style="--z:10"></i><i class="rl-ed" style="--z:9"></i><i class="rl-ed" style="--z:8"></i><i class="rl-ed" style="--z:7"></i><i class="rl-ed" style="--z:6"></i><i class="rl-ed" style="--z:5"></i><i class="rl-ed" style="--z:4"></i><i class="rl-ed" style="--z:3"></i><i class="rl-ed" style="--z:2"></i><i class="rl-ed" style="--z:1"></i><i class="rl-bt"></i><i class="rl-an" style="top:14cqw"></i><i class="rl-an" style="top:79cqw"></i>
+                <div class="rl-fr"><div class="rl-sc"><svg class="rl-wp" viewBox="0 0 100 210" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="rlwB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050d14"/><stop offset=".55" stop-color="#06211c"/><stop offset="1" stop-color="#04130f"/></linearGradient><linearGradient id="rlw1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#11705a"/><stop offset="1" stop-color="#06261f"/></linearGradient><linearGradient id="rlw2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d6a6"/><stop offset="1" stop-color="#0a4a3b"/></linearGradient><linearGradient id="rlw3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9af7dc"/><stop offset=".6" stop-color="#1dcd9f"/><stop offset="1" stop-color="#0e7a60"/></linearGradient><filter id="rlwS" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter></defs><rect width="100" height="210" fill="url(#rlwB)"/><path d="M-5 128C22 96 52 150 105 100V215H-5Z" fill="#000" opacity=".35" filter="url(#rlwS)"/><path d="M-5 132C22 100 52 154 105 104V215H-5Z" fill="url(#rlw1)"/><path d="M-5 132C22 100 52 154 105 104" fill="none" stroke="#7af0cf" stroke-opacity=".45" stroke-width=".5"/><path d="M-5 150C30 176 58 118 105 148V215H-5Z" fill="#000" opacity=".3" filter="url(#rlwS)"/><path d="M-5 154C30 180 58 122 105 152V215H-5Z" fill="url(#rlw2)" opacity=".92"/><path d="M-5 154C30 180 58 122 105 152" fill="none" stroke="#c9fbec" stroke-opacity=".5" stroke-width=".5"/><path d="M-5 182C26 160 66 204 105 172V215H-5Z" fill="#000" opacity=".28" filter="url(#rlwS)"/><path d="M-5 186C26 164 66 208 105 176V215H-5Z" fill="url(#rlw3)"/></svg><i class="rl-isl"></i><span class="rl-date" data-en="Monday, June 9">segunda-feira, 9 de junho</span><span class="rl-clock">9:41</span>
+                <i class="rl-bar"></i></div></div>
+                  <div class="rl-ns"><div class="rl-n" style="--k:0"><i class="rl-ic">$</i><span class="rl-tx"><b data-en="New sale">Nova venda</b><span data-en="through your link">pelo seu link</span></span><em>+15%</em></div><div class="rl-n" style="--k:1"><i class="rl-ic">$</i><span class="rl-tx"><b data-en="New sale">Nova venda</b><span data-en="through your link">pelo seu link</span></span><em>+15%</em></div><div class="rl-n" style="--k:2"><i class="rl-ic">$</i><span class="rl-tx"><b data-en="New sale">Nova venda</b><span data-en="through your link">pelo seu link</span></span><em>+15%</em></div><div class="rl-n" style="--k:3"><i class="rl-ic">$</i><span class="rl-tx"><b data-en="New sale">Nova venda</b><span data-en="through your link">pelo seu link</span></span><em>+15%</em></div><div class="rl-n" style="--k:4"><i class="rl-ic">$</i><span class="rl-tx"><b data-en="New sale">Nova venda</b><span data-en="through your link">pelo seu link</span></span><em>+15%</em></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 · Projeção de comissão -->
 <section class="slide dark glow-tr" id="slide-projecao" data-title="Projeção de comissão" data-en-title="Commission projection" data-onenter="calc">
   <div class="inner">
     <h2 class="h2 wide" data-r data-en="How much could you earn?">Quanto você pode ganhar?</h2>
@@ -847,18 +955,18 @@ body.idle{cursor:none}
       </div>
       <div class="panel result" aria-live="polite">
         <p class="eyebrow" data-en="You get">Você recebe</p>
-        <p class="big" id="outUsd">US$ 2.850</p>
+        <p class="big out-ed" id="outUsd" contenteditable="plaintext-only" role="textbox" inputmode="numeric" spellcheck="false" aria-label="Valor que você recebe, digite um valor" data-en-label="Amount you get, type a value">US$ 2.850</p>
         <dl>
-          <div><dt data-en="Sales">Vendas</dt><dd id="outSales">1.000</dd></div>
+          <div><dt data-en="Sales">Vendas</dt><dd class="out-ed" id="outSales" contenteditable="plaintext-only" role="textbox" inputmode="numeric" spellcheck="false" aria-label="Vendas, digite um valor" data-en-label="Sales, type a value">1.000</dd></div>
           <div class="pt-only"><dt>Em reais</dt><dd id="outBrl">R$ 14.535</dd></div>
         </dl>
       </div>
     </div>
-    <p class="src" data-r data-en="Illustrative scenario, not a guarantee.">Cenário ilustrativo, não é garantia.</p>
+    <p class="src" data-r data-en="Illustrative scenario, not a guarantee. Gross amount, before Gumroad, payment processing (card or PayPal) and payout fees.">Cenário ilustrativo, não é garantia. Valor bruto, antes das taxas da Gumroad, do processamento do pagamento (cartão ou PayPal) e do repasse.</p>
   </div>
 </section>
 
-<!-- 14 · Como você recebe -->
+<!-- 16 · Como você recebe -->
 <section class="slide light" id="slide-recebe" data-title="Como você recebe" data-en-title="How you get paid">
   <div class="inner">
     <p class="eyebrow" data-r data-en="How you get paid">Como você recebe</p>
@@ -868,28 +976,29 @@ body.idle{cursor:none}
       <div class="card" data-r><p class="num">02</p><h3 class="h3" data-en="Automatic split">Divisão automática</h3><p class="body" data-en="Your commission is set aside at the moment of the sale.">Sua comissão é separada no momento da venda.</p></div>
       <div class="card hl" data-r><p class="num">03</p><h3 class="h3" data-en="Paid via PayPal">Pagamento via PayPal</h3><p class="body" data-en="The money reaches you through Gumroad's own payouts.">O dinheiro chega pelos repasses da própria Gumroad.</p></div>
     </div>
+    <p class="src" data-r data-en="Fees and taxes are handled by Gumroad, PayPal and each affiliate. The net amount you receive may vary.<br>Read more: <a href='https://gumroad.com/help/article/249-affiliate-faq' target='_blank' rel='noopener'>Gumroad affiliates</a> · <a href='https://gumroad.com/terms' target='_blank' rel='noopener'>Gumroad terms</a> · <a href='https://www.paypal.com/br/legalhub/paypal/useragreement-full' target='_blank' rel='noopener'>PayPal user agreement</a>">Taxas e questões tributárias ficam por conta da Gumroad, do PayPal e do próprio afiliado. O valor líquido recebido pode variar.<br>Saiba mais: <a href="https://gumroad.com/help/article/249-affiliate-faq" target="_blank" rel="noopener">afiliados na Gumroad</a> · <a href="https://gumroad.com/terms" target="_blank" rel="noopener">termos da Gumroad</a> · <a href="https://www.paypal.com/br/legalhub/paypal/useragreement-full" target="_blank" rel="noopener">contrato do usuário do PayPal</a></p>
   </div>
 </section>
 
-<!-- 15 · Exclusividade -->
-<section class="slide accent" id="slide-exclusivo" data-title="Exclusividade" data-en-title="Exclusivity" data-fx="wipe">
+<!-- 17 · Criadores selecionados (não usar "exclusivo/exclusividade" nem "por convite/invite-only") -->
+<section class="slide accent" id="slide-selecionados" data-title="Criadores selecionados" data-en-title="Selected creators" data-fx="wipe">
   <div class="inner">
-    <p class="eyebrow" data-r data-en="Exclusive access">Acesso exclusivo</p>
+    <p class="eyebrow" data-r data-en="Affiliate program">Programa de afiliados</p>
     <h1 class="h1" style="max-width:13ch" data-r data-en="Only for selected creators">Apenas para criadores selecionados</h1>
     <p class="lead" data-r style="font-weight:600" data-en="And you are one of them.">E você é um deles.</p>
   </div>
 </section>
 
-<!-- 16 · Uma parceria de verdade -->
+<!-- 18 · Uma parceria de verdade -->
 <section class="slide dark" id="slide-parceria" data-title="Uma parceria de verdade" data-en-title="A real partnership">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Why this is good for you">Por que isso é bom para você</p>
     <h2 class="h2 wide" data-r data-en="Not just a link. <span class='ag'>A partnership</span>">Não é só um link. <span class="ag">É uma parceria</span></h2>
     <div class="grid3">
       <div class="card" data-r>
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
-        <h3 class="h3" data-en="Contract">Contrato</h3>
-        <p class="body" data-en="Everything agreed in writing, with security for both sides.">Tudo combinado por escrito, com segurança para os dois lados.</p>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <h3 class="h3" data-en="Terms by email">Termos por e-mail</h3>
+        <p class="body" data-en="No contract, no red tape. Everything agreed in writing, clear for both sides.">Sem contrato e sem burocracia. Tudo combinado por escrito, com clareza para os dois lados.</p>
       </div>
       <div class="card hl" data-r>
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
@@ -905,7 +1014,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 17 · Kit de divulgação -->
+<!-- 19 · Kit de divulgação -->
 <section class="slide light" id="slide-kit" data-title="Kit de divulgação" data-en-title="Promo kit">
   <div class="inner">
     <div class="split">
@@ -923,37 +1032,74 @@ body.idle{cursor:none}
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></svg>
           <div><h3 class="h3" data-en="Content ideas">Ideias de conteúdo</h3><p class="body" data-en="Quick tutorials, before and after, inside the edit and more.">Tutorial rápido, antes e depois, dentro da edição e mais.</p></div>
         </div>
-        <div class="card kit-row" data-r>
-          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-8.5z"/></svg>
-          <div><h3 class="h3" data-en="Trending topics">Tópicos em alta</h3><p class="body" data-en="What's relevant right now for your audience.">O que está relevante agora para o seu público.</p></div>
-        </div>
         <div class="card kit-row hl" data-r>
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
-          <div><h3 class="h3" data-en="Seasonal coupons">Cupons sazonais</h3><p class="body" data-en="Discounts on special dates to boost your sales.">Descontos em datas especiais para impulsionar suas vendas.</p></div>
+          <div><h3 class="h3" data-en="Occasional coupons">Cupons eventuais</h3><p class="body" data-en="An extra discount now and then to boost your sales.">De vez em quando, um desconto extra para impulsionar suas vendas.</p></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 18 · Como começamos -->
+<!-- 20 · Como começamos -->
 <section class="slide light" id="slide-passos" data-title="Como começamos" data-en-title="How we get started">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Next steps">Próximos passos</p>
     <h2 class="h2 wide" data-r data-en="How we get started">Como começamos</h2>
     <div class="grid3">
-      <div class="card" data-r><p class="num">01</p><h3 class="h3" data-en="We sign the contract">Assinamos o contrato</h3><p class="body" data-en="Terms, goals and commission, all in writing.">Termos, metas e comissão, tudo por escrito.</p></div>
-      <div class="card" data-r><p class="num">02</p><h3 class="h3" data-en="You get your link">Você recebe seu link</h3><p class="body" data-en="I register you on Gumroad and send the promo kit.">Eu te cadastro na Gumroad e envio o kit de divulgação.</p></div>
-      <div class="card hl" data-r><p class="num">03</p><h3 class="h3" data-en="Post and earn">Publique e ganhe</h3><p class="body" data-en="Every sale through your link is yours.">Cada venda pelo seu link é sua.</p></div>
+      <div class="card" data-r><p class="num">01</p><h3 class="h3" data-en="You accept the terms">Você aceita os termos</h3><p class="body" data-en="I email you the terms, goals and commission. Just reply that you agree.">Envio um e-mail com termos, metas e comissão. É só responder que concorda.</p></div>
+      <div class="card" data-r><p class="num">02</p><h3 class="h3" data-en="You create your Gumroad account">Você cria sua conta na Gumroad</h3><p class="body" data-en="Send me the account's email and I'll add you as an affiliate.">Me envie o e-mail da conta e eu te adiciono como afiliado.</p></div>
+      <div class="card hl" data-r><p class="num">03</p><h3 class="h3" data-en="Post and earn">Publique e ganhe</h3><p class="body" data-en="You get your link and the promo kit. Every sale through your link is yours.">Você recebe seu link e o kit de divulgação. Cada venda pelo seu link é sua.</p></div>
     </div>
   </div>
 </section>
 
-<!-- 19 · Próximo passo -->
+<!-- 21 · Próximo passo -->
 <section class="slide dark glow-b" id="slide-cta" data-title="Próximo passo" data-en-title="Next step">
   <div class="inner center">
     <div class="land" data-r aria-hidden="true"><img src="/static/icon.svg" alt="" width="112" height="112"></div>
     <h1 class="h1" data-r data-en="Shall we <span class='ag'>team up?</span>">Vamos fechar essa <span class="ag">parceria?</span></h1>
+  </div>
+</section>
+
+<!-- FAQ · slide oculto: fora da sequência e da barra, só abre por /affiliates#slide-faq. Os slides ocultos (data-hidden) precisam ficar depois de todos os outros. -->
+<section class="slide dark" id="slide-faq" data-hidden data-short="FAQ" data-title="Perguntas frequentes" data-en-title="FAQ">
+  <div class="inner">
+    <p class="eyebrow" data-r data-en="FAQ">Perguntas frequentes</p>
+    <h2 class="h2 wide" data-r data-en="Fees, payouts and taxes">Taxas, pagamento e impostos</h2>
+    <div class="faq">
+      <div class="faq-i" data-r><h3 data-en="Do I need a Gumroad account?">Preciso de conta na Gumroad?</h3><p data-en="Yes. Create the account, fill in your payout settings and send me its email so I can add you as an affiliate.">Sim. Crie a conta, preencha os dados de pagamento e me envie o e-mail dela para eu te adicionar como afiliado.</p></div>
+      <div class="faq-i" data-r><h3 data-en="How does the money reach me?">Como o dinheiro chega?</h3><p data-en="Gumroad pays by bank deposit in the countries it supports and by PayPal, in USD, everywhere else. For PayPal you need an account without restrictions.">Onde a Gumroad não faz depósito bancário (hoje o Brasil é um desses países), o repasse é via PayPal, em dólar. Você precisa de uma conta PayPal sem restrições.</p></div>
+      <div class="faq-i" data-r><h3 data-en="Is there a payout fee?">Tem taxa no repasse?</h3><p data-en="Yes. Gumroad states a 2% payout fee on PayPal payouts.">Sim. A Gumroad informa uma taxa de 2% sobre os repasses feitos via PayPal.</p></div>
+      <div class="faq-i" data-r><h3 data-en="What is the minimum payout?">Qual o mínimo para sacar?</h3><p data-en="A US$ 100 balance. Below that, the amount keeps accumulating in your account.">US$ 100 de saldo. Abaixo disso, o valor fica acumulando na sua conta.</p></div>
+      <div class="faq-i" data-r><h3 data-en="When are payouts sent?">Quando o repasse sai?</h3><p data-en="Weekly. PayPal payouts go out on Fridays and usually arrive in 1 to 3 business days. Each sale is held for 7 days before it is eligible.">Toda semana. Via PayPal sai às sextas e costuma chegar em 1 a 3 dias úteis. Cada venda fica 7 dias retida antes de entrar no repasse.</p></div>
+      <div class="faq-i" data-r><h3 data-en="Does Gumroad take fees on the sale?">A Gumroad desconta taxas da venda?</h3><p data-en="Yes: 10% + US$ 0.50 per sale, plus payment processing (2.9% + US$ 0.30 on cards). Affiliates bear the share proportional to their commission: at 15% commission, 15% of those fees. <a href='#slide-tax'>See the math</a>">Sim: 10% + US$ 0,50 por venda, mais o processamento do pagamento (2,9% + US$ 0,30 no cartão). O afiliado arca com a parte proporcional à comissão: com 15% de comissão, 15% dessas taxas. <a href="#slide-tax">Ver a conta</a></p></div>
+      <div class="faq-i" data-r><h3 data-en="Clicked today, bought later: does it count?">Clicou hoje e comprou depois, conta?</h3><p data-en="Yes, for 30 days. The click saves a cookie in the buyer’s browser, and any purchase within that window is credited to you. Your link itself never expires. If the browser blocks cookies, or the buyer clicks another affiliate’s link afterwards, the sale is not yours.">Conta, por 30 dias. O clique grava um cookie no navegador da pessoa, e a compra feita nesse prazo é creditada a você. O seu link em si não expira. Se o navegador bloquear cookies, ou se a pessoa clicar depois no link de outro afiliado, a venda não fica com você.</p></div>
+      <div class="faq-i" data-r><h3 data-en="What if a sale is refunded?">E se a venda for reembolsada?</h3><p data-en="Your commission is refunded too and comes out of your balance, which can go negative until new sales cover it.">A comissão é devolvida junto e sai do seu saldo, que pode ficar negativo até novas vendas cobrirem.</p></div>
+      <div class="faq-i" data-r><h3 data-en="What about taxes?">E os impostos?</h3><p data-en="Reporting and paying taxes on commissions is each affiliate’s responsibility. In the US, Gumroad issues a 1099-MISC to affiliates above US$ 600 a year.">Declarar e recolher os tributos sobre as comissões é responsabilidade de cada afiliado. Nos EUA, a Gumroad emite o formulário 1099-MISC para quem passa de US$ 600 no ano.</p></div>
+    </div>
+    <p class="src" data-r data-en="Summary of Gumroad’s public rules, checked in November 2026. They can change, and Gumroad’s own pages are what counts: <a href='https://gumroad.com/help/article/13-getting-paid' target='_blank' rel='noopener'>getting paid</a> · <a href='https://gumroad.com/help/article/249-affiliate-faq' target='_blank' rel='noopener'>affiliates</a> · <a href='https://gumroad.com/help/article/66-gumroads-fees' target='_blank' rel='noopener'>fees</a> · <a href='https://gumroad.com/terms' target='_blank' rel='noopener'>terms</a>">Resumo das regras públicas da Gumroad, consultadas em novembro de 2026. Elas podem mudar, e o que vale é o que está nas páginas da própria Gumroad: <a href="https://gumroad.com/help/article/13-getting-paid" target="_blank" rel="noopener">pagamentos</a> · <a href="https://gumroad.com/help/article/249-affiliate-faq" target="_blank" rel="noopener">afiliados</a> · <a href="https://gumroad.com/help/article/66-gumroads-fees" target="_blank" rel="noopener">taxas</a> · <a href="https://gumroad.com/terms" target="_blank" rel="noopener">termos</a></p>
+  </div>
+</section>
+
+<!-- Taxas · slide oculto: só abre por /affiliates#slide-tax. Os valores são preenchidos por taxTable() a partir do preço e da comissão atuais. -->
+<section class="slide dark" id="slide-tax" data-hidden data-short="TAX" data-onenter="calc" data-title="Taxas na prática" data-en-title="Fees in practice">
+  <div class="inner">
+    <p class="eyebrow" data-r data-en="Fees in practice">Taxas na prática</p>
+    <h2 class="h2 wide" data-r data-en="What you keep from each sale">Quanto sobra de cada venda</h2>
+    <div class="tax" data-r>
+      <table>
+        <tbody>
+          <tr><td id="txPl">Sua comissão</td><td id="txPa"></td></tr>
+          <tr><td data-en="Your share of the Gumroad fee (10% + US$ 0.50 per sale)">Sua parte da taxa da Gumroad (10% + US$ 0,50 por venda)</td><td id="txGa"></td></tr>
+          <tr><td data-en="Your share of card processing (2.9% + US$ 0.30 per sale)">Sua parte do processamento do cartão (2,9% + US$ 0,30 por venda)</td><td id="txCa"></td></tr>
+          <tr class="sub"><td data-en="After fees">Depois das taxas</td><td id="txNa"></td></tr>
+          <tr><td data-en="PayPal payout fee (2%)">Taxa de repasse via PayPal (2%)</td><td id="txPp"></td></tr>
+          <tr class="out"><td data-en="You receive, per sale">Você recebe, por venda</td><td id="txOut"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tax-note" data-r data-en="Estimate for a card payment, based on the fees Gumroad publishes; it does not include the buyer’s sales tax, and purchases paid with PayPal have different processing fees. Your own taxes are not included. <a href='#slide-faq'>Back to the FAQ</a> · <a href='https://gumroad.com/help/article/66-gumroads-fees' target='_blank' rel='noopener'>Gumroad’s fees</a>">Estimativa para pagamento em cartão, com base nas taxas que a Gumroad publica; não inclui o imposto sobre a venda pago pelo comprador, e compras pagas com PayPal têm outra taxa de processamento. Os seus próprios impostos não estão incluídos. <a href="#slide-faq">Voltar às perguntas</a> · <a href="https://gumroad.com/help/article/66-gumroads-fees" target="_blank" rel="noopener">taxas da Gumroad</a></p>
   </div>
 </section>
 
@@ -983,7 +1129,8 @@ body.idle{cursor:none}
 (function(){
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-  var N = slides.length, cur = -1;
+  /* slides com data-hidden ficam no fim do documento, fora da contagem: só abrem pelo próprio hash (#slide-faq) */
+  var N = slides.filter(function(s){ return !s.hasAttribute('data-hidden'); }).length, cur = -1;
   var $ = function(id){ return document.getElementById(id); };
   var pad = function(n){ return (n < 10 ? '0' : '') + n; };
 
@@ -1077,9 +1224,10 @@ body.idle{cursor:none}
     function tilt(T){
       var ci = reduce || !intro ? 1 : spring(T - .1, 9, .62), w = box.clientWidth, h = box.clientHeight || w;
       var ry = L(-34, -12, ci) + (reduce ? 0 : Math.sin(T * 1.3) * 2), rx = L(22, 10, ci) + (reduce ? 0 : Math.sin(T * 1.1) * 1.5);
-      root.style.transform = 'translate(' + (w / 2 - 200).toFixed(1) + 'px,' + (h / 2 - 200).toFixed(1) + 'px) scale(' + S.toFixed(4) + ') rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+      root.style.transform = 'translate(' + (w / 2 / S - 200).toFixed(1) + 'px,' + (h / 2 / S - 200).toFixed(1) + 'px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
     }
-    function fit(){ S = box.clientWidth / 400 * .94; tilt(lastT); }
+    /* amplia com zoom (layout no tamanho real) em vez de scale: com scale o navegador estica um bitmap de 400px e o texto fica pixelado */
+    function fit(){ S = box.clientWidth / 400 * .94; root.style.zoom = S.toFixed(4); tilt(lastT); }
     function render(t, T){
       lastT = T; tilt(T);
       /* editor: sempre ali, flutuando de leve */
@@ -1456,7 +1604,9 @@ body.idle{cursor:none}
     var NAMES = ['ArtistsList', 'PandemicSound', 'Soundslop'];
     for (var k = 0; k < 24; k++) { var d = document.createElement('div'); d.textContent = NAMES[k % 3]; slot.appendChild(d); }
     var raf = 0, on = false, t0 = 0, lastA = '', lastY = '';
-    function fit(){ root.style.transform = 'scale(' + (box.clientWidth / 320) + ')'; }
+    /* zoom em vez de scale(): o card em 3D é desenhado já no tamanho final, sem ampliar um bitmap pequeno (ficava pixelado) */
+    var canZoom = 'zoom' in root.style;
+    function fit(){ var s = box.clientWidth / 320; if (canZoom) root.style.zoom = s; else root.style.transform = 'scale(' + s + ')'; }
     fit(); window.addEventListener('resize', fit); if (window.ResizeObserver) new ResizeObserver(fit).observe(box);
     /* caça-níquel: rolagem rápida, depois trocas com mola, e segue trocando até o risco */
     var SK = [[.55, 0], [1.45, 7], [2.25, 8], [2.95, 9]];
@@ -1655,6 +1805,7 @@ body.idle{cursor:none}
   /* ticks */
   var ticks = $('ticks');
   slides.forEach(function(s, i){
+    if (i >= N) return;
     var b = document.createElement('button');
     b.className = 'tick'; b.type = 'button';
     b.addEventListener('click', function(){ go(i); });
@@ -1691,10 +1842,10 @@ body.idle{cursor:none}
     try { DISCOUNT ? localStorage.setItem('msl-deck-discount', String(DISCOUNT)) : localStorage.removeItem('msl-deck-discount'); } catch (e) {}
   }
   try { setDiscount(parseFloat(localStorage.getItem('msl-deck-discount')) || 0); } catch (e) {}
-  var rFol = $('rFol'), rConv = $('rConv'), oFol = $('oFol'), oConv = $('oConv');
+  var rFol = $('rFol'), rConv = $('rConv'), oFol = $('oFol'), oConv = $('oConv'), outUsd = $('outUsd'), outSales = $('outSales');
   /* valores reais: os sliders têm limite, mas o número digitado pode passar dele */
   var vFol = +rFol.value, vConv = +rConv.value;
-  var shown = { usd: 2850, brl: 14535 };
+  var shown = { usd: 2850, brl: 14535 }, pin = null;
   var nUsd0, nUsd2;
   function setFormats(){
     nUsd0 = new Intl.NumberFormat(T[lang].locale, { maximumFractionDigits: 0 });
@@ -1723,12 +1874,15 @@ body.idle{cursor:none}
     var fol = vFol, conv = vConv;
     var sales = Math.round(fol * conv / 100);
     var each = PRICE * rate / 100;
-    var usd = sales * each, brl = usd * FX;
+    var usd = sales * each;
+    /* valor digitado à mão: mostra exatamente o que foi digitado enquanto nada mais mudar (vendas são inteiras, então a conta raramente fecha no centavo) */
+    if (pin && pin.key === [fol, conv, PRICE, rate].join('|')) usd = pin.usd; else pin = null;
+    var brl = usd * FX;
     var U = T[lang].usd;
     if (document.activeElement !== oFol) oFol.value = nUsd0.format(fol);
     if (document.activeElement !== oConv) oConv.value = nUsd2.format(conv).replace(/[.,]?0+$/, '') + '%';
     fitIn(oFol); fitIn(oConv);
-    $('outSales').textContent = nUsd0.format(sales);
+    if (document.activeElement !== outSales) outSales.textContent = nUsd0.format(sales);
     $('outBrl').textContent = 'R$ ' + nUsd0.format(brl);
     $('priceBrl').textContent = 'R$ ' + nUsd0.format(Math.round(PRICE * FX));
     $('priceVal').textContent = PRICE % 1 ? nUsd2.format(PRICE) : nUsd0.format(PRICE);
@@ -1744,11 +1898,25 @@ body.idle{cursor:none}
       $('priceOff').textContent = $('calcOff').textContent = offTxt;
       $('calcNew').textContent = U + (PRICE % 1 ? nUsd2.format(PRICE) : nUsd0.format(PRICE));
     }
-    if (animate === false) { if (tween) cancelAnimationFrame(tween); $('outUsd').textContent = U + nUsd0.format(usd); fitBig($('outUsd')); }
-    else setNum($('outUsd'), shown.usd, usd, U);
+    if (document.activeElement === outUsd) { /* digitando: não mexe */ }
+    else if (animate === false) { if (tween) cancelAnimationFrame(tween); outUsd.textContent = U + nUsd0.format(usd); fitBig(outUsd); }
+    else setNum(outUsd, shown.usd, usd, U);
     shown.usd = usd; shown.brl = brl;
+    taxTable();
     document.querySelectorAll('[data-preset]').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.dataset.preset === fol)); });
     document.querySelectorAll('[data-rate]').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.dataset.rate === rate)); });
+  }
+  /* slide oculto de taxas: taxas publicadas pela Gumroad (10% + 0,50; cartão 2,9% + 0,30; repasse PayPal 2%), divididas na proporção da comissão */
+  function taxTable(){
+    if (!$('txPa')) return;
+    var U = T[lang].usd, f = function(v){ return U + nUsd2.format(v); }, m = function(v){ return '\u2212 ' + f(v); };
+    var k = rate / 100, g = PRICE * .10 + .50, c = PRICE * .029 + .30, net = PRICE - g - c, an = net * k, pp = an * .02;
+    $('txPl').textContent = (lang === 'en' ? 'Your commission (' + rate + '% of ' : 'Sua comissão (' + rate + '% de ') + f(PRICE) + ')';
+    $('txPa').textContent = f(PRICE * k);
+    $('txGa').textContent = m(g * k);
+    $('txCa').textContent = m(c * k);
+    $('txNa').textContent = f(an);
+    $('txPp').textContent = m(pp); $('txOut').textContent = f(an - pp);
   }
   function fitIn(el){ el.style.setProperty('--w', Math.max(4, el.value.length + 1) + 'ch'); }
   /* lê "250.000", "250k", "1,5m", "2,5%" em qualquer idioma */
@@ -1782,6 +1950,29 @@ body.idle{cursor:none}
     });
     el.addEventListener('blur', function(){ commit(el); });
   });
+  /* valor recebido e vendas também são editáveis: os seguidores ficam fixos e a porcentagem se ajusta sozinha */
+  function commitOut(el){
+    var n = parseNum(el.textContent.replace(/[^0-9.,kKmM]/g, ''), false), each = PRICE * rate / 100;
+    if (!isNaN(n) && n >= 0 && vFol > 0 && each > 0) {
+      var sales = Math.min(vFol, Math.round(el === outUsd ? n / each : n));
+      vConv = sales / vFol * 100; syncRange(rConv, vConv);
+      pin = el === outUsd && sales < vFol ? { usd: n, key: [vFol, vConv, PRICE, rate].join('|') } : null;
+    }
+    calc(el === outUsd ? false : undefined);
+  }
+  [outUsd, outSales].forEach(function(el){
+    if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true'; /* navegadores sem plaintext-only */
+    var cancel = false;
+    function selectAll(){ if (document.activeElement !== el) return; var r = document.createRange(); r.selectNodeContents(el); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+    el.addEventListener('focus', function(){ cancel = false; if (el === outUsd && tween) { cancelAnimationFrame(tween); el.textContent = T[lang].usd + nUsd0.format(shown.usd); } setTimeout(selectAll, 0); });
+    el.addEventListener('input', function(){ if (el === outUsd) fitBig(el); });
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+      else if (e.key === 'Escape') { e.preventDefault(); cancel = true; el.blur(); }
+      e.stopPropagation(); /* setas e espaço não trocam de slide enquanto digita */
+    });
+    el.addEventListener('blur', function(){ getSelection().removeAllRanges(); if (cancel) calc(false); else commitOut(el); });
+  });
   rFol.addEventListener('input', function(){ vFol = +rFol.value; calc(); });
   rConv.addEventListener('input', function(){ vConv = +rConv.value; calc(); });
   document.querySelectorAll('[data-preset]').forEach(function(b){
@@ -1809,7 +2000,7 @@ body.idle{cursor:none}
 
   /* navegação */
   function go(i, replay){
-    if (i < 0 || i >= N || (i === cur && !replay)) return;
+    if (i < 0 || i >= slides.length || (i === cur && !replay)) return;
     var prev = replay ? -1 : cur;
     if (replay) { slides[i].classList.remove('is-active'); void slides[i].offsetWidth; }
     document.body.style.setProperty('--dir', i > prev ? 1 : -1);
@@ -1835,21 +2026,22 @@ body.idle{cursor:none}
     if (s.id === 'slide-recursos') { LIB.stop(); CONV.stop(); TRIM.stop(); LIB.start(); CONV.start(); TRIM.start(); } else setTimeout(function(){ if (slides[cur] && slides[cur].id !== 'slide-recursos') { LIB.stop(); CONV.stop(); TRIM.stop(); } }, 900);
     var tone = s.classList.contains('accent') ? 'accent' : 'dark';
     document.body.setAttribute('data-tone', tone);
-    $('count').textContent = pad(i + 1) + ' / ' + pad(N);
+    $('count').textContent = i >= N ? (s.dataset.short || '') : pad(i + 1) + ' / ' + pad(N);
     $('prev').disabled = (i === 0);
-    $('next').disabled = (i === N - 1);
+    $('next').disabled = (i >= N - 1);
     Array.prototype.forEach.call(ticks.children, function(t, k){
       t.classList.toggle('cur', k === i);
-      t.classList.toggle('done', k < i);
+      t.classList.toggle('done', k < i && i < N);
       if (k === i) t.setAttribute('aria-current', 'step'); else t.removeAttribute('aria-current');
     });
-    $('live').textContent = 'Slide ' + (i + 1) + T[lang].of + N + ': ' + title(s);
+    $('live').textContent = i >= N ? title(s) : 'Slide ' + (i + 1) + T[lang].of + N + ': ' + title(s);
     if (s.querySelector('.count-up')) countUp(s);
     if (s.dataset.onenter === 'calc') calc(false);
-    var h = '#slide-' + (i + 1);
+    var h = i >= N ? '#' + s.id : '#slide-' + (i + 1);
     if (location.hash !== h) { try { history.replaceState(null, '', h); } catch (e) { location.hash = h; } }
   }
-  var next = function(){ go(cur + 1); }, back = function(){ go(cur - 1); };
+  /* nos slides ocultos, avançar não faz nada e voltar leva ao último slide da sequência */
+  var next = function(){ if (cur < N - 1) go(cur + 1); }, back = function(){ go(cur >= N ? N - 1 : cur - 1); };
   $('next').addEventListener('click', next);
   $('prev').addEventListener('click', back);
 
@@ -1891,6 +2083,7 @@ body.idle{cursor:none}
   });
 
   var numBuf = '', numT = null;
+  var words = slides.slice(N).map(function(s, k){ return { w: s.id.replace(/^slide-/, ''), i: N + k }; }), wordBuf = '', wordT = null, keyT = null;
   function jumpTo(){
     var v = +numBuf; numBuf = '';
     if (v >= 1) go(Math.min(N, v) - 1);
@@ -1913,16 +2106,33 @@ body.idle{cursor:none}
       return;
     }
     if (k === 'Enter' && numBuf) { e.preventDefault(); clearTimeout(numT); jumpTo(); return; }
+    /* palavras: digitar o nome de um slide oculto (faq, tax) abre esse slide */
+    if (/^[a-z]$/i.test(k) && words.length) {
+      var ch = k.toLowerCase();
+      clearTimeout(wordT); wordBuf = (wordBuf + ch).slice(-12); wordT = setTimeout(function(){ wordBuf = ''; }, 1200);
+      var hit = null, typing = 0;
+      words.forEach(function(w){
+        if (wordBuf.slice(-w.w.length) === w.w) hit = w;
+        for (var n = Math.min(w.w.length - 1, wordBuf.length); n > 0; n--) if (wordBuf.slice(-n) === w.w.slice(0, n)) { typing = Math.max(typing, n); break; }
+      });
+      if (hit) { e.preventDefault(); clearTimeout(keyT); wordBuf = ''; go(hit.i); return; }
+      /* letra que também é atalho (o F de "faq" é tela cheia): espera um instante para ver se é o começo de uma palavra */
+      if (typing > 1) { clearTimeout(keyT); return; }
+      if (typing === 1 && 'fhrl'.indexOf(ch) >= 0) { clearTimeout(keyT); keyT = setTimeout(function(){ letterKey(ch); }, 450); return; }
+    }
     if ((k === ' ' || k === 'Enter') && (tag === 'BUTTON' || tag === 'A')) return;
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'ArrowDown') { e.preventDefault(); next(); }
     else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'ArrowUp') { e.preventDefault(); back(); }
     else if (k === 'Home') { e.preventDefault(); go(0); }
     else if (k === 'End') { e.preventDefault(); go(N - 1); }
-    else if (k === 'f' || k === 'F') { toggleFs(); }
-    else if (k === 'h' || k === 'H') { setUiOff(!body.classList.contains('ui-off')); }
-    else if (k === 'r' || k === 'R') { go(cur, true); }
-    else if (k === 'l' || k === 'L') { setLang(lang === 'pt' ? 'en' : 'pt'); }
+    else letterKey(k.toLowerCase());
   });
+  function letterKey(k){
+    if (k === 'f') toggleFs();
+    else if (k === 'h') setUiOff(!body.classList.contains('ui-off'));
+    else if (k === 'r') go(cur, true);
+    else if (k === 'l') setLang(lang === 'pt' ? 'en' : 'pt');
+  }
 
   /* depois de clicar no vídeo, devolve o foco à apresentação para as setas continuarem navegando */
   window.addEventListener('blur', function(){
@@ -1970,6 +2180,7 @@ body.idle{cursor:none}
 
   /* hash e início */
   var fromHash = function(){
+    for (var k = N; k < slides.length; k++) if (location.hash === '#' + slides[k].id) return k;
     var m = /^#slide-(\d+)$/.exec(location.hash);
     return m ? Math.min(N, Math.max(1, +m[1])) - 1 : 0;
   };
