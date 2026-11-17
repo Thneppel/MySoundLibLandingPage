@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MySoundLib | Programa de afiliados para criadores</title>
 <meta name="description" content="Ganhe comissão indicando o MySoundLib, o gerenciador de áudio local para editores de vídeo. Licença vitalícia de US$ 19, sem assinatura.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://mysoundlib.com/affiliates">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mysoundlib.com/affiliates">
@@ -21,7 +22,7 @@
 <link rel="icon" type="image/svg+xml" href="/static/icon.svg">
 <script>document.documentElement.classList.add('js')</script>
 <style>
-/* Layout: stage de tela cheia, um slide por vez, tom escuro como base e slides claros como respiro. Motivo recorrente: barras de waveform. */
+/* Layout: full-screen stage, one slide at a time, dark tone as the base and light slides as breathing room. Recurring motif: waveform bars. */
 :root{
   --ink-0:#161616; --ink-1:#1c1c1c; --ink-2:#242424; --line:#2f2f2f; --line-2:#404040;
   --text:#ffffff; --muted:#a3a3a3; --dim:#8a8a8a;
@@ -47,7 +48,7 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--mint-hi);outline-offset:3px;border-radius:6px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* ---------- Stage e transições ---------- */
+/* ---------- Stage and transitions ---------- */
 .stage{position:fixed;inset:0;overflow:hidden}
 .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;overflow-x:hidden;
   padding-top:calc(clamp(64px,10vh,110px) + env(safe-area-inset-top,0px));
@@ -60,7 +61,7 @@ button{font:inherit;color:inherit}
 .slide.is-leaving{z-index:1}
 .slide.is-active{visibility:visible;pointer-events:auto;z-index:2;transition:visibility 0s}
 
-/* ---------- Mundo contínuo: canvas fixo atrás de todas as cenas (fundo, brilho, waveform) ---------- */
+/* ---------- Continuous world: fixed canvas behind every scene (background, glow, waveform) ---------- */
 #world{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none}
 .stage{z-index:1}
 
@@ -69,40 +70,40 @@ button{font:inherit;color:inherit}
 .light{color:var(--paper-text)}
 .accent{color:var(--mint-ink)}
 
-/* ---------- Coreografia: saída em cascata + entrada sobreposta, sem cortes ---------- */
+/* ---------- Choreography: staggered exit + overlapping entrance, no hard cuts ---------- */
 :root{--out:cubic-bezier(.55,0,.75,.2);--expo:cubic-bezier(.16,1,.3,1)}
-/* pose de espera (cena escondida): abaixo, desfocado */
+/* waiting pose (hidden scene): lower and blurred */
 .js .slide [data-r]{opacity:0;transform:translateY(calc(var(--dir,1) * 46px)) scale(.985);filter:blur(12px);transition:none}
-/* entrada */
+/* entrance */
 .js .slide.is-active [data-r]{opacity:1;transform:none;filter:blur(0);
   transition:opacity .8s ease calc(.32s + var(--i,0) * .09s), transform 1.25s var(--expo) calc(.32s + var(--i,0) * .09s), filter .9s ease calc(.32s + var(--i,0) * .09s), border-color .2s ease 0s, background-color .2s ease 0s}
-/* saída */
+/* exit */
 .js .slide.is-leaving [data-r]{opacity:0;transform:translateY(calc(var(--dir,1) * -30px)) scale(.97);filter:blur(10px);
   transition:opacity .5s ease calc(var(--i,0) * .04s), transform .6s var(--out) calc(var(--i,0) * .04s), filter .5s ease calc(var(--i,0) * .04s)}
-/* títulos com palavras próprias: o bloco não se move na entrada, as palavras sobem da máscara */
+/* titles with split words: the block stays put on entrance, the words rise from the mask */
 .js .slide [data-r].wsplit{opacity:1;transform:none;filter:none}
 .js .slide.is-leaving [data-r].wsplit{opacity:0;transform:translateY(calc(var(--dir,1) * -24px));filter:blur(10px)}
-/* palavras com mola (como no reel): sobem girando em 3D, desfocadas, passam um pouco do ponto e assentam */
+/* springy words (as in the reel): they rise rotating in 3D, blurred, overshoot a little and settle */
 .w{display:inline-block;perspective:420px}
-/* padding + margem negativa: a caixa da palavra cobre descendentes (g, p, ç) e acentos sem mudar o layout; sem isso o gradiente e o filtro cortam a letra */
+/* padding + negative margin: the word box covers descenders (g, p, ç) and accents without changing the layout; without it the gradient and the filter clip the letter */
 .wi{padding:.14em .06em .24em;margin:-.14em -.06em -.24em;display:inline-block;opacity:0;transform:translateY(.6em) rotateX(-55deg) scale(.9);filter:blur(6px);transform-origin:50% 100%}
 .is-active .wi,.is-leaving .wi{opacity:1;transform:none;filter:blur(0)}
 .is-active .wi{transition:opacity .25s ease var(--wd,0s), transform 1s cubic-bezier(.34,1.56,.64,1) var(--wd,0s), filter .45s ease var(--wd,0s);
   transition:opacity .25s ease var(--wd,0s), transform 1.1s linear(0, .009, .035 2.1%, .141 4.4%, .723 12.9%, .938 16.7%, 1.017 19.4%, 1.067, 1.099 24.3%, 1.108 26%, 1.103, 1.087 30.8%, 1.031 38.7%, 1.004 44.1%, .991 49.5%, .99 55%, 1.001 72.1%, 1) var(--wd,0s), filter .45s ease var(--wd,0s)}
-/* palavras-chave em gradiente */
+/* keywords in gradient */
 .ag .wi{background:linear-gradient(90deg,#1dcd9f,#7af0cf);-webkit-background-clip:text;background-clip:text;color:transparent}
 .ar .wi{background:linear-gradient(90deg,#ff6b80,#ff8a9a);-webkit-background-clip:text;background-clip:text;color:transparent}
-/* cenas do problema em vermelho */
+/* problem scenes in red */
 [data-mood="red"] .stat span{color:#ff6b80}
 [data-mood="red"] .eyebrow{color:#ff6b80}
 [data-mood="red"] .card:not(.hl) .tag{color:#ff6b80}
-/* risco animado nos itens do "antes" */
+/* animated strike-through on the "before" items */
 .st{background:linear-gradient(#ff6b80,#ff6b80) no-repeat 0 58%/0% 2px;transition:none}
 .is-active .st{background-size:100% 2px;color:var(--dim);transition:background-size .55s var(--expo) calc(1.4s + var(--k,0) * .22s), color .4s ease calc(1.4s + var(--k,0) * .22s)}
 .is-leaving .st{background-size:100% 2px;color:var(--dim)}
 .list li:nth-child(2) .st{--k:1}
 .list li:nth-child(3) .st{--k:2}
-/* ícone que aterrissa no fechamento */
+/* icon that lands on the closing slide */
 .land{position:relative;width:clamp(72px,9vw,112px);aspect-ratio:1;margin-inline:auto}
 .land img{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 100%;opacity:0}
 .land .ring{position:absolute;inset:0;border:2px solid var(--mint);opacity:0}
@@ -112,11 +113,24 @@ button{font:inherit;color:inherit}
 @keyframes drop{0%{opacity:0;transform:translateY(-140%) scale(.86,1.18)}30%{opacity:1;transform:translateY(0) scale(1.2,.8)}48%{transform:translateY(-12%) scale(.94,1.07)}66%{transform:translateY(0) scale(1.05,.96)}82%{transform:scale(.99,1.01)}100%{opacity:1;transform:none}}
 @keyframes ring{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(2.1)}}
 @keyframes burst{0%{opacity:0;transform:scale(.3)}25%{opacity:1}100%{opacity:0;transform:scale(1.3)}}
-/* vida dentro da cena */
+/* full brand on the closing slide: the symbol lands, then the wordmark is revealed next to it.
+   The wordmark is the right part of logo.svg (the symbol takes the first ~101 of its 473.78 units). */
+.lockup{--lh:clamp(38px,4vw,52px);display:flex;align-items:center;justify-content:center;gap:clamp(10px,1.4vw,20px)}
+.lockup .land{width:var(--lh);margin:0;flex:none}
+.wm{display:block;flex:none;height:var(--lh);width:calc(var(--lh) * 4.6);overflow:hidden;opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-14px)}
+.wm img{display:block;height:100%;width:auto;margin-left:calc(var(--lh) * -1.25)}
+.is-active .wm{opacity:1;clip-path:inset(0 0 0 0);transform:none;transition:clip-path 1s var(--expo) 1.1s, transform 1s var(--expo) 1.1s, opacity .3s ease 1.1s}
+.is-leaving .wm{opacity:1;clip-path:inset(0 0 0 0);transform:none}
+#slide-cta .inner{gap:clamp(28px,6vh,64px)}
+#slide-cta .h1{font-size:var(--fs-h2);max-width:none}
+/* the title comes in large and settles to its size, while the words spring in */
+.js #slide-cta.is-active .h1{animation:ctaIn 1.9s cubic-bezier(.16,1,.3,1) .25s both}
+@keyframes ctaIn{from{transform:scale(1.45)}to{transform:none}}
+/* life inside the scene */
 .is-active .card,.is-leaving .card{animation:float 7s ease-in-out infinite;animation-delay:calc(var(--i,0) * -1.7s)}
 @keyframes float{0%,100%{translate:0 0}50%{translate:0 -7px}}
 
-/* ---------- Tipografia ---------- */
+/* ---------- Typography ---------- */
 .eyebrow{font-family:var(--font-mono);font-size:var(--fs-label);font-weight:700;letter-spacing:.02em;color:var(--mint)}
 .light .eyebrow{color:var(--mint-deep)}
 .accent .eyebrow{color:var(--mint-ink)}
@@ -134,7 +148,7 @@ button{font:inherit;color:inherit}
 .src a{color:inherit;text-decoration:underline;text-underline-offset:.22em;transition:color .2s ease}
 .src a:hover,.src a:focus-visible{color:var(--mint-hi)}
 #slide-recebe .src{line-height:1.7}
-/* ---------- FAQ (slide oculto) ---------- */
+/* ---------- FAQ (hidden slide) ---------- */
 #slide-faq .inner{gap:clamp(12px,2.2vh,26px)}
 #slide-faq .h2{font-size:clamp(1.6rem,min(3.4vw,6vh),3rem)}
 .faq{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.8vh,20px) clamp(18px,2.6vw,40px)}
@@ -143,7 +157,7 @@ button{font:inherit;color:inherit}
 .faq-i p{font-size:clamp(.8rem,min(1.08vw,1.95vh),.98rem);line-height:1.45;color:var(--muted)}
 #slide-faq .src{line-height:1.6;margin-top:clamp(14px,3.4vh,40px)}
 .faq-i a,.tax-note a{color:var(--mint-hi);text-decoration:underline;text-underline-offset:.22em;white-space:nowrap}
-/* ---------- Taxas na prática (slide oculto) ---------- */
+/* ---------- Fees in practice (hidden slide) ---------- */
 #slide-tax .inner{gap:clamp(12px,2.4vh,28px)}
 #slide-tax .h2{font-size:clamp(1.6rem,min(3.4vw,6vh),3rem)}
 .tax{width:min(100%,780px);border:1px solid var(--line);background:var(--ink-1);border-radius:24px;padding:clamp(10px,1.6vh,18px) clamp(16px,2.2vw,32px)}
@@ -165,7 +179,7 @@ button{font:inherit;color:inherit}
 .pill.solid{background:var(--mint);border-color:var(--mint);color:var(--mint-ink);font-weight:700}
 .pill.tint{border-color:var(--mint);color:var(--mint-hi)}
 
-/* ---------- Grades e cards ---------- */
+/* ---------- Grids and cards ---------- */
 .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,28px)}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,2vw,28px)}
 .split{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center}
@@ -188,16 +202,16 @@ button{font:inherit;color:inherit}
 .stat span{color:var(--mint-deep)}
 .stat .u{font-size:.42em;letter-spacing:-.01em}
 #slide-problema .eyebrow{color:#ff6b80}
-/* largura justa ao texto: a nuvem de arquivos desvia só do que está escrito */
+/* width hugs the text: the file cloud only avoids what is actually written */
 #slide-problema .eyebrow,#slide-problema .provoke-kick,#slide-problema .src,.provoke .stat-xl,.provoke-sub{width:fit-content;max-width:100%}
 #slide-solucao .h2{font-size:clamp(2rem,min(4.2vw,7.8vh),3.6rem)}
-/* slide 12: benefícios de montar a própria biblioteca local */
+/* "your own library" slide: benefits of building your own local library */
 .own-split{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:center}
 .own{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,18px)}
 .own-c{display:flex;flex-direction:column;gap:clamp(6px,1.2vh,10px);padding:clamp(16px,2vw,26px);border-radius:22px;border:1px solid var(--paper-line);background:var(--paper-card)}
 .own-c .ico{width:clamp(28px,3vw,38px);height:clamp(28px,3vw,38px);color:var(--mint)}
 .own-c .body{font-size:clamp(.88rem,min(1.15vw,2.3vh),1.02rem);line-height:1.4}
-/* ritmo vertical: eyebrow colado no título, título coeso, frase de apoio respirando, fonte como rodapé */
+/* vertical rhythm: eyebrow close to the title, tight title, supporting line with room to breathe, source as a footer */
 #slide-problema .inner{gap:0}
 #slide-problema .eyebrow{margin:0 0 clamp(4px,1vh,10px)}
 #slide-problema .src{margin-top:clamp(28px,6vh,56px)}
@@ -209,21 +223,21 @@ button{font:inherit;color:inherit}
 .light .provoke-kick{color:var(--paper-muted)}
 .num{font-family:var(--font-mono);font-weight:700;font-size:clamp(1.6rem,3vw,2.6rem);color:var(--mint-deep);line-height:1}
 
-/* ---------- Waveform decorativa ---------- */
+/* ---------- Decorative waveform ---------- */
 .wave{position:absolute;left:0;right:0;bottom:0;height:34vh;display:flex;align-items:flex-end;gap:clamp(3px,.6vw,9px);padding:0 max(0px, env(safe-area-inset-left,0px));opacity:.22;pointer-events:none;mask-image:linear-gradient(to top,#000 20%,transparent)}
 .wave i{flex:1;min-width:2px;height:calc(var(--h) * 1%);background:var(--mint);border-radius:3px 3px 0 0;transform-origin:bottom;animation:pulse 2.6s ease-in-out infinite;animation-delay:var(--d)}
 @keyframes pulse{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
 
 
-/* ---------- Demo real ---------- */
+/* ---------- Real demo ---------- */
 .demo{width:min(100%,62vh);margin-inline:auto;aspect-ratio:1;border-radius:24px;overflow:hidden;border:1px solid var(--line-2);box-shadow:0 30px 80px rgba(0,0,0,.5);background:var(--ink-1)}
 .demo img{display:block;width:100%;height:100%;object-fit:cover}
 .site-bg{background:var(--ink-1)}
-/* cards com demo */
+/* cards with a demo */
 .media-card{padding:clamp(14px,1.6vw,24px)}
 .media{width:100%;aspect-ratio:1;max-height:34vh;margin-inline:auto;border-radius:16px;overflow:hidden;background:var(--ink-1)}
 .media img{display:block;width:100%;height:100%;object-fit:contain}
-/* ---------- telas do app em HTML (biblioteca e conversor) — espaço de desenho 300×300, escalado ---------- */
+/* ---------- app screens in HTML (library and converter): 300×300 drawing space, scaled ---------- */
 .ui{position:relative;background:#141416}
 .ui-in{position:absolute;left:0;top:0;width:300px;height:300px;transform-origin:0 0;font-family:var(--font-body);color:#e2e2e2}
 .ui-in > *{position:absolute;will-change:transform,opacity}
@@ -287,14 +301,14 @@ button{font:inherit;color:inherit}
 .ui .tph2{position:absolute;top:4px;bottom:4px;width:1.5px;left:30%;background:#5aa0ff;box-shadow:0 0 6px rgba(90,160,255,.8)}
 .ui .tfly{left:0;top:0;border-radius:4px;background:linear-gradient(90deg,rgba(29,205,159,.5),rgba(122,240,207,.9));border:1.5px solid #7af0cf;box-sizing:border-box;opacity:0}
 .ui .mouse{left:0;top:0;width:15px;height:18px;opacity:0;filter:drop-shadow(0 3px 5px rgba(0,0,0,.6))}
-/* público ideal: grade de áreas */
+/* ideal audience: grid of fields */
 .aud-split{grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr)}
 .aud{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,1.4vw,18px)}
 .aud-t{flex-direction:row;align-items:flex-start;gap:clamp(12px,1.2vw,18px);padding:clamp(14px,1.6vw,22px)}
 .aud-t .ico{flex:none;width:clamp(28px,2.6vw,36px);height:clamp(28px,2.6vw,36px)}
 .aud-t .h3{font-size:clamp(1rem,min(1.6vw,2.8vh),1.35rem);margin-bottom:.25em}
 .aud-t .body{font-size:clamp(.82rem,min(1.15vw,2vh),1rem);line-height:1.4}
-/* público ideal */
+/* ideal audience */
 .fit{gap:clamp(10px,1.6vw,20px)}
 .fit-row{flex-direction:row;align-items:center;gap:clamp(12px,1.4vw,20px);padding:clamp(16px,2vw,28px)}
 .fit-row .ico{flex:none;width:clamp(26px,2.6vw,34px);height:clamp(26px,2.6vw,34px)}
@@ -305,7 +319,7 @@ button{font:inherit;color:inherit}
 .kit-row .h3{margin-bottom:.2em}
 .split-media{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
 .split-media .demo{width:min(88%,64vh);border:0;border-radius:0;box-shadow:none;background:transparent}
-/* ---------- QuickSearch em HTML (cena do reel, em loop) — espaço de desenho 400×400, escalado ---------- */
+/* ---------- QuickSearch in HTML (scene from the reel, looping): 400×400 drawing space, scaled ---------- */
 .qsd{position:relative;overflow:visible;perspective:1100px}
 .split-media .qsd{width:min(100%,76vh)}
 .qsd .qsd-in{transform-style:preserve-3d;transform-origin:200px 200px}
@@ -362,7 +376,7 @@ button{font:inherit;color:inherit}
 .qsd .fly b{position:absolute;left:5px;top:50%;transform:translateY(-50%);font-size:7px;font-weight:800;color:#0c0d0e;white-space:nowrap}
 .qsd .mouse{left:0;top:0;width:18px;height:22px;opacity:0;filter:drop-shadow(0 3px 5px rgba(0,0,0,.6))}
 
-/* ---------- Marquee de editores ---------- */
+/* ---------- Editors marquee ---------- */
 .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .marquee-track{display:flex;gap:14px;width:max-content;animation:slide-x 36s linear infinite}
 .marquee .pill{white-space:nowrap}
@@ -376,7 +390,7 @@ button{font:inherit;color:inherit}
 .sig b{display:block;font-size:var(--fs-h3);font-weight:700}
 .sig span{color:var(--paper-muted)}
 
-/* ---------- Oportunidade / preço / CTA ---------- */
+/* ---------- Opportunity / price / CTA ---------- */
 .bignum{position:absolute;right:max(16px,5vw);top:50%;transform:translate(14vw,-50%);font-size:clamp(9rem,34vw,26rem);font-weight:800;line-height:.8;letter-spacing:-.05em;color:var(--mint-ink);opacity:0;pointer-events:none;user-select:none}
 .is-active .bignum{transform:translate(0,-50%);opacity:.14;transition:transform 2.4s var(--expo) .25s, opacity 1.2s ease .25s}
 .is-leaving .bignum{transform:translate(-10vw,-50%);opacity:0;transition:transform .7s var(--out), opacity .5s ease}
@@ -393,24 +407,159 @@ html[lang="en"] .pt-only{display:none}
 .btn{display:inline-block;background:var(--mint);color:var(--mint-ink);font-weight:800;font-size:var(--fs-lead);padding:.7em 1.6em;border-radius:999px;text-decoration:none;box-shadow:0 .2em 0 var(--mint-shade);transition:transform .15s ease, box-shadow .15s ease}
 .btn:hover{transform:translateY(2px);box-shadow:0 .08em 0 var(--mint-shade)}
 .center{align-items:center;text-align:center}
+
+/* ---------- gate screen: only stops people who stumbled on the link ---------- */
+.gate{position:fixed;inset:0;z-index:60;cursor:default;display:grid;place-items:center;padding:16px;background:rgba(14,14,14,.74);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);transition:opacity .6s ease, visibility 0s .6s}
+.gate.off{opacity:0;visibility:hidden;pointer-events:none}
+.gate-box{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;width:min(420px,100%);transition:transform .6s var(--ease)}
+.gate.off .gate-box{transform:scale(.96)}
+.gate-box img{width:56px;height:56px}
+.gate-t{font-size:clamp(1.8rem,4.2vw,2.6rem);font-weight:800;line-height:1.1}
+.gate-row{display:flex;gap:10px;width:100%;margin-top:8px}
+.gate input{cursor:text;flex:1;min-width:0;font:inherit;font-size:1.05rem;color:var(--text);background:var(--ink-1);border:1px solid var(--line-2);border-radius:999px;padding:.75em 1.2em;outline:none;transition:border-color .2s ease}
+.gate input:focus{border-color:var(--mint)}
+.gate input::placeholder{color:var(--dim)}
+.gate-go{font-size:1.05rem;padding:.7em 1.4em;border:0;cursor:pointer;box-shadow:none;transition:filter .15s ease}
+.gate-go:hover{transform:none;box-shadow:none;filter:brightness(1.08)}
+.gate-err{min-height:1.5em;font-family:var(--font-mono);font-size:var(--fs-label);color:#ff6b80}
+.gate-box.shake{animation:gshk .45s ease}
+@keyframes gshk{20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(3px)}}
 .center .h1{max-width:14ch}
 .center .lead{max-width:34ch}
 
-/* ---------- nuvem de arquivos (slide 2 explode, slide 3 absorve) ---------- */
+/* ---------- Gift (slide before the closing one): a 3D CSS envelope that opens and reveals the license ---------- */
+#slide-presente{--s:clamp(120px,min(23vh,34vw),230px);--rb:#f3fffb;--rw:calc(var(--s) * .05)}
+#slide-presente .inner{gap:clamp(10px,2.2vh,26px)}
+.swap{display:grid;justify-items:center;align-items:center;width:100%}
+.swap>*{grid-area:1/1}
+.swap .after{opacity:0;visibility:hidden}
+#slide-presente .swap>*{transition:opacity .5s ease, filter .5s ease, transform .6s var(--expo), visibility 0s .6s}
+#slide-presente.opened .swap .before{opacity:0;filter:blur(8px);transform:translateY(-18px);visibility:hidden}
+#slide-presente.opened .swap .after{opacity:1;visibility:visible;transition:opacity .6s ease .5s, visibility 0s}
+#slide-presente:not(.opened) .after .wi{opacity:0;transform:translateY(.6em) rotateX(-55deg) scale(.9);filter:blur(6px);transition:none}
+#slide-presente.opened .after .wi{transition-delay:calc(var(--wd,0s) + .5s)}
+#slide-presente .lead{max-width:none;text-wrap:balance;font-size:var(--fs-body)}
+#slide-presente .h2{max-width:none}
+#slide-presente .after .lead{transform:translateY(14px);transition:transform 1s var(--expo) 1.2s}
+#slide-presente.opened .after .lead{transform:none}
+.gift-hint{font-family:var(--font-mono);letter-spacing:.02em;animation:hint 2.4s ease-in-out infinite}
+@keyframes hint{0%,100%{opacity:.55}50%{opacity:1}}
+
+.gift-stage{position:relative;width:100%;height:calc(var(--s) * 1.72)}
+.gift{position:absolute;left:50%;top:50%;width:calc(var(--s) * 1.36);height:calc(var(--s) * .9);margin:calc(var(--s) * -.45) 0 0 calc(var(--s) * -.68);padding:0;border:0;background:none;
+  cursor:pointer;perspective:calc(var(--s) * 5);border-radius:24px;transition:transform 1.1s var(--expo)}
+.gift:hover{transform:scale(1.05)}
+#slide-presente.opening .gift{cursor:default;transform:translateY(calc(var(--s) * .24))}
+#slide-presente.opened .gift{transform:translateY(calc(var(--s) * .4)) scale(.74)}
+.g-shadow{position:absolute;left:50%;bottom:calc(var(--s) * -.12);width:calc(var(--s) * 1.2);height:calc(var(--s) * .14);margin-left:calc(var(--s) * -.6);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent);animation:gshadow 3.2s ease-in-out infinite}
+@keyframes gshadow{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.88);opacity:.7}}
+.g-bob,.g-wig,.g3{position:absolute;inset:0;transform-style:preserve-3d}
+.g-bob{animation:gbob 3.2s ease-in-out infinite}
+.g-wig{animation:gwig 4.2s ease-in-out infinite 1.6s}
+.g3{transform:rotateX(-8deg) rotateY(-12deg);animation:gsway 8s ease-in-out infinite alternate}
+@keyframes gbob{0%,100%{transform:translateY(0)}50%{transform:translateY(calc(var(--s) * -.05))}}
+@keyframes gsway{from{transform:rotateX(-8deg) rotateY(-16deg)}to{transform:rotateX(-8deg) rotateY(16deg)}}
+@keyframes gwig{0%,78%,100%{transform:none}82%{transform:rotateZ(-6deg) scale(1.03)}86%{transform:rotateZ(5deg) scale(1.03)}90%{transform:rotateZ(-3deg)}94%{transform:rotateZ(2deg)}}
+#slide-presente.opening .g-wig{animation:gshake .4s ease-in-out}
+@keyframes gshake{0%,100%{transform:none}20%{transform:rotateZ(-7deg) scale(1.06,.94)}45%{transform:rotateZ(6deg) scale(.96,1.05)}70%{transform:rotateZ(-3deg)}}
+
+/* envelope: back (lining), small card, pocket (three folded flaps) and top flap with a seal.
+   Everything uses transitions (not animations), so it also opens with reduced motion. */
+.g3>span{position:absolute;inset:0}
+.e-back{border-radius:calc(var(--s) * .04);
+  background:repeating-linear-gradient(45deg,rgba(122,240,207,.07) 0 6px,transparent 6px 14px),linear-gradient(160deg,#134036,#0a201b)}
+.e-card{inset:9% 7% 8% 7% !important;transform:translateZ(1px);border-radius:calc(var(--s) * .035);background:linear-gradient(135deg,#21302c,#141a19);
+  border:1px solid rgba(122,240,207,.4);display:flex;flex-direction:column;align-items:flex-start;gap:calc(var(--s) * .035);padding:calc(var(--s) * .07)}
+.e-card img{width:calc(var(--s) * .17);height:auto}
+.e-card i{display:block;height:calc(var(--s) * .028);border-radius:99px;background:rgba(255,255,255,.22)}
+.e-card i:nth-of-type(1){width:62%;background:rgba(92,230,191,.7)}
+.e-card i:nth-of-type(2){width:44%}
+.e-pocket{transform:translateZ(2px);border-radius:calc(var(--s) * .04);overflow:hidden}
+.e-pocket>span{position:absolute;inset:0}
+.e-l{clip-path:polygon(0 0,53% 56%,0 100%);background:linear-gradient(90deg,#2bdcab,#20cd9e)}
+.e-r{clip-path:polygon(100% 0,47% 56%,100% 100%);background:linear-gradient(270deg,#17b088,#1bbf93)}
+.e-bw{filter:drop-shadow(0 calc(var(--s) * -.012) calc(var(--s) * .02) rgba(0,40,30,.35))}
+.e-b{position:absolute;inset:0;clip-path:polygon(0 100%,50% 43%,100% 100%);background:linear-gradient(0deg,#1cc497,#2ad8a8)}
+.e-fsw{inset:0 0 auto 0 !important;height:64%;filter:blur(calc(var(--s) * .02))}
+.e-fs{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);background:rgba(0,35,26,.4)}
+.e-fz{transform-style:preserve-3d;transform:translateZ(3px)}
+.e-flap{position:absolute;left:0;right:0;top:0;height:60%;transform-origin:50% 0;transform-style:preserve-3d}
+.e-out,.e-in{position:absolute;inset:0;backface-visibility:hidden;clip-path:polygon(0 0,100% 0,50% 100%);border-radius:calc(var(--s) * .04) calc(var(--s) * .04) 0 0}
+.e-out{background:linear-gradient(180deg,#3fe8b9,#24d2a2 70%,#1fc89a)}
+.e-in{transform:rotateY(180deg);background:repeating-linear-gradient(45deg,rgba(122,240,207,.07) 0 6px,transparent 6px 14px),linear-gradient(0deg,#134036,#0d2a23)}
+.e-seal{position:absolute;left:50%;top:100%;width:calc(var(--s) * .27);height:calc(var(--s) * .27);margin:calc(var(--s) * -.2) 0 0 calc(var(--s) * -.135);
+  border-radius:50%;display:grid;place-items:center;backface-visibility:hidden;transform:translateZ(1px);
+  background:radial-gradient(circle at 35% 30%,#2b3d38,#0d1a17 70%);border:calc(var(--s) * .012) solid #5ce6bf;
+  box-shadow:0 calc(var(--s) * .015) calc(var(--s) * .04) rgba(0,30,22,.5),inset 0 0 0 calc(var(--s) * .012) rgba(255,255,255,.06)}
+.e-seal img{width:58%;height:auto}
+/* opening: the seal pops, the flap flips up, the small card rises; then the big card comes in */
+#slide-presente.opening .e-seal{transform:translateZ(1px) scale(1.35);opacity:0;transition:transform .35s cubic-bezier(.3,1.6,.6,1), opacity .25s ease .12s}
+#slide-presente.opening .e-flap{transform:rotateX(180deg);transition:transform .75s cubic-bezier(.5,0,.2,1) .25s}
+#slide-presente.opening .e-fz{transform:translateZ(-1px);transition:transform 0s linear .95s}
+#slide-presente.opening .e-fsw{opacity:0;transition:opacity .3s ease .25s}
+#slide-presente.opening .e-card{transform:translateZ(1px) translateY(-44%);transition:transform .75s var(--expo) .85s}
+#slide-presente.opened .e-card{opacity:0;transition:transform .75s var(--expo) .85s, opacity .3s ease}
+
+.gift-rays{position:absolute;left:50%;top:calc(var(--s) * .5);width:calc(var(--s) * 3.4);aspect-ratio:1;margin-left:calc(var(--s) * -1.7);margin-top:calc(var(--s) * -1.7);pointer-events:none;
+  background:repeating-conic-gradient(from 0deg,rgba(122,240,207,.18) 0 7deg,transparent 7deg 20deg);
+  -webkit-mask:radial-gradient(circle,#000 8%,transparent 62%);mask:radial-gradient(circle,#000 8%,transparent 62%);
+  opacity:0;transform:scale(.3);transition:opacity .9s ease, transform 1.6s var(--expo);animation:spin 40s linear infinite}
+#slide-presente.opened .gift-rays{opacity:1;transform:none}
+@keyframes spin{to{rotate:360deg}}
+.gift-fx{position:absolute;left:50%;top:calc(var(--s) * .62);width:0;height:0;z-index:4;pointer-events:none}
+.gift-fx i{position:absolute;left:0;top:0;border-radius:2px}
+
+/* license card */
+.gift-card{position:absolute;left:50%;top:calc(var(--s) * .02);width:min(calc(var(--s) * 2.75),92vw);z-index:3;pointer-events:none;
+  opacity:0;transform:translate(-50%,calc(var(--s) * .6)) scale(.2);transition:none}
+#slide-presente.opened .gift-card{pointer-events:auto;opacity:1;transform:translate(-50%,0);transition:opacity .3s ease, transform 1.15s cubic-bezier(.34,1.45,.64,1)}
+.gc{position:relative;overflow:hidden;text-align:left;padding:calc(var(--s) * .11) calc(var(--s) * .12);border-radius:calc(var(--s) * .1);
+  background:linear-gradient(135deg,#21302c,#141a19 60%,#10201b);border:1px solid rgba(122,240,207,.4);
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 calc(var(--s) * .5) rgba(29,205,159,.28);display:flex;flex-direction:column;gap:calc(var(--s) * .07)}
+#slide-presente.opened .gc{animation:gfloat 5s ease-in-out 1.2s infinite}
+@keyframes gfloat{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(calc(var(--s) * -.035)) rotate(.6deg)}}
+.gc::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.16) 48%,rgba(122,240,207,.12) 52%,transparent 65%);
+  transform:translateX(-110%)}
+#slide-presente.opened .gc::after{animation:shine 3.6s ease-in-out .9s infinite}
+@keyframes shine{0%{transform:translateX(-110%)}45%,100%{transform:translateX(110%)}}
+.gc-top{display:flex;align-items:center;gap:calc(var(--s) * .08)}
+.gc-top img{width:calc(var(--s) * .3);height:auto;flex:none}
+.gc-k{font-family:var(--font-mono);font-weight:700;font-size:max(11px,calc(var(--s) * .07));letter-spacing:.06em;color:var(--mint-hi)}
+.gc-n{font-weight:800;font-size:calc(var(--s) * .17);line-height:1.05;color:#fff;letter-spacing:-.02em}
+/* two columns: license info on the left, QR code to the Gumroad page on the right */
+.gc{flex-direction:row !important;align-items:center;gap:calc(var(--s) * .14) !important}
+.gc-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:calc(var(--s) * .07)}
+.gc-qr{flex:none;display:flex;flex-direction:column;align-items:center;gap:calc(var(--s) * .04);text-decoration:none;
+  font-family:var(--font-mono);font-size:max(10px,calc(var(--s) * .052));color:var(--dim);transition:color .2s ease}
+.gc-qr:hover,.gc-qr:focus-visible{color:var(--mint-hi)}
+.gc-qr svg{display:block;width:calc(var(--s) * .66);height:auto;box-sizing:content-box;padding:calc(var(--s) * .04);background:#fff;border-radius:calc(var(--s) * .045);fill:#0d1a17}
+.gc-code{font-family:var(--font-mono);letter-spacing:.04em;color:var(--mint-hi) !important;user-select:all}
+.gc-rows{border-top:1px dashed rgba(255,255,255,.18);padding-top:calc(var(--s) * .06);display:grid;gap:calc(var(--s) * .03)}
+.gc-row{display:flex;justify-content:space-between;gap:12px;font-size:max(12px,calc(var(--s) * .075))}
+.gc-row span{font-family:var(--font-mono);color:var(--dim)}
+.gc-row b{color:#fff}
+.gc-chip{align-self:flex-start;font-family:var(--font-mono);font-weight:700;font-size:max(11px,calc(var(--s) * .065));color:var(--mint-ink);background:var(--mint);padding:.3em .8em;border-radius:999px}
+@media (prefers-reduced-motion: reduce){
+  .g-bob,.g-wig,.g3,.g-shadow,.gift-rays,.gift-hint,#slide-presente.opened .gc,#slide-presente.opened .gc::after{animation:none}
+}
+
+/* ---------- file cloud (slide 2 explodes, slide 3 absorbs) ---------- */
 #cloud{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;--cloud-ic:#1dcd9f}
 #cloud[data-mood="red"]{--cloud-ic:#ff6b80}
 .fa{position:absolute;left:0;top:0;display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:6px;background:rgba(22,22,26,.55);border:1px solid rgba(255,255,255,.08);box-shadow:0 4px 20px rgba(0,0,0,.35);font-family:var(--font-mono);font-size:clamp(10px,.78vw,13px);letter-spacing:-.01em;white-space:nowrap;opacity:0;will-change:transform,opacity,filter}
 .fa svg{color:var(--cloud-ic);opacity:.85;flex:none;transition:color .7s ease}
 .fa .n{color:rgba(255,255,255,.55)}
 .fa .x{color:#fff;font-weight:700;opacity:.85}
-/* biblioteca grande do slide 3 */
+/* large library on slide 3 */
 .libbig.ui{background:transparent;overflow:visible}
 #bigRows{display:flex;flex-direction:column}
 #bigRows .row{position:relative;opacity:1;flex:none;animation:rowin .55s var(--expo) both}
 @keyframes rowin{from{height:0;opacity:0;transform:translateX(-12px);background:rgba(29,205,159,.3)}to{height:19px;opacity:1;transform:none;background:rgba(29,205,159,0)}}
 #bigBadge{transition:opacity .4s ease, transform .6s cubic-bezier(.34,1.56,.64,1);transform:scale(.7)}
 #bigBadge.on{opacity:1;transform:none}
-/* ---------- card de assinatura (cena do reel) — espaço de desenho 320×240 ---------- */
+/* ---------- subscription card (scene from the reel): 320×240 drawing space ---------- */
 .split-sub{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
 .subw{position:relative;width:min(100%,calc(58vh * 4 / 3));aspect-ratio:4/3;margin-inline:auto}
 .sub-in{position:absolute;left:0;top:0;width:320px;height:240px;transform-origin:0 0;perspective:900px;font-family:var(--font-body)}
@@ -436,17 +585,17 @@ html[lang="en"] .pt-only{display:none}
 .sc-yr span:first-child{color:#ff6b80}
 .sc-shine{position:absolute;inset:0;border-radius:22px;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.16) 50%,transparent 65%);background-size:300% 100%;mix-blend-mode:screen;opacity:0}
 .sc-toast{position:absolute;right:-18px;top:-14px;padding:6px 10px;border-radius:999px;background:rgba(255,107,128,.16);border:1px solid rgba(255,107,128,.45);color:#ff8a9a;font-size:11px;font-weight:800;white-space:nowrap;opacity:0;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-/* ---------- celular em 3D (corpo com espessura) na tela de bloqueio, com vendas chegando em loop (slide "o seu papel") — medidas em cqw ---------- */
+/* ---------- 3D phone (body with thickness) on the lock screen, with sales arriving in a loop ("your role" slide): sizes in cqw ---------- */
 .rlw{position:relative;width:min(100%,66vh);aspect-ratio:1;margin-inline:auto;container-type:inline-size}
 .rl{position:absolute;inset:0;perspective:92cqw}
 .rl-g{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(-33deg) rotateX(12deg)}
 .rl-ph{position:absolute;left:27cqw;top:3cqw;width:46cqw;height:94cqw;transform-style:preserve-3d}
-/* espessura: camadas empilhadas no eixo Z formam a lateral do aparelho */
+/* thickness: layers stacked on the Z axis form the side of the device */
 .rl-ed{position:absolute;inset:0;border-radius:8.5cqw;background:linear-gradient(100deg,#8e8e94,#46464b 30%,#35353a 70%,#7d7d84);transform:translateZ(calc(var(--z) * -.42cqw))}
-/* faixa de brilho no meio da lateral, como metal escovado */
+/* highlight band along the middle of the side, like brushed metal */
 .rl-ed:not(.bk){background:linear-gradient(100deg,rgba(255,255,255,.3),transparent 30%,rgba(0,0,0,.14) 70%,rgba(255,255,255,.24)),hsl(240 3% calc(38% + 9% * sin(var(--z) * 2.4)))}
 .rl-ed[style="--z:1"],.rl-ed[style="--z:10"]{background:linear-gradient(100deg,#e4e4ea,#8a8a91 30%,#77777e 70%,#d2d2da)}
-/* botão lateral e linhas de antena: placas deitadas sobre a lateral direita */
+/* side button and antenna lines: plates lying on the right side */
 .rl-bt,.rl-an{position:absolute;left:100%;transform-origin:0 50%}
 .rl-bt{top:27cqw;width:2.6cqw;height:10cqw;border-radius:.7cqw;transform:translateX(.28cqw) translateZ(-1cqw) rotateY(90deg);
   background:linear-gradient(90deg,#55555b,#b9b9c1 22%,#8d8d95 50%,#a9a9b1 78%,#4a4a50);box-shadow:0 0 .5cqw rgba(0,0,0,.7)}
@@ -457,7 +606,7 @@ html[lang="en"] .pt-only{display:none}
 .rl-sc{position:relative;width:100%;height:100%;border-radius:7.3cqw;overflow:hidden;display:flex;flex-direction:column;align-items:center;color:#fff;background:#04100d}
 .rl-wp{position:absolute;inset:0;width:100%;height:100%}
 .rl-sc > :not(.rl-wp){z-index:1}
-/* reflexo do vidro */
+/* glass reflection */
 .rl-sc::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),inset 0 0 3cqw rgba(0,0,0,.45);
   background:linear-gradient(112deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.05) 24%,transparent 42%,transparent 78%,rgba(255,255,255,.07) 100%),
   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .13 0 0 0 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/26cqw 26cqw}
@@ -465,7 +614,7 @@ html[lang="en"] .pt-only{display:none}
 .rl-date{margin-top:5cqw;font-size:3cqw;font-weight:600;color:rgba(255,255,255,.85)}
 .rl-clock{font-size:15cqw;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .rl-bar{position:absolute;left:50%;bottom:2cqw;width:15cqw;height:.9cqw;margin-left:-7.5cqw;border-radius:99cqw;background:rgba(255,255,255,.7)}
-/* as notificações ficam fora da tela recortada e flutuam à frente do vidro: a paralaxe é o que dá profundidade */
+/* notifications sit outside the clipped screen and float in front of the glass: the parallax is what gives depth */
 .rl-ns{position:absolute;left:3.9cqw;right:3.9cqw;top:38.3cqw;height:37cqw;color:#fff;transform-style:preserve-3d;transform:translateZ(3.6cqw)}
 .rl-n{position:absolute;left:0;right:0;top:0;box-sizing:border-box;height:8cqw;translate:0 calc(var(--k,0) * 9.2cqw);display:flex;align-items:center;gap:1.8cqw;padding:0 2cqw 0 1.5cqw;border-radius:2.8cqw;
   background:rgba(255,255,255,.13);-webkit-backdrop-filter:blur(2.6cqw) saturate(1.5);backdrop-filter:blur(2.6cqw) saturate(1.5);border:1px solid rgba(255,255,255,.24);box-shadow:0 2.6cqw 5cqw rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.2)}
@@ -478,7 +627,7 @@ html[lang="en"] .pt-only{display:none}
 .is-active .rl-g{animation:rlFloat 9s ease-in-out 1.6s infinite}
 .is-active .rl-ph{animation:rlIn 1.3s cubic-bezier(.34,1.2,.64,1) .5s backwards}
 @media (prefers-reduced-motion: no-preference){
-  /* fila em loop: cada venda entra no topo, desce uma posição a cada passo e some embaixo */
+  /* looping queue: each sale enters at the top, moves down one position per step and disappears at the bottom */
   .is-active .rl-n{translate:none;opacity:0;animation:rlFeed 7.5s cubic-bezier(.3,1.25,.5,1) calc(1.5s + var(--k,0) * 1.5s) infinite}
 }
 @keyframes rlIn{from{transform:translateY(22cqw) rotateY(50deg)}}
@@ -495,7 +644,7 @@ html[lang="en"] .pt-only{display:none}
   80%{opacity:1;transform:translateY(27.6cqw) scale(1)}
   86%,100%{opacity:0;transform:translateY(32cqw) scale(.94)}
 }
-/* ---------- bordas que acendem perto do cursor ---------- */
+/* ---------- borders that light up near the cursor ---------- */
 body{--e1:rgba(140,248,218,1);--e2:rgba(29,205,159,.6)}
 body[data-edge="red"]{--e1:rgba(255,128,146,1);--e2:rgba(255,107,128,.6)}
 [data-mood="red"] .card:hover{border-color:#ff6b80}
@@ -506,22 +655,22 @@ body[data-edge="red"]{--e1:rgba(255,128,146,1);--e2:rgba(255,107,128,.6)}
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
   opacity:var(--go,0);transition:opacity .35s ease}
-/* ---------- vídeo do YouTube ---------- */
+/* ---------- YouTube video ---------- */
 .vid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.6fr);gap:clamp(24px,4vw,64px);align-items:center}
 .vid-head{display:flex;flex-direction:column;gap:clamp(10px,2vh,20px)}
 .vid-head .h2{max-width:12ch;font-size:clamp(1.8rem,min(3.9vw,8vh),3.6rem)}
 .yt{width:min(100%,calc(64vh * 16 / 9));justify-self:end;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08)}
 .yt iframe{display:block;width:100%;height:100%;border:0}
-/* ---------- Calculadora ---------- */
+/* ---------- Calculator ---------- */
 .calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(14px,2.4vw,32px)}
 .panel{border:1px solid var(--line);background:var(--ink-1);border-radius:24px;padding:clamp(18px,2.4vw,36px);display:flex;flex-direction:column;gap:clamp(14px,2.4vh,26px);min-width:0}
 .field label,.field .lbl{display:flex;justify-content:space-between;gap:12px;font-size:var(--fs-label);font-weight:600;color:var(--muted);margin-bottom:.6em}
 .field output{font-family:var(--font-mono);color:var(--text);font-weight:700}
-/* número editável: parece texto, vira campo ao clicar */
+/* editable number: looks like text, becomes a field when clicked */
 .num-in{-webkit-appearance:none;appearance:none;font:700 1em/1.2 var(--font-mono);color:var(--text);background:none;border:0;border-radius:0;padding:0;margin:0;box-shadow:none;text-align:right;width:var(--w,9ch);min-width:3ch;cursor:text;caret-color:var(--mint);transition:color .2s ease}
 .num-in:hover{color:var(--mint-hi)}
 .num-in:focus{outline:none;color:var(--mint-hi)}
-/* resultado editável: continua sendo texto, só ganha cursor ao clicar */
+/* editable result: stays as text, only gets a caret when clicked */
 .out-ed{cursor:text;outline:none;caret-color:var(--mint);min-height:1lh;transition:color .2s ease}
 .out-ed:hover,.out-ed:focus{color:var(--mint-hi)}
 .out-ed::selection{background:rgba(29,205,159,.26);color:inherit}
@@ -544,7 +693,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .result dt{font-size:var(--fs-label);color:var(--dim)}
 .result dd{margin:0;font-family:var(--font-mono);font-weight:700;font-size:var(--fs-lead);font-variant-numeric:tabular-nums}
 
-/* ---------- Chrome (progresso, player mínimo) ---------- */
+/* ---------- Chrome (progress, minimal player) ---------- */
 body{--chrome:var(--text);--chrome-dim:rgba(250,250,250,.55);--chrome-track:rgba(250,250,250,.16);--chrome-bg:rgba(18,18,18,.55);--chrome-line:rgba(255,255,255,.08)}
 body[data-tone="accent"]{--chrome:var(--mint-ink);--chrome-dim:rgba(6,42,34,.65);--chrome-track:rgba(6,42,34,.2);--chrome-bg:rgba(255,255,255,.2);--chrome-line:rgba(6,42,34,.12)}
 body[data-tone="accent"] .tick.cur::before{background:var(--mint-ink)}
@@ -578,7 +727,7 @@ body[data-tone="accent"] .brand .neg{opacity:1}
 .disc.on{background:var(--mint);color:var(--mint-ink)}
 .disc-in{-webkit-appearance:none;appearance:none;width:var(--w,2ch);min-width:1ch;padding:0;margin:0 1px 0 0;border:0;background:none;font:inherit;color:inherit;text-align:right;outline:none}
 .lg[aria-pressed="true"]{background:var(--chrome-track);color:var(--chrome)}
-/* some quando o mouse fica parado (body.idle) ou quando é escondido (body.ui-off) */
+/* hides when the mouse stays still (body.idle) or when it is hidden (body.ui-off) */
 .ticks,.bar,.brand{transition:opacity .45s ease, transform .45s var(--ease)}
 body.idle .bar,body.ui-off .bar,body.idle .brand,body.ui-off .brand{opacity:0;transform:translateY(10px);pointer-events:none}
 body.idle .ticks,body.ui-off .ticks{opacity:.35;pointer-events:none}
@@ -601,11 +750,22 @@ body.idle{cursor:none}
 </style>
 </head>
 <body>
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateT">
+  <form class="gate-box" id="gateForm" autocomplete="off">
+    <img src="/static/icon.svg" alt="" width="56" height="56">
+    <h1 class="gate-t" id="gateT" data-en="Enter the password">Digite a senha</h1>
+    <div class="gate-row">
+      <input id="gateIn" type="password" aria-label="Senha" data-en-label="Password" placeholder="••••••••" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button class="btn gate-go" type="submit" data-en="Enter">Entrar</button>
+    </div>
+    <p class="gate-err" id="gateErr" aria-live="polite"></p>
+  </form>
+</div>
 <canvas id="world" aria-hidden="true"></canvas>
 <div id="cloud" aria-hidden="true"></div>
 <main class="stage" id="stage" aria-roledescription="apresentação" aria-label="Parceria MySoundLib para criadores" data-en-label="MySoundLib partnership for creators">
 
-<!-- 1 · Capa -->
+<!-- 1 · Cover -->
 <section class="slide dark glow-tr" id="slide-cover" data-title="Capa" data-en-title="Cover">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Affiliate program">Programa de afiliados</p>
@@ -618,7 +778,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 2 · O problema em números -->
+<!-- 2 · The problem in numbers -->
 <section class="slide light" id="slide-problema" data-mood="red" data-title="O problema" data-en-title="The problem">
   <div class="inner">
     <p class="eyebrow" data-r data-en="1 in 3 professionals lose">1 em cada 3 profissionais perde</p>
@@ -631,7 +791,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 3 · Tudo num lugar só -->
+<!-- 3 · Everything in one place -->
 <section class="slide dark" id="slide-biblioteca" data-title="Seus sons num lugar só" data-en-title="All your sounds in one place">
   <div class="inner">
     <div class="split split-media">
@@ -658,7 +818,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 4 · A solução -->
+<!-- 4 · The solution -->
 <section class="slide dark glow-bl" id="slide-solucao" data-title="A solução" data-en-title="The solution">
   <div class="inner">
     <div class="split split-media">
@@ -701,7 +861,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 5 · Por que eu criei -->
+<!-- 5 · Why I built it -->
 <section class="slide light" id="slide-historia" data-title="Por que eu criei" data-en-title="Why I built it">
   <div class="inner">
     <p class="quote" data-r data-en="“I spent years digging through messy sound packs. <em>So I built the tool I needed.</em>”">“Passei anos garimpando pacotes de som bagunçados. <em>Então criei a ferramenta que eu precisava.</em>”</p>
@@ -712,7 +872,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 6 · O que o app faz -->
+<!-- 6 · What the app does -->
 <section class="slide light" id="slide-recursos" data-title="O que o app faz" data-en-title="What the app does">
   <div class="inner">
     <h2 class="h2 wide" data-r data-en="Organize, trim and convert">Organizar, cortar e converter</h2>
@@ -774,7 +934,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 7 · Compatibilidade -->
+<!-- 7 · Compatibility -->
 <section class="slide dark" id="slide-compat" data-title="Compatibilidade" data-en-title="Compatibility">
   <div class="inner">
     <h2 class="h2" data-r data-en="Runs on everything">Roda em tudo</h2>
@@ -789,7 +949,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 8 · Chega de assinaturas -->
+<!-- 8 · No more subscriptions -->
 <section class="slide dark" id="slide-assinatura" data-mood="red" data-title="Chega de assinaturas" data-en-title="No more subscriptions">
   <div class="inner">
     <div class="split split-sub">
@@ -822,7 +982,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 9 · Sua própria biblioteca -->
+<!-- 9 · Your own library -->
 <section class="slide light" id="slide-propria" data-title="Sua própria biblioteca" data-en-title="Your own library">
   <div class="inner">
     <div class="split own-split">
@@ -841,7 +1001,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 10 · Feito com MySoundLib -->
+<!-- 10 · Made with MySoundLib -->
 <section class="slide dark glow-b" id="slide-video" data-title="Feito com MySoundLib" data-en-title="Made with MySoundLib">
   <div class="inner">
     <div class="vid">
@@ -857,7 +1017,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 11 · A oportunidade -->
+<!-- 11 · The opportunity -->
 <section class="slide accent" id="slide-oportunidade" data-title="A oportunidade" data-en-title="The opportunity" data-fx="wipe">
   <p class="bignum" aria-hidden="true">15%</p>
   <div class="inner">
@@ -866,7 +1026,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 12 · Público ideal -->
+<!-- 12 · Ideal audience -->
 <section class="slide light" id="slide-publico" data-title="Público ideal" data-en-title="Ideal audience">
   <div class="inner">
     <div class="split aud-split">
@@ -887,7 +1047,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 13 · Fácil de vender -->
+<!-- 13 · Easy to sell -->
 <section class="slide dark" id="slide-preco" data-title="Fácil de vender" data-en-title="Easy to sell">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Easy to sell">Fácil de vender</p>
@@ -908,7 +1068,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 14 · O seu papel -->
+<!-- 14 · Your role -->
 <section class="slide dark glow-b" id="slide-papel" data-title="O seu papel" data-en-title="Your role">
   <div class="inner">
     <div class="split split-sub">
@@ -934,7 +1094,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 15 · Projeção de comissão -->
+<!-- 15 · Commission projection -->
 <section class="slide dark glow-tr" id="slide-projecao" data-title="Projeção de comissão" data-en-title="Commission projection" data-onenter="calc">
   <div class="inner">
     <h2 class="h2 wide" data-r data-en="How much could you earn?">Quanto você pode ganhar?</h2>
@@ -966,7 +1126,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 16 · Como você recebe -->
+<!-- 16 · How you get paid -->
 <section class="slide light" id="slide-recebe" data-title="Como você recebe" data-en-title="How you get paid">
   <div class="inner">
     <p class="eyebrow" data-r data-en="How you get paid">Como você recebe</p>
@@ -980,7 +1140,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 17 · Criadores selecionados (não usar "exclusivo/exclusividade" nem "por convite/invite-only") -->
+<!-- 17 · Selected creators (do not use "exclusive/exclusivity" or "by invitation/invite-only") -->
 <section class="slide accent" id="slide-selecionados" data-title="Criadores selecionados" data-en-title="Selected creators" data-fx="wipe">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Affiliate program">Programa de afiliados</p>
@@ -989,7 +1149,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 18 · Uma parceria de verdade -->
+<!-- 18 · A real partnership -->
 <section class="slide dark" id="slide-parceria" data-title="Uma parceria de verdade" data-en-title="A real partnership">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Why this is good for you">Por que isso é bom para você</p>
@@ -1014,7 +1174,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 19 · Kit de divulgação -->
+<!-- 19 · Promo kit -->
 <section class="slide light" id="slide-kit" data-title="Kit de divulgação" data-en-title="Promo kit">
   <div class="inner">
     <div class="split">
@@ -1041,7 +1201,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 20 · Como começamos -->
+<!-- 20 · How we get started -->
 <section class="slide light" id="slide-passos" data-title="Como começamos" data-en-title="How we get started">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Next steps">Próximos passos</p>
@@ -1054,15 +1214,57 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- 21 · Próximo passo -->
+<!-- 21 · Gift: clicking the envelope opens it and reveals a free license, whether or not they become an affiliate -->
+<section class="slide dark glow-b" id="slide-presente" data-title="Um presente" data-en-title="A gift">
+  <div class="inner center">
+    <p class="eyebrow" data-r data-en="Wait…">Espera…</p>
+    <div class="swap" data-r>
+      <h2 class="h2 before" data-en="I have a <span class='ag'>gift</span> for you">Tenho um <span class="ag">presente</span> pra você</h2>
+      <h2 class="h2 wide after" data-en="You <span class='ag'>won</span> a license">Você <span class="ag">ganhou</span> uma licença</h2>
+    </div>
+    <div class="gift-stage" data-r>
+      <div class="gift-rays" aria-hidden="true"></div>
+      <button class="gift" id="gift" type="button" aria-label="Abrir o presente" data-en-label="Open the gift">
+        <span class="g-shadow" aria-hidden="true"></span>
+        <span class="g-bob" aria-hidden="true"><span class="g-wig"><span class="g3">
+          <span class="e-back"></span>
+          <span class="e-card"><img src="/static/icon.svg" alt="" width="40" height="40"><i></i><i></i></span>
+          <span class="e-pocket"><span class="e-l"></span><span class="e-r"></span><span class="e-bw"><span class="e-b"></span></span><span class="e-fsw"><span class="e-fs"></span></span></span>
+          <span class="e-fz"><span class="e-flap"><span class="e-out"></span><span class="e-in"></span><span class="e-seal"><img src="/static/icon.svg" alt="" width="40" height="40"></span></span></span>
+        </span></span></span>
+      </button>
+      <div class="gift-fx" id="giftFx" aria-hidden="true"></div>
+      <div class="gift-card">
+        <div class="gc">
+          <div class="gc-main">
+          <div class="gc-top"><img src="/static/icon.svg" alt="" width="64" height="64"><div><p class="gc-k" data-en="LIFETIME LICENSE">LICENÇA VITALÍCIA</p><p class="gc-n">MySoundLib</p></div></div>
+          <div class="gc-rows">
+            <p class="gc-row"><span data-en="To">Para</span><b data-en="You">Você</b></p>
+            <p class="gc-row"><span data-en="Valid">Validade</span><b data-en="Forever">Para sempre</b></p>
+            <p class="gc-row"><span data-en="Code">Código</span><b class="gc-code">AFFILIATE100</b></p>
+          </div>
+          <p class="gc-chip" data-en="No strings attached">Sem compromisso</p>
+          </div>
+          <a class="gc-qr" href="https://mysoundlib.gumroad.com/l/mysoundlib/AFFILIATE100" target="_blank" rel="noopener" aria-label="Resgatar a licença na Gumroad" data-en-label="Redeem the license on Gumroad"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h7v1h-7zM8 0h3v1h-3zM12 0h1v1h-1zM14 0h3v1h-3zM18 0h1v1h-1zM23 0h1v1h-1zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM12 1h1v1h-1zM16 1h1v1h-1zM19 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM9 2h2v1h-2zM12 2h2v1h-2zM17 2h2v1h-2zM20 2h2v1h-2zM23 2h2v1h-2zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM10 3h3v1h-3zM14 3h1v1h-1zM21 3h1v1h-1zM23 3h1v1h-1zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h1v1h-1zM12 4h1v1h-1zM14 4h1v1h-1zM17 4h1v1h-1zM19 4h1v1h-1zM21 4h1v1h-1zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h3v1h-3zM13 5h1v1h-1zM16 5h1v1h-1zM19 5h4v1h-4zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h1v1h-1zM11 7h2v1h-2zM14 7h5v1h-5zM20 7h3v1h-3zM24 7h1v1h-1zM0 8h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM14 8h1v1h-1zM17 8h1v1h-1zM19 8h1v1h-1zM21 8h3v1h-3zM25 8h5v1h-5zM32 8h1v1h-1zM2 9h1v1h-1zM4 9h2v1h-2zM12 9h5v1h-5zM23 9h1v1h-1zM25 9h1v1h-1zM29 9h3v1h-3zM4 10h3v1h-3zM9 10h2v1h-2zM12 10h1v1h-1zM15 10h1v1h-1zM17 10h1v1h-1zM20 10h1v1h-1zM23 10h4v1h-4zM29 10h1v1h-1zM31 10h1v1h-1zM0 11h1v1h-1zM2 11h1v1h-1zM4 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM11 11h1v1h-1zM14 11h1v1h-1zM16 11h7v1h-7zM24 11h1v1h-1zM26 11h1v1h-1zM31 11h2v1h-2zM1 12h1v1h-1zM4 12h3v1h-3zM10 12h1v1h-1zM12 12h3v1h-3zM17 12h3v1h-3zM22 12h3v1h-3zM26 12h1v1h-1zM28 12h2v1h-2zM0 13h5v1h-5zM7 13h3v1h-3zM12 13h1v1h-1zM16 13h1v1h-1zM19 13h1v1h-1zM23 13h3v1h-3zM27 13h1v1h-1zM29 13h1v1h-1zM0 14h3v1h-3zM5 14h2v1h-2zM9 14h1v1h-1zM11 14h4v1h-4zM16 14h1v1h-1zM20 14h2v1h-2zM23 14h1v1h-1zM25 14h2v1h-2zM28 14h1v1h-1zM31 14h1v1h-1zM1 15h1v1h-1zM4 15h1v1h-1zM10 15h4v1h-4zM17 15h1v1h-1zM21 15h2v1h-2zM25 15h2v1h-2zM28 15h1v1h-1zM1 16h3v1h-3zM5 16h4v1h-4zM10 16h1v1h-1zM12 16h2v1h-2zM15 16h1v1h-1zM17 16h1v1h-1zM19 16h4v1h-4zM24 16h1v1h-1zM26 16h1v1h-1zM28 16h2v1h-2zM31 16h1v1h-1zM0 17h2v1h-2zM3 17h2v1h-2zM8 17h6v1h-6zM15 17h2v1h-2zM18 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM29 17h3v1h-3zM3 18h2v1h-2zM6 18h4v1h-4zM11 18h1v1h-1zM13 18h5v1h-5zM23 18h3v1h-3zM27 18h1v1h-1zM29 18h1v1h-1zM1 19h2v1h-2zM4 19h2v1h-2zM13 19h1v1h-1zM17 19h1v1h-1zM19 19h4v1h-4zM27 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM6 20h1v1h-1zM8 20h3v1h-3zM13 20h6v1h-6zM20 20h1v1h-1zM22 20h1v1h-1zM24 20h1v1h-1zM26 20h4v1h-4zM0 21h1v1h-1zM4 21h1v1h-1zM7 21h2v1h-2zM11 21h2v1h-2zM14 21h1v1h-1zM17 21h1v1h-1zM19 21h1v1h-1zM21 21h1v1h-1zM23 21h1v1h-1zM25 21h1v1h-1zM27 21h1v1h-1zM31 21h1v1h-1zM3 22h2v1h-2zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h3v1h-3zM15 22h1v1h-1zM18 22h1v1h-1zM20 22h2v1h-2zM23 22h4v1h-4zM31 22h1v1h-1zM2 23h1v1h-1zM5 23h1v1h-1zM8 23h1v1h-1zM12 23h1v1h-1zM14 23h5v1h-5zM21 23h3v1h-3zM25 23h1v1h-1zM0 24h2v1h-2zM3 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM10 24h1v1h-1zM17 24h1v1h-1zM20 24h10v1h-10zM31 24h1v1h-1zM8 25h1v1h-1zM10 25h4v1h-4zM15 25h1v1h-1zM18 25h1v1h-1zM20 25h2v1h-2zM23 25h2v1h-2zM28 25h1v1h-1zM30 25h2v1h-2zM0 26h7v1h-7zM8 26h1v1h-1zM13 26h1v1h-1zM15 26h3v1h-3zM21 26h2v1h-2zM24 26h1v1h-1zM26 26h1v1h-1zM28 26h2v1h-2zM31 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM9 27h4v1h-4zM14 27h2v1h-2zM17 27h1v1h-1zM19 27h1v1h-1zM21 27h1v1h-1zM24 27h1v1h-1zM28 27h1v1h-1zM31 27h2v1h-2zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h2v1h-2zM11 28h1v1h-1zM13 28h1v1h-1zM18 28h3v1h-3zM22 28h1v1h-1zM24 28h6v1h-6zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM9 29h1v1h-1zM11 29h1v1h-1zM16 29h1v1h-1zM18 29h2v1h-2zM21 29h1v1h-1zM23 29h2v1h-2zM26 29h3v1h-3zM30 29h1v1h-1zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM9 30h2v1h-2zM13 30h2v1h-2zM16 30h2v1h-2zM21 30h8v1h-8zM30 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM9 31h1v1h-1zM17 31h2v1h-2zM20 31h2v1h-2zM23 31h4v1h-4zM0 32h7v1h-7zM8 32h1v1h-1zM10 32h3v1h-3zM14 32h2v1h-2zM17 32h1v1h-1zM20 32h7v1h-7zM32 32h1v1h-1z"/></svg><span data-en="Scan to redeem">Escaneie para resgatar</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="swap" data-r>
+      <p class="src gift-hint before" data-en="Click the gift to open it">Clique no presente pra abrir</p>
+      <p class="lead after" data-en="Lifetime and yours, affiliate or not.">Vitalícia e sua, sendo afiliado ou não.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 22 · Next step -->
 <section class="slide dark glow-b" id="slide-cta" data-title="Próximo passo" data-en-title="Next step">
   <div class="inner center">
-    <div class="land" data-r aria-hidden="true"><img src="/static/icon.svg" alt="" width="112" height="112"></div>
+    <div class="lockup" data-r role="img" aria-label="MySoundLib"><div class="land"><img src="/static/icon.svg" alt="" width="112" height="112"></div><span class="wm"><img src="/static/logo.svg" alt="" width="473" height="81"></span></div>
     <h1 class="h1" data-r data-en="Shall we <span class='ag'>team up?</span>">Vamos fechar essa <span class="ag">parceria?</span></h1>
   </div>
 </section>
 
-<!-- FAQ · slide oculto: fora da sequência e da barra, só abre por /affiliates#slide-faq. Os slides ocultos (data-hidden) precisam ficar depois de todos os outros. -->
+<!-- FAQ · hidden slide: outside the sequence and the bar, only opens via /affiliates#slide-faq. Hidden slides (data-hidden) must come after all the others. -->
 <section class="slide dark" id="slide-faq" data-hidden data-short="FAQ" data-title="Perguntas frequentes" data-en-title="FAQ">
   <div class="inner">
     <p class="eyebrow" data-r data-en="FAQ">Perguntas frequentes</p>
@@ -1082,7 +1284,7 @@ body.idle{cursor:none}
   </div>
 </section>
 
-<!-- Taxas · slide oculto: só abre por /affiliates#slide-tax. Os valores são preenchidos por taxTable() a partir do preço e da comissão atuais. -->
+<!-- Fees · hidden slide: only opens via /affiliates#slide-tax. The values are filled in by taxTable() from the current price and commission. -->
 <section class="slide dark" id="slide-tax" data-hidden data-short="TAX" data-onenter="calc" data-title="Taxas na prática" data-en-title="Fees in practice">
   <div class="inner">
     <p class="eyebrow" data-r data-en="Fees in practice">Taxas na prática</p>
@@ -1129,12 +1331,12 @@ body.idle{cursor:none}
 (function(){
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-  /* slides com data-hidden ficam no fim do documento, fora da contagem: só abrem pelo próprio hash (#slide-faq) */
+  /* slides with data-hidden sit at the end of the document, outside the count: they only open via their own hash (#slide-faq) */
   var N = slides.filter(function(s){ return !s.hasAttribute('data-hidden'); }).length, cur = -1;
   var $ = function(id){ return document.getElementById(id); };
   var pad = function(n){ return (n < 10 ? '0' : '') + n; };
 
-  /* ---------- idioma ---------- */
+  /* ---------- language ---------- */
   var T = {
     pt: { title: 'MySoundLib | Programa de afiliados para criadores', goto: 'Ir para o slide ', of: ' de ', role: 'apresentação', locale: 'pt-BR', usd: 'US$ ' },
     en: { title: 'MySoundLib | Affiliate program for creators', goto: 'Go to slide ', of: ' of ', role: 'presentation', locale: 'en-US', usd: '$' }
@@ -1178,7 +1380,7 @@ body.idle{cursor:none}
   }
   document.querySelectorAll('[data-lang]').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
 
-  /* ---------- títulos palavra por palavra ---------- */
+  /* ---------- titles word by word ---------- */
   var HEADS = '.h1, .h2, .quote, .price-row .h3';
   function splitWords(el){
     if (el.querySelector('.w')) return;
@@ -1202,7 +1404,7 @@ body.idle{cursor:none}
   }
   function splitAll(){ document.querySelectorAll(HEADS).forEach(splitWords); }
 
-  /* ---------- QuickSearch em HTML: a cena do reel, em loop ---------- */
+  /* ---------- QuickSearch in HTML: the scene from the reel, looping ---------- */
   var QS = (function(){
     var root = $('qsd'); if (!root) return { start: function(){}, stop: function(){} };
     var box = root.parentNode, q = function(id){ return $(id); };
@@ -1219,41 +1421,41 @@ body.idle{cursor:none}
     var L = function(a, b, x){ return a + (b - a) * x; };
     function spring(t, w, z){ if (t <= 0) return 0; w = w || 13; z = z || .5; var wd = w * Math.sqrt(1 - z * z); return 1 - Math.exp(-z * w * t) * (Math.cos(wd * t) + (z * w / wd) * Math.sin(wd * t)); }
     function pos(el){ var x = 0, y = 0; while (el && el !== root) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x: x, y: y }; }
-    var LOOP = 8.6, t0 = 0, raf = 0, on = false;    /* inclinado em 3D como o card do slide de assinaturas: entra girando com mola e balança de leve */
+    var LOOP = 8.6, t0 = 0, raf = 0, on = false;    /* tilted in 3D like the card on the subscriptions slide: springs in rotating and sways gently */
     var S = 1, lastT = 0, intro = true;
     function tilt(T){
       var ci = reduce || !intro ? 1 : spring(T - .1, 9, .62), w = box.clientWidth, h = box.clientHeight || w;
       var ry = L(-34, -12, ci) + (reduce ? 0 : Math.sin(T * 1.3) * 2), rx = L(22, 10, ci) + (reduce ? 0 : Math.sin(T * 1.1) * 1.5);
       root.style.transform = 'translate(' + (w / 2 / S - 200).toFixed(1) + 'px,' + (h / 2 / S - 200).toFixed(1) + 'px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
     }
-    /* amplia com zoom (layout no tamanho real) em vez de scale: com scale o navegador estica um bitmap de 400px e o texto fica pixelado */
+    /* enlarged with zoom (layout at real size) instead of scale: with scale the browser stretches a 400px bitmap and the text gets pixelated */
     function fit(){ S = box.clientWidth / 400 * .94; root.style.zoom = S.toFixed(4); tilt(lastT); }
     function render(t, T){
       lastT = T; tilt(T);
-      /* editor: sempre ali, flutuando de leve */
+      /* editor: always there, floating gently */
       ed.style.transform = 'translateY(' + (Math.sin(T * 1.1) * 2).toFixed(2) + 'px)';
-      /* QuickSearch abre com mola e anel */
+      /* QuickSearch opens with a spring and a ring */
       var p = spring(t - .35, 13, .55), qc = eio(pr(t, 5.9, .55));
       qs.style.opacity = cl((t - .35) * 6) * (1 - qc);
       qs.style.transform = 'translateZ(40px) translateY(' + ((1 - p) * -26 + qc * 18 + Math.sin(T * 1.3) * 1.5).toFixed(2) + 'px) scale(' + ((.62 + .38 * p) * (1 - .08 * qc)).toFixed(4) + ')';
       var ring = pr(t, .45, .6);
       qs.style.boxShadow = '0 30px 70px rgba(0,0,0,.7), 0 0 0 ' + (1 + ring * 10).toFixed(1) + 'px rgba(29,205,159,' + (ring > 0 && ring < 1 ? (1 - ring) * .35 : 0).toFixed(3) + ')';
-      /* digita "woosh" */
+      /* types "woosh" */
       var n = Math.floor(pr(t, .95, .5) * 5); txt.textContent = 'woosh'.slice(0, n);
       cur.style.opacity = (n < 5 || Math.floor(T * 3) % 2) ? 1 : 0;
-      /* resultados em cascata e seleção descendo para "Car woosh" */
+      /* results cascade in and the selection moves down to "Car woosh" */
       for (var r = 0; r < rows.length; r++) { var rp = eo(pr(t, 1.55 + r * .09, .3)); rows[r].style.opacity = rp; rows[r].style.transform = 'translateY(' + ((1 - rp) * 7).toFixed(2) + 'px)'; }
       sel.style.opacity = pr(t, 2, .15);
       sel.style.transform = 'translateY(' + (eio(pr(t, 2.55, .32)) * 30).toFixed(2) + 'px)';
-      /* waveform: barras crescem, preview toca */
+      /* waveform: bars grow, preview plays */
       var wvIn = eo(pr(t, 1.7, .5)), play = t >= 2.95 && t < 4.3;
       for (var j = 0; j < bars.length; j++) { var pulse = play ? .82 + .18 * Math.sin(T * 14 + j * .6) : 1; bars[j].style.transform = 'scaleY(' + (wvIn * pulse).toFixed(3) + ')'; }
       var php = pr(t, 2.95, 1.3); wph.style.opacity = play ? 1 : 0; wph.style.left = (6 + php * 276).toFixed(1) + 'px';
-      /* corte do trecho */
+      /* trimming the clip */
       var tm = eo(pr(t, 4.3, .5)), tOn = t >= 4.3 ? 1 : 0;
       trim.style.opacity = tOn * (1 - qc); trim.style.width = (tm * 38).toFixed(2) + '%';
       tst.style.opacity = tOn * (1 - qc);
-      /* arrasta para a faixa A2 */
+      /* drags it to track A2 */
       var A = pos(trim), B = pos(drop), aw = trim.offsetWidth || 1, ah = trim.offsetHeight, bw = drop.offsetWidth, bh = drop.offsetHeight;
       var m = eio(pr(t, 5, .85)), lift = eo(pr(t, 4.95, .12));
       if (t >= 4.95 && t < 5.9) {
@@ -1263,13 +1465,13 @@ body.idle{cursor:none}
         fly.style.transform = 'translateZ(60px) translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (1 + .06 * lift * (1 - m)).toFixed(3) + ') rotate(' + (Math.sin(m * Math.PI) * -4).toFixed(2) + 'deg)';
         fly.style.boxShadow = '0 ' + (12 + 10 * Math.sin(m * Math.PI)).toFixed(1) + 'px 30px rgba(0,0,0,.55)';
       } else fly.style.opacity = 0;
-      /* cursor: chega no trecho, agarra, solta e sai */
+      /* cursor: reaches the clip, grabs, drops and leaves */
       var mIn = eo(pr(t, 4.55, .4)), mOut = pr(t, 6.1, .35);
       var cx0 = A.x + aw * .5, cy0 = A.y + ah * .5;
       var cx = t < 5 ? L(cx0 + 70, cx0, mIn) : L(cx0, B.x + bw * .5, m), cy = t < 5 ? L(cy0 + 40, cy0, mIn) : L(cy0, B.y + bh * .5, m) - Math.sin(m * Math.PI) * 46;
       mouse.style.opacity = t >= 4.55 ? mIn * (1 - mOut) : 0;
       mouse.style.transform = 'translateZ(70px) translate(' + (cx + 6 * mOut).toFixed(1) + 'px,' + (cy + 10 * mOut).toFixed(1) + 'px) scale(' + (t >= 4.95 && t < 5.9 ? .9 : 1) + ')';
-      /* encaixe na timeline */
+      /* snaps onto the timeline */
       var land = t >= 5.85, fl = 1 - pr(t, 5.85, .7), out = pr(t, 8.05, .4);
       var hp = t < 6.3 ? 40 : L(40, 88, pr(t, 6.3, 1.7));
       var over = land && hp >= 52 && hp <= 74;
@@ -1277,8 +1479,8 @@ body.idle{cursor:none}
       drop.style.boxShadow = '0 0 ' + (10 + 24 * fl + (over ? 18 : 0)).toFixed(1) + 'px rgba(122,240,207,' + (.35 + .5 * fl + (over ? .35 : 0)).toFixed(3) + ')';
       drop.style.filter = 'brightness(' + (1 + .5 * fl + (over ? .25 : 0)).toFixed(3) + ')';
       ph.style.left = hp.toFixed(2) + '%'; ph.style.opacity = 1 - out * (t > 8.3 ? 1 : 0);
-      /* o som toca: rastro de luz no monitor */
-      /* o som toca quando a agulha passa pelo clipe: um carro cruza o monitor */
+      /* the sound plays: light trail on the monitor */
+      /* the sound plays when the playhead crosses the clip: a car drives across the monitor */
       var P0 = 6.72, P1 = 7.5, cz = pr(t, P0, P1 - P0), ce = .5 * cz + .5 * eio(cz), carX = L(-70, 270, ce), carOn = cz > 0 && cz < 1, sn = Math.sin(cz * Math.PI);
       car.style.opacity = carOn ? 1 : 0;
       car.style.transform = 'translateX(' + carX.toFixed(1) + 'px) scale(1.35) skewX(' + (-8 * sn).toFixed(2) + 'deg)';
@@ -1310,7 +1512,7 @@ body.idle{cursor:none}
     };
   })();
 
-  /* ---------- motor de loops de interface (escala o desenho, roda só com o slide ativo) ---------- */
+  /* ---------- UI loop engine (scales the drawing, only runs while the slide is active) ---------- */
   var U = {
     cl: function(x, a, b){ return Math.min(b === undefined ? 1 : b, Math.max(a || 0, x)); },
     pr: function(t, a, d){ return U.cl((t - a) / d); },
@@ -1334,7 +1536,7 @@ body.idle{cursor:none}
     };
   }
 
-  /* Biblioteca: arquivos voam para dentro da janela e viram linhas */
+  /* Library: files fly into the window and become rows */
   var LIB = (function(){
     var root = $('libd'); if (!root) return UILoop('libd');
     var FILES = [['Wind_DIGIVC1-13', '.wav', '1:04.69'], ['Thunder_DIGIVC1-21', '.wav', '0:43.86'], ['Car woosh', '.mp3', '0:06.86'], ['Reverse riser 01', '.wav', '0:05.16'], ['WaterCreek_22', '.wav', '0:44.34'], ['Bassy swoosh', '.mp3', '0:06.05']];
@@ -1373,7 +1575,7 @@ body.idle{cursor:none}
     });
   })();
 
-  /* Corte: preview toca, seleção verde cresce, trecho é arrastado para a timeline */
+  /* Trim: preview plays, green selection grows, the clip is dragged to the timeline */
   var TRIM = (function(){
     var root = $('trd'); if (!root) return UILoop('trd');
     var win = $('trWin'), wv = $('trWv'), sel = $('trSel'), tag = $('trTag'), lbl = $('trLbl'), ph = $('trPh');
@@ -1385,16 +1587,16 @@ body.idle{cursor:none}
       var p = U.spring(t - .2, 13, .55);
       win.style.opacity = (U.cl((t - .2) * 6) * (1 - out)).toFixed(3);
       win.style.transform = 'translateY(' + ((1 - p) * -18 + Math.sin(T * 1.2) * 1.5).toFixed(2) + 'px) scale(' + (.8 + .2 * p).toFixed(4) + ')';
-      /* preview tocando */
+      /* preview playing */
       var play = t >= .75 && t < 1.95, pp = U.pr(t, .75, 1.2);
       for (var j = 0; j < bars.length; j++) bars[j].style.transform = 'scaleY(' + (U.eo(U.pr(t, .35, .45)) * (play ? .82 + .18 * Math.sin(T * 14 + j * .6) : 1)).toFixed(3) + ')';
       ph.style.opacity = play ? 1 : 0; ph.style.left = (6 + pp * 248).toFixed(1) + 'px';
-      /* seleção esmeralda cresce a partir do marcador */
+      /* emerald selection grows from the marker */
       var on = t >= 2 ? 1 : 0, gw = U.eo(U.pr(t, 2.1, .7)), lift = t >= 3.45 && t < 4.35;
       sel.style.opacity = on * (lift ? .35 : 1) * (1 - out); sel.style.width = (gw * 42).toFixed(2) + '%';
       tag.style.opacity = on * (1 - out);
       var L2 = (gw * 2.14).toFixed(2) + 's'; if (L2 !== lastL) { lbl.textContent = L2; lastL = L2; }
-      /* arrasta o trecho para a faixa A2 */
+      /* drags the clip to track A2 */
       var A = U.pos(sel, root), B = U.pos(drop, root), aw = sel.offsetWidth || 1, ah = sel.offsetHeight, bw = drop.offsetWidth, bh = drop.offsetHeight;
       var m = U.eio(U.pr(t, 3.5, .8)), lf = U.eo(U.pr(t, 3.45, .12));
       if (lift) {
@@ -1409,7 +1611,7 @@ body.idle{cursor:none}
       var cx = t < 3.5 ? U.L(cx0 + 60, cx0, mIn) : U.L(cx0, B.x + bw * .5, m), cy = t < 3.5 ? U.L(cy0 + 30, cy0, mIn) : U.L(cy0, B.y + bh * .5, m) - Math.sin(m * Math.PI) * 30;
       mouse.style.opacity = t >= 3 ? (mIn * (1 - mOut)).toFixed(3) : 0;
       mouse.style.transform = 'translate(' + (cx + 6 * mOut).toFixed(1) + 'px,' + (cy + 10 * mOut).toFixed(1) + 'px) scale(' + (lift ? .9 : 1) + ')';
-      /* encaixe e reprodução */
+      /* snap and playback */
       var land = t >= 4.3, fl = 1 - U.pr(t, 4.3, .7);
       var hp = t < 4.6 ? 30 : U.L(30, 86, U.pr(t, 4.6, 1.8)), over = land && hp >= 44 && hp <= 72;
       drop.style.opacity = land ? (1 - out).toFixed(3) : 0;
@@ -1419,7 +1621,7 @@ body.idle{cursor:none}
     });
   })();
 
-  /* Conversor: clique em "Convert all", barras de progresso, tudo vira .wav */
+  /* Converter: click on "Convert all", progress bars, everything becomes .wav */
   var CONV = (function(){
     var root = $('cvd'); if (!root) return UILoop('cvd');
     var FILES = [['voice_note_0412', '.opus'], ['field_rain_take3', '.flac'], ['interview_raw', '.m4a'], ['street_ambience', '.ogg'], ['impact_metal_02', '.aiff']];
@@ -1435,7 +1637,7 @@ body.idle{cursor:none}
     return UILoop('cvd', 300, 7.6, 6, function(t, T){
       var out = U.pr(t, 6.9, .35);
       win.style.transform = 'translateY(' + (Math.sin(T * 1.1) * 1.6).toFixed(2) + 'px)';
-      /* cursor vai até o botão e clica */
+      /* cursor goes to the button and clicks */
       var g = U.pos(go, root), gx = g.x + go.offsetWidth * .55, gy = g.y + go.offsetHeight * .6;
       var mv = U.eio(U.pr(t, .4, .75)), mo = U.pr(t, 1.7, .4);
       mouse.style.opacity = (U.pr(t, .3, .2) * (1 - mo)).toFixed(3);
@@ -1443,7 +1645,7 @@ body.idle{cursor:none}
       mouse.style.transform = 'translate(' + U.L(gx + 60, gx, mv).toFixed(1) + 'px,' + (U.L(gy - 70, gy, mv) + mo * 14).toFixed(1) + 'px) scale(' + (1 - .14 * press).toFixed(3) + ')';
       go.style.transform = 'scale(' + (1 - .08 * press).toFixed(3) + ')';
       go.style.boxShadow = '0 0 0 ' + (click * 8).toFixed(1) + 'px rgba(29,205,159,' + (click > 0 && click < 1 ? (1 - click) * .4 : 0).toFixed(3) + ')';
-      /* cada arquivo: barra enche, vira .wav, Done */
+      /* each file: bar fills, becomes .wav, Done */
       var done = 0;
       items.forEach(function(it){
         var p = U.pr(t, it.st, .55), isDone = t >= it.st + .55 && out < 1, running = t >= it.st && !isDone && out < 1;
@@ -1465,7 +1667,7 @@ body.idle{cursor:none}
     });
   })();
 
-  /* ---------- nuvem de arquivos: explode no slide 2, entra no app no slide 3 ---------- */
+  /* ---------- file cloud: explodes on slide 2, goes into the app on slide 3 ---------- */
   var BIG = (function(){
     var root = $('bigd'); if (!root) return { reset: function(){}, add: function(){}, done: function(){}, rowsRect: null };
     var box = root.parentNode, rowsEl = $('bigRows'), stat = $('bigStat'), badge = $('bigBadge');
@@ -1510,13 +1712,13 @@ body.idle{cursor:none}
     var N = window.innerWidth < 760 ? 14 : 28, items = [], state = 'off', raf = 0, onArrive = null, onDone = null, arrived = 0, target = 0, fading = false;
     for (var i = 0; i < N; i++) { var el = document.createElement('div'); el.className = 'fa'; layer.appendChild(el); items.push({ el: el }); }
     function kick(){ if (!raf) raf = requestAnimationFrame(frame); }
-    /* zona livre: o conteúdo do slide (com folga) e os arquivos já posicionados nunca se sobrepõem */
+    /* free zone: the slide content (with margin) and the files already placed never overlap */
     function hits(a, b){ return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y; }
     function burst(delay, avoid){
       state = 'float'; fading = false; arrived = 0; layer.style.transition = ''; layer.style.opacity = 1;
       var W = window.innerWidth, H = window.innerHeight, t = performance.now() + (delay || 0), pool = NAMES.slice().sort(function(){ return rnd() - .5; });
       var keep = [], PAD = 18, GAP = 12;
-      /* só o texto e os cards em si ficam livres (não o bloco inteiro), para os arquivos ocuparem os vãos ao redor */
+      /* only the text and the cards themselves stay clear (not the whole block), so the files fill the gaps around them */
       if (avoid) Array.prototype.forEach.call(avoid.length !== undefined ? avoid : [avoid], function(el){
         var r = el.getBoundingClientRect(); if (!r.width) return;
         var tw = el.classList.contains('h2') ? Math.min(r.width, (el.scrollWidth || r.width)) : r.width;
@@ -1594,7 +1796,7 @@ body.idle{cursor:none}
     };
   })();
 
-  /* ---------- card de assinatura: nomes girando, preço subindo, cobranças, risco no valor ---------- */
+  /* ---------- subscription card: names spinning, price rising, charges, strike through the amount ---------- */
   var SUB = (function(){
     var root = $('subd'); if (!root) return { start: function(){}, stop: function(){} };
     var box = root.parentNode, card = $('subCard'), slot = $('subSlot'), amt = $('subAmt'), strike = $('subStrike');
@@ -1604,11 +1806,11 @@ body.idle{cursor:none}
     var NAMES = ['ArtistsList', 'PandemicSound', 'Soundslop'];
     for (var k = 0; k < 24; k++) { var d = document.createElement('div'); d.textContent = NAMES[k % 3]; slot.appendChild(d); }
     var raf = 0, on = false, t0 = 0, lastA = '', lastY = '';
-    /* zoom em vez de scale(): o card em 3D é desenhado já no tamanho final, sem ampliar um bitmap pequeno (ficava pixelado) */
+    /* zoom instead of scale(): the 3D card is drawn at its final size, without enlarging a small bitmap (it used to look pixelated) */
     var canZoom = 'zoom' in root.style;
     function fit(){ var s = box.clientWidth / 320; if (canZoom) root.style.zoom = s; else root.style.transform = 'scale(' + s + ')'; }
     fit(); window.addEventListener('resize', fit); if (window.ResizeObserver) new ResizeObserver(fit).observe(box);
-    /* caça-níquel: rolagem rápida, depois trocas com mola, e segue trocando até o risco */
+    /* slot machine: fast roll, then springy swaps, and it keeps swapping until the strike */
     var SK = [[.55, 0], [1.45, 7], [2.25, 8], [2.95, 9]];
     function slotPos(t){
       var pos = SK[0][1], vel = 0;
@@ -1619,7 +1821,7 @@ body.idle{cursor:none}
       if (t >= 3.5) { var P = .5, n = Math.min(3, Math.floor((t - 3.5) / P)), u2 = U.cl((t - 3.5 - n * P) / .32); pos = 9 + n + U.spring(u2 * .32, 22, .55); vel = u2 < 1 && n < 3 ? (1 / .32) * 1.6 * (1 - u2) : 0; }
       return { pos: pos, vel: vel };
     }
-    /* ciclo: preço sobe e é riscado, card vira, 2 buscas sem resultado, card volta e tudo recomeça */
+    /* cycle: price rises and gets struck through, card flips, 2 searches with no results, card flips back and everything restarts */
     var LOOP = 14.2, BACK = 13.4;
     function render(TT, T){
       var k = Math.floor(TT / LOOP), t = TT - k * LOOP, tp = t >= BACK ? 0 : t;
@@ -1628,7 +1830,7 @@ body.idle{cursor:none}
       var ry = U.L(-48, -12, ci) + flip * 180 + k * 360 + Math.sin(T * 1.3) * 2, rx = U.L(30, 10, ci) + Math.sin(T * 1.1) * 1.5;
       var z = U.L(-900, 0, ci) - 40 * push, y = U.L(80, 0, ci) + Math.sin(T * 1.2) * 2;
       var shake = t > 5.25 && t < BACK ? Math.sin((t - 5.25) * 55) * 6 * Math.exp(-(t - 5.25) * 7) : 0;
-      /* verso: duas buscas que não encontram nada */
+      /* back side: two searches that find nothing */
       var tb = t - 6.7, CY = 3.35;
       if (tb >= 0 && tb < CY * QUERIES.length) {
         var qi = Math.floor(tb / CY), u = tb % CY, q = QUERIES[qi];
@@ -1642,25 +1844,25 @@ body.idle{cursor:none}
       } else { if (lastQ) { qEl.textContent = ''; lastQ = ''; } empty.style.opacity = 0; }
       card.style.opacity = U.cl((TT - .35) * 5).toFixed(3);
       card.style.transform = 'translate3d(' + shake.toFixed(2) + 'px,' + y.toFixed(2) + 'px,' + z.toFixed(1) + 'px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
-      /* brilho passando quando o card pousa */
+      /* shine sweeping across when the card lands */
       var sh = U.pr(tp, .75, .7); shine.style.backgroundPosition = U.L(120, -60, sh).toFixed(1) + '% 0'; shine.style.opacity = sh > 0 && sh < 1 ? 1 : 0;
-      /* nomes girando com desfoque de movimento */
+      /* names spinning with motion blur */
       var sp = slotPos(tp);
       slot.style.transform = 'translateY(' + (-sp.pos * 30).toFixed(2) + 'px)';
       slot.style.filter = sp.vel > .05 ? 'blur(' + Math.min(3, sp.vel * .45).toFixed(2) + 'px)' : 'none';
-      /* preço sobe */
+      /* price rises */
       var A = '$' + Math.round(29 * U.eo(U.pr(tp, 1.55, .6))); if (A !== lastA) { amt.textContent = A; lastA = A; }
       amt.style.transform = 'scale(' + (.92 + .08 * U.spring(tp - 1.55, 16, .45)).toFixed(4) + ')';
-      /* cobranças mensais saltando */
+      /* monthly charges popping up */
       [2.05, 2.6, 3.12].forEach(function(a, i){
         var u = U.pr(tp, a, .75), s2 = U.spring(tp - a, 16, .5);
         toasts[i].style.opacity = u > 0 && u < 1 ? (U.cl(u * 6) * (1 - U.pr(u, .6, .4))).toFixed(3) : 0;
         toasts[i].style.transform = 'translateY(' + (-(s2 * 10) - u * 26).toFixed(1) + 'px) scale(' + (.8 + .2 * s2).toFixed(3) + ')';
       });
-      /* total do ano conta */
+      /* yearly total counts up */
       yrW.style.opacity = (U.pr(tp, 3.6, .3) * (tp > 5.4 ? .55 : 1)).toFixed(3);
       var Y = '$' + Math.round(348 * U.eo(U.pr(tp, 3.7, .9))); if (Y !== lastY) { yr.textContent = Y; lastY = Y; }
-      /* risco no valor */
+      /* strike through the amount */
       var sk = U.eio(U.pr(tp, 5.2, .35));
       strike.style.width = (sk * 108).toFixed(1) + '%';
       amt.style.color = sk > .6 ? '#8f8f8f' : '';
@@ -1673,7 +1875,7 @@ body.idle{cursor:none}
     };
   })();
 
-  /* ---------- bordas que acendem: a borda mais perto do mouse ganha uma luz esmeralda ---------- */
+  /* ---------- glowing borders: the border closest to the mouse gets an emerald light ---------- */
   var EDGE = (function(){
     if (window.matchMedia && matchMedia('(hover: none)').matches) return { scan: function(){} };
     var els = [], mx = -9999, my = -9999, raf = 0, SEL = '.card, .panel, .yt, .sc-card, .ui .win, .qsd .ed, .qsd .qs', REACH = 190;
@@ -1700,19 +1902,19 @@ body.idle{cursor:none}
     };
   })();
 
-  /* ---------- mundo: fundo, brilho e waveform contínuos atrás das cenas ---------- */
+  /* ---------- world: continuous background, glow and waveform behind the scenes ---------- */
   var World = (function(){
     var cv = $('world'), cx = cv.getContext('2d'), W = 0, H = 0, dpr = 1;
     var hex = function(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; };
     var C = { ink0: hex('#161616'), ink1: hex('#1c1c1c'), paper: hex('#202020'), mint: hex('#1dcd9f'), mintInk: hex('#062a22'), glow: hex('#0f4a3c') };
     var ease = function(p){ return p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3) / 2; };
-    /* valores animados: tween com ease in-out, sem saltos mesmo se interrompidos */
+    /* animated values: ease in-out tween, no jumps even when interrupted */
     var easeOut = function(p){ return 1 - Math.pow(1 - p, 3); };
     function Tw(v, fn){ return { v: v, a: v, b: v, t0: 0, d: 1, fn: fn || ease }; }
     function to(tw, b, d, now){ tw.a = tw.v; tw.b = b; tw.t0 = now; tw.d = reduce ? 0.0001 : d; }
     function step(tw, now){ var p = Math.min(1, (now - tw.t0) / (tw.d * 1000)); tw.v = tw.a + (tw.b - tw.a) * tw.fn(p); return tw.v; }
-    var bg = [Tw(22), Tw(22), Tw(22)], gx = Tw(.88), gy = Tw(.08), gi = Tw(0), acc = Tw(0, easeOut), wvis = Tw(1), cam = Tw(0), amp = Tw(.5);
-    /* clima da cena: verde (padrão) ou vermelho (problema) */
+    var bg = [Tw(22), Tw(22), Tw(22)], gx = Tw(.88), gy = Tw(.08), gi = Tw(0), acc = Tw(0, easeOut), wvis = Tw(1), cam = Tw(0), amp = Tw(.5), beat = Tw(0);
+    /* scene mood: green (default) or red (problem) */
     var gc = [Tw(15), Tw(74), Tw(60)], wc = [Tw(29), Tw(205), Tw(159)];
     var drift = 0, last = 0, mx = 0, my = 0, tmx = 0, tmy = 0;
     function size(){
@@ -1728,14 +1930,19 @@ body.idle{cursor:none}
             : c.contains('site-bg') ? [gx.b, gy.b, 0] : [i % 2 ? .2 : .8, i % 3 ? .9 : .15, .35];
       var red = s.dataset.mood === 'red';
       if (red) g = [i % 2 ? .82 : .18, 1.02, .9];
+      /* closing slide: the glow gathers right behind the title */
+      var cta = s.id === 'slide-cta';
+      if (cta) g = [.5, .56, 1.3];
       var G = red ? [72, 22, 32] : [15, 74, 60], Wc = red ? [255, 107, 128] : [29, 205, 159];
       gc.forEach(function(tw, k){ to(tw, G[k], 1.3, now); });
       wc.forEach(function(tw, k){ to(tw, Wc[k], 1.3, now); });
       to(gx, g[0], 1.6, now); to(gy, g[1], 1.6, now); to(gi, g[2], 1.4, now);
       to(acc, c.contains('accent') ? 1 : 0, 1.05, now);
       to(cam, i * Math.max(600, W) * .6, 1.3, now);
-      to(wvis, s.id === 'slide-cta' ? 0 : 1, 1, now);
-      to(amp, s.id === 'slide-cta' ? 1.35 : s.id === 'slide-cover' ? 1 : c.contains('accent') ? .75 : c.contains('site-bg') ? .3 : .5, 1.3, now);
+      /* closing slide: no waves, only the glow behind the title, pulsing softly */
+      to(wvis, cta ? 0 : 1, 1, now);
+      to(beat, cta ? 1 : 0, 1.6, now);
+      to(amp, cta ? 1.35 : s.id === 'slide-cover' ? 1 : c.contains('accent') ? .75 : c.contains('site-bg') ? .3 : .5, 1.3, now);
     }
     function frame(now){
       var dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
@@ -1746,8 +1953,9 @@ body.idle{cursor:none}
       cx.setTransform(dpr, 0, 0, dpr, 0, 0);
       var r = Math.round(step(bg[0], now)), g = Math.round(step(bg[1], now)), b = Math.round(step(bg[2], now));
       cx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')'; cx.fillRect(0, 0, W, H);
-      /* brilho que viaja entre as cenas */
-      var I = step(gi, now);
+      /* glow that travels between scenes */
+      var BT = step(beat, now), pulse = BT * Math.pow(Math.max(0, Math.sin(t * Math.PI * 1.8)), 8);
+      var I = step(gi, now) * (1 + .22 * pulse);
       var gcol = Math.round(step(gc[0], now)) + ',' + Math.round(step(gc[1], now)) + ',' + Math.round(step(gc[2], now));
       if (I > .01) {
         var px = step(gx, now) * W, py = step(gy, now) * H + Math.sin(t * .3) * 12, R = Math.max(W, H) * .8;
@@ -1756,13 +1964,13 @@ body.idle{cursor:none}
         gr.addColorStop(.6, 'rgba(' + gcol + ',0)');
         cx.fillStyle = gr; cx.fillRect(0, 0, W, H);
       }
-      /* verde que se abre em círculo */
+      /* green that opens up in a circle */
       var A = step(acc, now);
       if (A > .001) {
         cx.fillStyle = 'rgb(29,205,159)';
         cx.beginPath(); cx.arc(W * .5, H * .58, A * Math.hypot(W, H) * .62, 0, Math.PI * 2); cx.fill();
       }
-      /* fitas de onda suaves: ondulam sempre e deslizam na troca de cena */
+      /* soft wave ribbons: always rippling, they slide on scene changes */
       var Am = step(amp, now), X = step(cam, now) + drift + mx * 40, WV = step(wvis, now);
       var w0 = step(wc[0], now), w1 = step(wc[1], now), w2 = step(wc[2], now);
       var col = [Math.round(w0 + (6 - w0) * A), Math.round(w1 + (42 - w1) * A), Math.round(w2 + (34 - w2) * A)];
@@ -1791,13 +1999,13 @@ body.idle{cursor:none}
     return { scene: function(i, s){ scene(i, s, performance.now()); } };
   })();
 
-  /* marquee de editores */
+  /* editors marquee */
   var eds = [['Adobe Premiere Pro','premiere.svg'],['DaVinci Resolve','davinci.svg'],['CapCut Desktop','capcut.svg'],['Adobe After Effects','aftereffects.svg'],['Final Cut Pro','finalcut.png'],['Vegas Pro','vegas.svg']];
   var mq = $('marquee');
   mq.innerHTML = eds.concat(eds).concat(eds).concat(eds).map(function(e){ return '<span class="pill ed"><img src="/static/' + e[1] + '" alt="" width="24" height="24" decoding="async">' + e[0] + '</span>'; }).join('');
   mq.style.animationDuration = '40s';
 
-  /* índice de entrada por slide */
+  /* entrance index per slide */
   slides.forEach(function(s){
     s.querySelectorAll('[data-r]').forEach(function(el, i){ el.style.setProperty('--i', i); });
   });
@@ -1812,7 +2020,7 @@ body.idle{cursor:none}
     ticks.appendChild(b);
   });
 
-  /* contagem animada */
+  /* animated count */
   var fmt = function(v, d){ var s = v.toFixed(d); return lang === 'en' ? s : s.replace('.', ','); };
   function countUp(slide){
     slide.querySelectorAll('.count-up').forEach(function(el){
@@ -1832,9 +2040,9 @@ body.idle{cursor:none}
     });
   }
 
-  /* calculadora */
+  /* calculator */
   var rate = 15, BASE_PRICE = 19, FX = 5.1;
-  /* desconto opcional, definido no campo "% OFF" da barra (padrão: nenhum) */
+  /* optional discount, set in the "% OFF" field of the bar (default: none) */
   var DISCOUNT = 0, PRICE = BASE_PRICE;
   function setDiscount(d){
     DISCOUNT = d > 0 && d < 100 ? Math.round(d * 100) / 100 : 0;
@@ -1843,7 +2051,7 @@ body.idle{cursor:none}
   }
   try { setDiscount(parseFloat(localStorage.getItem('msl-deck-discount')) || 0); } catch (e) {}
   var rFol = $('rFol'), rConv = $('rConv'), oFol = $('oFol'), oConv = $('oConv'), outUsd = $('outUsd'), outSales = $('outSales');
-  /* valores reais: os sliders têm limite, mas o número digitado pode passar dele */
+  /* real values: the sliders have a limit, but a typed number can go past it */
   var vFol = +rFol.value, vConv = +rConv.value;
   var shown = { usd: 2850, brl: 14535 }, pin = null;
   var nUsd0, nUsd2;
@@ -1865,7 +2073,7 @@ body.idle{cursor:none}
     };
     tween = requestAnimationFrame(step);
   }
-  /* valores enormes digitados encolhem o número para caber no card */
+  /* huge typed values shrink the number so it fits in the card */
   function fitBig(el){
     el.style.fontSize = '';
     if (el.scrollWidth > el.clientWidth + 1) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * el.clientWidth / el.scrollWidth * .98).toFixed(1) + 'px';
@@ -1875,7 +2083,7 @@ body.idle{cursor:none}
     var sales = Math.round(fol * conv / 100);
     var each = PRICE * rate / 100;
     var usd = sales * each;
-    /* valor digitado à mão: mostra exatamente o que foi digitado enquanto nada mais mudar (vendas são inteiras, então a conta raramente fecha no centavo) */
+    /* hand-typed value: shows exactly what was typed while nothing else changes (sales are whole numbers, so the math rarely lands on the exact cent) */
     if (pin && pin.key === [fol, conv, PRICE, rate].join('|')) usd = pin.usd; else pin = null;
     var brl = usd * FX;
     var U = T[lang].usd;
@@ -1898,7 +2106,7 @@ body.idle{cursor:none}
       $('priceOff').textContent = $('calcOff').textContent = offTxt;
       $('calcNew').textContent = U + (PRICE % 1 ? nUsd2.format(PRICE) : nUsd0.format(PRICE));
     }
-    if (document.activeElement === outUsd) { /* digitando: não mexe */ }
+    if (document.activeElement === outUsd) { /* typing: leave it alone */ }
     else if (animate === false) { if (tween) cancelAnimationFrame(tween); outUsd.textContent = U + nUsd0.format(usd); fitBig(outUsd); }
     else setNum(outUsd, shown.usd, usd, U);
     shown.usd = usd; shown.brl = brl;
@@ -1906,7 +2114,7 @@ body.idle{cursor:none}
     document.querySelectorAll('[data-preset]').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.dataset.preset === fol)); });
     document.querySelectorAll('[data-rate]').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.dataset.rate === rate)); });
   }
-  /* slide oculto de taxas: taxas publicadas pela Gumroad (10% + 0,50; cartão 2,9% + 0,30; repasse PayPal 2%), divididas na proporção da comissão */
+  /* hidden fees slide: fees published by Gumroad (10% + 0.50; card 2.9% + 0.30; PayPal payout 2%), split in proportion to the commission */
   function taxTable(){
     if (!$('txPa')) return;
     var U = T[lang].usd, f = function(v){ return U + nUsd2.format(v); }, m = function(v){ return '\u2212 ' + f(v); };
@@ -1919,7 +2127,7 @@ body.idle{cursor:none}
     $('txPp').textContent = m(pp); $('txOut').textContent = f(an - pp);
   }
   function fitIn(el){ el.style.setProperty('--w', Math.max(4, el.value.length + 1) + 'ch'); }
-  /* lê "250.000", "250k", "1,5m", "2,5%" em qualquer idioma */
+  /* reads "250.000", "250k", "1,5m", "2,5%" in either language */
   function parseNum(str, isPct){
     var t = String(str).trim().toLowerCase().replace(/\s|%/g, ''), mul = 1;
     if (!isPct) { var m = t.match(/([km])$/); if (m) { mul = m[1] === 'k' ? 1e3 : 1e6; t = t.slice(0, -1); } }
@@ -1938,7 +2146,7 @@ body.idle{cursor:none}
     calc();
   }
   [oFol, oConv].forEach(function(el){
-    /* ao clicar, seleciona o número inteiro para digitar por cima */
+    /* on click, selects the whole number so you can type over it */
     var fresh = false;
     el.addEventListener('focus', function(){ fresh = true; el.select(); });
     el.addEventListener('mouseup', function(e){ if (fresh) { e.preventDefault(); el.select(); fresh = false; } });
@@ -1946,11 +2154,11 @@ body.idle{cursor:none}
     el.addEventListener('keydown', function(e){
       if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
       else if (e.key === 'Escape') { e.preventDefault(); el.value = ''; el.blur(); }
-      e.stopPropagation(); /* setas e espaço não trocam de slide enquanto digita */
+      e.stopPropagation(); /* arrows and space don't change slides while typing */
     });
     el.addEventListener('blur', function(){ commit(el); });
   });
-  /* valor recebido e vendas também são editáveis: os seguidores ficam fixos e a porcentagem se ajusta sozinha */
+  /* payout and sales are editable too: followers stay fixed and the percentage adjusts itself */
   function commitOut(el){
     var n = parseNum(el.textContent.replace(/[^0-9.,kKmM]/g, ''), false), each = PRICE * rate / 100;
     if (!isNaN(n) && n >= 0 && vFol > 0 && each > 0) {
@@ -1961,7 +2169,7 @@ body.idle{cursor:none}
     calc(el === outUsd ? false : undefined);
   }
   [outUsd, outSales].forEach(function(el){
-    if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true'; /* navegadores sem plaintext-only */
+    if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true'; /* browsers without plaintext-only */
     var cancel = false;
     function selectAll(){ if (document.activeElement !== el) return; var r = document.createRange(); r.selectNodeContents(el); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
     el.addEventListener('focus', function(){ cancel = false; if (el === outUsd && tween) { cancelAnimationFrame(tween); el.textContent = T[lang].usd + nUsd0.format(shown.usd); } setTimeout(selectAll, 0); });
@@ -1969,7 +2177,7 @@ body.idle{cursor:none}
     el.addEventListener('keydown', function(e){
       if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
       else if (e.key === 'Escape') { e.preventDefault(); cancel = true; el.blur(); }
-      e.stopPropagation(); /* setas e espaço não trocam de slide enquanto digita */
+      e.stopPropagation(); /* arrows and space don't change slides while typing */
     });
     el.addEventListener('blur', function(){ getSelection().removeAllRanges(); if (cancel) calc(false); else commitOut(el); });
   });
@@ -1988,7 +2196,7 @@ body.idle{cursor:none}
     inp.addEventListener('keydown', function(e){
       if (e.key === 'Enter') { e.preventDefault(); inp.blur(); }
       else if (e.key === 'Escape') { e.preventDefault(); inp.value = '0'; inp.blur(); }
-      e.stopPropagation(); /* setas e espaço não trocam de slide enquanto digita */
+      e.stopPropagation(); /* arrows and space don't change slides while typing */
     });
     inp.addEventListener('blur', function(){
       var n = parseNum(inp.value, true);
@@ -1998,7 +2206,47 @@ body.idle{cursor:none}
   })();
 
 
-  /* navegação */
+  /* ---------- gift: opens the envelope, drops confetti and reveals the license ---------- */
+  var GIFT = (function(){
+    var sec = $('slide-presente'), btn = $('gift'), fx = $('giftFx'), tm = [];
+    if (!sec || !btn) return { reset: function(){} };
+    var COLS = ['#1dcd9f', '#5ce6bf', '#7af0cf', '#ffffff', '#ffd166', '#12906f'];
+    function confetti(){
+      var s = btn.offsetWidth || 200;
+      for (var k = 0; k < 90; k++) {
+        var p = document.createElement('i'), w = 5 + Math.random() * 7, h = Math.random() < .4 ? w : w * (.35 + Math.random() * .4);
+        p.style.width = w + 'px'; p.style.height = h + 'px'; p.style.background = COLS[k % COLS.length];
+        if (Math.random() < .25) p.style.borderRadius = '50%';
+        fx.appendChild(p);
+        var a = -Math.PI / 2 + (Math.random() - .5) * Math.PI * 1.1, v = s * (1.1 + Math.random() * 1.8);
+        var dx = Math.cos(a) * v, dy = Math.sin(a) * v, r = (Math.random() - .5) * 1080;
+        p.animate([
+          { transform: 'translate(-50%,-50%) scale(.4)', opacity: 1 },
+          { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + r * .5 + 'deg) rotateX(' + r + 'deg)', opacity: 1, offset: .35 },
+          { transform: 'translate(' + dx * 1.35 + 'px,' + (dy + s * 2.6) + 'px) rotate(' + r + 'deg) rotateX(' + r * 2 + 'deg)', opacity: 0 }
+        ], { duration: 2200 + Math.random() * 1400, easing: 'cubic-bezier(.15,.7,.4,1)', fill: 'forwards', delay: Math.random() * 120 });
+      }
+    }
+    function reset(){
+      tm.forEach(clearTimeout); tm = [];
+      sec.classList.remove('opening', 'opened');
+      fx.innerHTML = '';
+      btn.removeAttribute('aria-disabled');
+    }
+    btn.addEventListener('click', function(){
+      if (sec.classList.contains('opening')) return;
+      sec.classList.add('opening');
+      btn.setAttribute('aria-disabled', 'true');
+      tm.push(setTimeout(function(){
+        sec.classList.add('opened');
+        if (!reduce) confetti();
+        $('live').textContent = sec.querySelector('.swap .after').textContent;
+      }, reduce ? 0 : 1350));
+    });
+    return { reset: reset };
+  })();
+
+  /* navigation */
   function go(i, replay){
     if (i < 0 || i >= slides.length || (i === cur && !replay)) return;
     var prev = replay ? -1 : cur;
@@ -2020,6 +2268,7 @@ body.idle{cursor:none}
     if (s.id === 'slide-problema') { CLOUD.mood('red'); CLOUD.burst(150, s.querySelectorAll('.eyebrow, .stat-xl, .provoke-sub, .provoke-kick, .src')); }
     else if (s.id === 'slide-biblioteca') { CLOUD.mood('green'); BIG.reset(); CLOUD.absorb(prev >= 0 && slides[prev].id === 'slide-problema' ? 650 : 250, BIG.add, BIG.done, s.querySelectorAll('.eyebrow, .h2 .w, .lead, .libbig')); }
     else CLOUD.hide();
+    if (s.id === 'slide-presente') GIFT.reset();
     if (s.id === 'slide-assinatura') { SUB.stop(); SUB.start(); } else setTimeout(function(){ if (slides[cur] && slides[cur].id !== 'slide-assinatura') SUB.stop(); }, 900);
     if (prev >= 0 && slides[prev].id === 'slide-video') { try { $('ytAll').contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*'); } catch (e) {} }
     if (s.id === 'slide-solucao') { QS.stop(); QS.start(); } else setTimeout(function(){ if (slides[cur] && slides[cur].id !== 'slide-solucao') QS.stop(); }, 900);
@@ -2040,12 +2289,12 @@ body.idle{cursor:none}
     var h = i >= N ? '#' + s.id : '#slide-' + (i + 1);
     if (location.hash !== h) { try { history.replaceState(null, '', h); } catch (e) { location.hash = h; } }
   }
-  /* nos slides ocultos, avançar não faz nada e voltar leva ao último slide da sequência */
+  /* on hidden slides, next does nothing and back goes to the last slide in the sequence */
   var next = function(){ if (cur < N - 1) go(cur + 1); }, back = function(){ go(cur >= N ? N - 1 : cur - 1); };
   $('next').addEventListener('click', next);
   $('prev').addEventListener('click', back);
 
-  /* ---------- controles que somem ---------- */
+  /* ---------- controls that hide ---------- */
   var body = document.body, bar = $('bar'), idleT = null, IDLE_MS = 2500;
   var chromeBusy = function(){
     if (document.querySelector('.bar:hover, .ticks:hover, .brand:hover')) return true;
@@ -2067,7 +2316,7 @@ body.idle{cursor:none}
     else wake();
   }
   $('hide').addEventListener('click', function(){ setUiOff(true); });
-  /* com os controles escondidos, eles voltam ao levar o mouse (ou tocar) na borda de baixo, ou com a tecla H */
+  /* with the controls hidden, they come back when the mouse (or a tap) reaches the bottom edge, or with the H key */
   var nearEdge = function(y){ return y > window.innerHeight - 90; };
   document.addEventListener('mousemove', function(e){
     if (body.classList.contains('ui-off')) { if (nearEdge(e.clientY)) setUiOff(false); else body.classList.remove('idle'); return; }
@@ -2094,7 +2343,7 @@ body.idle{cursor:none}
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
     var k = e.key;
     if (k === 'Tab') { if (!body.classList.contains('ui-off')) wake(); return; }
-    /* números: 1–9 e 10+ vão direto para o slide; 0 sozinho volta ao início. Enter confirma na hora. */
+    /* numbers: 1–9 and 10+ jump straight to the slide; 0 alone goes back to the start. Enter confirms right away. */
     if (/^[0-9]$/.test(k)) {
       e.preventDefault();
       clearTimeout(numT);
@@ -2106,7 +2355,7 @@ body.idle{cursor:none}
       return;
     }
     if (k === 'Enter' && numBuf) { e.preventDefault(); clearTimeout(numT); jumpTo(); return; }
-    /* palavras: digitar o nome de um slide oculto (faq, tax) abre esse slide */
+    /* words: typing the name of a hidden slide (faq, tax) opens that slide */
     if (/^[a-z]$/i.test(k) && words.length) {
       var ch = k.toLowerCase();
       clearTimeout(wordT); wordBuf = (wordBuf + ch).slice(-12); wordT = setTimeout(function(){ wordBuf = ''; }, 1200);
@@ -2116,7 +2365,7 @@ body.idle{cursor:none}
         for (var n = Math.min(w.w.length - 1, wordBuf.length); n > 0; n--) if (wordBuf.slice(-n) === w.w.slice(0, n)) { typing = Math.max(typing, n); break; }
       });
       if (hit) { e.preventDefault(); clearTimeout(keyT); wordBuf = ''; go(hit.i); return; }
-      /* letra que também é atalho (o F de "faq" é tela cheia): espera um instante para ver se é o começo de uma palavra */
+      /* a letter that is also a shortcut (the F in "faq" is fullscreen): waits a moment to see if it starts a word */
       if (typing > 1) { clearTimeout(keyT); return; }
       if (typing === 1 && 'fhrl'.indexOf(ch) >= 0) { clearTimeout(keyT); keyT = setTimeout(function(){ letterKey(ch); }, 450); return; }
     }
@@ -2134,7 +2383,7 @@ body.idle{cursor:none}
     else if (k === 'l') setLang(lang === 'pt' ? 'en' : 'pt');
   }
 
-  /* depois de clicar no vídeo, devolve o foco à apresentação para as setas continuarem navegando */
+  /* after clicking the video, gives focus back to the presentation so the arrows keep navigating */
   window.addEventListener('blur', function(){
     setTimeout(function(){
       var a = document.activeElement;
@@ -2142,7 +2391,7 @@ body.idle{cursor:none}
     }, 300);
   });
 
-  /* roda do mouse: só navega quando o slide não tem mais o que rolar */
+  /* mouse wheel: only navigates when the slide has nothing left to scroll */
   var lock = 0;
   window.addEventListener('wheel', function(e){
     if (Math.abs(e.deltaY) < 24 && Math.abs(e.deltaX) < 24) return;
@@ -2159,7 +2408,7 @@ body.idle{cursor:none}
     (e.deltaY > 0 || e.deltaX > 0) ? next() : back();
   }, { passive: true });
 
-  /* deslizar */
+  /* swipe */
   var sx = 0, sy = 0, st = 0;
   document.addEventListener('touchstart', function(e){ var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; st = Date.now(); }, { passive: true });
   document.addEventListener('touchend', function(e){
@@ -2168,7 +2417,7 @@ body.idle{cursor:none}
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4 && Date.now() - st < 700) { dx < 0 ? next() : back(); }
   }, { passive: true });
 
-  /* tela cheia */
+  /* fullscreen */
   var fs = $('fs');
   function toggleFs(){
     try {
@@ -2178,13 +2427,48 @@ body.idle{cursor:none}
   }
   if (document.fullscreenEnabled) { fs.hidden = false; fs.addEventListener('click', toggleFs); }
 
-  /* hash e início */
+  /* hash and start */
   var fromHash = function(){
     for (var k = N; k < slides.length; k++) if (location.hash === '#' + slides[k].id) return k;
     var m = /^#slide-(\d+)$/.exec(location.hash);
     return m ? Math.min(N, Math.max(1, +m[1])) - 1 : 0;
   };
   window.addEventListener('hashchange', function(){ go(fromHash()); });
+
+  /* You're not the first one to get here, and you won't be the last.
+     It's just an affiliate presentation. ;)
+     If it's you, ThED, fuck off. */
+  /* ---------- gate: unlocks with the typed key, with the key in the link's query, or if this browser has been in before ---------- */
+  var GATE_PASS = 'StartPresentation', GATE_KEY = 'msl-deck-pass', gate = $('gate'), gateOpen = !!gate;
+  if (gate) {
+    var gateIn = $('gateIn'), gateErr = $('gateErr'), gateForm = $('gateForm');
+    var ok = function(v){ return String(v || '').trim().toLowerCase() === GATE_PASS.toLowerCase(); };
+    var others = function(on){ Array.prototype.forEach.call(document.body.children, function(el){ if (el !== gate && el.tagName !== 'SCRIPT') el.inert = on; }); };
+    var saved = null; try { saved = localStorage.getItem(GATE_KEY); } catch (e) {}
+    var q = null; try { q = new URLSearchParams(location.search).get('senha'); } catch (e) {}
+    var unlock = function(animate){
+      gateOpen = false; others(false);
+      try { localStorage.setItem(GATE_KEY, GATE_PASS); } catch (e) {}
+      if (location.search) { try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {} }
+      if (!animate) { gate.remove(); return; }
+      gate.classList.add('off'); setTimeout(function(){ gate.remove(); }, 700);
+      go(cur, true); wake();
+    };
+    /* while the screen is open, keyboard, wheel and gestures don't move the slides */
+    ['keydown', 'wheel', 'touchstart', 'touchend'].forEach(function(t){
+      window.addEventListener(t, function(e){ if (gateOpen && !gate.contains(e.target)) e.stopImmediatePropagation(); }, { capture: true, passive: true });
+    });
+    gateForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      if (ok(gateIn.value)) { unlock(true); return; }
+      gateErr.textContent = lang === 'en' ? 'Wrong password' : 'Senha incorreta';
+      var box = gateForm; box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+      gateIn.select();
+    });
+    gateIn.addEventListener('input', function(){ gateErr.textContent = ''; });
+    if (ok(saved) || ok(q)) unlock(false);
+    else { others(true); setTimeout(function(){ gateIn.focus(); }, 50); }
+  }
   applyLang();
   go(fromHash());
   wake();
