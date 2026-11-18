@@ -50,7 +50,7 @@ In each case you leave the timeline first and pick the sound by file name somewh
 
 ## Add a sound effect with QuickSearch in four steps
 
-QuickSearch is MySoundLib's search overlay. It opens on top of Premiere Pro, DaVinci Resolve, CapCut, Final Cut Pro or REAPER, searches the library you built from your own sound files, and hands the sound to the editor through the operating system's normal drag and drop.
+QuickSearch is MySoundLib's search overlay. It opens on top of Premiere Pro, DaVinci Resolve, CapCut or REAPER, searches the library you built from your own sound files, and hands the sound to the editor through the operating system's normal drag and drop.
 
 Before the first search, import your sound folders into MySoundLib once. The app indexes the files where they already are and lets you organize them with your own folders and tags. MySoundLib does not come with audio files: it works with the sounds you already have.
 
@@ -92,7 +92,7 @@ No. Search, filtering, preview, waveform generation and drag and drop to the tim
 
 ### Which editors does it work with?
 
-Premiere Pro, DaVinci Resolve, CapCut, Final Cut Pro and REAPER. MySoundLib runs on Windows, macOS and Linux.
+Premiere Pro, DaVinci Resolve, CapCut and REAPER, or any editor that accepts dragged files. MySoundLib runs on Windows 10 and 11 (64-bit); the macOS and Linux versions are in closed alpha and not available yet, so Final Cut Pro, which only runs on macOS, isn't supported for now.
 
 ### Does trimming change my original sound file?
 

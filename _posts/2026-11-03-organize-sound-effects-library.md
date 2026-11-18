@@ -69,7 +69,7 @@ Tags do what folders can't: one sound can be a `whoosh`, a `transition` and `fav
 
 ## 6. Index it so you can search it
 
-The operating system's file search isn't built for this. You need search by name and tag, instant preview, and filters such as format or channels. That's the part I built MySoundLib for. It indexes your folders where they already are, without moving or copying your files, and you can keep separate libraries for sound effects, music or memes. Then <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> (<kbd>Option</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> on Mac) opens a search over your editor, where you preview, trim and drag the sound onto the timeline. I walk through that part in [how to add sound effects without leaving your video editor](https://mysoundlib.com/blog/add-sound-effects-without-leaving-your-editor/).
+The operating system's file search isn't built for this. You need search by name and tag, instant preview, and filters such as format or channels. That's the part I built MySoundLib for. It indexes your folders where they already are, without moving or copying your files, and you can keep separate libraries for sound effects, music or memes. Then <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> opens a search over your editor, where you preview, trim and drag the sound onto the timeline. I walk through that part in [how to add sound effects without leaving your video editor](https://mysoundlib.com/blog/add-sound-effects-without-leaving-your-editor/).
 
 ## 7. Back it up
 

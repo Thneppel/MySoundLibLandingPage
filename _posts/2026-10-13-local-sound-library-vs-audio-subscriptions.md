@@ -66,7 +66,7 @@ A few habits make a big library usable:
 3. Don't rename thousands of files by hand. Tag the ones you use often instead.
 4. Index the whole thing with a tool that searches by name and tag, previews instantly and works offline.
 
-That last step is why I built MySoundLib. It indexes your folders where they already are and lets you add your own tags. Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> (<kbd>Option</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> on Mac) and a search opens over your editor, where you can preview, trim and drag a sound straight onto the timeline. It's a one-time purchase with no subscription, and it doesn't come with audio files: it works with the sounds you have. I explain the search-to-timeline workflow in [how to add sound effects without leaving your video editor](https://mysoundlib.com/blog/add-sound-effects-without-leaving-your-editor/).
+That last step is why I built MySoundLib. It indexes your folders where they already are and lets you add your own tags. Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> and a search opens over your editor, where you can preview, trim and drag a sound straight onto the timeline. It's a one-time purchase with no subscription, and it doesn't come with audio files: it works with the sounds you have. I explain the search-to-timeline workflow in [how to add sound effects without leaving your video editor](https://mysoundlib.com/blog/add-sound-effects-without-leaving-your-editor/).
 
 ## If you still want a subscription
 

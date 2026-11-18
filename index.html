@@ -33,7 +33,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "MySoundLib",
-    "operatingSystem": "Windows, macOS, Linux",
+    "operatingSystem": "Windows 10, Windows 11 (64-bit)",
     "applicationCategory": "MultimediaApplication",
     "offers": {
       "@type": "Offer",
@@ -85,7 +85,7 @@
     }
 
     section[id] {
-      scroll-margin-top: 84px;
+      scroll-margin-top: 118px;
     }
 
     body {
@@ -132,8 +132,6 @@
       align-items: center;
       animation: promo-scroll 38s linear infinite;
     }
-    .promo-bar:hover .promo-track,
-    .promo-bar:focus-visible .promo-track { animation-play-state: paused; }
     .promo-item {
       display: inline-flex;
       align-items: center;
@@ -146,7 +144,6 @@
       height: 5px;
       border-radius: 50%;
       background: currentColor;
-      opacity: 0.45;
     }
     .promo-item b { font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
     @keyframes promo-scroll { to { transform: translateX(-50%); } }
@@ -156,6 +153,67 @@
       .promo-track .promo-item:not(:first-child) { display: none; }
       .promo-track .promo-item::after { display: none; }
     }
+
+    /* platform note in the footer, under the tagline */
+    .footer-platform {
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-dim);
+    }
+    .faq-a a { color: var(--green); text-decoration: underline; text-underline-offset: 0.2em; }
+
+    /* ── Support form (popup opened from the footer, sent through Web3Forms) ── */
+    html.sup-open { overflow: hidden; }
+    .sup-dialog {
+      margin: auto; /* the global margin reset would otherwise pin the dialog to the top-left */
+      width: min(540px, calc(100vw - 32px));
+      max-height: calc(100dvh - 32px);
+      padding: 0;
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      background: var(--bg);
+      color: var(--text);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+    }
+    .sup-dialog[open] { animation: sup-in 0.28s cubic-bezier(.16, 1, .3, 1); }
+    .sup-dialog::backdrop { background: rgba(10, 10, 10, 0.62); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    @keyframes sup-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
+    .sup-in { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 30px 28px 28px; }
+    .sup-close {
+      position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; display: grid; place-items: center;
+      border: 0; border-radius: 10px; background: transparent; color: var(--text-muted); cursor: pointer; transition: background 0.15s ease, color 0.15s ease;
+    }
+    .sup-close:hover { background: var(--surface); color: var(--text); }
+    .sup-title { margin: 0; padding-right: 40px; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+    .sup-sub { margin: -8px 0 0; font-size: 14px; line-height: 1.55; color: var(--text-muted); }
+    .sup-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 560px) { .sup-row { grid-template-columns: 1fr; } .sup-in { padding: 26px 18px 20px; } }
+    .sup-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+    .sup-field > span { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+    .sup-field input, .sup-field select, .sup-field textarea {
+      width: 100%; box-sizing: border-box; font: inherit; font-size: 15px; color: var(--text);
+      background: var(--bg-darker); border: 1px solid var(--border-light); border-radius: 10px; padding: 12px 14px;
+      outline: none; transition: border-color 0.15s ease;
+    }
+    .sup-field textarea { min-height: 130px; resize: vertical; line-height: 1.5; }
+    .sup-field select {
+      appearance: none; -webkit-appearance: none; padding-right: 38px; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+    }
+    .sup-field input:focus, .sup-field select:focus, .sup-field textarea:focus { border-color: var(--green); }
+    .sup-field input::placeholder, .sup-field textarea::placeholder { color: var(--text-dim); }
+    .sup-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .sup-send { width: 100%; justify-content: center; border: 0; cursor: pointer; }
+    .sup-send[disabled] { opacity: 0.6; cursor: progress; }
+    .sup-alt { margin: -6px 0 0; font-size: 13px; text-align: center; color: var(--text-dim); }
+    .sup-alt a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 0.2em; }
+    .sup-alt a:hover { color: var(--green); }
+    .sup-status { margin: 0; min-height: 1.4em; font-size: 14px; line-height: 1.5; color: var(--text-muted); }
+    .sup-status.ok { color: var(--green); }
+    .sup-status.err { color: var(--red); }
+    .sup-status a { color: inherit; text-decoration: underline; }
 
     /* ── Header & Navigation ─────────────────── */
     .site-header {
@@ -316,6 +374,11 @@
 
     .app-version-badge:hover {
       color: var(--text-muted);
+    }
+
+    /* the badge sits outside the 1180px nav column; below ~1600px it would cover the buy button */
+    @media (max-width: 1599px) {
+      .app-version-badge { display: none; }
     }
 
     /* ── Hero Section (Instatic Style) ───────── */
@@ -1864,7 +1927,6 @@
 
         <div class="nav-links">
           <a class="nav-link" href="#workflow" id="navWorkflow">Workflow</a>
-          <a class="nav-link" href="#compatibility" id="navCompat">Compatibility</a>
           <a class="nav-link" href="#overlay" id="navFeatures">Features</a>
           <a class="nav-link" href="#makers" id="navMaker">About</a>
           <a class="nav-link" href="#faq" id="navFaq">FAQ</a>
@@ -1895,7 +1957,7 @@
         </h1>
 
         <p class="hero-sub" id="heroSub">
-          A lightweight, local desktop app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.
+          A lightweight, local Windows app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.
         </p>
 
         <div class="hero-ctas">
@@ -1906,12 +1968,12 @@
             Explore workflow
           </a>
         </div>
-        <p class="hero-note" id="earlyText">Indie project in active development. You may run into some bugs, especially on Mac and Linux.</p>
+        <p class="hero-note" id="earlyText">Indie project in active development, built for Windows 10 and 11 (64-bit). You may still run into the occasional bug.</p>
 
         <div class="hero-trust">
           <span id="trust1"><b>✓</b> 100% Offline & Local</span>
           <span id="trust2"><b>✓</b> Zero Subscriptions</span>
-          <span id="trust3"><b>✓</b> Windows, Mac & Linux</span>
+          <span id="trust3"><b>✓</b> Windows 10 & 11 (64-bit)</span>
         </div>
 
         <!-- Desktop App Showcase Video -->
@@ -2009,10 +2071,6 @@
               <span>Adobe After Effects</span>
             </span>
             <span class="nle-pill">
-              <img src="static/finalcut.png" alt="" width="24" height="24" loading="lazy">
-              <span>Final Cut Pro</span>
-            </span>
-            <span class="nle-pill">
               <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
               <span>Vegas Pro</span>
             </span>
@@ -2031,10 +2089,6 @@
             <span class="nle-pill">
               <img src="static/aftereffects.svg" alt="" width="24" height="24" loading="lazy">
               <span>Adobe After Effects</span>
-            </span>
-            <span class="nle-pill">
-              <img src="static/finalcut.png" alt="" width="24" height="24" loading="lazy">
-              <span>Final Cut Pro</span>
             </span>
             <span class="nle-pill">
               <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
@@ -2059,10 +2113,6 @@
               <span>Adobe After Effects</span>
             </span>
             <span class="nle-pill">
-              <img src="static/finalcut.png" alt="" width="24" height="24" loading="lazy">
-              <span>Final Cut Pro</span>
-            </span>
-            <span class="nle-pill">
               <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
               <span>Vegas Pro</span>
             </span>
@@ -2081,10 +2131,6 @@
             <span class="nle-pill">
               <img src="static/aftereffects.svg" alt="" width="24" height="24" loading="lazy">
               <span>Adobe After Effects</span>
-            </span>
-            <span class="nle-pill">
-              <img src="static/finalcut.png" alt="" width="24" height="24" loading="lazy">
-              <span>Final Cut Pro</span>
             </span>
             <span class="nle-pill">
               <img src="static/vegas.svg" alt="" width="24" height="24" loading="lazy">
@@ -2327,7 +2373,7 @@
           <div class="faq-col">
             <div class="faq-item">
               <h3 class="faq-q" id="faq1Q">Which editors and DAWs are supported?</h3>
-              <p class="faq-a" id="faq1A">Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, and Vegas Pro. If your software accepts files dragged from your desktop, it works.</p>
+              <p class="faq-a" id="faq1A">Premiere, DaVinci Resolve, CapCut, After Effects, and Vegas Pro. If your software accepts files dragged from your desktop, it works.</p>
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq2Q">Does dragging snippets modify my original audio files?</h3>
@@ -2339,7 +2385,15 @@
             </div>
             <div class="faq-item">
               <h3 class="faq-q" id="faq4Q">How does the QuickSearch Overlay work?</h3>
-              <p class="faq-a" id="faq4A">Press Alt + Shift + F (or Option + Shift + F on macOS) while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.</p>
+              <p class="faq-a" id="faq4A">Press Alt + Shift + F while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.</p>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq10Q">What operating systems are supported during Early Access?</h3>
+              <p class="faq-a" id="faq10A">MySoundLib is officially optimized and available for Windows (64-bit, Windows 10/11). We focus 100% of our development and stability testing on the Windows ecosystem to ensure a seamless experience for video editors and sound designers.</p>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-q" id="faq11Q">Will there be versions for macOS and Linux?</h3>
+              <p class="faq-a" id="faq11A">Yes, that is the plan. The macOS and Linux versions are currently in closed development with selected alpha testers. As the project grows, we intend to open public builds for these platforms, but there is no release date yet. Availability, pricing and licensing for those versions will be announced at launch. Your current license covers the Windows version.</p>
             </div>
           </div>
 
@@ -2376,7 +2430,7 @@
       <div class="wide">
         <h2 class="final-head" id="finalHead">Stop digging through folders. <em>Keep editing.</em></h2>
         <p class="final-sub" id="finalSub">
-          Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.
+          Lifetime license, zero subscriptions, and 100% offline on your machine. Built for Windows 10 and 11 (64-bit).
         </p>
         <a class="btn btn-solid btn-lg" id="finalCta" href="https://mysoundlib.gumroad.com/l/mysoundlib">
           Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
@@ -2394,6 +2448,7 @@
             <img src="static/logo.svg" alt="MySoundLib" class="footer-logo-img">
           </a>
           <p class="footer-tagline" id="footerTagline">Audio manager for video editors.</p>
+          <p class="footer-platform" id="footerPlatform">Available for Windows 10 and 11 (64-bit). macOS and Linux are in closed alpha.</p>
         </div>
 
         <div class="footer-nav">
@@ -2411,6 +2466,7 @@
           <a href="tech.html" id="footerTechLink">For Nerds</a>
           <a href="terms.html" id="footerNavTerms">Terms</a>
           <a href="privacy.html" id="footerNavPrivacy">Privacy</a>
+          <a href="#support" id="footerSupport" data-support>Support</a>
           <span class="footer-author" id="footerAuthor">
             Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>
           </span>
@@ -2419,28 +2475,131 @@
     </div>
   </footer>
 
+  <dialog class="sup-dialog" id="supDialog" aria-labelledby="supTitle">
+    <form class="sup-in" id="supForm" novalidate>
+      <button class="sup-close" type="button" id="supClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <h2 class="sup-title" id="supTitle">Contact support</h2>
+      <p class="sup-sub" id="supSub">Questions about your license, a bug, or an idea? Send a message and we will reply by email.</p>
+      <div class="sup-row">
+        <label class="sup-field"><span id="supLName">Name</span><input name="name" type="text" required maxlength="120" autocomplete="name"></label>
+        <label class="sup-field"><span id="supLEmail">Email</span><input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+      </div>
+      <label class="sup-field"><span id="supLTopic">Topic</span>
+        <select name="topic">
+          <option value="Bug report" id="supO1">Bug report</option>
+          <option value="License and purchase" id="supO2">License and purchase</option>
+          <option value="Feature request" id="supO3">Feature request</option>
+          <option value="Other" id="supO4">Other</option>
+        </select>
+      </label>
+      <label class="sup-field"><span id="supLMsg">Message</span><textarea name="message" required maxlength="5000"></textarea></label>
+      <input class="sup-hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn-solid btn-lg sup-send" type="submit" id="supSend">Send message</button>
+      <p class="sup-alt" id="supAlt">Or email us at <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a></p>
+      <p class="sup-status" id="supStatus" role="status" aria-live="polite"></p>
+    </form>
+  </dialog>
+  <script>
+    /* ---------- support form: opens from any [data-support] link or from #support, sends through Web3Forms ---------- */
+    (function () {
+      const dlg = document.getElementById('supDialog'), form = document.getElementById('supForm');
+      const status = document.getElementById('supStatus'), send = document.getElementById('supSend');
+      if (!dlg || !form || typeof dlg.showModal !== 'function') return;
+      const ACCESS_KEY = '038d6f1f-458b-4fb5-acea-5e02204bfdf2';
+      const t = () => (copy[document.documentElement.lang] || copy.en).sup;
+      const setStatus = (msg, cls) => { status.className = 'sup-status' + (cls ? ' ' + cls : ''); status.innerHTML = msg; };
+      function open() {
+        if (dlg.open) return;
+        setStatus('');
+        dlg.showModal();
+        document.documentElement.classList.add('sup-open');
+        setTimeout(() => form.elements.name.focus(), 30);
+      }
+      function close() { if (dlg.open) dlg.close(); }
+      dlg.addEventListener('close', () => {
+        document.documentElement.classList.remove('sup-open');
+        if (location.hash === '#support') history.replaceState(null, '', location.pathname + location.search);
+      });
+      /* click on the dark backdrop (outside the box) closes it */
+      dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
+      document.getElementById('supClose').addEventListener('click', close);
+      document.querySelectorAll('[data-support]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); open(); }));
+      if (location.hash === '#support') open();
+      window.addEventListener('hashchange', () => { if (location.hash === '#support') open(); });
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const el = form.elements;
+        if (!el.name.value.trim() || !el.email.checkValidity() || !el.email.value.trim() || !el.message.value.trim()) { setStatus(t().invalid, 'err'); return; }
+        if (el.botcheck.checked) return;
+        send.disabled = true;
+        setStatus(t().sending);
+        const data = {
+          access_key: ACCESS_KEY,
+          subject: 'MySoundLib support: ' + el.topic.value,
+          from_name: 'MySoundLib site',
+          name: el.name.value.trim(),
+          email: el.email.value.trim(),
+          topic: el.topic.value,
+          message: el.message.value.trim(),
+          language: document.documentElement.lang,
+          page: location.href,
+          botcheck: false
+        };
+        try {
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(data)
+          });
+          const json = await res.json().catch(() => ({}));
+          if (!res.ok || !json.success) throw new Error(json.message || res.status);
+          form.reset();
+          setStatus(t().ok, 'ok');
+        } catch (err) {
+          setStatus(t().err + ' <a href="mailto:support@mysoundlib.com">support@mysoundlib.com</a>.', 'err');
+        } finally {
+          send.disabled = false;
+        }
+      });
+    })();
+  </script>
+
   <!-- Bilingual Dictionary & Logic -->
   <script>
     const copy = {
       en: {
+        supAlt:           "Or email us at <a href=\"mailto:support@mysoundlib.com\">support@mysoundlib.com</a>",
+        footerSupport:    "Support",
+        supTitle:         "Contact support",
+        supSub:           "Questions about your license, a bug, or an idea? Send a message and we will reply by email.",
+        supLName:         "Name",
+        supLEmail:        "Email",
+        supLTopic:        "Topic",
+        supLMsg:          "Message",
+        supO1:            "Bug report",
+        supO2:            "License and purchase",
+        supO3:            "Feature request",
+        supO4:            "Other",
+        supSend:          "Send message",
+        sup:              {"close": "Close", "sending": "Sending…", "ok": "Message sent. We will get back to you by email soon.", "err": "Something went wrong. Please try again or email", "invalid": "Please fill in your name, a valid email and your message.", "ph": {"name": "Your name", "email": "you@example.com", "msg": "Tell us what happened. If it is a bug, include your Windows version and the app version."}},
         promoItems:       ["<b>Early Access</b> 50% OFF"],
         promoLabel:       "Early Access: 50% off. Buy MySoundLib",
         navWorkflow:      'Workflow',
         navFeatures:      'Features',
-        navCompat:        'Compatibility',
         navMaker:         'About',
         navFaq:           'FAQ',
         navCta:           'Buy MySoundLib',
         navCtaMob:        'Buy <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
-        earlyText:        'Indie project in active development. You may run into some bugs, especially on Mac and Linux.',
+        earlyText:        'Indie project in active development, built for Windows 10 and 11 (64-bit). You may still run into the occasional bug.',
         heroHead:         'Thousands of scattered and lost sound files? <em>MySoundLib fixes that.</em>',
-        heroSub:          'A lightweight, local desktop app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.',
+        heroSub:          'A lightweight, local Windows app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.',
         heroCta:          'Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'Explore workflow',
         trust1:           '<b>✓</b> 100% Offline & Local',
         trust2:           '<b>✓</b> Zero Subscriptions',
-        trust3:           '<b>✓</b> Windows, Mac & Linux',
+        trust3:           '<b>✓</b> Windows 10 & 11 (64-bit)',
 
         strip1:           'Workflow',
         strip2:           'QuickSearch Overlay',
@@ -2505,13 +2664,13 @@
         faqKicker:        'Frequently Asked Questions',
         faqTitle:         'Questions & Answers',
         faq1Q:            'Which editors and DAWs are supported?',
-        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut, and Vegas Pro. If your software accepts files dragged from your desktop, it works.',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, and Vegas Pro. If your software accepts files dragged from your desktop, it works.',
         faq2Q:            'Does dragging snippets modify my original audio files?',
         faq2A:            'No. Trimming is non-destructive. The app creates a temporary clip for your timeline and leaves your original audio files untouched.',
         faq3Q:            'Is it a lifetime license or a subscription?',
         faq3A:            'One-time payment. During Early Access you pay $9.50 once (50% off the regular $19) and own MySoundLib with all updates included. No subscriptions.',
         faq4Q:            'How does the QuickSearch Overlay work?',
-        faq4A:            'Press Alt + Shift + F (or Option + Shift + F on macOS) while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.',
+        faq4A:            'Press Alt + Shift + F while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.',
         faq5Q:            'Are my sound files uploaded anywhere?',
         faq5A:            'No. MySoundLib runs entirely on your computer. Your audio libraries, folder paths, and project files never leave your machine.',
         faq6Q:            'Which audio formats can it read and convert?',
@@ -2524,10 +2683,15 @@
         faq9A:            'No. MySoundLib is purely an audio manager and workflow tool. It indexes and searches audio files already on your computer or sound packs you buy or download separately. We do not distribute or license audio files.',
 
         finalHead:        'Stop digging through folders. <em>Keep editing.</em>',
-        finalSub:         'Lifetime license, zero subscriptions, and 100% offline on your machine. Compatible with Windows, macOS, and Linux.',
+        finalSub:         'Lifetime license, zero subscriptions, and 100% offline on your machine. Built for Windows 10 and 11 (64-bit).',
         finalCta:         'Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'Audio manager for video editors.',
+        faq10Q:           'What operating systems are supported during Early Access?',
+        faq10A:           'MySoundLib is officially optimized and available for Windows (64-bit, Windows 10/11). We focus 100% of our development and stability testing on the Windows ecosystem to ensure a seamless experience for video editors and sound designers.',
+        faq11Q:           'Will there be versions for macOS and Linux?',
+        faq11A:           'Yes, that is the plan. The macOS and Linux versions are currently in closed development with selected alpha testers. As the project grows, we intend to open public builds for these platforms, but there is no release date yet. Availability, pricing and licensing for those versions will be announced at launch. Your current license covers the Windows version.',
+        footerPlatform:   'Available for Windows 10 and 11 (64-bit). macOS and Linux are in closed alpha.',
         footerNavWorkflow:'Workflow',
         footerNavFeatures:'All Features',
         footerNavCompat:  'Compatibility',
@@ -2539,24 +2703,37 @@
         footerAuthor:     'Created by <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>',
       },
       pt: {
+        supAlt:           "Ou escreva para <a href=\"mailto:support@mysoundlib.com\">support@mysoundlib.com</a>",
+        footerSupport:    "Suporte",
+        supTitle:         "Fale com o suporte",
+        supSub:           "Dúvidas sobre a licença, um bug ou uma ideia? Mande uma mensagem e respondemos por e-mail.",
+        supLName:         "Nome",
+        supLEmail:        "E-mail",
+        supLTopic:        "Assunto",
+        supLMsg:          "Mensagem",
+        supO1:            "Reportar bug",
+        supO2:            "Licença e compra",
+        supO3:            "Sugestão de recurso",
+        supO4:            "Outro",
+        supSend:          "Enviar mensagem",
+        sup:              {"close": "Fechar", "sending": "Enviando…", "ok": "Mensagem enviada. Respondemos por e-mail em breve.", "err": "Algo deu errado. Tente de novo ou escreva para", "invalid": "Preencha seu nome, um e-mail válido e a mensagem.", "ph": {"name": "Seu nome", "email": "voce@exemplo.com", "msg": "Conte o que aconteceu. Se for um bug, inclua a versão do Windows e a versão do app."}},
         promoItems:       ["<b>Acesso antecipado</b> 50% OFF"],
         promoLabel:       "Acesso antecipado: 50% off. Comprar o MySoundLib",
         navWorkflow:      'Fluxo',
         navFeatures:      'Recursos',
-        navCompat:        'Compatibilidade',
         navMaker:         'Sobre',
         navFaq:           'Dúvidas',
         navCta:           'Comprar MySoundLib',
         navCtaMob:        'Comprar <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
-        earlyText:        'Projeto indie em desenvolvimento ativo. Você pode encontrar alguns bugs, principalmente no Mac e no Linux.',
+        earlyText:        'Projeto indie em desenvolvimento ativo, feito para Windows 10 e 11 (64 bits). Você ainda pode encontrar um bug ou outro.',
         heroHead:         'Milhares de arquivos de áudio bagunçados e perdidos? <em>O MySoundLib resolve isso.</em>',
-        heroSub:          'Um app desktop leve e local para organizar sua biblioteca de sons, recortar waveforms e soltar áudios na timeline sem interromper a sua edição.',
+        heroSub:          'Um app leve e local para Windows que organiza sua biblioteca de sons, recorta waveforms e solta áudios na timeline sem interromper a sua edição.',
         heroCta:          'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'Conhecer fluxo',
         trust1:           '<b>✓</b> 100% Offline e Local',
         trust2:           '<b>✓</b> Zero Assinaturas',
-        trust3:           '<b>✓</b> Windows, Mac e Linux',
+        trust3:           '<b>✓</b> Windows 10 e 11 (64 bits)',
 
         strip1:           'Fluxo',
         strip2:           'QuickSearch Overlay',
@@ -2621,13 +2798,13 @@
         faqKicker:        'Perguntas Frequentes',
         faqTitle:         'Perguntas Frequentes',
         faq1Q:            'Com quais editores e DAWs ele funciona?',
-        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut e Vegas Pro. Qualquer programa que aceite arrastar arquivos para a timeline funciona.',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects e Vegas Pro. Qualquer programa que aceite arrastar arquivos para a timeline funciona.',
         faq2Q:            'Recortar trechos altera os arquivos originais?',
         faq2A:            'Não. O corte não é destrutivo. O app gera um arquivo temporário para a sua timeline e mantém os áudios originais intactos no disco.',
         faq3Q:            'É pagamento único ou mensalidade?',
         faq3A:            'Pagamento único. Durante o acesso antecipado você paga $9.50 uma vez (50% off sobre os $19 normais) e usa o MySoundLib sem mensalidades, com todas as atualizações incluídas.',
         faq4Q:            'Como funciona o QuickSearch Overlay durante a edição?',
-        faq4A:            'Aperte Alt + Shift + F (ou Option + Shift + F no Mac) enquanto edita. A barra de busca abre sobre a tela, você ouve o som de imediato, arrasta o trecho para a timeline e continua trabalhando.',
+        faq4A:            'Aperte Alt + Shift + F enquanto edita. A barra de busca abre sobre a tela, você ouve o som de imediato, arrasta o trecho para a timeline e continua trabalhando.',
         faq5Q:            'Meus áudios são enviados para algum servidor?',
         faq5A:            'Não. O MySoundLib roda totalmente no seu computador. Suas pastas, bibliotecas e arquivos de áudio nunca saem do seu disco.',
         faq6Q:            'Quais formatos de áudio ele lê e converte?',
@@ -2640,10 +2817,15 @@
         faq9A:            'Não. O MySoundLib é exclusivamente um gerenciador de áudio e ferramenta de fluxo de trabalho. Ele indexa e organiza os arquivos já presentes no seu computador ou pacotes que você baixar e comprar separadamente. Não distribuímos nem licenciamos arquivos de áudio.',
 
         finalHead:        'Chega de procurar em pastas. <em>Foque em editar.</em>',
-        finalSub:         'Licença vitalícia, zero mensalidades e 100% offline na sua máquina. Compatível com Windows, macOS e Linux.',
+        finalSub:         'Licença vitalícia, zero mensalidades e 100% offline na sua máquina. Feito para Windows 10 e 11 (64 bits).',
         finalCta:         'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'Gerenciador de áudio para editores de vídeo.',
+        faq10Q:           'Quais sistemas operacionais são suportados durante o acesso antecipado?',
+        faq10A:           'O MySoundLib é oficialmente otimizado e disponível para Windows (64 bits, Windows 10/11). Concentramos 100% do desenvolvimento e dos testes de estabilidade no ecossistema Windows para garantir uma experiência fluida para editores de vídeo e sound designers.',
+        faq11Q:           'Vai ter versão para macOS e Linux?',
+        faq11A:           'Esse é o plano. As versões para macOS e Linux estão em desenvolvimento fechado com testadores alpha selecionados. Conforme o projeto cresce, pretendemos abrir versões públicas para essas plataformas, mas ainda não há data de lançamento. Disponibilidade, preço e licenciamento dessas versões serão anunciados no lançamento. A licença atual cobre a versão para Windows.',
+        footerPlatform:   'Disponível para Windows 10 e 11 (64 bits). macOS e Linux em alpha fechado.',
         footerNavWorkflow:'Fluxo',
         footerNavFeatures:'Todas as Funcionalidades',
         footerNavCompat:  'Compatibilidade',
@@ -2655,24 +2837,37 @@
         footerAuthor:     'Criado por <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>',
       },
       es: {
+        supAlt:           "O escríbenos a <a href=\"mailto:support@mysoundlib.com\">support@mysoundlib.com</a>",
+        footerSupport:    "Soporte",
+        supTitle:         "Contactar con soporte",
+        supSub:           "¿Dudas sobre tu licencia, un error o una idea? Envía un mensaje y te respondemos por email.",
+        supLName:         "Nombre",
+        supLEmail:        "Email",
+        supLTopic:        "Tema",
+        supLMsg:          "Mensaje",
+        supO1:            "Reportar un error",
+        supO2:            "Licencia y compra",
+        supO3:            "Sugerencia de función",
+        supO4:            "Otro",
+        supSend:          "Enviar mensaje",
+        sup:              {"close": "Cerrar", "sending": "Enviando…", "ok": "Mensaje enviado. Te responderemos por email pronto.", "err": "Algo salió mal. Inténtalo de nuevo o escribe a", "invalid": "Completa tu nombre, un email válido y el mensaje.", "ph": {"name": "Tu nombre", "email": "tu@ejemplo.com", "msg": "Cuéntanos qué pasó. Si es un error, incluye tu versión de Windows y la versión de la app."}},
         promoItems:       ["<b>Acceso anticipado</b> 50% DTO."],
         promoLabel:       "Acceso anticipado: 50% de descuento. Comprar MySoundLib",
         navWorkflow:      'Flujo',
         navFeatures:      'Funciones',
-        navCompat:        'Compatibilidad',
         navMaker:         'Sobre el proyecto',
         navFaq:           'Preguntas',
         navCta:           'Comprar MySoundLib',
         navCtaMob:        'Comprar <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
-        earlyText:        'Proyecto indie en desarrollo activo. Puedes encontrar algunos errores, sobre todo en Mac y Linux.',
+        earlyText:        'Proyecto indie en desarrollo activo, hecho para Windows 10 y 11 (64 bits). Todavía puedes encontrar algún error.',
         heroHead:         '¿Miles de archivos de sonido perdidos y desordenados? <em>MySoundLib lo soluciona.</em>',
-        heroSub:          'Una aplicación de escritorio ligera y local para organizar tu biblioteca de sonidos, previsualizar y recortar formas de onda, y soltar audios en tu línea de tiempo sin interrumpir tu edición.',
+        heroSub:          'Una aplicación ligera y local para Windows que organiza tu biblioteca de sonidos, previsualiza y recorta formas de onda, y suelta audios en tu línea de tiempo sin interrumpir tu edición.',
         heroCta:          'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'Ver flujo de trabajo',
         trust1:           '<b>✓</b> 100% Offline y Local',
         trust2:           '<b>✓</b> Sin Suscripciones',
-        trust3:           '<b>✓</b> Windows, Mac y Linux',
+        trust3:           '<b>✓</b> Windows 10 y 11 (64 bits)',
 
         strip1:           'Flujo',
         strip2:           'QuickSearch Overlay',
@@ -2736,13 +2931,13 @@
         faqKicker:        'Preguntas Frecuentes',
         faqTitle:         'Preguntas y Respuestas',
         faq1Q:            '¿Con qué editores y DAWs es compatible?',
-        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut y Vegas Pro. Si tu software permite arrastrar archivos desde el escritorio, funcionará.',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects y Vegas Pro. Si tu software permite arrastrar archivos desde el escritorio, funcionará.',
         faq2Q:            '¿Arrastrar recortes modifica mis archivos de audio originales?',
         faq2A:            'No. El recorte no es destructivo. La app crea un archivo temporal para tu línea de tiempo y mantiene intactos tus audios originales en el disco.',
         faq3Q:            '¿Es un pago único o una suscripción?',
         faq3A:            'Pago único. Durante el acceso anticipado pagas $9.50 una sola vez (50% de descuento sobre los $19 normales) y usas MySoundLib con todas las actualizaciones incluidas. Cero suscripciones.',
         faq4Q:            '¿Cómo funciona el QuickSearch Overlay durante la edición?',
-        faq4A:            'Pulsa Alt + Shift + F (o Option + Shift + F en Mac) mientras editas. La barra de búsqueda se abre sobre la pantalla, escuchas el sonido al instante, arrastras el recorte a la línea de tiempo y sigues editando.',
+        faq4A:            'Pulsa Alt + Shift + F mientras editas. La barra de búsqueda se abre sobre la pantalla, escuchas el sonido al instante, arrastras el recorte a la línea de tiempo y sigues editando.',
         faq5Q:            '¿Mis archivos de sonido se suben a algún servidor?',
         faq5A:            'No. MySoundLib funciona completamente en tu ordenador. Tus bibliotecas, rutas y archivos de audio jamás salen de tu máquina.',
         faq6Q:            '¿Qué formatos de audio puede leer y convertir?',
@@ -2755,10 +2950,15 @@
         faq9A:            'No. MySoundLib es exclusivamente un gestor de audio y herramienta de flujo de trabajo. Indexa y busca archivos ya presentes en tu ordenador o paquetes que compres o descargues por separado. No distribuimos ni licenciamos archivos de audio.',
 
         finalHead:        'Basta de rebuscar en carpetas. <em>Concéntrate en editar.</em>',
-        finalSub:         'Licencia de por vida, sin suscripciones y 100% offline en tu equipo. Compatible con Windows, macOS y Linux.',
+        finalSub:         'Licencia de por vida, sin suscripciones y 100% offline en tu equipo. Hecho para Windows 10 y 11 (64 bits).',
         finalCta:         'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'Gestor de audio para editores de video.',
+        faq10Q:           '¿Qué sistemas operativos son compatibles durante el acceso anticipado?',
+        faq10A:           'MySoundLib está oficialmente optimizado y disponible para Windows (64 bits, Windows 10/11). Centramos el 100% del desarrollo y de las pruebas de estabilidad en el ecosistema de Windows para garantizar una experiencia fluida a editores de video y diseñadores de sonido.',
+        faq11Q:           '¿Habrá versiones para macOS y Linux?',
+        faq11A:           'Ese es el plan. Las versiones para macOS y Linux están en desarrollo cerrado con testers alfa seleccionados. A medida que el proyecto crezca, queremos abrir versiones públicas para estas plataformas, pero todavía no hay fecha de lanzamiento. La disponibilidad, el precio y la licencia de esas versiones se anunciarán en el lanzamiento. La licencia actual cubre la versión para Windows.',
+        footerPlatform:   'Disponible para Windows 10 y 11 (64 bits). macOS y Linux en alfa cerrada.',
         footerNavWorkflow:'Flujo',
         footerNavFeatures:'Todas las Funciones',
         footerNavCompat:  'Compatibilidad',
@@ -2770,24 +2970,37 @@
         footerAuthor:     'Creado por <a href="https://thneppel.com.br" target="_blank" rel="noopener">Thneppel</a>',
       },
       hi: {
+        supAlt:           "या हमें <a href=\"mailto:support@mysoundlib.com\">support@mysoundlib.com</a> पर ईमेल करें",
+        footerSupport:    "सपोर्ट",
+        supTitle:         "सपोर्ट से संपर्क करें",
+        supSub:           "लाइसेंस, किसी बग या किसी आइडिया के बारे में सवाल है? मैसेज भेजें, हम ईमेल से जवाब देंगे।",
+        supLName:         "नाम",
+        supLEmail:        "ईमेल",
+        supLTopic:        "विषय",
+        supLMsg:          "मैसेज",
+        supO1:            "बग रिपोर्ट",
+        supO2:            "लाइसेंस और खरीद",
+        supO3:            "फ़ीचर सुझाव",
+        supO4:            "अन्य",
+        supSend:          "मैसेज भेजें",
+        sup:              {"close": "बंद करें", "sending": "भेजा जा रहा है…", "ok": "मैसेज भेज दिया गया। हम जल्द ही ईमेल से जवाब देंगे।", "err": "कुछ गड़बड़ हो गई। फिर से कोशिश करें या यहाँ लिखें:", "invalid": "अपना नाम, सही ईमेल और मैसेज भरें।", "ph": {"name": "आपका नाम", "email": "aap@example.com", "msg": "बताएं क्या हुआ। अगर बग है, तो अपना Windows वर्ज़न और ऐप वर्ज़न लिखें।"}},
         promoItems:       ["<b>अर्ली एक्सेस</b> 50% छूट"],
         promoLabel:       "अर्ली एक्सेस: 50% छूट। MySoundLib खरीदें",
         navWorkflow:      'वर्कफ़्लो',
         navFeatures:      'फ़ीचर्स',
-        navCompat:        'सपोर्ट',
         navMaker:         'प्रोजेक्ट',
         navFaq:           'सवालों के जवाब',
         navCta:           'MySoundLib खरीदें',
         navCtaMob:        'खरीदें <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
-        earlyText:        'सक्रिय विकास में एक इंडी प्रोजेक्ट। आपको कुछ बग मिल सकते हैं, ख़ासकर Mac और Linux पर।',
+        earlyText:        'सक्रिय विकास में एक इंडी प्रोजेक्ट, Windows 10 और 11 (64-बिट) के लिए बना। कभी-कभार कोई बग मिल सकता है।',
         heroHead:         'हज़ारों बिखरी और खोई हुई साउंड फ़ाइलें? <em>MySoundLib इसे आसान बनाता है।</em>',
-        heroSub:          'अपनी साउंड लाइब्रेरी व्यवस्थित करने, वेवफ़ॉर्म देखने व काटने, और अपनी एडिटिंग रोके बिना ऑडियो सीधे टाइमलाइन पर लाने के लिए एक हल्का और लोकल डेस्कटॉप ऐप।',
+        heroSub:          'Windows के लिए एक हल्का और लोकल ऐप, जो आपकी साउंड लाइब्रेरी व्यवस्थित करता है, वेवफ़ॉर्म दिखाता व काटता है, और आपकी एडिटिंग रोके बिना ऑडियो सीधे टाइमलाइन पर लाता है।',
         heroCta:          'MySoundLib खरीदें <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'वर्कफ़्लो देखें',
         trust1:           '<b>✓</b> 100% ऑफ़लाइन और लोकल',
         trust2:           '<b>✓</b> कोई सब्सक्रिप्शन नहीं',
-        trust3:           '<b>✓</b> Windows, Mac और Linux',
+        trust3:           '<b>✓</b> Windows 10 और 11 (64-बिट)',
 
         strip1:           'वर्कफ़्लो',
         strip2:           'QuickSearch Overlay',
@@ -2851,13 +3064,13 @@
         faqKicker:        'अक्सर पूछे जाने वाले सवाल',
         faqTitle:         'सवालों के जवाब',
         faq1Q:            'यह किन एडिटर्स और DAWs के साथ काम करता है?',
-        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, Final Cut और Vegas Pro। कोई भी सॉफ्टवेयर जो डेस्कटॉप से ड्रैग की गई फ़ाइलें स्वीकार करता है, सपोर्टेड है।',
+        faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects और Vegas Pro। कोई भी सॉफ्टवेयर जो डेस्कटॉप से ड्रैग की गई फ़ाइलें स्वीकार करता है, सपोर्टेड है।',
         faq2Q:            'क्या ऑडियो ट्रिम करने से मेरी ओरिजिनल फ़ाइलें बदलती हैं?',
         faq2A:            'नहीं। ट्रिमिंग नॉन-डिस्ट्रक्टिव है। ऐप आपकी टाइमलाइन के लिए एक अस्थायी क्लिप बनाता है और ओरिजिनल फ़ाइलों को बिल्कुल नहीं छूता।',
         faq3Q:            'क्या यह एकमुश्त भुगतान है या सब्सक्रिप्शन?',
         faq3A:            'एकमुश्त भुगतान। अर्ली एक्सेस के दौरान आप $9.50 (सामान्य $19 पर 50% छूट) केवल एक बार देते हैं और बिना किसी मासिक शुल्क के सभी अपडेट्स के साथ MySoundLib आपका होता है।',
         faq4Q:            'एडिटिंग के दौरान QuickSearch Overlay कैसे काम करता है?',
-        faq4A:            'एडिटिंग के दौरान Alt + Shift + F (Mac पर Option + Shift + F) दबाएं। स्क्रीन पर सर्च बार खुलता है, तुरंत आवाज़ सुनें, क्लिप को टाइमलाइन पर खींचें और एडिटिंग जारी रखें।',
+        faq4A:            'एडिटिंग के दौरान Alt + Shift + F दबाएं। स्क्रीन पर सर्च बार खुलता है, तुरंत आवाज़ सुनें, क्लिप को टाइमलाइन पर खींचें और एडिटिंग जारी रखें।',
         faq5Q:            'क्या मेरी ऑडियो फ़ाइलें किसी सर्वर पर अपलोड होती हैं?',
         faq5A:            'नहीं। MySoundLib पूरी तरह आपके कंप्यूटर पर चलता है। आपकी ऑडियो लाइब्रेरीज़ और फ़ाइलें कभी भी आपके सिस्टम से बाहर नहीं जातीं।',
         faq6Q:            'यह किन ऑडियो फॉर्मेट्स को पढ़ और कन्वर्ट कर सकता है?',
@@ -2870,10 +3083,15 @@
         faq9A:            'नहीं। MySoundLib पूरी तरह से एक ऑडियो मैनेजर और वर्कफ़्लो टूल है। यह आपके कंप्यूटर पर पहले से मौजूद या आपके द्वारा अलग से खरीदे/डाउनलोड किए गए पैक्स को व्यवस्थित और सर्च करता है। हम ऑडियो फ़ाइलें वितरित या लाइसेंस नहीं करते हैं।',
 
         finalHead:        'फ़ोल्डर्स में ढूंढना बंद करें। <em>एडिटिंग पर ध्यान दें।</em>',
-        finalSub:         'लाइफटाइम लाइसेंस, कोई सब्सक्रिप्शन नहीं और आपके कंप्यूटर पर 100% ऑफ़लाइन। Windows, macOS और Linux के साथ संगत।',
+        finalSub:         'लाइफटाइम लाइसेंस, कोई सब्सक्रिप्शन नहीं और आपके कंप्यूटर पर 100% ऑफ़लाइन। Windows 10 और 11 (64-बिट) के लिए बना।',
         finalCta:         'MySoundLib खरीदें <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'वीडियो एडिटर्स के लिए ऑडियो मैनेजर।',
+        faq10Q:           'अर्ली एक्सेस के दौरान कौन से ऑपरेटिंग सिस्टम सपोर्टेड हैं?',
+        faq10A:           'MySoundLib आधिकारिक तौर पर Windows (64-बिट, Windows 10/11) के लिए ऑप्टिमाइज़्ड और उपलब्ध है। वीडियो एडिटर्स और साउंड डिज़ाइनर्स को सहज अनुभव देने के लिए हम अपना 100% डेवलपमेंट और स्थिरता परीक्षण Windows पर केंद्रित करते हैं।',
+        faq11Q:           'क्या macOS और Linux के वर्ज़न आएंगे?',
+        faq11A:           'यही योजना है। macOS और Linux वर्ज़न अभी चुने हुए अल्फ़ा टेस्टर्स के साथ बंद डेवलपमेंट में हैं। जैसे-जैसे प्रोजेक्ट बढ़ेगा, हम इन प्लेटफ़ॉर्म्स के पब्लिक वर्ज़न खोलना चाहते हैं, लेकिन अभी कोई रिलीज़ तारीख़ तय नहीं है। इन वर्ज़न की उपलब्धता, कीमत और लाइसेंसिंग की घोषणा लॉन्च के समय की जाएगी। मौजूदा लाइसेंस Windows वर्ज़न को कवर करता है।',
+        footerPlatform:   'Windows 10 और 11 (64-बिट) के लिए उपलब्ध। macOS और Linux बंद अल्फ़ा में हैं।',
         footerNavWorkflow:'वर्कफ़्लो',
         footerNavFeatures:'सभी फ़ीचर्स',
         footerNavCompat:  'सपोर्ट',
@@ -2901,6 +3119,16 @@
       if (c.promoLabel) bar.setAttribute('aria-label', c.promoLabel);
     }
 
+    /* support popup: placeholders and labels that are not plain text nodes */
+    function renderSupport(c) {
+      const f = document.getElementById('supForm');
+      if (!f || !c.sup) return;
+      f.elements.name.placeholder = c.sup.ph.name;
+      f.elements.email.placeholder = c.sup.ph.email;
+      f.elements.message.placeholder = c.sup.ph.msg;
+      document.getElementById('supClose').setAttribute('aria-label', c.sup.close);
+    }
+
     function setLang(lang) {
       const c = copy[lang];
       if (!c) return;
@@ -2925,6 +3153,7 @@
       });
 
       renderPromo(c);
+      renderSupport(c);
 
       ['EN', 'PT', 'ES', 'HI'].forEach(code => {
         const btn = document.getElementById('btn' + code);

@@ -937,15 +937,16 @@ body.idle{cursor:none}
 <!-- 7 · Compatibility -->
 <section class="slide dark" id="slide-compat" data-title="Compatibilidade" data-en-title="Compatibility">
   <div class="inner">
-    <h2 class="h2" data-r data-en="Runs on everything">Roda em tudo</h2>
+    <h2 class="h2" data-r data-en="Works with your editor">Funciona com o seu editor</h2>
     <div class="marquee" data-r aria-hidden="true">
       <div class="marquee-track" id="marquee"></div>
     </div>
     <div class="pills" data-r>
-      <span class="pill tint">Windows · macOS · Linux</span>
+      <span class="pill tint" data-en="Windows 10 and 11 (64-bit)">Windows 10 e 11 (64 bits)</span>
       <span class="pill tint">100% offline</span>
       <span class="pill tint" data-en="No plugins">Sem plugins</span>
     </div>
+    <p class="src" data-r data-en="The macOS and Linux versions are in development, but are not available yet.">As versões para macOS e Linux estão sendo desenvolvidas, mas ainda não estão disponíveis.</p>
   </div>
 </section>
 
@@ -1036,7 +1037,7 @@ body.idle{cursor:none}
         <p class="lead" data-r data-en="Anyone who collects sound effects and wastes time searching for them.">Qualquer pessoa que coleciona efeitos sonoros e perde tempo procurando.</p>
       </div>
       <div class="aud">
-        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 14h5M8 16.5h8"/></svg><div><h3 class="h3" data-en="Video editing">Edição de vídeo</h3><p class="body" data-en="Premiere, DaVinci, Final Cut, CapCut">Premiere, DaVinci, Final Cut, CapCut</p></div></div>
+        <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 14h5M8 16.5h8"/></svg><div><h3 class="h3" data-en="Video editing">Edição de vídeo</h3><p class="body" data-en="Premiere, DaVinci, CapCut, Vegas">Premiere, DaVinci, CapCut, Vegas</p></div></div>
         <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z"/><path d="M6.2 5.3l3.1 3.9M12.4 3.4l3.1 4"/><path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><h3 class="h3" data-en="Film and filmmaking">Cinema e filmmaking</h3><p class="body" data-en="Shorts, documentaries, music videos">Curtas, documentários, videoclipes</p></div></div>
         <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11"/></svg><div><h3 class="h3" data-en="Marketing and agencies">Marketing e agências</h3><p class="body" data-en="Campaigns, ads, brand videos">Campanhas, anúncios, vídeos de marca</p></div></div>
         <div class="card aud-t" data-r><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M5 17A12 12 0 0 1 17 5"/></svg><div><h3 class="h3" data-en="Motion design">Motion design</h3><p class="body" data-en="After Effects, animation, idents">After Effects, animação, vinhetas</p></div></div>
@@ -2000,7 +2001,7 @@ body.idle{cursor:none}
   })();
 
   /* editors marquee */
-  var eds = [['Adobe Premiere Pro','premiere.svg'],['DaVinci Resolve','davinci.svg'],['CapCut Desktop','capcut.svg'],['Adobe After Effects','aftereffects.svg'],['Final Cut Pro','finalcut.png'],['Vegas Pro','vegas.svg']];
+  var eds = [['Adobe Premiere Pro','premiere.svg'],['DaVinci Resolve','davinci.svg'],['CapCut Desktop','capcut.svg'],['Adobe After Effects','aftereffects.svg'],['Vegas Pro','vegas.svg']];
   var mq = $('marquee');
   mq.innerHTML = eds.concat(eds).concat(eds).concat(eds).map(function(e){ return '<span class="pill ed"><img src="/static/' + e[1] + '" alt="" width="24" height="24" decoding="async">' + e[0] + '</span>'; }).join('');
   mq.style.animationDuration = '40s';
