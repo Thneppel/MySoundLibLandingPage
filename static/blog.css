@@ -530,3 +530,8 @@ code {
 .side-app p { color: #0b3a2e; font-weight: 600; }
 .article-container .post-sidebar .side-app .btn { background: #1C1C1C; color: var(--green); }
 .article-container .post-sidebar .side-app .btn:hover { background: #111; color: #5ce6bf; transform: translateY(-1px); }
+
+/* ── Blog: figures with captions ─── */
+.post-body figure { margin: 28px 0; }
+.post-body figure img { margin: 0 auto 10px; }
+.post-body figcaption { font-size: 13px; line-height: 1.5; color: var(--text-muted); text-align: center; }
