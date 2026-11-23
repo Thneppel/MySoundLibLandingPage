@@ -1092,6 +1092,11 @@
         if (el) el.innerHTML = text;
       }
 
+      // Early Access ends 2027-01-01 00:00 Brasília time: show the regular $19 from then on
+      if (Date.now() >= Date.parse('2027-01-01T00:00:00-03:00') || new URLSearchParams(location.search).get('ea') === 'over') {
+        document.querySelectorAll('.price-tag').forEach(el => { el.innerHTML = '<span>$19</span>'; });
+      }
+
       try {
         localStorage.setItem('msl_lang', lang);
       } catch (e) {}

@@ -38,7 +38,8 @@
     "offers": {
       "@type": "Offer",
       "price": "9.50",
-      "priceCurrency": "USD"
+      "priceCurrency": "USD",
+      "priceValidUntil": "2026-12-31"
     },
     "description": "Fast, local audio manager for video editors. Organize sound effects, preview and trim waveforms instantly, and drag audio straight into your timeline.",
     "publisher": {
@@ -147,6 +148,19 @@
     }
     .promo-item b { font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
     @keyframes promo-scroll { to { transform: translateX(-50%); } }
+    .cd { font-variant-numeric: tabular-nums; }
+    .cd-full { font-variant-numeric: tabular-nums; font-weight: 800; }
+
+    /* Early Access deadline under the hero button: plain text */
+    .hero-countdown {
+      margin: -14px auto 28px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .hero-countdown .cd { color: var(--text-muted); }
+    /* after the Early Access deadline: no promo bar, no countdown */
+    .ea-over .hero-countdown, .ea-over .promo-bar { display: none; }
+    .ea-over .app-version-badge { top: 34px; }
     @media (prefers-reduced-motion: reduce) {
       .promo-bar { -webkit-mask-image: none; mask-image: none; }
       .promo-track { animation: none; width: 100%; justify-content: center; }
@@ -652,6 +666,13 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+    }
+
+    .statement-body {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 520px;
     }
 
     .sn {
@@ -1350,6 +1371,272 @@
       line-height: 1.6;
     }
 
+    /* collapsible FAQ */
+    .faq-item summary {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary .faq-q { margin-bottom: 0; transition: color 0.15s; }
+    .faq-item summary:hover .faq-q { color: var(--green); }
+    .faq-item summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; border-radius: 4px; }
+    .faq-icon {
+      position: relative;
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      margin-top: 1px;
+      border-radius: 50%;
+      border: 1px solid var(--border-light);
+      transition: transform 0.25s, border-color 0.15s, background 0.15s;
+    }
+    .faq-icon::before,
+    .faq-icon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 9px;
+      height: 1.5px;
+      margin: -0.75px 0 0 -4.5px;
+      background: var(--text-muted);
+      border-radius: 1px;
+    }
+    .faq-icon::after { transform: rotate(90deg); transition: transform 0.25s; }
+    .faq-item summary:hover .faq-icon { border-color: var(--border-accent); }
+    .faq-item[open] .faq-icon { background: var(--green-glow); border-color: var(--border-accent); }
+    .faq-item[open] .faq-icon::before,
+    .faq-item[open] .faq-icon::after { background: var(--green); }
+    .faq-item[open] .faq-icon::after { transform: rotate(0deg); }
+    .faq-item[open] .faq-a { margin-top: 10px; animation: faqIn 0.25s ease; }
+    @keyframes faqIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .faq-item[open] .faq-a { animation: none; }
+    }
+
+    /* ── [TESTE] YouTube facade (loads iframe on click) ── */
+    .yt-facade {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: #000;
+      cursor: pointer;
+    }
+    .yt-facade img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.88;
+      transition: opacity 0.2s;
+    }
+    .yt-facade:hover img { opacity: 1; }
+
+    /* ── [TESTE] Risk reversal line under buy buttons ── */
+    .buy-note {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      text-align: center;
+      text-wrap: balance;
+    }
+    .buy-note b { color: var(--text); font-weight: 700; }
+    .hero .buy-note { max-width: 560px; margin: -14px auto 28px; }
+
+    /* ── [TESTE] Comparison table ── */
+    .compare-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-header {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .compare-header .rk {
+      display: inline-block;
+      padding: 5px 12px;
+      border: 1px solid var(--border-accent);
+      border-radius: 999px;
+      background: var(--green-glow);
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .compare-header .feature-head {
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+    .compare-header .feature-head em {
+      display: block;
+      font-style: italic;
+      color: var(--green);
+    }
+    .compare-desc {
+      margin-top: 14px;
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--text-muted);
+    }
+    .compare-wrap {
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 48px;
+      overflow-x: auto;
+      padding-top: 6px;
+    }
+    .compare-table {
+      width: 100%;
+      min-width: 680px;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      font-size: 14.5px;
+    }
+    .compare-table col.c-feat { width: 37%; }
+    .compare-table col.c-us { width: 23%; }
+    .compare-table th,
+    .compare-table td {
+      padding: 15px 24px;
+      text-align: center;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .compare-table tbody tr:nth-child(odd) td:not(.is-us) { background: rgba(255, 255, 255, 0.018); }
+    .compare-table tbody tr:hover td:not(.is-us) { background: rgba(255, 255, 255, 0.04); }
+    .compare-table td:first-child { text-align: left; color: var(--text); font-weight: 600; }
+
+    /* column headers */
+    .compare-table thead th {
+      padding: 20px 24px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border-light);
+      line-height: 1.35;
+    }
+
+    /* MySoundLib column = raised panel */
+    .compare-table .is-us {
+      background: rgba(29, 205, 159, 0.07);
+      border-left: 1px solid var(--border-accent);
+      border-right: 1px solid var(--border-accent);
+      border-bottom-color: rgba(29, 205, 159, 0.14);
+    }
+    .compare-table thead th.is-us {
+      border-top: 1px solid var(--border-accent);
+      border-radius: 12px 12px 0 0;
+      color: var(--green);
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      font-weight: 800;
+      background: rgba(29, 205, 159, 0.12);
+    }
+    .compare-table tbody tr:last-child td { border-bottom: 0; }
+    .compare-table tbody tr:last-child td.is-us {
+      border-bottom: 1px solid var(--border-accent);
+      border-radius: 0 0 12px 12px;
+    }
+
+    /* price row as the closing line */
+    .compare-table tr.cmp-price td { padding-top: 20px; padding-bottom: 20px; border-top: 1px solid var(--border-light); }
+    .compare-table tr.cmp-price td:not(:first-child) { font-size: 13.5px; }
+    .compare-table tr.cmp-price td.is-us { color: var(--text); font-size: 18px; font-weight: 800; }
+
+    /* marks */
+    .mk {
+      display: inline-grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .mk-yes { background: var(--green); color: #0d1f19; }
+    .mk-no { background: rgba(255, 255, 255, 0.05); color: var(--text-dim); font-size: 11px; }
+    .mk-var {
+      width: auto;
+      height: auto;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-light);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+    .cmp-legend {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 760px) {
+      .compare-table { min-width: 540px; font-size: 13px; }
+      .compare-table th, .compare-table td { padding: 12px 12px; }
+      .compare-table thead th { padding: 16px 12px 12px; font-size: 10.5px; }
+      .compare-table col.c-feat { width: 34%; }
+      .compare-table tbody tr td:first-child:not(.is-us) {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background: var(--bg);
+      }
+      .mk { width: 22px; height: 22px; font-size: 11px; }
+    }
+
+    /* ── [TESTE] Mid-page CTA ── */
+    .mid-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    /* ── [TESTE] Compact audio notice ── */
+    .notice-fine {
+      font-size: 12.5px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin: 0;
+      max-width: 780px;
+    }
+    .notice-banner .notice-desc { margin-bottom: 14px; }
+    .notice-banner .notice-desc a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 900px) {
+      .compare-section { padding: 64px 0; }
+    }
+
     /* ── Final Call to Action ────────────────── */
     .final-cta {
       position: relative;
@@ -1957,30 +2244,28 @@
         </h1>
 
         <p class="hero-sub" id="heroSub">
-          A lightweight, local Windows app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.
+          A sound search that opens over your editor with one shortcut. Find the sound, trim it and drag it straight into your timeline.
         </p>
 
         <div class="hero-ctas">
           <a class="btn btn-solid btn-lg" id="heroCta" href="https://mysoundlib.gumroad.com/l/mysoundlib">
-            Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
-          </a>
-          <a class="btn btn-ghost btn-lg" href="#workflow" id="heroSecBtn">
-            Explore workflow
+            Get MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
           </a>
         </div>
-        <p class="hero-note" id="earlyText">Indie project in active development. You may still run into the occasional bug.</p>
+        <p class="hero-countdown"><span id="cdLabel">Early Access price until January 1</span> · <span class="cd"></span></p>
 
         <div class="hero-trust">
-          <span id="trust1"><b>✓</b> 100% Offline & Local</span>
-          <span id="trust2"><b>✓</b> Zero Subscriptions</span>
-          <span id="trust3"><b>✓</b> Windows 10 & 11 (64-bit)</span>
-          <span id="trust4"><b>✓</b> 7-Day Refund Window</span>
+          <span id="trust1"><b>✓</b> 7-day refund</span>
+          <span id="trust2"><b>✓</b> One-time payment</span>
+          <span id="trust3"><b>✓</b> 100% offline</span>
         </div>
 
         <!-- Desktop App Showcase Video -->
         <div class="hero-shot">
           <div class="hero-frame">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/0CywIkLw3Do?si=-KMKtE95MTH1Ucrg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <button type="button" class="yt-facade" data-yt="0CywIkLw3Do" aria-label="Play MySoundLib demo video">
+              <img src="https://i.ytimg.com/vi/0CywIkLw3Do/maxresdefault.jpg" alt="" width="1280" height="720">
+            </button>
           </div>
         </div>
       </div>
@@ -1992,7 +2277,7 @@
         <div class="contents-links">
           <a class="contents-item" href="#workflow"><span class="contents-num">01</span> <span id="strip1">Workflow</span></a>
           <a class="contents-item" href="#overlay"><span class="contents-num">02</span> <span id="strip2">QuickSearch Overlay</span></a>
-          <a class="contents-item" href="#waveform"><span class="contents-num">03</span> <span id="strip3">Waveform & Trim</span></a>
+          <a class="contents-item" href="#waveform"><span class="contents-num">03</span> <span id="strip3">Your Library</span></a>
           <a class="contents-item" href="#converter"><span class="contents-num">04</span> <span id="strip4">Converter</span></a>
           <a class="contents-item" href="#makers"><span class="contents-num">05</span> <span id="strip5">About</span></a>
         </div>
@@ -2005,38 +2290,20 @@
         <!-- Video Embed: Find Any Sound in Seconds -->
         <div class="hero-shot statement-video">
           <div class="hero-frame">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/4P-VuJH1nks?si=fI6pM5a85Kizr5O0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+            <button type="button" class="yt-facade" data-yt="4P-VuJH1nks" aria-label="Play video: find any sound in seconds">
+              <img src="https://i.ytimg.com/vi/4P-VuJH1nks/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy">
+            </button>
           </div>
         </div>
 
         <div class="statement-text">
         <p class="rk" id="caseKicker">How It Works</p>
         <p class="statement-lead" id="caseLead">
-          Finding the right sound takes too many steps. <em>MySoundLib makes it one shortcut.</em>
+          Press Alt + Shift + F in the middle of an edit.
         </p>
-
-        <div class="statement-grid">
-          <div class="statement-card">
-            <span class="sn" id="caseCol1Title">QuickSearch Overlay</span>
-            <p class="statement-desc" id="caseCol1Body">
-              <code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut opens a search bar for your libraries. No window switching.
-            </p>
-          </div>
-
-          <div class="statement-card">
-            <span class="sn" id="caseCol2Title">Instant Trim And Drag</span>
-            <p class="statement-desc" id="caseCol2Body">
-              Select just the part of the waveform you need and drag it straight into your timeline.
-            </p>
-          </div>
-
-          <div class="statement-card">
-            <span class="sn" id="caseCol3Title">Why That Matters</span>
-            <p class="statement-desc" id="caseCol3Body">
-              No interruptions, and a clean project: only the trimmed sound goes in.
-            </p>
-          </div>
-        </div>
+        <p class="statement-body" id="caseBody">
+          A search bar opens on top of Premiere, DaVinci or CapCut. Type what you're looking for, listen to the results, select the part of the waveform you want and drag it onto your timeline. When you're done, the search closes and you're back where you were.
+        </p>
         </div>
       </div>
     </section>
@@ -2274,6 +2541,46 @@
       </div>
     </section>
 
+    <!-- [TESTE] Comparison table -->
+    <section class="compare-section" id="compare">
+      <div class="wide">
+        <div class="compare-header">
+          <h2 class="feature-head" id="cmpTitle">Why not just use folders, <em>or a subscription app?</em></h2>
+          <p class="compare-desc" id="cmpDesc">Here's what each option gives you in the middle of an edit.</p>
+        </div>
+        <div class="compare-wrap">
+          <table class="compare-table">
+            <colgroup><col class="c-feat"><col><col><col class="c-us"></colgroup>
+            <thead>
+              <tr>
+                <th><span class="sr-only">Feature</span></th>
+                <th id="cmpColA">Windows Explorer</th>
+                <th id="cmpColB">Subscription sound managers</th>
+                <th class="is-us">MySoundLib</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td id="cmpR3">Waveform preview</td><td><span class="mk mk-no" aria-label="No">✕</span></td><td><span class="mk mk-yes" aria-label="Yes">✓</span></td><td class="is-us"><span class="mk mk-yes" aria-label="Yes">✓</span></td></tr>
+              <tr><td id="cmpR7">Works offline, files stay local</td><td><span class="mk mk-yes" aria-label="Yes">✓</span></td><td><span class="mk mk-var" id="cmpV4">Varies</span></td><td class="is-us"><span class="mk mk-yes" aria-label="Yes">✓</span></td></tr>
+              <tr><td id="cmpR2">Fast search across all your libraries</td><td><span class="mk mk-no" aria-label="No">✕</span></td><td><span class="mk mk-var" id="cmpV5">Varies</span></td><td class="is-us"><span class="mk mk-yes" aria-label="Yes">✓</span></td></tr>
+              <tr><td id="cmpR4">Hotkey search over your editor</td><td><span class="mk mk-no" aria-label="No">✕</span></td><td><span class="mk mk-var" id="cmpV1">Varies</span></td><td class="is-us"><span class="mk mk-yes" aria-label="Yes">✓</span></td></tr>
+              <tr><td id="cmpR5">Trim, then drag only the slice</td><td><span class="mk mk-no" aria-label="No">✕</span></td><td><span class="mk mk-var" id="cmpV2">Varies</span></td><td class="is-us"><span class="mk mk-yes" aria-label="Yes">✓</span></td></tr>
+              <tr><td id="cmpR6">Built-in audio file converter</td><td><span class="mk mk-no" aria-label="No">✕</span></td><td><span class="mk mk-no" aria-label="No">✕</span></td><td class="is-us"><span class="mk mk-yes" aria-label="Yes">✓</span></td></tr>
+              <tr><td id="cmpR8">Synced folders</td><td><span class="mk mk-no" aria-label="No">✕</span></td><td><span class="mk mk-no" aria-label="No">✕</span></td><td class="is-us"><span class="mk mk-yes" aria-label="Yes">✓</span></td></tr>
+              <tr class="cmp-price"><td id="cmpR1">Price</td><td id="cmpR1A">Free</td><td id="cmpR1B">Monthly or yearly fee</td><td class="is-us" id="cmpR1C">$9.50 once</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mid-cta">
+          <a class="btn btn-solid btn-lg" id="midCta1" href="https://mysoundlib.gumroad.com/l/mysoundlib">
+            Get MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
+          </a>
+          <p class="buy-note" id="midNote1"><b>7-day refund</b> if it's not for you. Secure checkout via Gumroad.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Pull Quote -->
     <section class="pull" id="pull">
       <div class="hero-bg-anim" id="pullBgAnim" aria-hidden="true"></div>
@@ -2307,6 +2614,11 @@
                 <span class="maker-name">Thiago Neppel</span>
                 <span class="maker-role" id="makerRole">Video Editor & Creator of MySoundLib</span>
               </div>
+              <div class="mid-cta" style="align-items:flex-start;text-align:left;margin-top:28px">
+                <a class="btn btn-solid" id="midCta2" href="https://mysoundlib.gumroad.com/l/mysoundlib">
+                  Get MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -2328,11 +2640,12 @@
             </div>
             <h2 class="notice-head" id="noticeHead">MySoundLib does not come with audio files.</h2>
             <p class="notice-desc" id="noticeDesc">
-              MySoundLib is a sound manager to organize, search, and trim audio files you already have or plan to obtain in the future. The software does not include built-in sound effects or music tracks.
+              It organizes, searches and trims sounds you already have. Need sounds? Many editors sell SFX packs, and you can find public domain (CC0) audio on the <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.
             </p>
+            <p class="notice-fine" id="noticeFine">We do not sell, license or distribute audio files. You are responsible for the usage rights of the audio you use in your edits.</p>
           </div>
 
-          <div class="notice-details-grid">
+          <div class="notice-details-grid" hidden>
             <div class="notice-detail-item">
               <div class="notice-detail-title-row">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2372,62 +2685,70 @@
         <div class="faq-columns">
           <!-- Column 1 -->
           <div class="faq-col">
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq1Q">Which editors and DAWs are supported?</h3>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq1Q">Which editors are supported?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq1A">Premiere, DaVinci Resolve, CapCut, After Effects, and Vegas Pro. If your software accepts files dragged from your desktop, it works.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq2Q">Does dragging snippets modify my original audio files?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq2Q">Does dragging snippets modify my original audio files?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq2A">No. Trimming is non-destructive. The app creates a temporary clip for your timeline and leaves your original audio files untouched.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq3Q">Is it a lifetime license or a subscription?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq3Q">Is it a lifetime license or a subscription?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq3A">One-time payment. During Early Access you pay $9.50 once (50% off the regular $19) and own MySoundLib with all updates included. No subscriptions.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq4Q">How does the QuickSearch Overlay work?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq14Q">What if it's not for me?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+              <p class="faq-a" id="faq14A">You have 7 days after purchase to ask for a refund. Just email support@mysoundlib.com and you get your money back.</p>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq4Q">How does the QuickSearch Overlay work?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq4A">Press Alt + Shift + F while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq10Q">What operating systems are supported during Early Access?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq10Q">What operating systems are supported during Early Access?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq10A">MySoundLib is officially optimized and available for Windows (64-bit, Windows 10/11). We focus 100% of our development and stability testing on the Windows ecosystem to ensure a seamless experience for video editors and sound designers.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq11Q">Will there be versions for macOS and Linux?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq11Q">Will there be versions for macOS and Linux?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq11A">Yes, that is the plan. The macOS and Linux versions are currently in closed development with selected alpha testers. As the project grows, we intend to open public builds for these platforms, but there is no release date yet. Availability, pricing and licensing for those versions will be announced at launch. Your current license covers the Windows version.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq12Q">Windows SmartScreen warned me when I ran the installer. Is it safe?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq12Q">Windows SmartScreen warned me when I ran the installer. Is it safe?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq12A">Yes. SmartScreen shows this warning for apps from new publishers that haven't built up a download reputation with Microsoft yet, which is common for indie software. To continue, click <b>More info</b>, then <b>Run anyway</b>. Only run installers downloaded from mysoundlib.com.</p>
-            </div>
+            </details>
           </div>
 
           <!-- Column 2 -->
           <div class="faq-col">
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq5Q">Are my sound files uploaded anywhere?</h3>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq5Q">Are my sound files uploaded anywhere?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq5A">No. MySoundLib runs entirely on your computer. Your audio libraries, folder paths, and project files never leave your machine.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq6Q">Which audio formats can it read and convert?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq6Q">Which audio formats can it read and convert?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq6A">MySoundLib reads and indexes <b>OPUS, WAV, MP3, FLAC, OGG, M4A, and AIFF</b>. You can convert any of these formats — especially web-downloaded <b>.opus</b> files that video editors refuse to open — into editor-compatible <b>WAV, MP3, FLAC, OGG, or M4A</b> individually or in batch.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq7Q">Can I organize sounds into separate libraries?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq7Q">Can I organize sounds into separate libraries?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq7A">Yes. You can create separate libraries for personal projects, client work, or specific sound packs.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq8Q">Can I use my license on multiple computers?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq8Q">Can I use my license on multiple computers?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq8A">Yes. Your license is for your personal use, allowing you to activate it across your own computers (such as your desktop workstation and laptop). Sharing with third parties is not permitted; automated fair-use thresholds apply, and if an unusually high number of activations is detected, simply contact support@mysoundlib.com.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq9Q">Does MySoundLib come with sound effects or music?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq9Q">Does MySoundLib come with sound effects or music?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq9A">No. MySoundLib is purely an audio manager and workflow tool. It indexes and searches audio files already on your computer or sound packs you buy or download separately. We do not distribute or license audio files.</p>
-            </div>
-            <div class="faq-item">
-              <h3 class="faq-q" id="faq13Q">Does MySoundLib need the internet or collect telemetry?</h3>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq13Q">Does MySoundLib need the internet or collect telemetry?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
               <p class="faq-a" id="faq13A">MySoundLib works offline and has no telemetry. It doesn't track how you use the app or send usage data anywhere. Everything you do in it stays on your computer.</p>
-            </div>
+            </details>
+            <details class="faq-item">
+              <summary><h3 class="faq-q" id="faq15Q">What does Early Access mean?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+              <p class="faq-a" id="faq15A">MySoundLib is an indie project in active development. You get the launch price and every future update, and your feedback shapes what comes next. You may still run into the occasional bug; if you do, the support form gets a reply by email.</p>
+            </details>
           </div>
         </div>
       </div>
@@ -2442,8 +2763,9 @@
           Lifetime license, zero subscriptions, and 100% offline on your machine. Built for Windows 10 and 11 (64-bit).
         </p>
         <a class="btn btn-solid btn-lg" id="finalCta" href="https://mysoundlib.gumroad.com/l/mysoundlib">
-          Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
+          Get MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>
         </a>
+        <p class="buy-note" id="finalNote" style="margin-top:18px"><b>Try it for 7 days.</b> If it's not for you, you get a full refund. Secure checkout via Gumroad.</p>
       </div>
     </section>
   </main>
@@ -2592,7 +2914,9 @@
         supO4:            "Other",
         supSend:          "Send message",
         sup:              {"close": "Close", "sending": "Sending…", "ok": "Message sent. We will get back to you by email soon.", "err": "Something went wrong. Please try again or email", "invalid": "Please fill in your name, a valid email and your message.", "ph": {"name": "Your name", "email": "you@example.com", "msg": "Tell us what happened. If it is a bug, include your Windows version and the app version."}},
-        promoItems:       ["<b>Early Access</b> 50% OFF"],
+        promoItems:       ["<b>Early Access</b> 50% OFF", "<span class=\"promo-cd cd-full\"></span>"],
+        cdLabel:          'Early Access price until January 1',
+        cdLeft:           ['last day', '1 day left', '{n} days left'],
         promoLabel:       "Early Access: 50% off. Buy MySoundLib",
         navWorkflow:      'Workflow',
         navFeatures:      'Features',
@@ -2603,28 +2927,54 @@
 
         earlyText:        'Indie project in active development. You may still run into the occasional bug.',
         heroHead:         'Thousands of scattered and lost sound files? <em>MySoundLib fixes that.</em>',
-        heroSub:          'A lightweight, local Windows app to organize your sound library, preview and trim waveforms, and drop audio into your timeline without interrupting your edit.',
-        heroCta:          'Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        heroSub:          'A sound search that opens over your editor with one shortcut. Find the sound, trim it and drag it straight into your timeline.',
+        heroCta:          'Get MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        heroNote:         '<b>Try it for 7 days.</b> If it\'s not for you, you get a full refund. One-time payment, every update included.',
+
+
+        cmpKicker:        'Compare',
+        cmpTitle:         'Why not just use folders, <em>or a subscription app?</em>',
+        cmpDesc:          'Here\'s what each option gives you in the middle of an edit.',
+        cmpColA:          'Windows Explorer',
+        cmpColB:          'Subscription sound managers',
+        cmpR1:            'Price',
+        cmpR1A:           'Free',
+        cmpR1B:           'Monthly or yearly fee',
+        cmpR1C:           '$9.50 once',
+        cmpR2:            'Fast search across all your libraries',
+        cmpR3:            'Waveform preview',
+        cmpR4:            'Hotkey search over your editor',
+        cmpR5:            'Trim, then drag only the slice',
+        cmpR6:            'Built-in audio file converter',
+        cmpR7:            'Works offline, files stay local',
+        cmpR8:            'Synced folders',
+        cmpV1:            'Varies',
+        cmpV2:            'Varies',
+        cmpV4:            'Varies',
+        cmpV5:            'Varies',
+        midCta1:          'Get MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        midNote1:         '<b>7-day refund</b> if it\'s not for you. Secure checkout via Gumroad.',
+        midCta2:          'Get MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        noticeFine:       'We do not sell, license or distribute audio files. You are responsible for the usage rights of the audio you use in your edits.',
+        faq14Q:           'What if it\'s not for me?',
+        faq14A:           'You have 7 days after purchase to ask for a refund. Just email support@mysoundlib.com and you get your money back.',
+        faq15Q:           'What does Early Access mean?',
+        faq15A:           'MySoundLib is an indie project in active development. You get the launch price and every future update, and your feedback shapes what comes next. You may still run into the occasional bug; if you do, the support form gets a reply by email.',
+        finalNote:        '<b>Try it for 7 days.</b> If it\'s not for you, you get a full refund. Secure checkout via Gumroad.',
         heroSecBtn:       'Explore workflow',
-        trust1:           '<b>✓</b> 100% Offline & Local',
-        trust2:           '<b>✓</b> Zero Subscriptions',
-        trust3:           '<b>✓</b> Windows 10 & 11 (64-bit)',
-        trust4:           '<b>✓</b> 7-Day Refund Window',
+        trust1:           '<b>✓</b> 7-day refund',
+        trust2:           '<b>✓</b> One-time payment',
+        trust3:           '<b>✓</b> 100% offline',
 
         strip1:           'Workflow',
         strip2:           'QuickSearch Overlay',
-        strip3:           'Waveform & Trim',
+        strip3:           'Your Library',
         strip4:           'Converter',
         strip5:           'About',
 
         caseKicker:       'How It Works',
-        caseLead:         'Finding the right sound takes too many steps. <em>MySoundLib makes it one shortcut.</em>',
-        caseCol1Title:    'QuickSearch Overlay',
-        caseCol1Body:     '<code>Alt + Shift + F</code> over Premiere, DaVinci, or CapCut opens a search bar for your libraries. No window switching.',
-        caseCol2Title:    'Instant Trim And Drag',
-        caseCol2Body:     'Select just the part of the waveform you need and drag it straight into your timeline.',
-        caseCol3Title:    'Why That Matters',
-        caseCol3Body:     'No interruptions, and a clean project: only the trimmed sound goes in.',
+        caseLead:         'Press Alt + Shift + F in the middle of an edit.',
+        caseBody:         'A search bar opens on top of Premiere, DaVinci or CapCut. Type what you\'re looking for, listen to the results, select the part of the waveform you want and drag it onto your timeline. When you\'re done, the search closes and you\'re back where you were.',
 
 
         feat1Pillar:      'QuickSearch Overlay',
@@ -2665,7 +3015,7 @@
 
         noticeKicker:     'Audio Files & Sourcing',
         noticeHead:       'MySoundLib does not come with audio files.',
-        noticeDesc:       'MySoundLib is a sound manager to organize, search, and trim audio files you already have or plan to obtain in the future. The software does not include built-in sound effects or music tracks.',
+        noticeDesc:       'It organizes, searches and trims sounds you already have. Need sounds? Many editors sell SFX packs, and you can find public domain (CC0) audio on the <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.',
         noticeCard1Head:  'Where to find sounds',
         noticeCard1Body:  'Many video editors and sound designers sell SFX packs at various price points, and some offer free starter downloads. Another great option is searching for public domain (CC0) audio on platforms like the <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.',
         noticeCard2Head:  'Disclaimer',
@@ -2673,12 +3023,14 @@
 
         faqKicker:        'Frequently Asked Questions',
         faqTitle:         'Questions & Answers',
-        faq1Q:            'Which editors and DAWs are supported?',
+        faq1Q:            'Which editors are supported?',
         faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects, and Vegas Pro. If your software accepts files dragged from your desktop, it works.',
         faq2Q:            'Does dragging snippets modify my original audio files?',
         faq2A:            'No. Trimming is non-destructive. The app creates a temporary clip for your timeline and leaves your original audio files untouched.',
         faq3Q:            'Is it a lifetime license or a subscription?',
         faq3A:            'One-time payment. During Early Access you pay $9.50 once (50% off the regular $19) and own MySoundLib with all updates included. No subscriptions.',
+        faq3AFull:        'One-time payment of $19. You own MySoundLib with all updates included. No subscriptions.',
+        faq15AFull:       'MySoundLib is an indie project in active development. Every future update is included, and your feedback shapes what comes next. You may still run into the occasional bug; if you do, the support form gets a reply by email.',
         faq4Q:            'How does the QuickSearch Overlay work?',
         faq4A:            'Press Alt + Shift + F while editing. The search bar opens over your screen, you preview sounds immediately, drag the clip into your timeline, and return to editing.',
         faq5Q:            'Are my sound files uploaded anywhere?',
@@ -2694,7 +3046,7 @@
 
         finalHead:        'Stop digging through folders. <em>Keep editing.</em>',
         finalSub:         'Lifetime license, zero subscriptions, and 100% offline on your machine. Built for Windows 10 and 11 (64-bit).',
-        finalCta:         'Buy MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        finalCta:         'Get MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'Audio manager for video editors.',
         faq10Q:           'What operating systems are supported during Early Access?',
@@ -2731,7 +3083,9 @@
         supO4:            "Outro",
         supSend:          "Enviar mensagem",
         sup:              {"close": "Fechar", "sending": "Enviando…", "ok": "Mensagem enviada. Respondemos por e-mail em breve.", "err": "Algo deu errado. Tente de novo ou escreva para", "invalid": "Preencha seu nome, um e-mail válido e a mensagem.", "ph": {"name": "Seu nome", "email": "voce@exemplo.com", "msg": "Conte o que aconteceu. Se for um bug, inclua a versão do Windows e a versão do app."}},
-        promoItems:       ["<b>Acesso antecipado</b> 50% OFF"],
+        promoItems:       ["<b>Acesso antecipado</b> 50% OFF", "<span class=\"promo-cd cd-full\"></span>"],
+        cdLabel:          'Preço de acesso antecipado até 1º de janeiro',
+        cdLeft:           ['último dia', 'falta 1 dia', 'faltam {n} dias'],
         promoLabel:       "Acesso antecipado: 50% off. Comprar o MySoundLib",
         navWorkflow:      'Fluxo',
         navFeatures:      'Recursos',
@@ -2742,28 +3096,54 @@
 
         earlyText:        'Projeto indie em desenvolvimento ativo. Você ainda pode encontrar um bug ou outro.',
         heroHead:         'Milhares de arquivos de áudio bagunçados e perdidos? <em>O MySoundLib resolve isso.</em>',
-        heroSub:          'Um app leve e local para Windows que organiza sua biblioteca de sons, recorta waveforms e solta áudios na timeline sem interromper a sua edição.',
-        heroCta:          'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        heroSub:          'Uma busca de sons que abre por cima do seu editor com um atalho. Ache o som, corte e arraste direto para a timeline.',
+        heroCta:          'Garanta o MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        heroNote:         '<b>Teste por 7 dias.</b> Se não for pra você, devolvemos seu dinheiro. Pagamento único, todas as atualizações incluídas.',
+
+
+        cmpKicker:        'Compare',
+        cmpTitle:         'Por que não usar só pastas, <em>ou um app por assinatura?</em>',
+        cmpDesc:          'Veja o que cada opção te entrega no meio de uma edição.',
+        cmpColA:          'Explorador do Windows',
+        cmpColB:          'Gerenciadores por assinatura',
+        cmpR1:            'Preço',
+        cmpR1A:           'Grátis',
+        cmpR1B:           'Mensalidade ou anuidade',
+        cmpR1C:           '$9.50 uma vez',
+        cmpR2:            'Busca rápida em todas as bibliotecas',
+        cmpR3:            'Prévia com waveform',
+        cmpR4:            'Busca por atalho sobre o editor',
+        cmpR5:            'Cortar e arrastar só o trecho',
+        cmpR6:            'Conversor de arquivos de áudio integrado',
+        cmpR7:            'Funciona offline, arquivos ficam locais',
+        cmpR8:            'Pastas sincronizadas',
+        cmpV1:            'Depende',
+        cmpV2:            'Depende',
+        cmpV4:            'Depende',
+        cmpV5:            'Depende',
+        midCta1:          'Garanta o MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        midNote1:         '<b>Reembolso em 7 dias</b> se não for pra você. Pagamento seguro pelo Gumroad.',
+        midCta2:          'Garanta o MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        noticeFine:       'Não vendemos, licenciamos nem distribuímos arquivos de áudio. Você é responsável pelos direitos de uso dos áudios que usa nas suas edições.',
+        faq14Q:           'E se não for pra mim?',
+        faq14A:           'Você tem 7 dias depois da compra para pedir reembolso. É só mandar um email para support@mysoundlib.com e devolvemos seu dinheiro.',
+        faq15Q:           'O que significa Early Access?',
+        faq15A:           'O MySoundLib é um projeto indie em desenvolvimento ativo. Você paga o preço de lançamento, recebe todas as atualizações futuras e sua opinião ajuda a decidir o que vem a seguir. Ainda pode aparecer um bug ou outro; se acontecer, o formulário de suporte responde por email.',
+        finalNote:        '<b>Teste por 7 dias.</b> Se não for pra você, devolvemos seu dinheiro. Pagamento seguro pelo Gumroad.',
         heroSecBtn:       'Conhecer fluxo',
-        trust1:           '<b>✓</b> 100% Offline e Local',
-        trust2:           '<b>✓</b> Zero Assinaturas',
-        trust3:           '<b>✓</b> Windows 10 e 11 (64 bits)',
-        trust4:           '<b>✓</b> 7 dias para pedir reembolso',
+        trust1:           '<b>✓</b> 7 dias para reembolso',
+        trust2:           '<b>✓</b> Pagamento único',
+        trust3:           '<b>✓</b> 100% offline',
 
         strip1:           'Fluxo',
         strip2:           'QuickSearch Overlay',
-        strip3:           'Waveform e corte',
+        strip3:           'Sua biblioteca',
         strip4:           'Conversor',
         strip5:           'Sobre',
 
         caseKicker:       'Como Funciona',
-        caseLead:         'Achar o som certo leva passos demais. <em>O MySoundLib resolve com um atalho.</em>',
-        caseCol1Title:    'QuickSearch Overlay',
-        caseCol1Body:     '<code>Alt + Shift + F</code> sobre o Premiere, DaVinci ou CapCut abre uma busca nas suas bibliotecas. Sem trocar de janela.',
-        caseCol2Title:    'Recorte e arraste rápido',
-        caseCol2Body:     'Selecione só o trecho da forma de onda que precisa e arraste direto para a timeline.',
-        caseCol3Title:    'Por que isso importa',
-        caseCol3Body:     'Sem interrupções e com o projeto limpo: só o trecho recortado entra.',
+        caseLead:         'Aperte Alt + Shift + F no meio da edição.',
+        caseBody:         'Uma barra de busca abre por cima do Premiere, DaVinci ou CapCut. Digite o que procura, ouça os resultados, selecione o trecho da waveform que quer e arraste para a timeline. Quando termina, a busca fecha e você volta exatamente de onde parou.',
 
 
         feat1Pillar:      'QuickSearch Overlay',
@@ -2804,7 +3184,7 @@
 
         noticeKicker:     'Arquivos de Áudio',
         noticeHead:       'O MySoundLib não acompanha arquivos de áudio.',
-        noticeDesc:       'O MySoundLib é um gerenciador de som para organizar, buscar e recortar áudios que você já tem ou venha a adquirir no futuro. O aplicativo não inclui efeitos sonoros nem músicas pré-instalados.',
+        noticeDesc:       'Ele organiza, busca e corta os sons que você já tem. Precisa de sons? Muitos editores vendem pacotes de SFX, e você encontra áudio em domínio público (CC0) no <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.',
         noticeCard1Head:  'Onde conseguir sons',
         noticeCard1Body:  'Vários editores e sound designers vendem pacotes de efeitos sonoros em diferentes faixas de preço, e alguns inclusive disponibilizam pacotes gratuitos. Outra excelente opção é pesquisar áudios em domínio público (CC0) em plataformas como o <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.',
         noticeCard2Head:  'Aviso de responsabilidade',
@@ -2812,12 +3192,14 @@
 
         faqKicker:        'Perguntas Frequentes',
         faqTitle:         'Perguntas Frequentes',
-        faq1Q:            'Com quais editores e DAWs ele funciona?',
+        faq1Q:            'Com quais editores ele funciona?',
         faq1A:            'Premiere, DaVinci Resolve, CapCut, After Effects e Vegas Pro. Qualquer programa que aceite arrastar arquivos para a timeline funciona.',
         faq2Q:            'Recortar trechos altera os arquivos originais?',
         faq2A:            'Não. O corte não é destrutivo. O app gera um arquivo temporário para a sua timeline e mantém os áudios originais intactos no disco.',
         faq3Q:            'É pagamento único ou mensalidade?',
         faq3A:            'Pagamento único. Durante o acesso antecipado você paga $9.50 uma vez (50% off sobre os $19 normais) e usa o MySoundLib sem mensalidades, com todas as atualizações incluídas.',
+        faq3AFull:        'Pagamento único de $19. O MySoundLib é seu, com todas as atualizações incluídas. Sem mensalidades.',
+        faq15AFull:       'O MySoundLib é um projeto indie em desenvolvimento ativo. Todas as atualizações futuras estão incluídas e sua opinião ajuda a decidir o que vem a seguir. Ainda pode aparecer um bug ou outro; se acontecer, o formulário de suporte responde por email.',
         faq4Q:            'Como funciona o QuickSearch Overlay durante a edição?',
         faq4A:            'Aperte Alt + Shift + F enquanto edita. A barra de busca abre sobre a tela, você ouve o som de imediato, arrasta o trecho para a timeline e continua trabalhando.',
         faq5Q:            'Meus áudios são enviados para algum servidor?',
@@ -2833,7 +3215,7 @@
 
         finalHead:        'Chega de procurar em pastas. <em>Foque em editar.</em>',
         finalSub:         'Licença vitalícia, zero mensalidades e 100% offline na sua máquina. Feito para Windows 10 e 11 (64 bits).',
-        finalCta:         'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
+        finalCta:         'Garanta o MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
 
         footerTagline:    'Gerenciador de áudio para editores de vídeo.',
         faq10Q:           'Quais sistemas operacionais são suportados durante o acesso antecipado?',
@@ -2870,7 +3252,9 @@
         supO4:            "Otro",
         supSend:          "Enviar mensaje",
         sup:              {"close": "Cerrar", "sending": "Enviando…", "ok": "Mensaje enviado. Te responderemos por email pronto.", "err": "Algo salió mal. Inténtalo de nuevo o escribe a", "invalid": "Completa tu nombre, un email válido y el mensaje.", "ph": {"name": "Tu nombre", "email": "tu@ejemplo.com", "msg": "Cuéntanos qué pasó. Si es un error, incluye tu versión de Windows y la versión de la app."}},
-        promoItems:       ["<b>Acceso anticipado</b> 50% DTO."],
+        promoItems:       ["<b>Acceso anticipado</b> 50% DTO.", "<span class=\"promo-cd cd-full\"></span>"],
+        cdLabel:          'Precio de acceso anticipado hasta el 1 de enero',
+        cdLeft:           ['último día', 'queda 1 día', 'quedan {n} días'],
         promoLabel:       "Acceso anticipado: 50% de descuento. Comprar MySoundLib",
         navWorkflow:      'Flujo',
         navFeatures:      'Funciones',
@@ -2884,10 +3268,9 @@
         heroSub:          'Una aplicación ligera y local para Windows que organiza tu biblioteca de sonidos, previsualiza y recorta formas de onda, y suelta audios en tu línea de tiempo sin interrumpir tu edición.',
         heroCta:          'Comprar MySoundLib <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'Ver flujo de trabajo',
-        trust1:           '<b>✓</b> 100% Offline y Local',
-        trust2:           '<b>✓</b> Sin Suscripciones',
-        trust3:           '<b>✓</b> Windows 10 y 11 (64 bits)',
-        trust4:           '<b>✓</b> 7 días para pedir reembolso',
+        trust1:           '<b>✓</b> 7 días para reembolso',
+        trust2:           '<b>✓</b> Pago único',
+        trust3:           '<b>✓</b> 100% offline',
 
         strip1:           'Flujo',
         strip2:           'QuickSearch Overlay',
@@ -2896,13 +3279,8 @@
         strip5:           'Sobre el proyecto',
 
         caseKicker:       'Cómo Funciona',
-        caseLead:         'Encontrar el sonido correcto lleva demasiados pasos. <em>MySoundLib lo resuelve con un atajo.</em>',
-        caseCol1Title:    'QuickSearch Overlay',
-        caseCol1Body:     '<code>Alt + Shift + F</code> sobre Premiere, DaVinci o CapCut abre una búsqueda en tus bibliotecas. Sin cambiar de ventana.',
-        caseCol2Title:    'Recorta y arrastra al instante',
-        caseCol2Body:     'Selecciona solo la parte de la forma de onda que necesitas y arrástrala directo a tu línea de tiempo.',
-        caseCol3Title:    'Por qué es importante',
-        caseCol3Body:     'Sin interrupciones y con el proyecto limpio: solo entra el recorte.',
+        caseLead:         'Pulsa Alt + Shift + F en mitad de una edición.',
+        caseBody:         'Se abre una barra de búsqueda encima de Premiere, DaVinci o CapCut. Escribe lo que buscas, escucha los resultados, selecciona la parte de la forma de onda que quieres y arrástrala a tu línea de tiempo. Al terminar, la búsqueda se cierra y vuelves justo donde estabas.',
 
         feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'Busca sonidos directo sobre tu línea de tiempo.',
@@ -2956,6 +3334,7 @@
         faq2A:            'No. El recorte no es destructivo. La app crea un archivo temporal para tu línea de tiempo y mantiene intactos tus audios originales en el disco.',
         faq3Q:            '¿Es un pago único o una suscripción?',
         faq3A:            'Pago único. Durante el acceso anticipado pagas $9.50 una sola vez (50% de descuento sobre los $19 normales) y usas MySoundLib con todas las actualizaciones incluidas. Cero suscripciones.',
+        faq3AFull:        'Pago único de $19. MySoundLib es tuyo, con todas las actualizaciones incluidas. Sin suscripciones.',
         faq4Q:            '¿Cómo funciona el QuickSearch Overlay durante la edición?',
         faq4A:            'Pulsa Alt + Shift + F mientras editas. La barra de búsqueda se abre sobre la pantalla, escuchas el sonido al instante, arrastras el recorte a la línea de tiempo y sigues editando.',
         faq5Q:            '¿Mis archivos de sonido se suben a algún servidor?',
@@ -3008,7 +3387,9 @@
         supO4:            "अन्य",
         supSend:          "मैसेज भेजें",
         sup:              {"close": "बंद करें", "sending": "भेजा जा रहा है…", "ok": "मैसेज भेज दिया गया। हम जल्द ही ईमेल से जवाब देंगे।", "err": "कुछ गड़बड़ हो गई। फिर से कोशिश करें या यहाँ लिखें:", "invalid": "अपना नाम, सही ईमेल और मैसेज भरें।", "ph": {"name": "आपका नाम", "email": "aap@example.com", "msg": "बताएं क्या हुआ। अगर बग है, तो अपना Windows वर्ज़न और ऐप वर्ज़न लिखें।"}},
-        promoItems:       ["<b>अर्ली एक्सेस</b> 50% छूट"],
+        promoItems:       ["<b>अर्ली एक्सेस</b> 50% छूट", "<span class=\"promo-cd cd-full\"></span>"],
+        cdLabel:          'अर्ली एक्सेस कीमत 1 जनवरी तक',
+        cdLeft:           ['आख़िरी दिन', '1 दिन बाकी', '{n} दिन बाकी'],
         promoLabel:       "अर्ली एक्सेस: 50% छूट। MySoundLib खरीदें",
         navWorkflow:      'वर्कफ़्लो',
         navFeatures:      'फ़ीचर्स',
@@ -3022,10 +3403,9 @@
         heroSub:          'Windows के लिए एक हल्का और लोकल ऐप, जो आपकी साउंड लाइब्रेरी व्यवस्थित करता है, वेवफ़ॉर्म दिखाता व काटता है, और आपकी एडिटिंग रोके बिना ऑडियो सीधे टाइमलाइन पर लाता है।',
         heroCta:          'MySoundLib खरीदें <span class="price-tag"><s class="price-old">$19</s><span>$9.50</span></span>',
         heroSecBtn:       'वर्कफ़्लो देखें',
-        trust1:           '<b>✓</b> 100% ऑफ़लाइन और लोकल',
-        trust2:           '<b>✓</b> कोई सब्सक्रिप्शन नहीं',
-        trust3:           '<b>✓</b> Windows 10 और 11 (64-बिट)',
-        trust4:           '<b>✓</b> 7 दिनों में रिफंड का अनुरोध',
+        trust1:           '<b>✓</b> 7 दिन में रिफंड',
+        trust2:           '<b>✓</b> एक बार भुगतान',
+        trust3:           '<b>✓</b> 100% ऑफ़लाइन',
 
         strip1:           'वर्कफ़्लो',
         strip2:           'QuickSearch Overlay',
@@ -3034,13 +3414,8 @@
         strip5:           'प्रोजेक्ट के बारे में',
 
         caseKicker:       'यह कैसे काम करता है',
-        caseLead:         'सही साउंड ढूंढने में बहुत सारे कदम लगते हैं। <em>MySoundLib इसे एक शॉर्टकट बना देता है।</em>',
-        caseCol1Title:    'QuickSearch Overlay',
-        caseCol1Body:     'Premiere, DaVinci या CapCut पर <code>Alt + Shift + F</code> से आपकी लाइब्रेरीज़ का सर्च बार खुलता है। विंडो बदलने की ज़रूरत नहीं।',
-        caseCol2Title:    'तुरंत ट्रिम करें और ड्रैग करें',
-        caseCol2Body:     'वेवफ़ॉर्म का सिर्फ़ ज़रूरी हिस्सा चुनें और सीधे टाइमलाइन पर ड्रैग करें।',
-        caseCol3Title:    'यह क्यों महत्वपूर्ण है',
-        caseCol3Body:     'कोई रुकावट नहीं, और प्रोजेक्ट साफ़: सिर्फ़ ट्रिम किया हिस्सा ही जाता है।',
+        caseLead:         'एडिटिंग के बीच Alt + Shift + F दबाएँ।',
+        caseBody:         'Premiere, DaVinci या CapCut के ऊपर एक सर्च बार खुलता है। जो ढूंढ रहे हैं वह टाइप करें, नतीजे सुनें, वेवफ़ॉर्म का जो हिस्सा चाहिए उसे चुनें और टाइमलाइन पर ड्रैग करें। काम होते ही सर्च बंद हो जाता है और आप वहीं लौट आते हैं जहाँ थे।',
 
         feat1Pillar:      'QuickSearch Overlay',
         feat1Head:        'सीधे अपनी टाइमलाइन के ऊपर साउंड खोजें।',
@@ -3094,6 +3469,7 @@
         faq2A:            'नहीं। ट्रिमिंग नॉन-डिस्ट्रक्टिव है। ऐप आपकी टाइमलाइन के लिए एक अस्थायी क्लिप बनाता है और ओरिजिनल फ़ाइलों को बिल्कुल नहीं छूता।',
         faq3Q:            'क्या यह एकमुश्त भुगतान है या सब्सक्रिप्शन?',
         faq3A:            'एकमुश्त भुगतान। अर्ली एक्सेस के दौरान आप $9.50 (सामान्य $19 पर 50% छूट) केवल एक बार देते हैं और बिना किसी मासिक शुल्क के सभी अपडेट्स के साथ MySoundLib आपका होता है।',
+        faq3AFull:        '$19 का एकमुश्त भुगतान। सभी अपडेट्स के साथ MySoundLib आपका है। कोई मासिक शुल्क नहीं।',
         faq4Q:            'एडिटिंग के दौरान QuickSearch Overlay कैसे काम करता है?',
         faq4A:            'एडिटिंग के दौरान Alt + Shift + F दबाएं। स्क्रीन पर सर्च बार खुलता है, तुरंत आवाज़ सुनें, क्लिप को टाइमलाइन पर खींचें और एडिटिंग जारी रखें।',
         faq5Q:            'क्या मेरी ऑडियो फ़ाइलें किसी सर्वर पर अपलोड होती हैं?',
@@ -3137,7 +3513,7 @@
     function renderPromo(c) {
       const track = document.getElementById('promoTrack'), bar = document.getElementById('promoBar');
       if (!track || !c.promoItems) return;
-      const one = c.promoItems.map(t => `<span class="promo-item">${t}</span>`).join('');
+      const one = c.promoItems.map(t => `<span class="promo-item">${t.replace('cd-full"></span>', 'cd-full">' + fullCountdown() + '</span>')}</span>`).join('');
       let html = one;
       /* repeat until one copy is wider than the screen, then double it */
       track.innerHTML = one;
@@ -3146,6 +3522,54 @@
       track.innerHTML = html + `<span aria-hidden="true" style="display:contents">${html}</span>`;
       track.style.animationDuration = Math.max(20, track.scrollWidth / 2 / 45) + 's';
       if (c.promoLabel) bar.setAttribute('aria-label', c.promoLabel);
+      tickCountdown(c);
+    }
+
+    /* Early Access deadline: 2027-01-01 00:00 Brasília time (UTC-3). Shows whole days left. */
+    /* [TESTE] ?ea=over previews the page as it will look after the deadline */
+    const EA_END = new URLSearchParams(location.search).get('ea') === 'over' ? 0 : Date.parse('2027-01-01T00:00:00-03:00');
+    let cdCopy = null, curCopy = null;
+    function tickCountdown(c) {
+      if (c) { cdCopy = c.cdLeft; curCopy = c; }
+      const left = EA_END - Date.now();
+      if (left <= 0) {
+        document.documentElement.classList.add('ea-over');
+        applyRegularPrice(curCopy);
+        return false;
+      }
+      const full = fullCountdown();
+      document.querySelectorAll('.cd-full').forEach(el => { el.textContent = full; });
+      if (!cdCopy) return true;
+      const d = Math.floor(left / 86400000);
+      const txt = (d === 0 ? cdCopy[0] : d === 1 ? cdCopy[1] : cdCopy[2]).replace('{n}', d);
+      document.querySelectorAll('.cd').forEach(el => { el.textContent = txt; });
+      return true;
+    }
+    /* after the deadline: regular $19 everywhere (re-run on every language switch) */
+    function applyRegularPrice(c) {
+      document.querySelectorAll('.price-tag').forEach(el => { el.innerHTML = '<span>$19</span>'; });
+      const cmp = document.getElementById('cmpR1C');
+      if (cmp) cmp.textContent = cmp.textContent.replace('$9.50', '$19');
+      if (c) {
+        [['faq3A', 'faq3AFull'], ['faq15A', 'faq15AFull']].forEach(([id, key]) => {
+          const el = document.getElementById(id);
+          if (el && c[key]) el.textContent = c[key];
+        });
+      }
+      const ld = document.querySelector('script[type="application/ld+json"]');
+      if (ld && ld.textContent.includes('"9.50"')) {
+        ld.textContent = ld.textContent.replace('"price": "9.50"', '"price": "19.00"').replace(/,\s*"priceValidUntil": "[^"]*"/, '');
+      }
+    }
+
+    /* promo bar timer: 39d 04h 12m 08s */
+    function fullCountdown() {
+      const s = Math.max(0, Math.floor((EA_END - Date.now()) / 1000));
+      const p = n => String(n).padStart(2, '0');
+      return `${Math.floor(s / 86400)}d ${p(Math.floor(s % 86400 / 3600))}h ${p(Math.floor(s % 3600 / 60))}m ${p(s % 60)}s`;
+    }
+    if (tickCountdown()) {
+      const cdTimer = setInterval(() => { if (!tickCountdown()) clearInterval(cdTimer); }, 1000);
     }
 
     /* support popup: placeholders and labels that are not plain text nodes */
@@ -3715,6 +4139,20 @@
     demos.forEach(function(d){ var r = $(d[0]); if (r) io.observe(r.parentNode); });
   } else demos.forEach(function(d){ d[1].start(); });
   })();
+  </script>
+  <script>
+    // [TESTE] YouTube facade: swap the thumbnail for the real player on click
+    document.querySelectorAll('.yt-facade').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const f = document.createElement('iframe');
+        f.src = 'https://www.youtube.com/embed/' + btn.dataset.yt + '?autoplay=1';
+        f.title = 'YouTube video player';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        f.referrerPolicy = 'strict-origin-when-cross-origin';
+        f.allowFullscreen = true;
+        btn.replaceWith(f);
+      });
+    });
   </script>
 </body>
 </html>
